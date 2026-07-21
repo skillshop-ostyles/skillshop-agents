@@ -1,0 +1,18 @@
+{
+  "name": "skill-write",
+  "claim": "Write Claim",
+  "short": "Write short",
+  "long": "Write long text.",
+  "terms": {
+    "usecase": ["beta"],
+    "thema": [],
+    "stichwort": [],
+    "ziel": [],
+    "branche": [],
+    "taetigkeit": [],
+    "level": [],
+    "risiko": ["schreibend-mit-freigabe"]
+  },
+  "priceTier": "single",
+  "related": []
+}

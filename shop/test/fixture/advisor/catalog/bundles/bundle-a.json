@@ -1,0 +1,8 @@
+{
+  "id": "bundle-a",
+  "title": "Bundle A",
+  "claim": "Bundle A Claim",
+  "story": "Covers skill-alpha and skill-alpha2.",
+  "skills": ["skill-alpha", "skill-alpha2"],
+  "priceTier": "bundle"
+}

@@ -50,9 +50,18 @@ window.Shop = (function () {
     return `<span class="chip">${escapeHtml(trigger)}</span>`;
   }
 
+  // Preis nur rendern, wenn das Pricing-Feature-Flag serverseitig aktiv ist -
+  // die API liefert das `price`-Feld dann ueberhaupt erst (Sprint 25).
+  function priceLabel(price) {
+    if (!price) return '';
+    const amount = price.amountCents === 0 ? 'kostenlos' : `${(price.amountCents / 100).toFixed(2)} ${price.currency}`;
+    return `<span class="badge status-ok">${escapeHtml(amount)}</span>`;
+  }
+
   function card(skill) {
     const badges = [statusBadge(skill.status), riskBadge(skill.risk)];
     if (skill.uncurated) badges.push('<span class="badge uncurated">unkuratiert</span>');
+    if (skill.price) badges.push(priceLabel(skill.price));
     return `
       <a class="card" href="skill.html?name=${encodeURIComponent(skill.name)}">
         <h3>${escapeHtml(skill.name)}</h3>
@@ -69,6 +78,7 @@ window.Shop = (function () {
         <p class="claim">${escapeHtml(bundle.claim)}</p>
         <div class="card-badges">
           <span class="badge status-ok">${bundle.status.verfuegbar} von ${bundle.status.total} verfuegbar</span>
+          ${priceLabel(bundle.price)}
         </div>
       </a>
     `;
@@ -153,7 +163,7 @@ window.Shop = (function () {
 
   return {
     DIMENSIONS, DIMENSION_LABELS, escapeHtml, fetchJson,
-    statusBadge, riskBadge, triggerChip, card, bundleCard, renderShelf,
+    statusBadge, riskBadge, triggerChip, priceLabel, card, bundleCard, renderShelf,
     currentParams, apiUrlFromParams, cart,
   };
 })();

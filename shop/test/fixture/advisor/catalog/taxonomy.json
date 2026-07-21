@@ -1,0 +1,10 @@
+{
+  "usecase": ["alpha", "beta"],
+  "thema": ["theta"],
+  "stichwort": [],
+  "ziel": [],
+  "branche": [],
+  "taetigkeit": ["dev", "ops"],
+  "level": [],
+  "risiko": ["read-only", "schreibend-mit-freigabe"]
+}

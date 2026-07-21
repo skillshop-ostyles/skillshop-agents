@@ -3,39 +3,16 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
-const os = require('node:os');
 const path = require('node:path');
 
-const { createApp } = require('../src/server');
-const { runImport } = require('../src/importer');
+const { tmpDbPath, withServer, withImportedDb } = require('./helpers');
 
 const FIXTURE_ROOT = path.join(__dirname, 'fixture', 'root');
 const CATALOG_OK = path.join(__dirname, 'fixture', 'catalog');
 
-function withServer(dbPath) {
-  const app = createApp({ dbPath, publicDir: path.join(__dirname, '..', 'public') });
-  return new Promise((resolve) => {
-    const server = app.listen(0, '127.0.0.1', () => {
-      const { port } = server.address();
-      resolve({
-        base: `http://127.0.0.1:${port}`,
-        close: () => new Promise((res) => server.close(res)),
-      });
-    });
-  });
-}
-
-async function withImportedDb() {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shop-server-test-'));
-  const dbPath = path.join(dir, 'shop.db');
-  runImport({ rootDir: FIXTURE_ROOT, catalogDir: CATALOG_OK, dbPath });
-  return dbPath;
-}
-
 test('GET /api/skills returns 503 with clear error when db is missing', async () => {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shop-server-nodb-'));
-  const dbPath = path.join(dir, 'shop.db'); // never created
-  const { base, close } = await withServer(dbPath);
+  const dbPath = tmpDbPath('shop-server-nodb-'); // never created
+  const { base, close } = await withServer({ dbPath });
   try {
     const res = await fetch(`${base}/api/skills`);
     assert.equal(res.status, 503);
@@ -47,8 +24,8 @@ test('GET /api/skills returns 503 with clear error when db is missing', async ()
 });
 
 test('GET /api/skills filters: AND across dimensions, OR within a dimension', async () => {
-  const dbPath = await withImportedDb();
-  const { base, close } = await withServer(dbPath);
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
   try {
     const all = await (await fetch(`${base}/api/skills`)).json();
     assert.equal(all.length, 3);
@@ -67,8 +44,8 @@ test('GET /api/skills filters: AND across dimensions, OR within a dimension', as
 });
 
 test('GET /api/skills sorts verfuegbar before in-entwicklung, then alphabetically', async () => {
-  const dbPath = await withImportedDb();
-  const { base, close } = await withServer(dbPath);
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
   try {
     const rows = await (await fetch(`${base}/api/skills`)).json();
     assert.deepEqual(rows.map((r) => r.name), ['demo-skill-a', 'demo-skill-b', 'demo-skill-c']);
@@ -79,8 +56,8 @@ test('GET /api/skills sorts verfuegbar before in-entwicklung, then alphabeticall
 });
 
 test('GET /api/skills escapes FTS special characters without 500', async () => {
-  const dbPath = await withImportedDb();
-  const { base, close } = await withServer(dbPath);
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
   try {
     const res = await fetch(`${base}/api/skills?${new URLSearchParams({ q: '"weird" AND OR NOT (' }).toString()}`);
     assert.equal(res.status, 200);
@@ -90,8 +67,8 @@ test('GET /api/skills escapes FTS special characters without 500', async () => {
 });
 
 test('GET /api/skills/:name returns bundles and related, 404 for unknown', async () => {
-  const dbPath = await withImportedDb();
-  const { base, close } = await withServer(dbPath);
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
   try {
     const res = await fetch(`${base}/api/skills/demo-skill-b`);
     assert.equal(res.status, 200);
@@ -111,8 +88,8 @@ test('GET /api/skills/:name returns bundles and related, 404 for unknown', async
 });
 
 test('GET /api/facets excludes zero-count terms and respects other-dimension filters', async () => {
-  const dbPath = await withImportedDb();
-  const { base, close } = await withServer(dbPath);
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
   try {
     const facets = await (await fetch(`${base}/api/facets`)).json();
     assert.deepEqual(facets.usecase, [{ term: 'testen', count: 3 }]);
@@ -124,9 +101,46 @@ test('GET /api/facets excludes zero-count terms and respects other-dimension fil
   }
 });
 
+test('GET /api/facets returns 503 with clear error when db is missing', async () => {
+  const dbPath = tmpDbPath('shop-facets-nodb-');
+  const { base, close } = await withServer({ dbPath });
+  try {
+    const res = await fetch(`${base}/api/facets`);
+    assert.equal(res.status, 503);
+  } finally {
+    await close();
+  }
+});
+
+test('GET /api/bundles lists all bundles with status aggregates', async () => {
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
+  try {
+    const res = await fetch(`${base}/api/bundles`);
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.deepEqual(body.map((b) => b.slug), ['demo-bundle']);
+    assert.equal(body[0].status.verfuegbar, 2);
+    assert.equal(body[0].status.total, 2);
+  } finally {
+    await close();
+  }
+});
+
+test('GET /api/bundles returns 503 with clear error when db is missing', async () => {
+  const dbPath = tmpDbPath('shop-bundles-nodb-');
+  const { base, close } = await withServer({ dbPath });
+  try {
+    const res = await fetch(`${base}/api/bundles`);
+    assert.equal(res.status, 503);
+  } finally {
+    await close();
+  }
+});
+
 test('GET /api/bundles/:slug returns status aggregate and skills, 404 for unknown', async () => {
-  const dbPath = await withImportedDb();
-  const { base, close } = await withServer(dbPath);
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
   try {
     const res = await fetch(`${base}/api/bundles/demo-bundle`);
     assert.equal(res.status, 200);
@@ -143,8 +157,8 @@ test('GET /api/bundles/:slug returns status aggregate and skills, 404 for unknow
 });
 
 test('static frontend files are served', async () => {
-  const dbPath = await withImportedDb();
-  const { base, close } = await withServer(dbPath);
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
   try {
     const res = await fetch(`${base}/index.html`);
     assert.equal(res.status, 200);

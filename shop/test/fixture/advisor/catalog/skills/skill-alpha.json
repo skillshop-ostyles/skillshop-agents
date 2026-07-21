@@ -1,0 +1,18 @@
+{
+  "name": "skill-alpha",
+  "claim": "Alpha Claim",
+  "short": "Alpha short",
+  "long": "Alpha long text.",
+  "terms": {
+    "usecase": ["alpha"],
+    "thema": [],
+    "stichwort": [],
+    "ziel": [],
+    "branche": [],
+    "taetigkeit": ["dev"],
+    "level": [],
+    "risiko": ["read-only"]
+  },
+  "priceTier": "single",
+  "related": []
+}

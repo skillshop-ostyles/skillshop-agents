@@ -2,8 +2,9 @@
 
 const express = require('express');
 const { install, InstallError, assertAllowedTarget } = require('../installer');
+const { generateLicense } = require('../pricing');
 
-function router(getDb, rootDir) {
+function router(getDb, rootDir, pricingEnabled = false) {
   const r = express.Router();
 
   r.post('/checkout', (req, res) => {
@@ -46,7 +47,8 @@ function router(getDb, rootDir) {
     `).run(normTarget, label || null, now);
     const targetRow = db.prepare('SELECT id FROM install_targets WHERE path = ?').get(normTarget);
 
-    const orderId = db.prepare('INSERT INTO orders (target_id, created_at, license) VALUES (?, ?, NULL)').run(targetRow.id, now).lastInsertRowid;
+    const license = pricingEnabled ? generateLicense() : null;
+    const orderId = db.prepare('INSERT INTO orders (target_id, created_at, license) VALUES (?, ?, ?)').run(targetRow.id, now, license).lastInsertRowid;
     const insertItem = db.prepare('INSERT INTO order_items (order_id, skill_id, folder_hash_at_install) VALUES (?, ?, ?)');
 
     const installed = [];
@@ -73,7 +75,7 @@ function router(getDb, rootDir) {
       }
     }
 
-    res.json({ targetPath: normTarget, installed, failed, skipped });
+    res.json({ targetPath: normTarget, installed, failed, skipped, license });
   });
 
   return r;

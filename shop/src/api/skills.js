@@ -2,9 +2,10 @@
 
 const express = require('express');
 const { parseFilters, queryProducts, attachTerms, computeFacets, CARD_FIELDS } = require('../catalogQuery');
+const { getPrice } = require('../pricing');
 
-function skillToJson(row) {
-  return {
+function skillToJson(row, { db, pricingEnabled } = {}) {
+  const json = {
     name: row.name,
     trigger: row.trigger,
     description: row.description,
@@ -17,9 +18,13 @@ function skillToJson(row) {
     uncurated: !!row.uncurated,
     terms: row.terms || {},
   };
+  if (pricingEnabled && db) {
+    json.price = getPrice(db, 'skill', row.id);
+  }
+  return json;
 }
 
-function router(getDb) {
+function router(getDb, pricingEnabled = false) {
   const r = express.Router();
 
   r.get('/skills', (req, res) => {
@@ -27,7 +32,7 @@ function router(getDb) {
     if (!db) return res.status(503).json({ error: 'Datenbank fehlt - bitte "npm run import" ausfuehren' });
     const filters = parseFilters(req.query);
     const rows = attachTerms(db, queryProducts(db, filters));
-    res.json(rows.map(skillToJson));
+    res.json(rows.map((row) => skillToJson(row, { db, pricingEnabled })));
   });
 
   r.get('/skills/:name', (req, res) => {
@@ -57,7 +62,7 @@ function router(getDb) {
       `)
       .all(row.id);
 
-    res.json({ ...skillToJson(row), bundles, related });
+    res.json({ ...skillToJson(row, { db, pricingEnabled }), bundles, related });
   });
 
   r.get('/facets', (req, res) => {

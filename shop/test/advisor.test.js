@@ -6,132 +6,95 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 
-const { createApp } = require('../src/server');
-const { runImport } = require('../src/importer');
+const { withServer, withImportedDb, postJson } = require('./helpers');
 
-const REAL_ROOT = path.resolve(__dirname, '..', '..'); // AGENTS repo root
-const REAL_CATALOG = path.join(__dirname, '..', 'catalog');
+// Dedicated fixture (test/fixture/advisor/) - NOT the real shop/catalog. This
+// keeps the advisor algorithm tests stable across catalog curation changes
+// (SHOP-BIBEL/Sprint-25: "Tests haengen NICHT am echten Katalog"). Terms:
+//   skill-alpha:  usecase=alpha, taetigkeit=dev,        risiko=read-only
+//   skill-alpha2: usecase=alpha, thema=theta, taetigkeit=dev+ops, risiko=read-only
+//   skill-write:  usecase=beta,                         risiko=schreibend-mit-freigabe
+// bundle-a covers [skill-alpha, skill-alpha2].
+const ADVISOR_ROOT = path.join(__dirname, 'fixture', 'advisor', 'root');
+const ADVISOR_CATALOG = path.join(__dirname, 'fixture', 'advisor', 'catalog');
 
-async function withRealServer() {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shop-advisor-test-'));
-  const dbPath = path.join(dir, 'shop.db');
-  runImport({ rootDir: REAL_ROOT, catalogDir: REAL_CATALOG, dbPath });
-  const app = createApp({ dbPath, publicDir: path.join(__dirname, '..', 'public'), catalogDir: REAL_CATALOG });
-  return new Promise((resolve) => {
-    const server = app.listen(0, '127.0.0.1', () => {
-      const { port } = server.address();
-      resolve({ base: `http://127.0.0.1:${port}`, close: () => new Promise((res) => server.close(res)) });
-    });
-  });
+function advisorServer() {
+  const dbPath = withImportedDb(ADVISOR_ROOT, ADVISOR_CATALOG);
+  return withServer({ dbPath, catalogDir: ADVISOR_CATALOG });
 }
 
-async function ask(base, body) {
-  const res = await fetch(`${base}/api/advisor`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  return { status: res.status, body: await res.json() };
-}
-
-// Contract table from ops/sprints/sprint-24-shop-berater-bundles.md § 6.
-// The rules-as-data file (catalog/advisor-rules.json) is tested as a CONTRACT here:
-// if a future edit to it silently changes recommendations, this must fail.
-test('advisor contract: legacy -> intent-archaeologie in top3, legacy-rettung as primary bundle', async () => {
-  const { base, close } = await withRealServer();
+test('advisor: compound q1 term match scores higher than a single-term match', async () => {
+  const { base, close } = await advisorServer();
   try {
-    const { status, body } = await ask(base, { q1: 'legacy', q3: 'readonly' });
+    // q1 "alpha-compound" matches usecase+thema for skill-alpha2 (+4) but only
+    // usecase for skill-alpha (+2) - alpha2 must rank first.
+    const { status, body } = await postJson(base, '/api/advisor', { q1: 'alpha-compound', q3: 'egal' });
     assert.equal(status, 200);
-    assert.ok(body.recommendations.some((r) => r.name === 'intent-archaeologie'));
-    assert.equal(body.primaryBundle?.slug, 'legacy-rettung');
+    assert.deepEqual(body.recommendations.map((r) => r.name), ['skill-alpha2', 'skill-alpha']);
+    assert.equal(body.recommendations[0].score, 4);
+    assert.equal(body.recommendations[1].score, 2);
   } finally {
     await close();
   }
 });
 
-test('advisor contract: release+qa -> test-luecken-kartograf and api-vertrags-waechter in top3, release-guard as primary bundle', async () => {
-  const { base, close } = await withRealServer();
+test('advisor: optional q2 adds weight without being required', async () => {
+  const { base, close } = await advisorServer();
   try {
-    const { status, body } = await ask(base, { q1: 'release', q2: 'qa', q3: 'readonly' });
-    assert.equal(status, 200);
-    const names = body.recommendations.map((r) => r.name);
-    assert.ok(names.includes('test-luecken-kartograf'));
-    assert.ok(names.includes('api-vertrags-waechter'));
-    assert.equal(body.primaryBundle?.slug, 'release-guard');
+    const withQ2 = await postJson(base, '/api/advisor', { q1: 'alpha-compound', q2: 'ops', q3: 'egal' });
+    // only skill-alpha2 has taetigkeit=ops -> +1 there, skill-alpha unaffected
+    assert.equal(withQ2.body.recommendations.find((r) => r.name === 'skill-alpha2').score, 5);
+    assert.equal(withQ2.body.recommendations.find((r) => r.name === 'skill-alpha').score, 2);
+
+    const withoutQ2 = await postJson(base, '/api/advisor', { q1: 'alpha-compound', q3: 'egal' });
+    assert.equal(withoutQ2.body.question2, null);
   } finally {
     await close();
   }
 });
 
-test('advisor contract: security+security -> berechtigungs-roentgen top 1 or 2, security-audit as primary bundle', async () => {
-  const { base, close } = await withRealServer();
+test('advisor: bundle becomes the primary recommendation once it covers >= 2 of the top 3', async () => {
+  const { base, close } = await advisorServer();
   try {
-    const { status, body } = await ask(base, { q1: 'security', q2: 'security', q3: 'egal' });
-    assert.equal(status, 200);
-    const idx = body.recommendations.findIndex((r) => r.name === 'berechtigungs-roentgen');
-    assert.ok(idx === 0 || idx === 1, `expected top 1 or 2, got index ${idx}`);
-    assert.equal(body.primaryBundle?.slug, 'security-audit');
+    const { body } = await postJson(base, '/api/advisor', { q1: 'alpha-compound', q3: 'egal' });
+    assert.equal(body.primaryBundle?.slug, 'bundle-a');
   } finally {
     await close();
   }
 });
 
-test('advisor contract: neu-starten -> project-init in top3, verfuegbar', async () => {
-  const { base, close } = await withRealServer();
+test('advisor: hard risk filter empties the candidate set and triggers the honest fallback', async () => {
+  const { base, close } = await advisorServer();
   try {
-    const { status, body } = await ask(base, { q1: 'neu-starten', q3: 'egal' });
-    assert.equal(status, 200);
-    const rec = body.recommendations.find((r) => r.name === 'project-init');
-    assert.ok(rec);
-    assert.equal(rec.status, 'verfuegbar');
+    const { body } = await postJson(base, '/api/advisor', { q1: 'beta', q3: 'readonly' });
+    // skill-write is the only usecase=beta match, but it's schreibend-mit-freigabe -
+    // filtering to read-only empties the strict result. The fallback must still
+    // surface it (marked wouldFitButTouches), never a silent empty response.
+    assert.ok(body.fallbackNotice, 'fallbackNotice must explain the filtered-out result');
+    assert.deepEqual(body.recommendations.map((r) => r.name), ['skill-write']);
+    assert.equal(body.recommendations[0].wouldFitButTouches, true);
   } finally {
     await close();
   }
 });
 
-test('advisor contract: prod+devops -> prod-spiegel and ausfall-simulant represented', async () => {
-  const { base, close } = await withRealServer();
+test('advisor: without the risk filter, skill-write is a normal candidate', async () => {
+  const { base, close } = await advisorServer();
   try {
-    const { status, body } = await ask(base, { q1: 'prod', q2: 'devops', q3: 'readonly' });
-    assert.equal(status, 200);
-    const names = body.recommendations.map((r) => r.name);
-    assert.ok(names.includes('prod-spiegel') || names.includes('ausfall-simulant'));
-  } finally {
-    await close();
-  }
-});
-
-test('advisor: risk filter zeroing out all candidates triggers the honest fallback', async () => {
-  const { base, close } = await withRealServer();
-  try {
-    // neu-starten only matches project-init, which is schreibend-mit-freigabe -
-    // filtering to read-only must empty the result and surface a fallback notice
-    // instead of silently returning nothing.
-    const { status, body } = await ask(base, { q1: 'neu-starten', q3: 'readonly' });
-    assert.equal(status, 200);
-    assert.ok(body.fallbackNotice, 'fallbackNotice must be set when the risk filter empties the candidate set');
-    assert.ok(body.recommendations.every((r) => r.wouldFitButTouches));
-  } finally {
-    await close();
-  }
-});
-
-test('advisor: q2 is optional', async () => {
-  const { base, close } = await withRealServer();
-  try {
-    const { status, body } = await ask(base, { q1: 'legacy', q3: 'readonly' });
-    assert.equal(status, 200);
-    assert.equal(body.question2, null);
+    const { body } = await postJson(base, '/api/advisor', { q1: 'beta', q3: 'egal' });
+    assert.deepEqual(body.recommendations.map((r) => r.name), ['skill-write']);
+    assert.equal(body.recommendations[0].wouldFitButTouches, false);
+    assert.equal(body.fallbackNotice, null);
   } finally {
     await close();
   }
 });
 
 test('advisor: is deterministic - identical requests yield identical responses', async () => {
-  const { base, close } = await withRealServer();
+  const { base, close } = await advisorServer();
   try {
-    const first = await ask(base, { q1: 'security', q2: 'security', q3: 'egal' });
-    const second = await ask(base, { q1: 'security', q2: 'security', q3: 'egal' });
+    const first = await postJson(base, '/api/advisor', { q1: 'alpha-compound', q2: 'dev', q3: 'readonly' });
+    const second = await postJson(base, '/api/advisor', { q1: 'alpha-compound', q2: 'dev', q3: 'readonly' });
     assert.deepEqual(first.body, second.body);
   } finally {
     await close();
@@ -139,9 +102,9 @@ test('advisor: is deterministic - identical requests yield identical responses',
 });
 
 test('advisor: rejects unknown option ids with 400', async () => {
-  const { base, close } = await withRealServer();
+  const { base, close } = await advisorServer();
   try {
-    const { status, body } = await ask(base, { q1: 'phantasie', q3: 'readonly' });
+    const { status, body } = await postJson(base, '/api/advisor', { q1: 'phantasie', q3: 'readonly' });
     assert.equal(status, 400);
     assert.match(body.error, /Unbekannte Option/);
   } finally {
@@ -150,11 +113,24 @@ test('advisor: rejects unknown option ids with 400', async () => {
 });
 
 test('advisor: rejects a missing required field with 400', async () => {
-  const { base, close } = await withRealServer();
+  const { base, close } = await advisorServer();
   try {
-    const { status, body } = await ask(base, { q3: 'readonly' });
+    const { status, body } = await postJson(base, '/api/advisor', { q3: 'readonly' });
     assert.equal(status, 400);
     assert.match(body.error, /erforderlich/);
+  } finally {
+    await close();
+  }
+});
+
+test('GET /api/advisor/rules returns the question set', async () => {
+  const { base, close } = await advisorServer();
+  try {
+    const res = await fetch(`${base}/api/advisor/rules`);
+    assert.equal(res.status, 200);
+    const body = await res.json();
+    assert.ok(body.q1 && body.q2 && body.q3);
+    assert.ok(body.q1.options.some((o) => o.id === 'alpha-compound'));
   } finally {
     await close();
   }

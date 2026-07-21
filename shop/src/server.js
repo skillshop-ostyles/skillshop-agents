@@ -21,7 +21,7 @@ const PORT = 4711;
  * rootDir is the AGENTS repo root - the source of truth for skill folders,
  * used by the installer (Sprint 23).
  */
-function createApp({ dbPath, publicDir, rootDir, catalogDir } = {}) {
+function createApp({ dbPath, publicDir, rootDir, catalogDir, pricingEnabled = false } = {}) {
   const resolvedCatalogDir = catalogDir || path.join(path.resolve(__dirname, '..'), 'catalog');
   const app = express();
   let db = null;
@@ -39,9 +39,9 @@ function createApp({ dbPath, publicDir, rootDir, catalogDir } = {}) {
   }
 
   app.use(express.json());
-  app.use('/api', skillsApi.router(getDb));
-  app.use('/api', bundlesApi.router(getDb));
-  app.use('/api', checkoutApi.router(getDb, rootDir));
+  app.use('/api', skillsApi.router(getDb, pricingEnabled));
+  app.use('/api', bundlesApi.router(getDb, pricingEnabled));
+  app.use('/api', checkoutApi.router(getDb, rootDir, pricingEnabled));
   app.use('/api', libraryApi.router(getDb, rootDir));
   app.use('/api', watchlistApi.router(getDb));
   app.use('/api', advisorApi.router(getDb, resolvedCatalogDir));
@@ -60,7 +60,8 @@ function main() {
   const publicDir = path.join(shopDir, 'public');
   const rootDir = path.resolve(shopDir, '..');
   const catalogDir = path.join(shopDir, 'catalog');
-  const app = createApp({ dbPath, publicDir, rootDir, catalogDir });
+  const pricingEnabled = process.env.SHOP_PRICING === 'on';
+  const app = createApp({ dbPath, publicDir, rootDir, catalogDir, pricingEnabled });
 
   const server = app.listen(PORT, HOST, () => {
     console.log(`Skill-Shop laeuft auf http://${HOST}:${PORT}`);
