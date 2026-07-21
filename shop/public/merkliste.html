@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Merkliste — Skill-Shop</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um die Merkliste zu laden.</div></noscript>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">Skill-Shop</a>
+      <nav class="nav-links">
+        <a href="katalog.html">Katalog</a>
+        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
+        <a href="bibliothek.html">Bibliothek</a>
+        <a href="merkliste.html">Merkliste</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container" style="padding: 32px 0 64px;">
+    <h1>Merkliste</h1>
+    <div id="watchlist-items"></div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    async function removeFromWatchlist(name) {
+      await fetch(`/api/watchlist/${encodeURIComponent(name)}`, { method: 'DELETE' });
+      mount();
+    }
+
+    async function mount() {
+      const el = document.getElementById('watchlist-items');
+      let items;
+      try {
+        items = await Shop.fetchJson('/api/watchlist');
+      } catch (err) {
+        el.innerHTML = `<p class="empty-state">${Shop.escapeHtml(err.message)}</p>`;
+        return;
+      }
+
+      if (items.length === 0) {
+        el.innerHTML = '<p class="empty-state">Noch nichts gemerkt — stoebere im <a href="katalog.html">Katalog</a>.</p>';
+        return;
+      }
+
+      el.innerHTML = `<div class="card-grid">${items.map((s) => `
+        <div class="card">
+          <h3>${Shop.escapeHtml(s.name)}</h3>
+          <p class="claim">${Shop.escapeHtml(s.claim)}</p>
+          <div class="card-badges">${Shop.statusBadge(s.status)}${s.status === 'verfuegbar' ? '<span class="badge status-ok">jetzt verfuegbar</span>' : ''}</div>
+          <p style="margin-top: 10px;">
+            <a class="btn secondary" href="skill.html?name=${encodeURIComponent(s.name)}">Ansehen</a>
+            ${s.status === 'verfuegbar' ? `<button class="btn primary" data-cart="${Shop.escapeHtml(s.name)}">In den Warenkorb</button>` : ''}
+            <button class="btn secondary" data-remove="${Shop.escapeHtml(s.name)}">Entfernen</button>
+          </p>
+        </div>
+      `).join('')}</div>`;
+
+      el.querySelectorAll('button[data-remove]').forEach((btn) => {
+        btn.addEventListener('click', () => removeFromWatchlist(btn.dataset.remove));
+      });
+      el.querySelectorAll('button[data-cart]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          Shop.cart.add(btn.dataset.cart);
+          btn.textContent = 'Im Warenkorb ✓';
+        });
+      });
+    }
+
+    mount();
+  </script>
+</body>
+</html>

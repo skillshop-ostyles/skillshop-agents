@@ -91,9 +91,55 @@ window.Shop = (function () {
     return qs ? `${base}?${qs}` : base;
   }
 
+  // ---------- Warenkorb (localStorage, robust gegen vollen/defekten Storage) ----------
+
+  const CART_KEY = 'shop-cart';
+
+  const cart = {
+    get() {
+      try {
+        const raw = window.localStorage.getItem(CART_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (err) {
+        return [];
+      }
+    },
+    set(names) {
+      try {
+        window.localStorage.setItem(CART_KEY, JSON.stringify([...new Set(names)]));
+      } catch (err) {
+        // localStorage voll/deaktiviert - Korb bleibt fuer diese Session leer statt zu crashen.
+      }
+    },
+    add(name) {
+      const names = cart.get();
+      if (!names.includes(name)) names.push(name);
+      cart.set(names);
+      cart.updateBadge();
+    },
+    remove(name) {
+      cart.set(cart.get().filter((n) => n !== name));
+      cart.updateBadge();
+    },
+    clear() {
+      cart.set([]);
+      cart.updateBadge();
+    },
+    count() {
+      return cart.get().length;
+    },
+    updateBadge() {
+      const el = document.getElementById('cart-count');
+      if (el) el.textContent = String(cart.count());
+    },
+  };
+
   return {
     DIMENSIONS, DIMENSION_LABELS, escapeHtml, fetchJson,
     statusBadge, riskBadge, triggerChip, card, bundleCard, renderShelf,
-    currentParams, apiUrlFromParams,
+    currentParams, apiUrlFromParams, cart,
   };
 })();
+
+document.addEventListener('DOMContentLoaded', () => window.Shop.cart.updateBadge());

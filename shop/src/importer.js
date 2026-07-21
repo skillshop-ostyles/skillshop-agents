@@ -474,6 +474,7 @@ module.exports = {
   ImportError,
   parseFrontmatter,
   computeFolderHash,
+  listFilesSorted,
   scanSkillFolders,
   parseTrackingTable,
   loadTaxonomy,

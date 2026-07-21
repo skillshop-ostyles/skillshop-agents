@@ -14,6 +14,9 @@
       <a class="brand" href="index.html">Skill-Shop</a>
       <nav class="nav-links">
         <a href="katalog.html">Katalog</a>
+        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
+        <a href="bibliothek.html">Bibliothek</a>
+        <a href="merkliste.html">Merkliste</a>
       </nav>
     </div>
   </header>
@@ -43,11 +46,11 @@
 
       document.title = `${skill.name} — Skill-Shop`;
 
+      const inCart = Shop.cart.get().includes(skill.name);
       const ctaHtml = skill.status === 'verfuegbar'
-        ? `<button class="btn primary" id="install-btn">In den Warenkorb</button>
-           <span class="hint-text" id="install-hint" style="display:none;">Kasse kommt in Kuerze — Warenkorb folgt in Sprint 23.</span>`
+        ? `<button class="btn primary" id="install-btn">${inCart ? 'Im Warenkorb ✓' : 'In den Warenkorb'}</button>`
         : `${Shop.statusBadge(skill.status)}
-           <button class="btn secondary" disabled title="Merkliste kommt in Kuerze">Merken</button>`;
+           <button class="btn secondary" id="watch-btn" data-watching="false">Merken</button>`;
 
       const bundlesHtml = skill.bundles.length > 0
         ? `<div class="card-grid">${skill.bundles.map((b) => `
@@ -103,7 +106,39 @@
       const installBtn = document.getElementById('install-btn');
       if (installBtn) {
         installBtn.addEventListener('click', () => {
-          document.getElementById('install-hint').style.display = 'inline';
+          Shop.cart.add(skill.name);
+          installBtn.textContent = 'Im Warenkorb ✓';
+        });
+      }
+
+      const watchBtn = document.getElementById('watch-btn');
+      if (watchBtn) {
+        try {
+          const watchlist = await Shop.fetchJson('/api/watchlist');
+          if (watchlist.some((s) => s.name === skill.name)) {
+            watchBtn.textContent = 'Gemerkt ✓';
+            watchBtn.dataset.watching = 'true';
+          }
+        } catch (err) { /* Merkliste bleibt einfach ungemerkt sichtbar */ }
+
+        watchBtn.addEventListener('click', async () => {
+          try {
+            if (watchBtn.dataset.watching === 'true') {
+              await fetch(`/api/watchlist/${encodeURIComponent(skill.name)}`, { method: 'DELETE' });
+              watchBtn.textContent = 'Merken';
+              watchBtn.dataset.watching = 'false';
+            } else {
+              await fetch('/api/watchlist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ skillName: skill.name }),
+              });
+              watchBtn.textContent = 'Gemerkt ✓';
+              watchBtn.dataset.watching = 'true';
+            }
+          } catch (err) {
+            watchBtn.textContent = 'Fehler beim Merken';
+          }
         });
       }
     }

@@ -124,13 +124,79 @@ Bibliothek zeigt Update-Badge, Re-Install, Badge weg. Ablauf dokumentieren.
 Negativ: alle Guard-Fälle über die echte API (nicht nur Unit) — Antwort 400 +
 Klartext, Dateisystem unverändert (vorher/nachher-Listing).
 
+## Entscheidungen während der Umsetzung
+
+1. **Hash-Rollback-Testbarkeit**: Die Verifikations-/Rollback-Logik wurde als
+   eigene Funktion `verifyInstalledCopy(destDir, expectedHash, skillName)`
+   extrahiert statt in `install()` verschachtelt zu bleiben. Ein echter
+   Kopierfehler (Disk voll, Lock) ist im Test nicht deterministisch
+   provozierbar; die extrahierte Funktion macht den Rollback-Pfad trotzdem
+   direkt und deterministisch testbar (manuell korrumpierter Zielordner +
+   falscher erwarteter Hash → Rollback + Fehler). Das ist reine Dekomposition,
+   keine Testhaken in der Produktions-API.
+2. **Bundle-CTA minimal vorgezogen**: `bundle.html` stammt aus Sprint 22 mit
+   Platzhaltertext "Warenkorb folgt in Sprint 23". Nach diesem Sprint existiert
+   der Warenkorb — den alten, jetzt falschen Hinweis stehen zu lassen wäre
+   irreführend gewesen. Der Button legt jetzt die *verfügbaren* Skills des
+   Bundles in den Korb (Wiederverwendung von `Shop.cart.add`, keine neue API).
+   Die volle Bundle-Kauf-Erfahrung (Dialog "X in den Korb, Y auf die
+   Merkliste", Merkliste-Integration für nicht verfügbare Skills) bleibt
+   bewusst Sprint 24 vorbehalten (SHOP-BIBEL/Sprint-24-Scope).
+3. **Reinstall-Bestätigung nutzt `window.confirm()`**: Browser-Automatisierung
+   darf laut Sicherheitsregeln keine nativen Dialoge auslösen (sie blockieren
+   die Session). Der Re-Install-Button in `bibliothek.html` wurde daher in der
+   Live-Browser-Akzeptanz NICHT angeklickt; der Re-Install-Fluss wurde
+   stattdessen über einen direkten API-Aufruf ausgelöst und danach live in der
+   Bibliothek verifiziert (Badge verschwindet). Zusätzlich deckt
+   `test/checkout.test.js` denselben Endpunkt automatisiert ab.
+4. **Keine Deinstallation**: bewusst nicht implementiert (Sprint-Scope). Im
+   Bibliothek-UI explizit erklärt: "Der Shop installiert nur additiv. Einen
+   Skill wieder zu entfernen, machst du direkt im Zielprojekt ... — der Shop
+   räumt dort nichts automatisch weg."
+
+## 8. Testresultate
+
+- **node:test**: 43/43 grün gesamt (12 Installer-Tests neu: Guard exakt +
+  Unterordner + Tilde-Schreibweise + AGENTS-intern, NO_TARGET, erfolgreiche
+  Installation mit Hash-Vergleich gegen Quelle, EXISTS ohne overwrite,
+  Overwrite ersetzt vollständig, NO_SOURCE für geplante Skills,
+  verifyInstalledCopy Rollback bei Hash-Mismatch, verifyInstalledCopy Erfolg;
+  11 Checkout/Library/Watchlist-Tests neu: erfolgreiche Installation + Library-
+  Eintrag, in-entwicklung-Skill server-seitig abgelehnt (nichts geschrieben),
+  gemischte gültige/ungültige Items → kompletter Abbruch vor jedem Schreiben,
+  `~/.claude`- und AGENTS-Guard über die echte API mit Dateisystem-Nachweis,
+  Sequenz-Abbruch nach Fehler mit ehrlicher installed/failed/skipped-Antwort,
+  Reinstall überschreibt + neue Order, Update-Badge-Logik, `present:false` nach
+  manuellem Löschen, Merkliste add/list/remove, unbekannter Skill abgelehnt).
+- **End-zu-End-Akzeptanz im Browser** (Claude-in-Chrome, live, keine
+  Behauptung ohne Beobachtung): Produktseite `elevate` → "In den Warenkorb"
+  → Korb-Badge zeigt 1 → Warenkorb-Seite zeigt Item → Kasse mit Ziel im
+  Scratchpad-Ordner → Installiert-Ergebnis mit Trigger-Tipp → Bibliothek zeigt
+  Ziel + Skill + Status "aktuell". Dateisystem-Nachweis: kompletter
+  `elevate`-Ordner (SKILL.md + scripts/ + scripts/templates/) korrekt unter
+  `<ziel>\.claude\skills\elevate\` gefunden.
+- **Update-Zyklus live**: `elevate/SKILL.md` temporär um einen Marker-Kommentar
+  ergänzt, Re-Import, Bibliothek zeigt "Update verfügbar" korrekt. Re-Install
+  über direkten API-Call ausgelöst (siehe Entscheidung 3), Bibliothek zeigt
+  danach wieder "aktuell" mit neuem Zeitstempel. Marker anschließend per
+  `git checkout -- elevate/SKILL.md` vollständig zurückgesetzt, erneuter
+  Import bestätigt sauberen Ausgangszustand (0 Warnungen).
+- **Merkliste live**: Merken-Button auf einer in-entwicklung-Seite
+  (`intent-archaeologie`) geklickt, `merkliste.html` zeigt den Skill korrekt
+  mit "bald verfügbar"-Badge, Ansehen-/Entfernen-Buttons funktionsfähig.
+- Keine Konsolenfehler über den gesamten Flow (mehrfach mit
+  `read_console_messages` geprüft).
+- **Negativ-/Guard-Tests über die echte laufende API** (nicht nur Unit):
+  Checkout gegen `~/.claude` → 400 + `SCHUTZ`-Fehler, Verzeichnisinhalt von
+  `~/.claude` vorher/nachher identisch (diff leer).
+
 ## 7. DoD-Checkliste
 
-- [ ] installer.js mit Guard, Verifikation, Rollback — isoliert getestet
-- [ ] Checkout-/Library-/Watchlist-API gemäß Contract, serverseitige Validierung
-- [ ] 3 neue Seiten + Korb-/Merken-Anbindung in Karten/Produktseite
-- [ ] Alle node:test-Pflichtfälle grün
-- [ ] End-zu-End-Akzeptanz inkl. Update-Zyklus dokumentiert
-- [ ] Alle Negativ-/Guard-Tests über die API bestanden (Dateisystem-Nachweis)
-- [ ] Keine-Deinstallation-Entscheidung im Bibliothek-UI dokumentiert
-- [ ] tracking.md aktualisiert, Commit `sprint-23: shop-checkout-installer implementiert`
+- [x] installer.js mit Guard, Verifikation, Rollback — isoliert getestet
+- [x] Checkout-/Library-/Watchlist-API gemäß Contract, serverseitige Validierung
+- [x] 3 neue Seiten + Korb-/Merken-Anbindung in Karten/Produktseite
+- [x] Alle node:test-Pflichtfälle grün (43/43 gesamt)
+- [x] End-zu-End-Akzeptanz inkl. Update-Zyklus dokumentiert
+- [x] Alle Negativ-/Guard-Tests über die API bestanden (Dateisystem-Nachweis)
+- [x] Keine-Deinstallation-Entscheidung im Bibliothek-UI dokumentiert
+- [x] tracking.md aktualisiert, Commit `sprint-23: shop-checkout-installer implementiert`

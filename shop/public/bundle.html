@@ -14,6 +14,9 @@
       <a class="brand" href="index.html">Skill-Shop</a>
       <nav class="nav-links">
         <a href="katalog.html">Katalog</a>
+        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
+        <a href="bibliothek.html">Bibliothek</a>
+        <a href="merkliste.html">Merkliste</a>
       </nav>
     </div>
   </header>
@@ -48,8 +51,8 @@
           <h1>${Shop.escapeHtml(bundle.title)}</h1>
           <p class="claim">${Shop.escapeHtml(bundle.claim)}</p>
           <div class="cta-row">
-            <button class="btn primary" id="bundle-cta">Bundle in den Warenkorb</button>
-            <span class="hint-text" id="bundle-hint" style="display:none;">Kasse kommt in Kuerze — Warenkorb folgt in Sprint 23.</span>
+            <button class="btn primary" id="bundle-cta">Verfuegbare Skills in den Warenkorb</button>
+            <span class="hint-text" id="bundle-hint" style="display:none;"></span>
           </div>
         </section>
 
@@ -68,7 +71,13 @@
       `;
 
       document.getElementById('bundle-cta').addEventListener('click', () => {
-        document.getElementById('bundle-hint').style.display = 'inline';
+        const available = bundle.skills.filter((s) => s.status === 'verfuegbar');
+        for (const s of available) Shop.cart.add(s.name);
+        const hint = document.getElementById('bundle-hint');
+        hint.style.display = 'inline';
+        hint.textContent = available.length > 0
+          ? `${available.length} von ${bundle.skills.length} Skills in den Warenkorb gelegt. Der Rest ist noch in Entwicklung.`
+          : 'Noch keiner der Skills in diesem Bundle ist verfuegbar.';
       });
     }
     mount();

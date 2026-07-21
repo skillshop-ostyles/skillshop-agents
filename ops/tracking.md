@@ -28,7 +28,7 @@ Stand: 2026-07-21
 | 20 | onboarding-pfadfinder | offen | — | — |
 | 21 | shop-fundament | fertig | 2026-07-21 | — |
 | 22 | shop-katalog | fertig | 2026-07-21 | — |
-| 23 | shop-checkout-installer | offen | — | — |
+| 23 | shop-checkout-installer | fertig | 2026-07-21 | — |
 | 24 | shop-berater-bundles | offen | — | — |
 | 25 | shop-haertung | offen | — | — |
 
