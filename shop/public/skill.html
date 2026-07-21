@@ -14,7 +14,10 @@
   <div id="content"></div>
 
   <footer class="site-footer">
-    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+    <div class="container">
+      <span class="foot-brand"><span class="brand-mark">/</span> Skill-Shop</span>
+      <span>Lokal, ohne Telemetrie · „Skill is the hero."</span>
+    </div>
   </footer>
 
   <script src="shop-core.js"></script>
@@ -46,27 +49,31 @@
       const bundlesHtml = skill.bundles.length > 0
         ? `<div class="card-grid">${skill.bundles.map((b) => `
             <a class="card" href="bundle.html?slug=${encodeURIComponent(b.slug)}">
-              <h3>${Shop.escapeHtml(b.title)}</h3>
+              <div class="card-head"><span class="tag">◆ Bundle</span></div>
+              <h3 class="card-title">${Shop.escapeHtml(b.title)}</h3>
             </a>`).join('')}</div>`
         : '<p class="hint-text">In keinem Bundle enthalten.</p>';
 
       const relatedHtml = skill.related.length > 0
         ? `<div class="card-grid">${skill.related.map((r) => `
             <a class="card" href="skill.html?name=${encodeURIComponent(r.name)}">
-              <h3>${Shop.escapeHtml(r.name)}</h3>
+              <div class="card-head">${Shop.statusDot(r.status)}</div>
+              <h3 class="card-title">${Shop.escapeHtml(r.name)}</h3>
               <p class="claim">${Shop.escapeHtml(r.claim)}</p>
-              <div class="card-badges">${Shop.statusBadge(r.status)}</div>
             </a>`).join('')}</div>`
         : '<p class="hint-text">Keine verwandten Skills kuratiert.</p>';
 
       content.innerHTML = `
-        <section class="product-hero container">
-          <h1>${Shop.escapeHtml(skill.name)}</h1>
-          <p class="claim">${Shop.escapeHtml(skill.claim)}</p>
-          <div class="cta-row">${ctaHtml}${Shop.riskBadge(skill.risk)}${Shop.triggerChip(skill.trigger)}${Shop.priceLabel(skill.price)}</div>
+        <section class="product-hero">
+          <div class="container">
+            <div class="cta-row" style="margin-bottom:14px;"><code class="card-cmd" style="font-size:0.9rem;">${Shop.escapeHtml(skill.trigger)}</code>${Shop.statusBadge(skill.status)}</div>
+            <h1>${Shop.escapeHtml(skill.name)}</h1>
+            <p class="claim">${Shop.escapeHtml(skill.claim)}</p>
+            <div class="cta-row">${ctaHtml}${Shop.riskBadge(skill.risk)}${Shop.priceLabel(skill.price)}</div>
+          </div>
         </section>
 
-        <div class="container">
+        <div class="page-body">
           <section class="section">
             <h2>Das bekommst du</h2>
             <p>${Shop.escapeHtml(skill.long)}</p>
@@ -74,7 +81,10 @@
 
           <section class="section">
             <h2>Evidenz-Versprechen</h2>
-            <p class="hint-text">Jede Aussage, die dieser Skill trifft, trägt einen Beleg — Commit-Hash, Datei:Zeile oder Zitat mit Fundstelle. Keine Behauptung ohne Beleg.</p>
+            <div class="evidence-callout">
+              <span class="ico">✓</span>
+              <p>Jede Aussage, die dieser Skill trifft, trägt einen Beleg — Commit-Hash, Datei:Zeile oder Zitat mit Fundstelle. <strong>Keine Behauptung ohne Beleg.</strong></p>
+            </div>
           </section>
 
           <section class="section">
@@ -89,7 +99,7 @@
 
           <section class="section">
             <h2>Technische Fakten</h2>
-            <p class="hint-text">Trigger: ${Shop.escapeHtml(skill.trigger)} — Risiko: ${skill.risk} — Status: ${skill.status}${skill.uncurated ? ' — unkuratiert (Ordner-Frontmatter, keine Katalog-Kuration)' : ''}</p>
+            <p class="hint-text">Trigger: <code>${Shop.escapeHtml(skill.trigger)}</code> · Risiko: ${skill.risk} · Status: ${skill.status}${skill.uncurated ? ' · unkuratiert (Ordner-Frontmatter, keine Katalog-Kuration)' : ''}</p>
           </section>
         </div>
       `;

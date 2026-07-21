@@ -4,10 +4,10 @@
     "required": true,
     "options": [
       { "id": "legacy", "label": "Keiner versteht unseren Alt-Code", "terms": { "usecase": ["legacy-verstehen"] } },
-      { "id": "release", "label": "Releases gehen staendig schief", "terms": { "usecase": ["release-absichern"] } },
+      { "id": "release", "label": "Releases gehen ständig schief", "terms": { "usecase": ["release-absichern"] } },
       { "id": "security", "label": "Security-/Compliance-Druck", "terms": { "usecase": ["audit-vorbereiten"], "thema": ["security"] } },
       { "id": "onboarding", "label": "Neue Leute brauchen ewig", "terms": { "usecase": ["onboarding"] } },
-      { "id": "prod", "label": "Prod ueberrascht uns staendig", "terms": { "thema": ["resilienz"], "usecase": ["incident-aufklaeren"] } },
+      { "id": "prod", "label": "Prod überrascht uns ständig", "terms": { "thema": ["resilienz"], "usecase": ["incident-aufklaeren"] } },
       { "id": "neu-starten", "label": "Wir starten ein neues Projekt", "terms": { "usecase": ["neu-starten"] } }
     ]
   },
@@ -28,7 +28,7 @@
     "required": true,
     "options": [
       { "id": "readonly", "label": "Nur lesen und berichten", "filter": { "risiko": ["read-only"] } },
-      { "id": "egal", "label": "Darf nach Freigabe auch aendern", "filter": null }
+      { "id": "egal", "label": "Darf nach Freigabe auch ändern", "filter": null }
     ]
   }
 }

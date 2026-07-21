@@ -19,9 +19,9 @@
       <h2>Kasse</h2>
       <form id="checkout-form">
         <p>
-          <label for="target-path">Zielprojekt (absoluter Pfad):</label><br />
-          <input type="text" id="target-path" name="targetPath" list="known-targets"
-                 placeholder="z. B. C:\Users\dein-name\Desktop\mein-projekt" style="width: 100%; max-width: 480px; padding: 8px;" />
+          <label for="target-path" style="display:block; margin-bottom:8px; font-size:0.9rem; color:var(--text-muted);">Zielprojekt (absoluter Pfad)</label>
+          <input type="text" id="target-path" name="targetPath" list="known-targets" class="field-input"
+                 placeholder="z. B. C:\Users\dein-name\Desktop\mein-projekt" />
           <datalist id="known-targets"></datalist>
         </p>
         <p class="hint-text" id="path-error" style="display:none; color: var(--badge-risk-text);"></p>
@@ -36,7 +36,10 @@
   </div>
 
   <footer class="site-footer">
-    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+    <div class="container">
+      <span class="foot-brand"><span class="brand-mark">/</span> Skill-Shop</span>
+      <span>Lokal, ohne Telemetrie · „Skill is the hero."</span>
+    </div>
   </footer>
 
   <script src="shop-core.js"></script>

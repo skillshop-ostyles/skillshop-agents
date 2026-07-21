@@ -11,20 +11,31 @@
 
   <header id="site-header"></header>
 
-  <section class="hero container">
-    <h1>Skill is the hero.</h1>
-    <p class="subline">Marktplatz und Fachgeschäft für Claude-Code-Skills — einzeln oder im Bundle.</p>
-    <form class="search-form" id="search-form">
-      <input type="search" name="q" placeholder="Wonach suchst du? z. B. &quot;git&quot;, &quot;dsgvo&quot;, &quot;breaking change&quot;" aria-label="Suche" />
-      <button type="submit">Suchen</button>
-    </form>
-    <p class="advisor-hint">Nicht sicher, was du brauchst? <a href="berater.html">Frag den Berater</a>.</p>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow"><span class="dot"></span> 22 Skills · 6 Bundles · lokal &amp; ohne Telemetrie</span>
+      <h1>Skill is <span class="accent">the hero.</span></h1>
+      <p class="subline">Marktplatz und Fachgeschäft für Claude-Code-Skills — einzeln oder im Bundle, mit einem Klick installiert.</p>
+      <form class="search-form" id="search-form">
+        <input type="search" name="q" placeholder="Wonach suchst du? z. B. &quot;git&quot;, &quot;dsgvo&quot;, &quot;breaking change&quot;" aria-label="Suche" />
+        <button type="submit">Suchen</button>
+      </form>
+      <p class="advisor-hint">Nicht sicher, was du brauchst? <a href="berater.html">Frag den Berater →</a></p>
+      <div class="hero-stats">
+        <span>◆ Jede Aussage mit <b>Beleg</b></span>
+        <span>◆ <b>Read-only</b> per Default</span>
+        <span>◆ Direkt ins Projekt <b>installiert</b></span>
+      </div>
+    </div>
   </section>
 
   <main class="container" id="shelves"></main>
 
   <footer class="site-footer">
-    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+    <div class="container">
+      <span class="foot-brand"><span class="brand-mark">/</span> Skill-Shop</span>
+      <span>Lokal, ohne Telemetrie · „Skill is the hero."</span>
+    </div>
   </footer>
 
   <script src="shop-core.js"></script>
@@ -45,15 +56,15 @@
           Shop.fetchJson('/api/facets'),
         ]);
 
-        Shop.renderShelf(container, 'Neu im Regal', skills.slice(0, 6).map(Shop.card));
+        Shop.renderShelf(container, 'Neu im Regal', skills.slice(0, 6).map(Shop.card), 'katalog.html');
 
         const topUsecases = (facets.usecase || []).slice(0, 3);
         for (const uc of topUsecases) {
           const subset = await Shop.fetchJson(`/api/skills?usecase=${encodeURIComponent(uc.term)}`);
-          Shop.renderShelf(container, `Usecase: ${uc.term}`, subset.slice(0, 6).map(Shop.card));
+          Shop.renderShelf(container, Shop.usecaseLabel(uc.term), subset.slice(0, 6).map(Shop.card), `katalog.html?usecase=${encodeURIComponent(uc.term)}`);
         }
 
-        Shop.renderShelf(container, 'Bundles', bundles.map(Shop.bundleCard));
+        Shop.renderShelf(container, 'Bundles — die Lösung als Paket', bundles.map(Shop.bundleCard));
       } catch (err) {
         container.innerHTML = `<p class="empty-state">${Shop.escapeHtml(err.message)}</p>`;
       }

@@ -21,13 +21,19 @@
     </aside>
 
     <main>
+      <div class="catalog-bar">
+        <span class="result-count" id="result-count"></span>
+      </div>
       <div class="active-filters" id="active-filters"></div>
       <div class="card-grid" id="card-grid"></div>
     </main>
   </div>
 
   <footer class="site-footer">
-    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+    <div class="container">
+      <span class="foot-brand"><span class="brand-mark">/</span> Skill-Shop</span>
+      <span>Lokal, ohne Telemetrie · „Skill is the hero."</span>
+    </div>
   </footer>
 
   <script src="shop-core.js"></script>
@@ -123,10 +129,16 @@
 
     function renderGrid(skills) {
       const el = document.getElementById('card-grid');
+      const count = document.getElementById('result-count');
+      count.innerHTML = skills.length === 1
+        ? '<b>1</b> Skill'
+        : `<b>${skills.length}</b> Skills`;
       if (skills.length === 0) {
-        el.outerHTML = '<div class="empty-state" id="card-grid">Keine Treffer. Filter anpassen oder Suchbegriff ändern.</div>';
+        el.className = '';
+        el.innerHTML = '<div class="empty-state">Keine Treffer. Filter anpassen oder Suchbegriff ändern.</div>';
         return;
       }
+      el.className = 'card-grid';
       el.innerHTML = skills.map(Shop.card).join('');
     }
 

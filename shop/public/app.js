@@ -20,6 +20,20 @@ window.Shop = (function () {
 
   const escapeHtml = Core.escapeHtml;
 
+  // Freundliche Anzeige-Labels fuer die kebab-case Usecase-Terme (Datenwerte bleiben unveraendert).
+  const USECASE_LABELS = {
+    'legacy-verstehen': 'Alt-Code verstehen',
+    'release-absichern': 'Releases absichern',
+    'incident-aufklaeren': 'Incidents aufklären',
+    'onboarding': 'Onboarding beschleunigen',
+    'audit-vorbereiten': 'Audits vorbereiten',
+    'aufraeumen': 'Aufräumen',
+    'neu-starten': 'Neu starten',
+    'qualitaet-heben': 'Qualität heben',
+    'migration-planen': 'Migration planen',
+  };
+  function usecaseLabel(term) { return USECASE_LABELS[term] || term; }
+
   async function fetchJson(url) {
     const res = await fetch(url);
     if (res.status === 503) {
@@ -33,6 +47,7 @@ window.Shop = (function () {
     return res.json();
   }
 
+  // Voller Status-Badge mit Punkt (Produkt-/Detailseiten).
   function statusBadge(status) {
     return status === 'verfuegbar'
       ? '<span class="badge status-ok">verfügbar</span>'
@@ -48,44 +63,64 @@ window.Shop = (function () {
     return `<span class="chip">${escapeHtml(trigger)}</span>`;
   }
 
-  // Preis nur rendern, wenn das Pricing-Feature-Flag serverseitig aktiv ist -
-  // die API liefert das `price`-Feld dann überhaupt erst (Sprint 25).
+  // Preis nur wenn das Pricing-Flag serverseitig aktiv ist (API liefert `price` erst dann).
   function priceLabel(price) {
     const text = Core.formatPrice(price);
-    return text ? `<span class="badge status-ok">${escapeHtml(text)}</span>` : '';
+    return text ? `<span class="tag tag-price">${escapeHtml(text)}</span>` : '';
+  }
+
+  // Kompakte Karten-Bausteine: Status als Punkt, Risiko/Preis als dezente Tags.
+  function statusDot(status) {
+    return status === 'verfuegbar'
+      ? '<span class="status-dot is-ok">verfügbar</span>'
+      : '<span class="status-dot is-soon">bald</span>';
+  }
+  function riskTag(risk) {
+    const write = risk === 'schreibend-mit-freigabe';
+    return `<span class="tag ${write ? 'tag-risk-write' : ''}">${write ? 'schreibend' : 'read-only'}</span>`;
   }
 
   function card(skill) {
-    const badges = [statusBadge(skill.status), riskBadge(skill.risk)];
-    if (skill.uncurated) badges.push('<span class="badge uncurated">unkuratiert</span>');
-    if (skill.price) badges.push(priceLabel(skill.price));
+    const foot = [riskTag(skill.risk)];
+    if (skill.uncurated) foot.push('<span class="tag tag-muted">unkuratiert</span>');
+    if (skill.price) foot.push(priceLabel(skill.price));
     return `
       <a class="card" href="skill.html?name=${encodeURIComponent(skill.name)}">
-        <h3>${escapeHtml(skill.name)}</h3>
+        <div class="card-head">
+          <code class="card-cmd">${escapeHtml(skill.trigger)}</code>
+          ${statusDot(skill.status)}
+        </div>
+        <h3 class="card-title">${escapeHtml(skill.name)}</h3>
         <p class="claim">${escapeHtml(skill.claim)}</p>
-        <div class="card-badges">${badges.join('')}${triggerChip(skill.trigger)}</div>
+        <div class="card-foot">${foot.join('')}</div>
       </a>
     `;
   }
 
   function bundleCard(bundle) {
+    const ok = bundle.status.verfuegbar;
+    const total = bundle.status.total;
     return `
-      <a class="card" href="bundle.html?slug=${encodeURIComponent(bundle.slug)}">
-        <h3>${escapeHtml(bundle.title)}</h3>
-        <p class="claim">${escapeHtml(bundle.claim)}</p>
-        <div class="card-badges">
-          <span class="badge status-ok">${bundle.status.verfuegbar} von ${bundle.status.total} verfügbar</span>
+      <a class="card card-bundle" href="bundle.html?slug=${encodeURIComponent(bundle.slug)}">
+        <div class="card-head">
+          <span class="tag">◆ Bundle</span>
           ${priceLabel(bundle.price)}
+        </div>
+        <h3 class="card-title">${escapeHtml(bundle.title)}</h3>
+        <p class="claim">${escapeHtml(bundle.claim)}</p>
+        <div class="card-foot">
+          <span class="status-dot ${ok > 0 ? 'is-ok' : 'is-soon'}">${ok} von ${total} verfügbar</span>
         </div>
       </a>
     `;
   }
 
-  function renderShelf(container, title, itemsHtml) {
+  function renderShelf(container, title, itemsHtml, moreHref) {
     if (itemsHtml.length === 0) return;
     const section = document.createElement('section');
     section.className = 'shelf';
-    section.innerHTML = `<h2>${escapeHtml(title)}</h2><div class="shelf-row">${itemsHtml.join('')}</div>`;
+    const more = moreHref ? `<a href="${moreHref}">Alle ansehen →</a>` : '';
+    section.innerHTML = `<div class="shelf-head"><h2>${escapeHtml(title)}</h2>${more}</div><div class="shelf-row">${itemsHtml.join('')}</div>`;
     container.appendChild(section);
   }
 
@@ -152,7 +187,7 @@ window.Shop = (function () {
     host.className = 'site-header';
     host.innerHTML = `
       <div class="container">
-        <a class="brand" href="index.html">Skill-Shop</a>
+        <a class="brand" href="index.html"><span class="brand-mark">/</span>Skill-Shop</a>
         <nav class="nav-links">
           ${links}
           <button type="button" id="theme-toggle" class="btn secondary theme-toggle"></button>
@@ -224,8 +259,9 @@ window.Shop = (function () {
 
   return {
     DIMENSIONS, DIMENSION_LABELS, escapeHtml, fetchJson,
-    statusBadge, riskBadge, triggerChip, priceLabel, card, bundleCard, renderShelf,
-    currentParams, apiUrlFromParams, cart, renderHeader, sumPrices: Core.sumPrices, formatPrice: Core.formatPrice,
+    statusBadge, riskBadge, triggerChip, priceLabel, statusDot, riskTag, card, bundleCard, renderShelf,
+    currentParams, apiUrlFromParams, cart, renderHeader, usecaseLabel,
+    sumPrices: Core.sumPrices, formatPrice: Core.formatPrice,
   };
 })();
 
