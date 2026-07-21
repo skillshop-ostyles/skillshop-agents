@@ -16,6 +16,16 @@ Stand: 2026-07-21
 | 08 | repro-automat | offen | — | — |
 | 09 | prod-spiegel | offen | — | — |
 | 10 | migrations-chirurg | offen | — | — |
+| 11 | zeitbomben-scanner | offen | — | — |
+| 12 | doku-drift-detektor | offen | — | — |
+| 13 | vokabular-waechter | offen | — | — |
+| 14 | konfig-kartograf | offen | — | — |
+| 15 | test-luecken-kartograf | offen | — | — |
+| 16 | ausfall-simulant | offen | — | — |
+| 17 | api-vertrags-waechter | offen | — | — |
+| 18 | berechtigungs-roentgen | offen | — | — |
+| 19 | datenspuren-verfolger | offen | — | — |
+| 20 | onboarding-pfadfinder | offen | — | — |
 
 Status-Werte: `offen` | `in Arbeit` | `fertig`. Pflege gemäß BIBEL § 5.
 
