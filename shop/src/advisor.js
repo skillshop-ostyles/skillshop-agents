@@ -38,7 +38,7 @@ function sortSkills(a, b) {
 }
 
 function reasonFor(q1Option, skill) {
-  return `Weil dich "${q1Option.label}" drueckt: ${skill.claim}`;
+  return `Weil dich "${q1Option.label}" drückt: ${skill.claim}`;
 }
 
 /**
@@ -63,6 +63,11 @@ function recommend(db, rules, answers) {
 
   const allSkills = attachTerms(db, db.prepare(`SELECT ${CARD_FIELDS} FROM skills s`).all());
 
+  // C4: Bewusste Gewichtung. Frage 1 ("Was schmerzt?") ist die Kernabsicht und
+  // zaehlt DOPPELT (x2) pro Term-Treffer; Frage 2 (Kontext, optional) ist nur ein
+  // Feinschliff und zaehlt EINFACH (x1). Dadurch dominiert immer der Haupt-Schmerz,
+  // der Kontext verschiebt nur die Reihenfolge innerhalb gleich-relevanter Skills.
+  // Diese Asymmetrie ist Vertrag (test/advisor.test.js kodiert +2/+1).
   const scoreAll = (skills) => skills.map((s) => ({
     ...s,
     score: 2 * countMatches(s.terms, q1Option.terms) + (q2Option ? countMatches(s.terms, q2Option.terms) : 0),

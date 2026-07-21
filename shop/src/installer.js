@@ -21,19 +21,37 @@ function normalizePath(p) {
 }
 
 /**
+ * Path comparison for the guard. On Windows the filesystem is case-insensitive,
+ * so `C:\USERS\OSTOL\.claude` and `C:\Users\ostol\.claude` are the SAME folder -
+ * a case-sensitive compare would let the uppercase form slip past the guard and
+ * write into the protected directory (Review-Befund A1). We therefore lowercase
+ * both sides on win32; POSIX stays case-sensitive, as its filesystem is.
+ */
+function forCompare(normalizedAbsPath) {
+  return process.platform === 'win32' ? normalizedAbsPath.toLowerCase() : normalizedAbsPath;
+}
+
+/** True if `child` equals `parent` or lies inside it, case-correct per platform. */
+function isInsideOrEqual(child, parent) {
+  const c = forCompare(child);
+  const p = forCompare(parent);
+  return c === p || c.startsWith(p + path.sep);
+}
+
+/**
  * Guard: targetPath must never be ~/.claude (or a subfolder of it), and must
  * never be the AGENTS repo itself (or a subfolder of it) - the shop sells
  * outward, not into itself. Throws InstallError('SCHUTZ', ...) and writes
- * nothing on violation.
+ * nothing on violation. Comparison is case-insensitive on Windows (A1).
  */
 function assertAllowedTarget(targetPath, rootDir) {
   const normTarget = normalizePath(targetPath);
   const claudeRoot = normalizePath(path.join(process.env.USERPROFILE || os.homedir(), '.claude'));
-  if (normTarget === claudeRoot || normTarget.startsWith(claudeRoot + path.sep)) {
+  if (isInsideOrEqual(normTarget, claudeRoot)) {
     throw new InstallError('SCHUTZ', `SCHUTZ: Zielverzeichnis liegt unter ${claudeRoot} - Installation abgelehnt.`);
   }
   const normRoot = normalizePath(rootDir);
-  if (normTarget === normRoot || normTarget.startsWith(normRoot + path.sep)) {
+  if (isInsideOrEqual(normTarget, normRoot)) {
     throw new InstallError('SCHUTZ', `SCHUTZ: Zielverzeichnis liegt innerhalb von ${normRoot} - Installation abgelehnt.`);
   }
   return normTarget;
@@ -68,20 +86,47 @@ function install({ skillName, targetPath, rootDir, overwrite = false }) {
   if (alreadyExists && !overwrite) {
     throw new InstallError('EXISTS', `Skill '${skillName}' ist bereits installiert unter ${destDir}`);
   }
+
+  // Backup-vor-Overwrite (Review-Befund A3): bei overwrite den bestehenden Ordner
+  // NICHT sofort loeschen, sondern beiseite renamen. Schlaegt Kopie/Verifikation
+  // fehl, wird die alte, funktionierende Version wiederhergestellt - ein Reinstall
+  // darf den User nie mit einem leeren Ordner zuruecklassen.
+  let backupDir = null;
   if (alreadyExists && overwrite) {
-    fs.rmSync(destDir, { recursive: true, force: true });
+    backupDir = `${destDir}.bak-${Date.now()}`;
+    fs.renameSync(destDir, backupDir);
   }
+
+  const restoreBackup = () => {
+    fs.rmSync(destDir, { recursive: true, force: true });
+    if (backupDir && fs.existsSync(backupDir)) {
+      fs.renameSync(backupDir, destDir);
+    }
+  };
 
   fs.mkdirSync(path.dirname(destDir), { recursive: true });
   try {
     fs.cpSync(folder.folderPath, destDir, { recursive: true });
   } catch (err) {
-    fs.rmSync(destDir, { recursive: true, force: true });
+    restoreBackup();
     throw new InstallError('COPY_FAILED', `Kopieren fehlgeschlagen fuer '${skillName}': ${err.message}`);
   }
 
-  const { folderHash, files } = verifyInstalledCopy(destDir, folder.folderHash, skillName);
-  return { name: skillName, destDir, folderHash, files };
+  let result;
+  try {
+    result = verifyInstalledCopy(destDir, folder.folderHash, skillName);
+  } catch (err) {
+    // verifyInstalledCopy hat destDir bereits entfernt; jetzt das Backup zuruecksetzen.
+    if (backupDir && fs.existsSync(backupDir)) {
+      fs.renameSync(backupDir, destDir);
+    }
+    throw err;
+  }
+
+  if (backupDir) {
+    fs.rmSync(backupDir, { recursive: true, force: true });
+  }
+  return { name: skillName, destDir, folderHash: result.folderHash, files: result.files };
 }
 
 /**

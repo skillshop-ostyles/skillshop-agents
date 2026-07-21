@@ -3,8 +3,8 @@
   "trigger": "/authz",
   "description": "Baut die Permission-Matrix aus dem Code: ungeschuetzte Mutations-Endpoints, Inkonsistenzen, IDOR-Verdachte. Trigger: /authz",
   "claim": "\"Wer darf was?\" - die Frage, die vor jedem Pentest unbeantwortet bleibt.",
-  "short": "Baut die Permission-Matrix aus dem Code: ungeschuetzte Mutations-Endpoints, Inkonsistenzen, IDOR-Verdachte.",
-  "long": "Authorization-Checks liegen verstreut ueber Middleware, Decorators und Inline-ifs. berechtigungs-roentgen loest die Schutz-Kette pro Endpoint auf allen vier Ebenen auf und meldet 'ungeschuetzt' nur mit vollstaendigem Beleg - fuer defensive Audits der eigenen Codebase, sendet nie einen Request.",
+  "short": "Baut die Permission-Matrix aus dem Code: ungeschützte Mutations-Endpoints, Inkonsistenzen, IDOR-Verdachte.",
+  "long": "Authorization-Checks liegen verstreut über Middleware, Decorators und Inline-ifs. berechtigungs-roentgen löst die Schutz-Kette pro Endpoint auf allen vier Ebenen auf und meldet 'ungeschützt' nur mit vollständigem Beleg - für defensive Audits der eigenen Codebase, sendet nie einen Request.",
   "terms": {
     "usecase": [
       "audit-vorbereiten"

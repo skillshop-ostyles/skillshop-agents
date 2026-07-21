@@ -39,6 +39,18 @@ function createApp({ dbPath, publicDir, rootDir, catalogDir, pricingEnabled = fa
   }
 
   app.use(express.json());
+
+  // A4: Der Server bindet zwar nur an 127.0.0.1, aber jeder lokale Prozess kann
+  // trotzdem HTTP-Requests schicken. Fuer mutierende Endpunkte (POST/PUT/DELETE
+  // unter /api) verlangen wir daher einen localhost-Host-Header - ein simpler,
+  // aber wirksamer Schutz gegen DNS-Rebinding/versehentliche Cross-Origin-Zugriffe.
+  app.use('/api', (req, res, next) => {
+    if (req.method === 'GET' || req.method === 'HEAD') return next();
+    const host = (req.headers.host || '').split(':')[0].toLowerCase();
+    if (host === '127.0.0.1' || host === 'localhost' || host === '[::1]' || host === '::1') return next();
+    return res.status(403).json({ error: 'Nur ueber localhost erreichbar' });
+  });
+
   app.use('/api', skillsApi.router(getDb, pricingEnabled));
   app.use('/api', bundlesApi.router(getDb, pricingEnabled));
   app.use('/api', checkoutApi.router(getDb, rootDir, pricingEnabled));

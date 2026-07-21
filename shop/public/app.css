@@ -17,8 +17,11 @@
   --focus: #2f6feb;
 }
 
+/* Dark-Werte: gelten (a) automatisch bei System-Dunkel OHNE erzwungenes Light,
+ * und (b) explizit bei [data-theme="dark"] (Toggle). [data-theme="light"] hat
+ * hoehere Spezifitaet (0,2,0) und ueberschreibt das @media-Dunkel wieder auf Hell. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #0f1115;
     --bg-alt: #161922;
     --text: #e8e9ee;
@@ -37,6 +40,29 @@
     --focus: #5b8ef5;
   }
 }
+
+:root[data-theme="dark"] {
+  --bg: #0f1115;
+  --bg-alt: #161922;
+  --text: #e8e9ee;
+  --text-muted: #a7abbd;
+  --border: #2a2e3a;
+  --card-bg: #181b24;
+  --badge-ok-bg: #123321;
+  --badge-ok-text: #5fd08c;
+  --badge-warn-bg: #3a2a06;
+  --badge-warn-text: #f0b954;
+  --badge-neutral-bg: #232735;
+  --badge-neutral-text: #c7c9d6;
+  --badge-risk-bg: #3a1414;
+  --badge-risk-text: #f28b8b;
+  --accent: #5b8ef5;
+  --focus: #5b8ef5;
+}
+
+/* [data-theme="light"] braucht keine eigenen Werte: die :root-Defaults sind hell,
+ * und die hoehere Spezifitaet des Attribut-Selektors haelt das @media-Dunkel ab. */
+:root[data-theme="light"] { color-scheme: light; }
 
 * { box-sizing: border-box; }
 
@@ -81,11 +107,15 @@ a { color: inherit; }
 }
 .nav-links {
   display: flex;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 20px;
   font-size: 0.95rem;
 }
 .nav-links a { text-decoration: none; color: var(--text-muted); }
 .nav-links a:hover { color: var(--text); }
+.nav-links a[aria-current="page"] { color: var(--text); font-weight: 600; }
+.theme-toggle { padding: 4px 12px; font-size: 0.82rem; }
 
 /* ---------- Hero ---------- */
 

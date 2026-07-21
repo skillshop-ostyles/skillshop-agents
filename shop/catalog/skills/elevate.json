@@ -1,18 +1,43 @@
 {
   "name": "elevate",
-  "claim": "Dein Projekt verdient Enterprise-Niveau - ohne dass du dafuer bezahlst, es selbst zu erfinden.",
+  "claim": "Dein Projekt verdient Enterprise-Niveau - ohne dass du dafür bezahlst, es selbst zu erfinden.",
   "short": "Auditiert ein Projekt gegen 7 Enterprise-Dimensionen und hebt es an - nur die Teile, die du freigibst.",
-  "long": "Tests, Lint, CI/CD, Secrets-Hygiene, Docs, Type-Safety, Dependency-Audit: elevate prueft alle 7 Dimensionen, zeigt dir eine klare Tabelle und setzt nur um, was du einzeln bestaetigst. Generisch ueber Stacks und CI-Systeme, laeuft auch komplett lokal.",
+  "long": "Tests, Lint, CI/CD, Secrets-Hygiene, Docs, Type-Safety, Dependency-Audit: elevate prüft alle 7 Dimensionen, zeigt dir eine klare Tabelle und setzt nur um, was du einzeln bestätigst. Generisch über Stacks und CI-Systeme, läuft auch komplett lokal.",
   "terms": {
-    "usecase": ["qualitaet-heben"],
-    "thema": ["testing", "security", "doku"],
-    "stichwort": ["coverage", "config"],
-    "ziel": ["qualitaet-heben", "risiko-senken"],
-    "branche": ["alle"],
-    "taetigkeit": ["entwickeln", "devops", "qa"],
-    "level": ["alle"],
-    "risiko": ["schreibend-mit-freigabe"]
+    "usecase": [
+      "qualitaet-heben"
+    ],
+    "thema": [
+      "testing",
+      "security",
+      "doku"
+    ],
+    "stichwort": [
+      "coverage",
+      "config"
+    ],
+    "ziel": [
+      "qualitaet-heben",
+      "risiko-senken"
+    ],
+    "branche": [
+      "alle"
+    ],
+    "taetigkeit": [
+      "entwickeln",
+      "devops",
+      "qa"
+    ],
+    "level": [
+      "alle"
+    ],
+    "risiko": [
+      "schreibend-mit-freigabe"
+    ]
   },
   "priceTier": "single",
-  "related": ["test-luecken-kartograf", "konsistenz-enforcer"]
+  "related": [
+    "test-luecken-kartograf",
+    "konsistenz-enforcer"
+  ]
 }

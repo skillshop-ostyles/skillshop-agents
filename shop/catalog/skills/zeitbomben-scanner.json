@@ -2,9 +2,9 @@
   "name": "zeitbomben-scanner",
   "trigger": "/timebomb",
   "description": "Findet hartkodierte Ablaufdaten und verrottete \"temporaer\"-Marker mit Git-Alter - sortiert nach Zuenddatum. Trigger: /timebomb",
-  "claim": "Jede Codebase tickt. Diese hier weisst du, wann.",
-  "short": "Findet hartkodierte Ablaufdaten und verrottete \"temporaer\"-Marker mit Git-Alter - sortiert nach Zuenddatum.",
-  "long": "Hartkodierte Jahreszahlen, Gutschein-Deadlines, ein Workaround von 2021 - diese Bomben explodieren erst am Zuendtag. zeitbomben-scanner findet sie vorher und liefert eine Entschaerfungsliste: ueberfaellig zuerst, dann nach Zuenddatum, mit Blame-Beleg fuer jedes Alter.",
+  "claim": "Jede Codebase tickt. Diese hier weißt du, wann.",
+  "short": "Findet hartkodierte Ablaufdaten und verrottete \"temporär\"-Marker mit Git-Alter - sortiert nach Zünddatum.",
+  "long": "Hartkodierte Jahreszahlen, Gutschein-Deadlines, ein Workaround von 2021 - diese Bomben explodieren erst am Zündtag. zeitbomben-scanner findet sie vorher und liefert eine Entschärfungsliste: überfällig zuerst, dann nach Zünddatum, mit Blame-Beleg für jedes Alter.",
   "terms": {
     "usecase": [
       "aufraeumen",

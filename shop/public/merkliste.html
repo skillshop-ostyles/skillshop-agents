@@ -9,18 +9,7 @@
 <body>
   <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um die Merkliste zu laden.</div></noscript>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Skill-Shop</a>
-      <nav class="nav-links">
-        <a href="katalog.html">Katalog</a>
-        <a href="berater.html">Berater</a>
-        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
-        <a href="bibliothek.html">Bibliothek</a>
-        <a href="merkliste.html">Merkliste</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
   <div class="container" style="padding: 32px 0 64px;">
     <h1>Merkliste</h1>
@@ -31,6 +20,7 @@
     <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
   </footer>
 
+  <script src="shop-core.js"></script>
   <script src="app.js"></script>
   <script>
     async function removeFromWatchlist(name) {
@@ -49,7 +39,7 @@
       }
 
       if (items.length === 0) {
-        el.innerHTML = '<p class="empty-state">Noch nichts gemerkt — stoebere im <a href="katalog.html">Katalog</a>.</p>';
+        el.innerHTML = '<p class="empty-state">Noch nichts gemerkt — stöbere im <a href="katalog.html">Katalog</a>.</p>';
         return;
       }
 
@@ -57,7 +47,7 @@
         <div class="card">
           <h3>${Shop.escapeHtml(s.name)}</h3>
           <p class="claim">${Shop.escapeHtml(s.claim)}</p>
-          <div class="card-badges">${Shop.statusBadge(s.status)}${s.status === 'verfuegbar' ? '<span class="badge status-ok">jetzt verfuegbar</span>' : ''}</div>
+          <div class="card-badges">${Shop.statusBadge(s.status)}${s.status === 'verfuegbar' ? '<span class="badge status-ok">jetzt verfügbar</span>' : ''}</div>
           <p style="margin-top: 10px;">
             <a class="btn secondary" href="skill.html?name=${encodeURIComponent(s.name)}">Ansehen</a>
             ${s.status === 'verfuegbar' ? `<button class="btn primary" data-cart="${Shop.escapeHtml(s.name)}">In den Warenkorb</button>` : ''}

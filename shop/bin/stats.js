@@ -1,12 +1,20 @@
 #!/usr/bin/env node
 'use strict';
 
+const fs = require('node:fs');
 const path = require('node:path');
 const { openDb } = require('../src/db');
 
 function main() {
   const shopDir = path.resolve(__dirname, '..');
-  const dbPath = path.join(shopDir, 'data', 'shop.db');
+  // Optionaler DB-Pfad als argv[2] (fuer Tests); sonst der echte Pfad.
+  const dbPath = process.argv[2] || path.join(shopDir, 'data', 'shop.db');
+  // B3: openDb() wuerde die Datei anlegen - eine leere DB waere ein Footgun
+  // (Server liefert danach leeren Katalog statt 503). Erst pruefen, dann oeffnen.
+  if (!fs.existsSync(dbPath)) {
+    console.error('Datenbank fehlt - bitte zuerst "npm run import" ausfuehren.');
+    process.exit(1);
+  }
   const db = openDb(dbPath);
 
   const skillCounts = db

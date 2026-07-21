@@ -1,0 +1,11 @@
+# Konsistente Zeilenenden - beseitigt die CRLF-Warnungsflut bei jedem Commit.
+* text=auto eol=lf
+
+# PowerShell-Skripte bleiben CRLF (Windows-Tooling erwartet das teils).
+*.ps1 text eol=crlf
+
+# Binaerdateien nicht anfassen.
+*.db binary
+*.png binary
+*.jpg binary
+*.gif binary

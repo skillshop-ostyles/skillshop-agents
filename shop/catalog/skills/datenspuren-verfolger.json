@@ -2,9 +2,9 @@
   "name": "datenspuren-verfolger",
   "trigger": "/pii-trace",
   "description": "Kartiert PII-Felder und ihre Senken - Logs, Dritt-APIs, Exporte - rein ueber Feldnamen, niemals ueber echte Daten. Trigger: /pii-trace",
-  "claim": "\"Wo ueberall liegen personenbezogene Daten?\" - die DSGVO-Frage, die kein Team vollstaendig beantworten kann.",
-  "short": "Kartiert PII-Felder und ihre Senken - Logs, Dritt-APIs, Exporte - rein ueber Feldnamen, niemals ueber echte Daten.",
-  "long": "datenspuren-verfolger identifiziert PII-Kandidaten semantisch aus Schemas/DTOs und verfolgt ihre Fluesse durch den Code: PII in Logs, PII an externe Empfaenger, fehlende Loesch-Pfade. Technische Zulieferung fuers Verarbeitungsverzeichnis, keine Rechtsberatung, arbeitet nie mit echten Personendaten.",
+  "claim": "\"Wo überall liegen personenbezogene Daten?\" - die DSGVO-Frage, die kein Team vollständig beantworten kann.",
+  "short": "Kartiert PII-Felder und ihre Senken - Logs, Dritt-APIs, Exporte - rein über Feldnamen, niemals über echte Daten.",
+  "long": "datenspuren-verfolger identifiziert PII-Kandidaten semantisch aus Schemas/DTOs und verfolgt ihre Flüsse durch den Code: PII in Logs, PII an externe Empfänger, fehlende Lösch-Pfade. Technische Zulieferung fürs Verarbeitungsverzeichnis, keine Rechtsberatung, arbeitet nie mit echten Personendaten.",
   "terms": {
     "usecase": [
       "audit-vorbereiten"

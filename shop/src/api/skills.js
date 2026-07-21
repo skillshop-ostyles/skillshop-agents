@@ -4,7 +4,15 @@ const express = require('express');
 const { parseFilters, queryProducts, attachTerms, computeFacets, CARD_FIELDS } = require('../catalogQuery');
 const { getPrice } = require('../pricing');
 
-function skillToJson(row, { db, pricingEnabled } = {}) {
+/**
+ * @param {object} row skill row (with .terms attached)
+ * @param {object} opts
+ * @param {import('better-sqlite3').Database} [opts.db]
+ * @param {boolean} [opts.pricingEnabled]
+ * @param {Map<number, object>} [opts.priceMap] optional batched skillId->price map
+ *   (C2: lets callers that render many skills avoid one getPrice query per skill).
+ */
+function skillToJson(row, { db, pricingEnabled, priceMap } = {}) {
   const json = {
     name: row.name,
     trigger: row.trigger,
@@ -18,8 +26,8 @@ function skillToJson(row, { db, pricingEnabled } = {}) {
     uncurated: !!row.uncurated,
     terms: row.terms || {},
   };
-  if (pricingEnabled && db) {
-    json.price = getPrice(db, 'skill', row.id);
+  if (pricingEnabled) {
+    json.price = priceMap ? (priceMap.get(row.id) || null) : (db ? getPrice(db, 'skill', row.id) : null);
   }
   return json;
 }

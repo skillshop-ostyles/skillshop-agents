@@ -2,9 +2,9 @@
   "name": "seiteneffekt-radar",
   "trigger": "/blast",
   "description": "Kombiniert statische Referenz-Suche mit historischer Co-Change-Analyse zu einem risikogestuften Blast-Radius-Report. Trigger: /blast",
-  "claim": "Kleiner Change, grosse Ueberraschung? Nicht mehr.",
+  "claim": "Kleiner Change, große Überraschung? Nicht mehr.",
   "short": "Kombiniert statische Referenz-Suche mit historischer Co-Change-Analyse zu einem risikogestuften Blast-Radius-Report.",
-  "long": "Was wirklich zusammenhaengt, zeigt oft nicht der Import-Graph, sondern die Git-Historie: Dateien, die immer gemeinsam geaendert wurden. seiteneffekt-radar verschmilzt beides zu einem Report mit Risikostufen und konkreten Pruefempfehlungen vor jedem riskanten Change.",
+  "long": "Was wirklich zusammenhängt, zeigt oft nicht der Import-Graph, sondern die Git-Historie: Dateien, die immer gemeinsam geändert wurden. seiteneffekt-radar verschmilzt beides zu einem Report mit Risikostufen und konkreten Prüfempfehlungen vor jedem riskanten Change.",
   "terms": {
     "usecase": [
       "release-absichern"

@@ -39,6 +39,43 @@ test('assertAllowedTarget allows a normal external directory', () => {
   assert.doesNotThrow(() => assertAllowedTarget(target, FIXTURE_ROOT));
 });
 
+// A1: On Windows the filesystem is case-insensitive - the guard must reject
+// every casing of ~/.claude, not just the exact one. This is the gap the
+// original 12 tests + Rot-Probe missed (Review-Befund A1).
+test('assertAllowedTarget rejects ~/.claude in every casing (A1)', (t) => {
+  if (process.platform !== 'win32') {
+    t.skip('case-insensitivity only applies to Windows filesystems');
+    return;
+  }
+  const base = (process.env.USERPROFILE || os.homedir());
+  const variants = [
+    path.join(base, '.claude', 'skills', 'x'),
+    path.join(base.toUpperCase(), '.claude', 'skills', 'x'),
+    path.join(base, '.CLAUDE', 'skills', 'x'),
+    path.join(base, '.claude', 'skills', 'x').toLowerCase(),
+    path.join(base, '.Claude', 'Skills', 'X'),
+  ];
+  for (const v of variants) {
+    assert.throws(() => assertAllowedTarget(v, FIXTURE_ROOT), InstallError, `Variante nicht blockiert: ${v}`);
+  }
+});
+
+test('assertAllowedTarget rejects the AGENTS root in every casing (A1)', (t) => {
+  if (process.platform !== 'win32') {
+    t.skip('case-insensitivity only applies to Windows filesystems');
+    return;
+  }
+  const variants = [
+    FIXTURE_ROOT,
+    FIXTURE_ROOT.toUpperCase(),
+    FIXTURE_ROOT.toLowerCase(),
+    path.join(FIXTURE_ROOT.toUpperCase(), 'DEMO-SKILL-A'),
+  ];
+  for (const v of variants) {
+    assert.throws(() => assertAllowedTarget(v, FIXTURE_ROOT), InstallError, `Variante nicht blockiert: ${v}`);
+  }
+});
+
 test('install() rejects a target directory that does not exist', () => {
   const target = path.join(tmpTarget(), 'does-not-exist-yet');
   assert.throws(
@@ -84,6 +121,38 @@ test('install() rejects a skill without a source folder (planned, not yet built)
     () => install({ skillName: 'demo-skill-c', targetPath: target, rootDir: FIXTURE_ROOT }),
     (err) => err instanceof InstallError && err.code === 'NO_SOURCE'
   );
+});
+
+// A3: a failing overwrite-reinstall must restore the previous, working version -
+// never leave the user with an empty folder.
+test('install() overwrite restores the previous version when the copy fails (A3)', (t) => {
+  const target = tmpTarget();
+  install({ skillName: 'demo-skill-a', targetPath: target, rootDir: FIXTURE_ROOT });
+  const skillsDir = path.join(target, '.claude', 'skills');
+  const destDir = path.join(skillsDir, 'demo-skill-a');
+  const marker = path.join(destDir, 'MY-LOCAL-EDIT.txt');
+  fs.writeFileSync(marker, 'user work'); // prove the OLD version survives
+
+  t.mock.method(fs, 'cpSync', () => { throw new Error('simulated disk full'); });
+
+  assert.throws(
+    () => install({ skillName: 'demo-skill-a', targetPath: target, rootDir: FIXTURE_ROOT, overwrite: true }),
+    (err) => err instanceof InstallError && err.code === 'COPY_FAILED'
+  );
+
+  assert.ok(fs.existsSync(path.join(destDir, 'SKILL.md')), 'old SKILL.md must be restored');
+  assert.ok(fs.existsSync(marker), 'the user edit must survive a failed reinstall');
+  const leftoverBackups = fs.readdirSync(skillsDir).filter((n) => n.includes('.bak-'));
+  assert.deepEqual(leftoverBackups, [], 'no leftover backup dir');
+});
+
+test('install() overwrite removes the backup on success (A3)', () => {
+  const target = tmpTarget();
+  install({ skillName: 'demo-skill-a', targetPath: target, rootDir: FIXTURE_ROOT });
+  install({ skillName: 'demo-skill-a', targetPath: target, rootDir: FIXTURE_ROOT, overwrite: true });
+  const skillsDir = path.join(target, '.claude', 'skills');
+  const leftoverBackups = fs.readdirSync(skillsDir).filter((n) => n.includes('.bak-'));
+  assert.deepEqual(leftoverBackups, [], 'a successful reinstall must leave no backup dir behind');
 });
 
 test('verifyInstalledCopy rolls back and throws on hash mismatch', () => {

@@ -19,18 +19,7 @@
 <body>
   <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um den Berater zu laden.</div></noscript>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Skill-Shop</a>
-      <nav class="nav-links">
-        <a href="katalog.html">Katalog</a>
-        <a href="berater.html">Berater</a>
-        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
-        <a href="bibliothek.html">Bibliothek</a>
-        <a href="merkliste.html">Merkliste</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
   <div class="container advisor-box" style="padding: 40px 0 64px;">
     <h1>Berater</h1>
@@ -41,6 +30,7 @@
     <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
   </footer>
 
+  <script src="shop-core.js"></script>
   <script src="app.js"></script>
   <script>
     const STEPS = ['q1', 'q2', 'q3'];
@@ -51,7 +41,7 @@
     function renderQuestion(qKey) {
       const q = rules[qKey];
       const app = document.getElementById('advisor-app');
-      const skipHint = q.required ? '' : `<p class="hint-text"><button class="btn secondary" id="skip-btn" type="button">Ueberspringen</button></p>`;
+      const skipHint = q.required ? '' : `<p class="hint-text"><button class="btn secondary" id="skip-btn" type="button">Überspringen</button></p>`;
       app.innerHTML = `
         <p class="advisor-progress">Schritt ${step + 1} von ${STEPS.length}</p>
         <h2>${Shop.escapeHtml(q.question)}</h2>
@@ -122,7 +112,7 @@
               <div class="card-badges">${Shop.statusBadge(r.status)}${r.wouldFitButTouches ? '<span class="badge risk-write">fasst an</span>' : ''}</div>
             </div>
           `).join('')}</div>`
-        : '<p class="empty-state">Fuer diese Kombination gibt es aktuell keine Empfehlung.</p>';
+        : '<p class="empty-state">Für diese Kombination gibt es aktuell keine Empfehlung.</p>';
 
       app.innerHTML = `
         ${result.fallbackNotice ? `<p class="hint-text">${Shop.escapeHtml(result.fallbackNotice)}</p>` : ''}

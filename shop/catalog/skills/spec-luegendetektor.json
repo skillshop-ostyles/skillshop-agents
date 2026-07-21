@@ -2,9 +2,9 @@
   "name": "spec-luegendetektor",
   "trigger": "/spec-check",
   "description": "Findet Widersprueche, Luecken, Ambiguitaeten und nicht testbare Aussagen in Specs und Tickets - mit Zitat und Klaerungsfrage. Trigger: /spec-check",
-  "claim": "Bevor du das Falsche baust: die Spec haelt der Wahrheit stand?",
-  "short": "Findet Widersprueche, Luecken, Ambiguitaeten und nicht testbare Aussagen in Specs und Tickets - mit Zitat und Klaerungsfrage.",
-  "long": "Anforderungen widersprechen sich ueber 40 Seiten hinweg, und niemand merkt es. spec-luegendetektor liest das gesamte Korpus in einem Zug und liefert pro Fund: Kategorie, Severity, woertliches Zitat mit Fundstelle und eine kopierfertige Klaerungsfrage an den Product Owner.",
+  "claim": "Bevor du das Falsche baust: die Spec hält der Wahrheit stand?",
+  "short": "Findet Widersprüche, Lücken, Ambiguitäten und nicht testbare Aussagen in Specs und Tickets - mit Zitat und Klärungsfrage.",
+  "long": "Anforderungen widersprechen sich über 40 Seiten hinweg, und niemand merkt es. spec-luegendetektor liest das gesamte Korpus in einem Zug und liefert pro Fund: Kategorie, Severity, wörtliches Zitat mit Fundstelle und eine kopierfertige Klärungsfrage an den Product Owner.",
   "terms": {
     "usecase": [
       "release-absichern"

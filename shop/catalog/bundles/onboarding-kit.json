@@ -2,7 +2,11 @@
   "id": "onboarding-kit",
   "title": "Onboarding-Kit",
   "claim": "Neue Devs in Tagen produktiv statt in Wochen orientierungslos.",
-  "story": "Onboarding scheitert an drei stillen Problemen: keiner weiss, wo man anfangen soll, das Vokabular widerspricht sich, und die Doku luegt seit Monaten. Dieses Bundle gibt neuen Teammitgliedern eine gefuehrte Tour, ein konsistentes Glossar und eine verifizierte Doku - alles auf einmal.",
-  "skills": ["onboarding-pfadfinder", "vokabular-waechter", "doku-drift-detektor"],
+  "story": "Onboarding scheitert an drei stillen Problemen: keiner weiß, wo man anfangen soll, das Vokabular widerspricht sich, und die Doku lügt seit Monaten. Dieses Bundle gibt neuen Teammitgliedern eine geführte Tour, ein konsistentes Glossar und eine verifizierte Doku - alles auf einmal.",
+  "skills": [
+    "onboarding-pfadfinder",
+    "vokabular-waechter",
+    "doku-drift-detektor"
+  ],
   "priceTier": "bundle"
 }

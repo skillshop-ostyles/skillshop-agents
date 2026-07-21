@@ -1,32 +1,30 @@
 'use strict';
 
 // Shared helpers for all shop pages. Plain script (no build step, no framework).
-// Every page mounts itself from the URL - the URL is the only state that matters
-// (SHOP-BIBEL-Sprint-22: "kein SPA-State").
+// Reine, DOM-freie Logik liegt in shop-core.js (dort auch getestet); app.js macht
+// nur das DOM-nahe Drumherum: Header rendern, Theme, Karten, Warenkorb-UI.
 window.Shop = (function () {
-  const DIMENSIONS = ['usecase', 'thema', 'stichwort', 'ziel', 'branche', 'taetigkeit', 'level', 'risiko'];
+  const Core = window.ShopCore;
+
+  const DIMENSIONS = Core.DIMENSIONS;
   const DIMENSION_LABELS = {
     usecase: 'Usecase',
     thema: 'Thema',
     stichwort: 'Stichwort',
     ziel: 'Ziel',
     branche: 'Branche',
-    taetigkeit: 'Taetigkeit',
+    taetigkeit: 'Tätigkeit',
     level: 'Level',
     risiko: 'Risiko',
   };
 
-  function escapeHtml(str) {
-    return String(str).replace(/[&<>"']/g, (c) => ({
-      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
-    })[c]);
-  }
+  const escapeHtml = Core.escapeHtml;
 
   async function fetchJson(url) {
     const res = await fetch(url);
     if (res.status === 503) {
       const body = await res.json().catch(() => ({}));
-      throw new Error(body.error || 'Datenbank nicht verfuegbar');
+      throw new Error(body.error || 'Datenbank nicht verfügbar');
     }
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
@@ -37,8 +35,8 @@ window.Shop = (function () {
 
   function statusBadge(status) {
     return status === 'verfuegbar'
-      ? '<span class="badge status-ok">verfuegbar</span>'
-      : '<span class="badge status-soon">bald verfuegbar</span>';
+      ? '<span class="badge status-ok">verfügbar</span>'
+      : '<span class="badge status-soon">bald verfügbar</span>';
   }
 
   function riskBadge(risk) {
@@ -51,11 +49,10 @@ window.Shop = (function () {
   }
 
   // Preis nur rendern, wenn das Pricing-Feature-Flag serverseitig aktiv ist -
-  // die API liefert das `price`-Feld dann ueberhaupt erst (Sprint 25).
+  // die API liefert das `price`-Feld dann überhaupt erst (Sprint 25).
   function priceLabel(price) {
-    if (!price) return '';
-    const amount = price.amountCents === 0 ? 'kostenlos' : `${(price.amountCents / 100).toFixed(2)} ${price.currency}`;
-    return `<span class="badge status-ok">${escapeHtml(amount)}</span>`;
+    const text = Core.formatPrice(price);
+    return text ? `<span class="badge status-ok">${escapeHtml(text)}</span>` : '';
   }
 
   function card(skill) {
@@ -77,7 +74,7 @@ window.Shop = (function () {
         <h3>${escapeHtml(bundle.title)}</h3>
         <p class="claim">${escapeHtml(bundle.claim)}</p>
         <div class="card-badges">
-          <span class="badge status-ok">${bundle.status.verfuegbar} von ${bundle.status.total} verfuegbar</span>
+          <span class="badge status-ok">${bundle.status.verfuegbar} von ${bundle.status.total} verfügbar</span>
           ${priceLabel(bundle.price)}
         </div>
       </a>
@@ -101,9 +98,74 @@ window.Shop = (function () {
     return qs ? `${base}?${qs}` : base;
   }
 
+  // ---------- Theme (D4: Hell/Dunkel/System, im localStorage, live umschaltbar) ----------
+
+  const THEME_KEY = 'shop-theme';
+  const THEMES = ['system', 'light', 'dark'];
+  const THEME_LABEL = { system: 'System', light: 'Hell', dark: 'Dunkel' };
+
+  function getTheme() {
+    try { return window.localStorage.getItem(THEME_KEY) || 'system'; } catch (e) { return 'system'; }
+  }
+  function applyTheme(t) {
+    const html = document.documentElement;
+    if (t === 'system') html.removeAttribute('data-theme');
+    else html.setAttribute('data-theme', t);
+  }
+  function setTheme(t) {
+    try { window.localStorage.setItem(THEME_KEY, t); } catch (e) { /* ignore */ }
+    applyTheme(t);
+    updateThemeToggleLabel();
+  }
+  function cycleTheme() {
+    const next = THEMES[(THEMES.indexOf(getTheme()) + 1) % THEMES.length];
+    setTheme(next);
+  }
+  function updateThemeToggleLabel() {
+    const b = document.getElementById('theme-toggle');
+    if (b) b.textContent = `Design: ${THEME_LABEL[getTheme()]}`;
+  }
+
+  // ---------- Kopfzeile (C1: EINE Quelle statt 8x kopiertem HTML) ----------
+
+  const NAV = [
+    { href: 'katalog.html', label: 'Katalog' },
+    { href: 'berater.html', label: 'Berater' },
+    { href: 'warenkorb.html', label: 'Warenkorb', cart: true },
+    { href: 'bibliothek.html', label: 'Bibliothek' },
+    { href: 'merkliste.html', label: 'Merkliste' },
+  ];
+
+  function currentPage() {
+    return window.location.pathname.split('/').pop() || 'index.html';
+  }
+
+  function renderHeader() {
+    const host = document.getElementById('site-header');
+    if (!host) return;
+    const active = currentPage();
+    const links = NAV.map((n) => {
+      const isActive = n.href === active ? ' aria-current="page"' : '';
+      const label = n.cart ? `${n.label} (<span id="cart-count">0</span>)` : n.label;
+      return `<a href="${n.href}"${isActive}>${label}</a>`;
+    }).join('');
+    host.className = 'site-header';
+    host.innerHTML = `
+      <div class="container">
+        <a class="brand" href="index.html">Skill-Shop</a>
+        <nav class="nav-links">
+          ${links}
+          <button type="button" id="theme-toggle" class="btn secondary theme-toggle"></button>
+        </nav>
+      </div>`;
+    document.getElementById('theme-toggle').addEventListener('click', cycleTheme);
+    updateThemeToggleLabel();
+    cart.updateBadge();
+  }
+
   // ---------- Warenkorb (localStorage, robust gegen vollen/defekten Storage) ----------
-  // Eintraege sind { name, fromBundle } - fromBundle ist der Bundle-Slug, falls der
-  // Skill ueber "Bundle in den Warenkorb" hinzugefuegt wurde, sonst null.
+  // Einträge sind { name, fromBundle } - fromBundle ist der Bundle-Slug, falls der
+  // Skill über "Bundle in den Warenkorb" hinzugefügt wurde, sonst null.
 
   const CART_KEY = 'shop-cart';
 
@@ -111,20 +173,16 @@ window.Shop = (function () {
     get() {
       try {
         const raw = window.localStorage.getItem(CART_KEY);
-        const parsed = raw ? JSON.parse(raw) : [];
-        if (!Array.isArray(parsed)) return [];
-        // Alte Korb-Eintraege (Sprint 23, reine Namens-Strings) mitnehmen statt zu verlieren.
-        return parsed.map((entry) => (typeof entry === 'string' ? { name: entry, fromBundle: null } : entry));
+        return Core.normalizeCartEntries(raw ? JSON.parse(raw) : []);
       } catch (err) {
         return [];
       }
     },
     set(entries) {
       try {
-        const byName = new Map(entries.map((e) => [e.name, e]));
-        window.localStorage.setItem(CART_KEY, JSON.stringify([...byName.values()]));
+        window.localStorage.setItem(CART_KEY, JSON.stringify(Core.dedupeCartEntries(entries)));
       } catch (err) {
-        // localStorage voll/deaktiviert - Korb bleibt fuer diese Session leer statt zu crashen.
+        // localStorage voll/deaktiviert - Korb bleibt für diese Session leer statt zu crashen.
       }
     },
     add(name, fromBundle = null) {
@@ -161,11 +219,14 @@ window.Shop = (function () {
     },
   };
 
+  // Theme sofort anwenden (vor DOMContentLoaded), damit kein Flash entsteht.
+  applyTheme(getTheme());
+
   return {
     DIMENSIONS, DIMENSION_LABELS, escapeHtml, fetchJson,
     statusBadge, riskBadge, triggerChip, priceLabel, card, bundleCard, renderShelf,
-    currentParams, apiUrlFromParams, cart,
+    currentParams, apiUrlFromParams, cart, renderHeader, sumPrices: Core.sumPrices, formatPrice: Core.formatPrice,
   };
 })();
 
-document.addEventListener('DOMContentLoaded', () => window.Shop.cart.updateBadge());
+document.addEventListener('DOMContentLoaded', () => window.Shop.renderHeader());

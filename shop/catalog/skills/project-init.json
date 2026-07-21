@@ -1,18 +1,37 @@
 {
   "name": "project-init",
-  "claim": "Ein leeres Verzeichnis, ein gutes Gespraech, ein fertiges Fundament.",
-  "short": "Fuehrt ein interaktives Onboarding-Interview und scaffoldet ein neues Projekt komplett - Struktur, Tooling, ops-Doku.",
-  "long": "Statt ein leeres Repo zu erraten, fragt project-init gezielt nach Ziel, Stack, Struktur, Tooling, Docs, Secrets und Plattform - und schreibt daraus ein vollstaendiges, konsistentes Grundgeruest inklusive manifest.md und tracking.md, das jede spaetere Session automatisch wieder einliest.",
+  "claim": "Ein leeres Verzeichnis, ein gutes Gespräch, ein fertiges Fundament.",
+  "short": "Führt ein interaktives Onboarding-Interview und scaffoldet ein neues Projekt komplett - Struktur, Tooling, ops-Doku.",
+  "long": "Statt ein leeres Repo zu erraten, fragt project-init gezielt nach Ziel, Stack, Struktur, Tooling, Docs, Secrets und Plattform - und schreibt daraus ein vollständiges, konsistentes Grundgerüst inklusive manifest.md und tracking.md, das jede spätere Session automatisch wieder einliest.",
   "terms": {
-    "usecase": ["neu-starten"],
-    "thema": ["doku"],
-    "stichwort": ["config"],
-    "ziel": ["zeit-sparen"],
-    "branche": ["alle"],
-    "taetigkeit": ["entwickeln", "architektur"],
-    "level": ["alle"],
-    "risiko": ["schreibend-mit-freigabe"]
+    "usecase": [
+      "neu-starten"
+    ],
+    "thema": [
+      "doku"
+    ],
+    "stichwort": [
+      "config"
+    ],
+    "ziel": [
+      "zeit-sparen"
+    ],
+    "branche": [
+      "alle"
+    ],
+    "taetigkeit": [
+      "entwickeln",
+      "architektur"
+    ],
+    "level": [
+      "alle"
+    ],
+    "risiko": [
+      "schreibend-mit-freigabe"
+    ]
   },
   "priceTier": "single",
-  "related": ["elevate"]
+  "related": [
+    "elevate"
+  ]
 }

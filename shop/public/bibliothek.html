@@ -14,22 +14,11 @@
 <body>
   <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um die Bibliothek zu laden.</div></noscript>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Skill-Shop</a>
-      <nav class="nav-links">
-        <a href="katalog.html">Katalog</a>
-        <a href="berater.html">Berater</a>
-        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
-        <a href="bibliothek.html">Bibliothek</a>
-        <a href="merkliste.html">Merkliste</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
   <div class="container" style="padding: 32px 0 64px;">
     <h1>Bibliothek</h1>
-    <p class="hint-text">Der Shop installiert nur additiv. Einen Skill wieder zu entfernen, machst du direkt im Zielprojekt (Ordner unter <code>.claude/skills/</code> loeschen) — der Shop raeumt dort nichts automatisch weg.</p>
+    <p class="hint-text">Der Shop installiert nur additiv. Einen Skill wieder zu entfernen, machst du direkt im Zielprojekt (Ordner unter <code>.claude/skills/</code> löschen) — der Shop räumt dort nichts automatisch weg.</p>
     <div id="targets"></div>
   </div>
 
@@ -37,16 +26,17 @@
     <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
   </footer>
 
+  <script src="shop-core.js"></script>
   <script src="app.js"></script>
   <script>
     function statusCell(skill) {
       if (!skill.present) return '<span class="badge uncurated">entfernt (manuell)</span>';
-      if (skill.updateAvailable) return '<span class="badge status-soon">Update verfuegbar</span>';
+      if (skill.updateAvailable) return '<span class="badge status-soon">Update verfügbar</span>';
       return '<span class="badge status-ok">aktuell</span>';
     }
 
     async function reinstall(targetPath, skillName, button) {
-      const ok = window.confirm(`'${skillName}' in '${targetPath}' neu installieren? Lokale Aenderungen an diesem Skill-Ordner gehen dabei verloren.`);
+      const ok = window.confirm(`'${skillName}' in '${targetPath}' neu installieren? Lokale Änderungen an diesem Skill-Ordner gehen dabei verloren.`);
       if (!ok) return;
       button.disabled = true;
       button.textContent = 'Installiere...';
@@ -82,7 +72,7 @@
       }
 
       if (library.length === 0) {
-        container.innerHTML = '<p class="empty-state">Noch nichts installiert. <a href="katalog.html">Stoebere im Katalog</a>.</p>';
+        container.innerHTML = '<p class="empty-state">Noch nichts installiert. <a href="katalog.html">Stöbere im Katalog</a>.</p>';
         return;
       }
 

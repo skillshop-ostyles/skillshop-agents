@@ -16,13 +16,26 @@ function bundleRow(db, row, pricingEnabled) {
     .all(row.id);
   attachTerms(db, skills);
   const verfuegbar = skills.filter((s) => s.status === 'verfuegbar').length;
+
+  // C2: alle Skill-Preise dieses Bundles in EINER Query holen (statt getPrice
+  // pro Skill = N+1), per Map an skillToJson durchreichen.
+  let priceMap;
+  if (pricingEnabled && skills.length > 0) {
+    priceMap = new Map();
+    const placeholders = skills.map(() => '?').join(', ');
+    const rows = db
+      .prepare(`SELECT ref_id, tier, amount_cents AS amountCents, currency FROM prices WHERE ref_type = 'skill' AND ref_id IN (${placeholders})`)
+      .all(...skills.map((s) => s.id));
+    for (const p of rows) priceMap.set(p.ref_id, { tier: p.tier, amountCents: p.amountCents, currency: p.currency });
+  }
+
   const json = {
     slug: row.slug,
     title: row.title,
     claim: row.claim,
     story: row.story,
     priceTier: row.price_tier,
-    skills: skills.map((s) => skillToJson(s, { db, pricingEnabled })),
+    skills: skills.map((s) => skillToJson(s, { db, pricingEnabled, priceMap })),
     status: { verfuegbar, total: skills.length },
   };
   if (pricingEnabled) {

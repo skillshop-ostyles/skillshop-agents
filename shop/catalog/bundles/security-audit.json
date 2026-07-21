@@ -1,8 +1,13 @@
 {
   "id": "security-audit",
   "title": "Security-Audit",
-  "claim": "Angriffsflaeche, Datenfluesse und Resilienz - in einem Zug geprueft, nicht in drei separaten Projekten.",
-  "story": "Vor einem Security-Review oder Compliance-Audit fehlt meist die Zeit, alles Einzelne zu pruefen. Dieses Bundle deckt die vier Fragen ab, die ein Audit garantiert stellt: Wer darf was, wo fliessen personenbezogene Daten hin, welche Konfiguration ist verwaist oder gefaehrlich, und was passiert bei einem Ausfall - alles statisch, alles mit Beleg.",
-  "skills": ["berechtigungs-roentgen", "datenspuren-verfolger", "konfig-kartograf", "ausfall-simulant"],
+  "claim": "Angriffsfläche, Datenflüsse und Resilienz - in einem Zug geprüft, nicht in drei separaten Projekten.",
+  "story": "Vor einem Security-Review oder Compliance-Audit fehlt meist die Zeit, alles Einzelne zu prüfen. Dieses Bundle deckt die vier Fragen ab, die ein Audit garantiert stellt: Wer darf was, wo fließen personenbezogene Daten hin, welche Konfiguration ist verwaist oder gefährlich, und was passiert bei einem Ausfall - alles statisch, alles mit Beleg.",
+  "skills": [
+    "berechtigungs-roentgen",
+    "datenspuren-verfolger",
+    "konfig-kartograf",
+    "ausfall-simulant"
+  ],
   "priceTier": "bundle"
 }

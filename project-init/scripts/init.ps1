@@ -20,7 +20,10 @@ function Normalize($p) {
 $claudeRoot = Normalize (Join-Path $env:USERPROFILE '.claude')
 $targetPath = Normalize $ProjectDir
 
-if ($targetPath -eq $claudeRoot -or $targetPath.StartsWith("$claudeRoot\")) {
+# StartsWith case-insensitiv (OrdinalIgnoreCase): NTFS ist case-insensitiv, sonst
+# wuerde C:\USERS\...\.claude den Guard umgehen (Review-Befund A2). -eq ist in
+# PowerShell bereits case-insensitiv.
+if ($targetPath -eq $claudeRoot -or $targetPath.StartsWith("$claudeRoot\", [System.StringComparison]::OrdinalIgnoreCase)) {
     Write-Error "SCHUTZ: ProjectDir liegt unter $claudeRoot. Das Verzeichnis C:\Users\ostol\.claude\ darf NIEMALS veraendert werden. Abbruch."
     exit 1
 }

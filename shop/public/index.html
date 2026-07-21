@@ -9,22 +9,11 @@
 <body>
   <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um Produkte zu laden. Navigation per Link funktioniert trotzdem.</div></noscript>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Skill-Shop</a>
-      <nav class="nav-links">
-        <a href="katalog.html">Katalog</a>
-        <a href="berater.html">Berater</a>
-        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
-        <a href="bibliothek.html">Bibliothek</a>
-        <a href="merkliste.html">Merkliste</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
   <section class="hero container">
     <h1>Skill is the hero.</h1>
-    <p class="subline">Marktplatz und Fachgeschaeft fuer Claude-Code-Skills — einzeln oder im Bundle.</p>
+    <p class="subline">Marktplatz und Fachgeschäft für Claude-Code-Skills — einzeln oder im Bundle.</p>
     <form class="search-form" id="search-form">
       <input type="search" name="q" placeholder="Wonach suchst du? z. B. &quot;git&quot;, &quot;dsgvo&quot;, &quot;breaking change&quot;" aria-label="Suche" />
       <button type="submit">Suchen</button>
@@ -38,6 +27,7 @@
     <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
   </footer>
 
+  <script src="shop-core.js"></script>
   <script src="app.js"></script>
   <script>
     document.getElementById('search-form').addEventListener('submit', (e) => {

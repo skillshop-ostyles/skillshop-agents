@@ -2,9 +2,9 @@
   "name": "repro-automat",
   "trigger": "/repro",
   "description": "Verwandelt einen vagen Bug-Report in einen minimalen, ausgefuehrten Repro-Test - oder eine praezise Liste fehlender Infos. Trigger: /repro",
-  "claim": "\"Geht nicht\" ist keine Antwort. Ein lauffaehiges Repro schon.",
-  "short": "Verwandelt einen vagen Bug-Report in einen minimalen, ausgefuehrten Repro-Test - oder eine praezise Liste fehlender Infos.",
-  "long": "Zwischen Bug-Report und Repro liegen sonst Stunden. repro-automat extrahiert Hypothesen, generiert ein Repro-Artefakt ausserhalb des Zielprojekts, FUEHRT es aus und iteriert bis zu fuenfmal, bis der Fehler nachweislich reproduziert ist - mit woertlichem Lauf-Output als Beleg.",
+  "claim": "\"Geht nicht\" ist keine Antwort. Ein lauffähiges Repro schon.",
+  "short": "Verwandelt einen vagen Bug-Report in einen minimalen, ausgeführten Repro-Test - oder eine präzise Liste fehlender Infos.",
+  "long": "Zwischen Bug-Report und Repro liegen sonst Stunden. repro-automat extrahiert Hypothesen, generiert ein Repro-Artefakt außerhalb des Zielprojekts, FÜHRT es aus und iteriert bis zu fünfmal, bis der Fehler nachweislich reproduziert ist - mit wörtlichem Lauf-Output als Beleg.",
   "terms": {
     "usecase": [
       "incident-aufklaeren"

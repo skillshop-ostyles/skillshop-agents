@@ -4,7 +4,7 @@
   "description": "Rekonstruiert die Absichts-Geschichte einer Datei aus Git-Historie, Blame und Ticket-IDs - mit Commit-Belegen. Trigger: /intent",
   "claim": "Warum existiert dieser Code? Dein Repo erinnert sich.",
   "short": "Rekonstruiert die Absichts-Geschichte einer Datei aus Git-Historie, Blame und Ticket-IDs - mit Commit-Belegen.",
-  "long": "Nach Jahren weiss niemand mehr, warum eine Funktion so gebaut ist. intent-archaeologie mint git log, blame und Ticket-Referenzen zu einer kohaerenten Warum-Geschichte mit Phasen, Auffaelligkeiten und Konfidenz-Stufen - jede Aussage mit Commit-Beleg.",
+  "long": "Nach Jahren weiß niemand mehr, warum eine Funktion so gebaut ist. intent-archaeologie mint git log, blame und Ticket-Referenzen zu einer kohärenten Warum-Geschichte mit Phasen, Auffälligkeiten und Konfidenz-Stufen - jede Aussage mit Commit-Beleg.",
   "terms": {
     "usecase": [
       "legacy-verstehen"

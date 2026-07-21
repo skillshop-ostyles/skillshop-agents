@@ -3,8 +3,8 @@
   "trigger": "/failsim",
   "description": "Denkt Fehlerpfade je Ausfallszenario statisch zu Ende: robust, degradiert, still, Absturz oder Haenger - ohne Chaos-Engineering. Trigger: /failsim",
   "claim": "\"Was passiert, wenn die DB weg ist?\" - die Antwort kennt jetzt jemand.",
-  "short": "Denkt Fehlerpfade je Ausfallszenario statisch zu Ende: robust, degradiert, still, Absturz oder Haenger - ohne Chaos-Engineering.",
-  "long": "Resilienz-Wissen ist sonst nur Erinnerung an vergangene Incidents. ausfall-simulant inventarisiert jeden externen Beruehrungspunkt und simuliert ein gewaehltes Ausfallszenario gedanklich - mit Klassifikation je Stelle und priorisierten Haertungs-Empfehlungen. Nichts wird jemals abgeschaltet.",
+  "short": "Denkt Fehlerpfade je Ausfallszenario statisch zu Ende: robust, degradiert, still, Absturz oder Hänger - ohne Chaos-Engineering.",
+  "long": "Resilienz-Wissen ist sonst nur Erinnerung an vergangene Incidents. ausfall-simulant inventarisiert jeden externen Berührungspunkt und simuliert ein gewähltes Ausfallszenario gedanklich - mit Klassifikation je Stelle und priorisierten Härtungs-Empfehlungen. Nichts wird jemals abgeschaltet.",
   "terms": {
     "usecase": [
       "audit-vorbereiten",

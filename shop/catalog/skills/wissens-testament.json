@@ -3,8 +3,8 @@
   "trigger": "/testament",
   "description": "Mint Git-Ownership, um zu finden, wo das Alleinwissen einer Person steckt, und fuehrt darauf ein gezieltes Uebergabe-Interview. Trigger: /testament",
   "claim": "Wenn der Kopf mit dem Wissen geht, muss das Wissen vorher raus.",
-  "short": "Mint Git-Ownership, um zu finden, wo das Alleinwissen einer Person steckt, und fuehrt darauf ein gezieltes Uebergabe-Interview.",
-  "long": "Klassische Uebergabe-Doku scheitert, weil der Gehende nicht weiss, was er alles weiss. wissens-testament findet ueber Blame-Hotspots und Alleinbesitz-Analyse genau die kritischen Stellen und stellt die Fragen, die sonst niemand zu stellen wuesste - Ergebnis ist ein strukturiertes, code-verlinktes Testament.",
+  "short": "Mint Git-Ownership, um zu finden, wo das Alleinwissen einer Person steckt, und führt darauf ein gezieltes Übergabe-Interview.",
+  "long": "Klassische Übergabe-Doku scheitert, weil der Gehende nicht weiß, was er alles weiß. wissens-testament findet über Blame-Hotspots und Alleinbesitz-Analyse genau die kritischen Stellen und stellt die Fragen, die sonst niemand zu stellen wüsste - Ergebnis ist ein strukturiertes, code-verlinktes Testament.",
   "terms": {
     "usecase": [
       "onboarding",

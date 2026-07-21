@@ -9,18 +9,7 @@
 <body>
   <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um den Katalog zu laden.</div></noscript>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Skill-Shop</a>
-      <nav class="nav-links">
-        <a href="katalog.html">Katalog</a>
-        <a href="berater.html">Berater</a>
-        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
-        <a href="bibliothek.html">Bibliothek</a>
-        <a href="merkliste.html">Merkliste</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
   <div class="container katalog-layout">
     <aside class="facets" id="facets">
@@ -41,6 +30,7 @@
     <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
   </footer>
 
+  <script src="shop-core.js"></script>
   <script src="app.js"></script>
   <script>
     const DIM_LABELS = Shop.DIMENSION_LABELS;
@@ -93,9 +83,11 @@
         if (terms.length === 0) return '';
         const selectedForDim = selected[dim] || [];
         const isOpen = selectedForDim.length > 0 ? 'open' : '';
-        const labels = terms.map((t) => {
+        const labels = terms.map((t, i) => {
           const checked = selectedForDim.includes(t.term) ? 'checked' : '';
-          const id = `f-${dim}-${t.term}`;
+          // C3: index-basierte id statt Term-Interpolation - konsistent zur sonst
+          // strikten escapeHtml-Disziplin, keine Sonderzeichen in der id.
+          const id = `f-${dim}-${i}`;
           return `
             <label for="${id}">
               <input type="checkbox" id="${id}" data-dim="${dim}" data-term="${Shop.escapeHtml(t.term)}" ${checked} />
@@ -132,7 +124,7 @@
     function renderGrid(skills) {
       const el = document.getElementById('card-grid');
       if (skills.length === 0) {
-        el.outerHTML = '<div class="empty-state" id="card-grid">Keine Treffer. Filter anpassen oder Suchbegriff aendern.</div>';
+        el.outerHTML = '<div class="empty-state" id="card-grid">Keine Treffer. Filter anpassen oder Suchbegriff ändern.</div>';
         return;
       }
       el.innerHTML = skills.map(Shop.card).join('');

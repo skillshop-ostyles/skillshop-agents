@@ -189,6 +189,71 @@ test('POST /api/library/reinstall rejects a target that is not in the library ye
   }
 });
 
+// B1: a checkout in which every item fails must NOT leave an empty order behind.
+test('B1: a fully-failed checkout creates no phantom order', async () => {
+  const { base, close, dbPath } = await importedServer();
+  const target = tmpDir('shop-checkout-target-');
+  try {
+    // First checkout succeeds -> exactly 1 order.
+    await postJson(base, '/api/checkout', { targetPath: target, items: ['demo-skill-a'] });
+    // Second checkout of the same skill hits EXISTS for the sole item -> all fail.
+    const { body } = await postJson(base, '/api/checkout', { targetPath: target, items: ['demo-skill-a'] });
+    assert.equal(body.installed.length, 0);
+    assert.equal(body.failed.length, 1);
+    assert.equal(body.license, null);
+
+    const db = openDb(dbPath);
+    const orderCount = db.prepare('SELECT COUNT(*) AS n FROM orders').get().n;
+    const emptyOrders = db.prepare('SELECT COUNT(*) AS n FROM orders o WHERE NOT EXISTS (SELECT 1 FROM order_items oi WHERE oi.order_id = o.id)').get().n;
+    db.close();
+    assert.equal(orderCount, 1, 'nur die erste, erfolgreiche Order darf existieren');
+    assert.equal(emptyOrders, 0, 'keine Order ohne Items');
+  } finally {
+    await close();
+  }
+});
+
+// B2: an orphaned install-target can be removed from the library (DB-only, never
+// touches the filesystem).
+test('B2: DELETE /api/library/target removes an orphaned target', async () => {
+  const { base, close } = await importedServer();
+  const target = tmpDir('shop-checkout-target-');
+  try {
+    await postJson(base, '/api/checkout', { targetPath: target, items: ['demo-skill-a'] });
+    let lib = await (await fetch(`${base}/api/library`)).json();
+    assert.equal(lib.length, 1);
+    const storedPath = lib[0].path;
+
+    const del = await fetch(`${base}/api/library/target`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ targetPath: storedPath }),
+    });
+    assert.equal(del.status, 200);
+
+    lib = await (await fetch(`${base}/api/library`)).json();
+    assert.deepEqual(lib, []);
+    // The installed files on disk must be untouched (DELETE is DB-only).
+    assert.ok(fs.existsSync(path.join(target, '.claude', 'skills', 'demo-skill-a', 'SKILL.md')));
+  } finally {
+    await close();
+  }
+});
+
+test('B2: DELETE /api/library/target on an unknown target returns 404', async () => {
+  const { base, close } = await importedServer();
+  try {
+    const del = await fetch(`${base}/api/library/target`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ targetPath: 'C:\\gibt\\es\\nicht' }),
+    });
+    assert.equal(del.status, 404);
+  } finally {
+    await close();
+  }
+});
+
 test('GET /api/library reports updateAvailable when the source folder changed after install', async () => {
   const { base, close, dbPath } = await importedServer();
   const target = tmpDir('shop-checkout-target-');

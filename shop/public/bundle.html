@@ -9,18 +9,7 @@
 <body>
   <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um Bundle-Daten zu laden.</div></noscript>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Skill-Shop</a>
-      <nav class="nav-links">
-        <a href="katalog.html">Katalog</a>
-        <a href="berater.html">Berater</a>
-        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
-        <a href="bibliothek.html">Bibliothek</a>
-        <a href="merkliste.html">Merkliste</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
   <div id="content"></div>
 
@@ -28,6 +17,7 @@
     <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
   </footer>
 
+  <script src="shop-core.js"></script>
   <script src="app.js"></script>
   <script>
     async function mount() {
@@ -70,7 +60,7 @@
 
           <section class="section">
             <h2>Enthaltene Skills</h2>
-            <p class="status-aggregate">${bundle.status.verfuegbar} von ${bundle.status.total} verfuegbar</p>
+            <p class="status-aggregate">${bundle.status.verfuegbar} von ${bundle.status.total} verfügbar</p>
             <div class="card-grid">${bundle.skills.map(Shop.card).join('')}</div>
           </section>
         </div>
@@ -91,7 +81,7 @@
         const hint = document.getElementById('bundle-hint');
         hint.style.display = 'inline';
         if (available.length === 0) {
-          hint.textContent = `Noch keiner der ${bundle.skills.length} Skills ist verfuegbar - alle auf die Merkliste gelegt.`;
+          hint.textContent = `Noch keiner der ${bundle.skills.length} Skills ist verfügbar - alle auf die Merkliste gelegt.`;
         } else if (pending.length === 0) {
           hint.textContent = `Alle ${available.length} Skills in den Warenkorb gelegt.`;
         } else {

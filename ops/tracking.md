@@ -31,6 +31,7 @@ Stand: 2026-07-21
 | 23 | shop-checkout-installer | fertig | 2026-07-21 | — |
 | 24 | shop-berater-bundles | fertig | 2026-07-21 | — |
 | 25 | shop-haertung | fertig | 2026-07-21 | — |
+| 26 | shop-perfektion | fertig | 2026-07-21 | — |
 
 Status-Werte: `offen` | `in Arbeit` | `fertig`. Pflege gemäß BIBEL § 5.
 

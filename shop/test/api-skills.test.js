@@ -2,7 +2,6 @@
 
 const test = require('node:test');
 const assert = require('node:assert/strict');
-const fs = require('node:fs');
 const path = require('node:path');
 
 const { tmpDbPath, withServer, withImportedDb } = require('./helpers');
@@ -50,6 +49,21 @@ test('GET /api/skills sorts verfuegbar before in-entwicklung, then alphabeticall
     const rows = await (await fetch(`${base}/api/skills`)).json();
     assert.deepEqual(rows.map((r) => r.name), ['demo-skill-a', 'demo-skill-b', 'demo-skill-c']);
     assert.deepEqual(rows.map((r) => r.status), ['verfuegbar', 'verfuegbar', 'in-entwicklung']);
+  } finally {
+    await close();
+  }
+});
+
+// D1: der im API-Contract spezifizierte status-Filter war ungetestet.
+test('GET /api/skills?status=verfuegbar returns only available skills', async () => {
+  const dbPath = withImportedDb(FIXTURE_ROOT, CATALOG_OK);
+  const { base, close } = await withServer({ dbPath });
+  try {
+    const rows = await (await fetch(`${base}/api/skills?status=verfuegbar`)).json();
+    assert.ok(rows.length > 0);
+    assert.ok(rows.every((r) => r.status === 'verfuegbar'), 'nur verfuegbare Skills');
+    const inDev = await (await fetch(`${base}/api/skills?status=in-entwicklung`)).json();
+    assert.ok(inDev.every((r) => r.status === 'in-entwicklung'));
   } finally {
     await close();
   }

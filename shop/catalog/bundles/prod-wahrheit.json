@@ -1,8 +1,12 @@
 {
   "id": "prod-wahrheit",
   "title": "Prod-Wahrheit",
-  "claim": "Was das System WIRKLICH tut - und was als Naechstes knallt.",
-  "story": "Zwischen dem, was der Code verspricht, und dem, was in Produktion passiert, klafft immer eine Luecke. Dieses Bundle schliesst sie aus drei Richtungen: was die Logs wirklich zeigen, was bei einem Ausfall wirklich passiert, und welche tickenden Zeitbomben im Code schon auf ihren Zuendtag warten.",
-  "skills": ["prod-spiegel", "ausfall-simulant", "zeitbomben-scanner"],
+  "claim": "Was das System WIRKLICH tut - und was als Nächstes knallt.",
+  "story": "Zwischen dem, was der Code verspricht, und dem, was in Produktion passiert, klafft immer eine Lücke. Dieses Bundle schließt sie aus drei Richtungen: was die Logs wirklich zeigen, was bei einem Ausfall wirklich passiert, und welche tickenden Zeitbomben im Code schon auf ihren Zündtag warten.",
+  "skills": [
+    "prod-spiegel",
+    "ausfall-simulant",
+    "zeitbomben-scanner"
+  ],
   "priceTier": "bundle"
 }

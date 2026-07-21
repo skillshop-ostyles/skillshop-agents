@@ -30,6 +30,10 @@ async function timeRequests(base, urlPath, runs) {
 async function main() {
   const shopDir = path.resolve(__dirname, '..');
   const dbPath = path.join(shopDir, 'data', 'shop.db');
+  if (!require('node:fs').existsSync(dbPath)) {
+    console.error('Datenbank fehlt - bitte zuerst "npm run import" ausfuehren.');
+    process.exit(1);
+  }
   const publicDir = path.join(shopDir, 'public');
   const rootDir = path.resolve(shopDir, '..');
   const catalogDir = path.join(shopDir, 'catalog');

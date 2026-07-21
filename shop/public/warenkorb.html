@@ -9,18 +9,7 @@
 <body>
   <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um den Warenkorb zu laden.</div></noscript>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Skill-Shop</a>
-      <nav class="nav-links">
-        <a href="katalog.html">Katalog</a>
-        <a href="berater.html">Berater</a>
-        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
-        <a href="bibliothek.html">Bibliothek</a>
-        <a href="merkliste.html">Merkliste</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
   <div class="container" style="padding: 32px 0 64px;">
     <h1>Warenkorb</h1>
@@ -50,6 +39,7 @@
     <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
   </footer>
 
+  <script src="shop-core.js"></script>
   <script src="app.js"></script>
   <script>
     function isAbsolutePath(p) {
@@ -60,7 +50,7 @@
       const el = document.getElementById('cart-items');
       const entries = Shop.cart.get();
       if (entries.length === 0) {
-        el.innerHTML = '<p class="empty-state">Dein Warenkorb ist leer. <a href="katalog.html">Stoebere im Katalog</a>.</p>';
+        el.innerHTML = '<p class="empty-state">Dein Warenkorb ist leer. <a href="katalog.html">Stöbere im Katalog</a>.</p>';
         document.getElementById('checkout-section').style.display = 'none';
         return;
       }
@@ -159,7 +149,7 @@
           <ul>${body.failed.map((f) => `<li><strong>${Shop.escapeHtml(f.name)}</strong>: ${Shop.escapeHtml(f.error)}</li>`).join('')}</ul>
         ` : ''}
         ${body.skipped.length > 0 ? `
-          <h3>Uebersprungen (nach Fehler abgebrochen)</h3>
+          <h3>Übersprungen (nach Fehler abgebrochen)</h3>
           <ul>${body.skipped.map((n) => `<li>${Shop.escapeHtml(n)}</li>`).join('')}</ul>
         ` : ''}
         <p><a href="bibliothek.html">Zur Bibliothek</a></p>

@@ -3,8 +3,8 @@
   "trigger": "/testgap",
   "description": "Findet ungetestetes VERHALTEN je oeffentlichem Symbol - Randfaelle, Fehlerpfade, Grenzwerte - mit vorgeschlagenen Testfall-Namen. Trigger: /testgap",
   "claim": "100% Coverage, 0% Vertrauen? Coverage misst Zeilen, nicht Verhalten.",
-  "short": "Findet ungetestetes VERHALTEN je oeffentlichem Symbol - Randfaelle, Fehlerpfade, Grenzwerte - mit vorgeschlagenen Testfall-Namen.",
-  "long": "Eine Funktion kann 100% Zeilen-Coverage haben und trotzdem fuer die Faelle ungetestet sein, die in Prod wehtun. test-luecken-kartograf modelliert das tatsaechliche Verhalten jeder oeffentlichen Funktion und ordnet vorhandene Tests semantisch zu - Luecken kommen mit Risiko-Einstufung und Testfall-Vorschlag, nie mit generiertem Testcode im Zielprojekt.",
+  "short": "Findet ungetestetes VERHALTEN je öffentlichem Symbol - Randfälle, Fehlerpfade, Grenzwerte - mit vorgeschlagenen Testfall-Namen.",
+  "long": "Eine Funktion kann 100% Zeilen-Coverage haben und trotzdem für die Fälle ungetestet sein, die in Prod wehtun. test-luecken-kartograf modelliert das tatsächliche Verhalten jeder öffentlichen Funktion und ordnet vorhandene Tests semantisch zu - Lücken kommen mit Risiko-Einstufung und Testfall-Vorschlag, nie mit generiertem Testcode im Zielprojekt.",
   "terms": {
     "usecase": [
       "release-absichern",

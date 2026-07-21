@@ -2,9 +2,9 @@
   "name": "konfig-kartograf",
   "trigger": "/config-map",
   "description": "Kartiert die komplette Konfig-Oberflaeche: definiert vs. gelesen, verwaiste Schluessel, Crash-Kandidaten. Gibt nie Werte aus. Trigger: /config-map",
-  "claim": "Welche Env-Var braucht dein System wirklich? Niemand weiss es vollstaendig - bis jetzt.",
-  "short": "Kartiert die komplette Konfig-Oberflaeche: definiert vs. gelesen, verwaiste Schluessel, Crash-Kandidaten. Gibt nie Werte aus.",
-  "long": "Fehlende Env-Vars fallen sonst erst beim Deployment auf. konfig-kartograf gleicht Definitionsquellen (.env, YAML, Compose, Dockerfile) gegen Lese-Stellen im Code ab und meldet gelesen-nie-definiert, definiert-nie-gelesen und divergente Defaults - Schluesselnamen only, niemals Werte.",
+  "claim": "Welche Env-Var braucht dein System wirklich? Niemand weiß es vollständig - bis jetzt.",
+  "short": "Kartiert die komplette Konfig-Oberfläche: definiert vs. gelesen, verwaiste Schlüssel, Crash-Kandidaten. Gibt nie Werte aus.",
+  "long": "Fehlende Env-Vars fallen sonst erst beim Deployment auf. konfig-kartograf gleicht Definitionsquellen (.env, YAML, Compose, Dockerfile) gegen Lese-Stellen im Code ab und meldet gelesen-nie-definiert, definiert-nie-gelesen und divergente Defaults - Schlüsselnamen only, niemals Werte.",
   "terms": {
     "usecase": [
       "incident-aufklaeren",

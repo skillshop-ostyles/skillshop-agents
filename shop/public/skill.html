@@ -9,18 +9,7 @@
 <body>
   <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um Produktdaten zu laden.</div></noscript>
 
-  <header class="site-header">
-    <div class="container">
-      <a class="brand" href="index.html">Skill-Shop</a>
-      <nav class="nav-links">
-        <a href="katalog.html">Katalog</a>
-        <a href="berater.html">Berater</a>
-        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
-        <a href="bibliothek.html">Bibliothek</a>
-        <a href="merkliste.html">Merkliste</a>
-      </nav>
-    </div>
-  </header>
+  <header id="site-header"></header>
 
   <div id="content"></div>
 
@@ -28,6 +17,7 @@
     <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
   </footer>
 
+  <script src="shop-core.js"></script>
   <script src="app.js"></script>
   <script>
     async function mount() {
@@ -84,7 +74,7 @@
 
           <section class="section">
             <h2>Evidenz-Versprechen</h2>
-            <p class="hint-text">Jede Aussage, die dieser Skill trifft, traegt einen Beleg — Commit-Hash, Datei:Zeile oder Zitat mit Fundstelle. Keine Behauptung ohne Beleg.</p>
+            <p class="hint-text">Jede Aussage, die dieser Skill trifft, trägt einen Beleg — Commit-Hash, Datei:Zeile oder Zitat mit Fundstelle. Keine Behauptung ohne Beleg.</p>
           </section>
 
           <section class="section">

@@ -98,6 +98,19 @@ function router(getDb, rootDir) {
     res.json({ name: skillName, destDir: result.destDir, trigger: skillRow.trigger });
   });
 
+  // B2: Ein verwaistes Ziel (Ordner manuell geloescht -> present:false) aus der
+  // Bibliothek entfernen. REIN eine DB-Operation (CASCADE raeumt orders/order_items),
+  // fasst NIE das Dateisystem an - Deinstallation bleibt bewusst Sache des Users.
+  r.delete('/library/target', (req, res) => {
+    const db = getDb();
+    if (!db) return res.status(503).json({ error: 'Datenbank fehlt - bitte "npm run import" ausfuehren' });
+    const { targetPath } = req.body || {};
+    if (!targetPath) return res.status(400).json({ error: 'targetPath ist erforderlich' });
+    const info = db.prepare('DELETE FROM install_targets WHERE path = ?').run(targetPath);
+    if (info.changes === 0) return res.status(404).json({ error: `Ziel '${targetPath}' ist nicht in der Bibliothek bekannt` });
+    res.json({ ok: true });
+  });
+
   return r;
 }
 

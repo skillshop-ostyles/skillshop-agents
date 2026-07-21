@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('node:path');
 const express = require('express');
 const { loadAdvisorRules, loadTaxonomy } = require('../importer');
 const { recommend, AdvisorError } = require('../advisor');

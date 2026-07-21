@@ -40,17 +40,9 @@ function router(getDb, rootDir, pricingEnabled = false) {
       throw err;
     }
 
-    const now = new Date().toISOString();
-    db.prepare(`
-      INSERT INTO install_targets (path, label, created_at) VALUES (?, ?, ?)
-      ON CONFLICT(path) DO UPDATE SET label = COALESCE(excluded.label, install_targets.label)
-    `).run(normTarget, label || null, now);
-    const targetRow = db.prepare('SELECT id FROM install_targets WHERE path = ?').get(normTarget);
-
-    const license = pricingEnabled ? generateLicense() : null;
-    const orderId = db.prepare('INSERT INTO orders (target_id, created_at, license) VALUES (?, ?, ?)').run(targetRow.id, now, license).lastInsertRowid;
-    const insertItem = db.prepare('INSERT INTO order_items (order_id, skill_id, folder_hash_at_install) VALUES (?, ?, ?)');
-
+    // B1: Installationen ZUERST ausfuehren, Order erst danach schreiben - und nur,
+    // wenn mindestens eine Installation gelang. Sonst blieb bei komplettem
+    // Fehlschlag eine leere Order (bei Pricing sogar mit Lizenz) als Datenmuell zurueck.
     const installed = [];
     const failed = [];
     const skipped = [];
@@ -63,8 +55,7 @@ function router(getDb, rootDir, pricingEnabled = false) {
       }
       try {
         const result = install({ skillName: skillRow.name, targetPath: normTarget, rootDir, overwrite: false });
-        insertItem.run(orderId, skillRow.id, result.folderHash);
-        installed.push({ name: skillRow.name, trigger: skillRow.trigger, destDir: result.destDir });
+        installed.push({ name: skillRow.name, skillId: skillRow.id, trigger: skillRow.trigger, folderHash: result.folderHash, destDir: result.destDir });
       } catch (err) {
         if (err instanceof InstallError) {
           failed.push({ name: skillRow.name, error: err.message });
@@ -75,7 +66,30 @@ function router(getDb, rootDir, pricingEnabled = false) {
       }
     }
 
-    res.json({ targetPath: normTarget, installed, failed, skipped, license });
+    let license = null;
+    if (installed.length > 0) {
+      const now = new Date().toISOString();
+      license = pricingEnabled ? generateLicense() : null;
+      const persist = db.transaction(() => {
+        db.prepare(`
+          INSERT INTO install_targets (path, label, created_at) VALUES (?, ?, ?)
+          ON CONFLICT(path) DO UPDATE SET label = COALESCE(excluded.label, install_targets.label)
+        `).run(normTarget, label || null, now);
+        const targetId = db.prepare('SELECT id FROM install_targets WHERE path = ?').get(normTarget).id;
+        const orderId = db.prepare('INSERT INTO orders (target_id, created_at, license) VALUES (?, ?, ?)').run(targetId, now, license).lastInsertRowid;
+        const insertItem = db.prepare('INSERT INTO order_items (order_id, skill_id, folder_hash_at_install) VALUES (?, ?, ?)');
+        for (const item of installed) insertItem.run(orderId, item.skillId, item.folderHash);
+      });
+      persist();
+    }
+
+    res.json({
+      targetPath: normTarget,
+      installed: installed.map((i) => ({ name: i.name, trigger: i.trigger, destDir: i.destDir })),
+      failed,
+      skipped,
+      license,
+    });
   });
 
   return r;
