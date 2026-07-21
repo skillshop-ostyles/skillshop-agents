@@ -1,0 +1,11 @@
+stages:
+  - quality
+
+quality:
+  stage: quality
+  image: node:20
+  script:
+    - npm ci
+    - npm run lint --if-present
+    - npm test --if-present
+    - npm audit --audit-level=high

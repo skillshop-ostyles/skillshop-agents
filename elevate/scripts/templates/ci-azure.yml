@@ -1,0 +1,18 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '20'
+  - script: npm ci
+    displayName: Install
+  - script: npm run lint --if-present
+    displayName: Lint
+  - script: npm test --if-present
+    displayName: Test
+  - script: npm audit --audit-level=high
+    displayName: Audit
