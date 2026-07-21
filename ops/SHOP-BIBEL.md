@@ -33,8 +33,11 @@ ehrlich und präzise. UI-Sprache: Deutsch. Kauf-Metapher konsequent durchziehen
 
 1. **Dependency-Inseln**: npm-Dependencies NUR innerhalb `shop/` (dort package.json
    + package-lock.json). Der Rest des Repos bleibt toolfrei. Erlaubte Runtime-Deps:
-   `express`, `better-sqlite3`. Keine Frontend-Frameworks, kein Build-Schritt —
-   Frontend ist statisches HTML/CSS/Vanilla-JS aus `shop/public/`.
+   `express`, `better-sqlite3`, `compression` (seit Produktionsparitaet-Härtung,
+   siehe `ops/sprints/sprint-27-produktionsparitaet.md` — Gzip/Brotli-Kompression
+   der Auslieferung, wie ein echter Static-Host sie hätte). Keine Frontend-
+   Frameworks, kein Build-Schritt — Frontend ist statisches HTML/CSS/Vanilla-JS
+   aus `shop/public/`.
 2. **DB ist abgeleitet**: Die SQLite-DB (`shop/data/shop.db`) ist jederzeit per
    Importer aus den Dateien reproduzierbar (Skill-Ordner + `shop/catalog/` +
    `ops/tracking.md`). DB-Datei und `node_modules/` sind gitignored. Quelle der

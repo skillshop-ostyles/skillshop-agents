@@ -32,6 +32,7 @@ Stand: 2026-07-21
 | 24 | shop-berater-bundles | fertig | 2026-07-21 | — |
 | 25 | shop-haertung | fertig | 2026-07-21 | — |
 | 26 | shop-perfektion | fertig | 2026-07-21 | — |
+| 27 | shop-produktionsparitaet | fertig | 2026-07-21 | — |
 
 Status-Werte: `offen` | `in Arbeit` | `fertig`. Pflege gemäß BIBEL § 5.
 

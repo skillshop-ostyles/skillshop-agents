@@ -3,6 +3,7 @@
 const path = require('node:path');
 const fs = require('node:fs');
 const express = require('express');
+const compression = require('compression');
 const { openDb } = require('./db');
 const skillsApi = require('./api/skills');
 const bundlesApi = require('./api/bundles');
@@ -38,6 +39,17 @@ function createApp({ dbPath, publicDir, rootDir, catalogDir, pricingEnabled = fa
     return db;
   }
 
+  // Produktionsparitaet: kein Express-Fingerprint-Header, wie es auch ein
+  // echter Remote-Host (z.B. GitHub Pages/Fastly) nicht preisgeben wuerde.
+  app.disable('x-powered-by');
+  app.use(compression());
+  app.use((req, res, next) => {
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('X-Frame-Options', 'DENY');
+    res.setHeader('Referrer-Policy', 'no-referrer');
+    next();
+  });
+
   app.use(express.json());
 
   // A4: Der Server bindet zwar nur an 127.0.0.1, aber jeder lokale Prozess kann
@@ -57,7 +69,20 @@ function createApp({ dbPath, publicDir, rootDir, catalogDir, pricingEnabled = fa
   app.use('/api', libraryApi.router(getDb, rootDir));
   app.use('/api', watchlistApi.router(getDb));
   app.use('/api', advisorApi.router(getDb, resolvedCatalogDir));
-  app.use(express.static(publicDir));
+
+  // Cache-Control + ETag/Last-Modified wie bei einem echten statischen Host:
+  // 10 Minuten Browser-Cache, danach Revalidierung ueber ETag (304 statt Vollausliefeurng).
+  app.use(express.static(publicDir, { etag: true, lastModified: true, maxAge: '10m' }));
+
+  app.use('/api', (req, res) => res.status(404).json({ error: 'Endpunkt nicht gefunden' }));
+  app.use((req, res) => res.status(404).sendFile(path.join(publicDir, '404.html')));
+
+  // eslint-disable-next-line no-unused-vars
+  app.use((err, req, res, next) => {
+    console.error(err);
+    if (res.headersSent) return;
+    res.status(500).json({ error: 'Interner Serverfehler' });
+  });
 
   app.close = () => {
     if (db) db.close();
@@ -67,6 +92,12 @@ function createApp({ dbPath, publicDir, rootDir, catalogDir, pricingEnabled = fa
 }
 
 function main() {
+  // Default auf production, sofern nicht explizit anders gesetzt: deaktiviert
+  // Express' Verbose-Error-Views und View-Caching-Quirks, wie bei einem echten
+  // deployten Server. npm test/require('./server') in Tests setzt das nicht -
+  // dort bleibt NODE_ENV unberuehrt.
+  process.env.NODE_ENV = process.env.NODE_ENV || 'production';
+
   const shopDir = path.resolve(__dirname, '..');
   const dbPath = path.join(shopDir, 'data', 'shop.db');
   const publicDir = path.join(shopDir, 'public');
