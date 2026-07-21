@@ -116,13 +116,98 @@ Aufteilung; Merkliste zeigt "Jetzt verfügbar" nach simuliertem Status-Wechsel
 (tracking.md-Zeile temporär auf fertig, Re-Import, prüfen, zurück — im
 Testprotokoll dokumentieren).
 
+## Entscheidungen während der Umsetzung
+
+1. **`order_items.bundle_id` existierte bereits**: Die in diesem Sprint geplante
+   "Migration" war schon in Sprint 21 Teil des Schemas
+   (`shop/src/db.js`: `order_items.bundle_id INTEGER REFERENCES bundles(id)
+   ON DELETE SET NULL`). Keine Schema-Änderung nötig — Spalte ist bislang nur
+   ungenutzt (Checkout bleibt Skill-basiert, wie spezifiziert).
+2. **Facetten-übergreifende Bundle-Aufwertung**: `bestCoverage` startet bei 1,
+   ein Bundle wird nur Haupt-Empfehlung, wenn es ≥ 2 der Top-3 abdeckt (exakt
+   wie im Sprint-Text gefordert). Tie-Break bei gleicher Coverage: alphabetisch
+   nach Slug — deterministisch, aber keine reale Kollision in den 5
+   Vertrags-Testfällen aufgetreten.
+3. **Merkliste-Vervollständigung war bereits fertig**: Das "Jetzt verfügbar"-
+   Badge + In-den-Korb-Button in `merkliste.html` wurde schon in Sprint 23
+   mitgebaut (als ich die Seite von Grund auf neu anlegte). Dieser Sprint hat
+   das nur noch einmal gezielt akzeptanzgetestet (Status-Wechsel-Simulation,
+   siehe unten), keine Code-Änderung nötig.
+4. **Status-Wechsel-Simulation ohne tracking.md**: Der Testplan schlägt vor,
+   `tracking.md` temporär auf `fertig` zu setzen. Das greift aber nicht bei
+   Skills ohne echten Ordner (Sprint-21-Sicherheitsnetz: kein Ordner ⇒ immer
+   `in-entwicklung`, unabhängig von tracking.md — bewusst so gebaut, damit
+   niemand versehentlich einen nicht-existenten Skill als installierbar
+   markiert). Da `intent-archaeologie` (auf der Merkliste) keinen Ordner hat,
+   wurde der Status stattdessen direkt in der DB umgeschaltet (simuliert exakt
+   das Ergebnis eines echten Imports, ohne einen Fake-Skill-Ordner ins Repo zu
+   legen) — danach zurückgesetzt und per `npm run import` wieder aus den
+   echten Dateien synchronisiert. `ops/tracking.md` wurde zwischenzeitlich kurz
+   testweise geändert und per `git checkout` sauber zurückgesetzt (kein Diff
+   verblieben).
+5. **Bundle-CTA-Wiring aus Sprint 23 durch die volle Logik ersetzt**: Sprint 23
+   hatte bereits eine vereinfachte Version (nur "verfügbare in den Korb")
+   gebaut, um den damals veralteten Platzhaltertext zu ersetzen. Dieser Sprint
+   ersetzt das durch die vollständige Spezifikation (verfügbare → Korb mit
+   Bundle-Herkunft, Rest → Merkliste, CTA-Text passt sich an: "Bundle merken"
+   wenn 0 verfügbar).
+6. **Reinstall-Button-Problem aus Sprint 23 trat hier NICHT auf**: Alle in
+   diesem Sprint geklickten Buttons (Berater-Fragen, Bundle-CTA,
+   "Alle in den Warenkorb") lösen keine nativen Dialoge aus — konnten daher
+   live im Browser angeklickt/verifiziert werden.
+
+## 8. Testresultate
+
+- **node:test**: 54/54 grün gesamt (11 neu: 5 Vertrags-Testfälle aus der
+  Sprint-Tabelle — jede Erwartung traf beim ersten Lauf zu, ohne
+  Nachjustierung der Scoring-Logik —, Risiko-Filter-Fallback,
+  q2-optional-Verhalten, Determinismus, unbekannte Option → 400, fehlendes
+  Pflichtfeld → 400, Regel-Validierung gegen Phantom-Term).
+- **Browser-Akzeptanz** (Claude-in-Chrome, live, keine Behauptung ohne
+  Beobachtung; Hinweis: Radio-/Button-Klicks per `ref` waren in dieser Session
+  mehrfach unzuverlässig — wo ein Klick sichtbar nichts bewirkte, wurde über
+  `element.click()`/direkte Formular-Interaktion per JS nachgeholfen, was ein
+  aequivalenter echter DOM-Klick ist, kein Vortäuschen):
+  - Berater-Durchlauf q1=legacy, q3=readonly → Ergebnis zeigt
+    intent-archaeologie + wissens-testament, Bundle "Legacy-Rettung" als
+    Haupt-Empfehlung — deckt sich exakt mit dem Vertragstest.
+  - Zweiter Durchlauf q1=neu-starten (q2 übersprungen), q3=egal → project-init
+    als einzige, verfügbare Empfehlung; "Alle in den Warenkorb" hat es
+    tatsächlich in den Korb gelegt (verifiziert auf warenkorb.html), Kasse
+    war sofort nutzbar.
+  - Erster Durchlauf mit zwei in-entwicklung-Empfehlungen: "Alle in den
+    Warenkorb" hat korrekt NICHTS in den Korb gelegt (weil beide nicht
+    verfügbar sind) und trotzdem zur Warenkorb-Seite weitergeleitet.
+  - Bundle `qualitaets-fundament` (1 von 3 verfügbar): CTA-Klick →
+    Hinweistext exakt "1 in den Warenkorb, 2 auf die Merkliste gelegt.";
+    per JS-Introspektion bestätigt: `elevate` im Korb mit
+    `fromBundle: "qualitaets-fundament"`, `test-luecken-kartograf` +
+    `konsistenz-enforcer` auf der Merkliste. Warenkorb-Seite zeigt den Chip
+    "aus Bundle qualitaets-fundament" korrekt.
+  - Bundle `legacy-rettung` (0 von 4 verfügbar): CTA-Text korrekt
+    "Bundle merken" statt "... in den Warenkorb".
+  - Merkliste-Status-Wechsel-Simulation (DB-Flip statt tracking.md, siehe
+    Entscheidung 4): `intent-archaeologie` zeigte danach live "verfuegbar" +
+    "jetzt verfuegbar"-Badge + "In den Warenkorb"-Button; nach Zurücksetzen
+    und Re-Import wieder korrekt "bald verfuegbar", DB-Kennzahlen (2
+    verfügbar / 20 in-entwicklung) unverändert.
+  - Keine Konsolenfehler über den gesamten Berater-/Bundle-/Merkliste-Flow.
+- **Repo-Hygiene**: `ops/tracking.md` und `elevate/SKILL.md` wurden während
+  der Test-Simulationen kurzzeitig testweise verändert und beide Male per
+  `git checkout --` rückstandsfrei zurückgesetzt (verifiziert: `git status`
+  zeigt keinen Diff auf diesen Dateien).
+
 ## 7. DoD-Checkliste
 
-- [ ] advisor-rules.json (Fragen, Optionen, Mappings) + Startzeit-Validierung
-- [ ] advisor.js deterministisch, Bundle-Aufwertungs-Logik
-- [ ] Berater-Seite (Schrittführung, Ergebnis, Korb-Aktion)
-- [ ] Bundle-Kauf-Logik + order_items.bundle_id-Migration
-- [ ] Landing-Feinschliff + Merkliste-Vervollständigung
-- [ ] Alle Regelwerk-Vertragstests + Edge-Tests grün
-- [ ] Browser-Akzeptanz inkl. Status-Wechsel-Simulation dokumentiert
-- [ ] tracking.md aktualisiert, Commit `sprint-24: shop-berater-bundles implementiert`
+- [x] advisor-rules.json (Fragen, Optionen, Mappings) + Startzeit-Validierung
+      (Validierung laeuft sowohl bei `npm run import` als auch beim
+      Server-/Router-Start, siehe importer.js/api/advisor.js)
+- [x] advisor.js deterministisch, Bundle-Aufwertungs-Logik
+- [x] Berater-Seite (Schrittführung, Ergebnis, Korb-Aktion)
+- [x] Bundle-Kauf-Logik + order_items.bundle_id-Migration (Spalte bereits
+      seit Sprint 21 vorhanden, siehe Entscheidung 1)
+- [x] Landing-Feinschliff + Merkliste-Vervollständigung (Merkliste-Teil bereits
+      in Sprint 23 gebaut, hier akzeptanzgetestet, siehe Entscheidung 3)
+- [x] Alle Regelwerk-Vertragstests + Edge-Tests grün (54/54 gesamt)
+- [x] Browser-Akzeptanz inkl. Status-Wechsel-Simulation dokumentiert
+- [x] tracking.md aktualisiert, Commit `sprint-24: shop-berater-bundles implementiert`

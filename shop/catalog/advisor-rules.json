@@ -1,0 +1,34 @@
+{
+  "q1": {
+    "question": "Was schmerzt gerade am meisten?",
+    "required": true,
+    "options": [
+      { "id": "legacy", "label": "Keiner versteht unseren Alt-Code", "terms": { "usecase": ["legacy-verstehen"] } },
+      { "id": "release", "label": "Releases gehen staendig schief", "terms": { "usecase": ["release-absichern"] } },
+      { "id": "security", "label": "Security-/Compliance-Druck", "terms": { "usecase": ["audit-vorbereiten"], "thema": ["security"] } },
+      { "id": "onboarding", "label": "Neue Leute brauchen ewig", "terms": { "usecase": ["onboarding"] } },
+      { "id": "prod", "label": "Prod ueberrascht uns staendig", "terms": { "thema": ["resilienz"], "usecase": ["incident-aufklaeren"] } },
+      { "id": "neu-starten", "label": "Wir starten ein neues Projekt", "terms": { "usecase": ["neu-starten"] } }
+    ]
+  },
+  "q2": {
+    "question": "In welchem Kontext?",
+    "required": false,
+    "options": [
+      { "id": "entwickeln", "label": "Entwicklung", "terms": { "taetigkeit": ["entwickeln"] } },
+      { "id": "reviewen", "label": "Review", "terms": { "taetigkeit": ["reviewen"] } },
+      { "id": "devops", "label": "DevOps", "terms": { "taetigkeit": ["devops"] } },
+      { "id": "qa", "label": "QA", "terms": { "taetigkeit": ["qa"] } },
+      { "id": "security", "label": "Security", "terms": { "taetigkeit": ["security"] } },
+      { "id": "product", "label": "Product", "terms": { "taetigkeit": ["product"] } }
+    ]
+  },
+  "q3": {
+    "question": "Wie viel darf der Skill anfassen?",
+    "required": true,
+    "options": [
+      { "id": "readonly", "label": "Nur lesen und berichten", "filter": { "risiko": ["read-only"] } },
+      { "id": "egal", "label": "Darf nach Freigabe auch aendern", "filter": null }
+    ]
+  }
+}

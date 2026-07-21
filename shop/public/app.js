@@ -92,6 +92,8 @@ window.Shop = (function () {
   }
 
   // ---------- Warenkorb (localStorage, robust gegen vollen/defekten Storage) ----------
+  // Eintraege sind { name, fromBundle } - fromBundle ist der Bundle-Slug, falls der
+  // Skill ueber "Bundle in den Warenkorb" hinzugefuegt wurde, sonst null.
 
   const CART_KEY = 'shop-cart';
 
@@ -100,27 +102,41 @@ window.Shop = (function () {
       try {
         const raw = window.localStorage.getItem(CART_KEY);
         const parsed = raw ? JSON.parse(raw) : [];
-        return Array.isArray(parsed) ? parsed : [];
+        if (!Array.isArray(parsed)) return [];
+        // Alte Korb-Eintraege (Sprint 23, reine Namens-Strings) mitnehmen statt zu verlieren.
+        return parsed.map((entry) => (typeof entry === 'string' ? { name: entry, fromBundle: null } : entry));
       } catch (err) {
         return [];
       }
     },
-    set(names) {
+    set(entries) {
       try {
-        window.localStorage.setItem(CART_KEY, JSON.stringify([...new Set(names)]));
+        const byName = new Map(entries.map((e) => [e.name, e]));
+        window.localStorage.setItem(CART_KEY, JSON.stringify([...byName.values()]));
       } catch (err) {
         // localStorage voll/deaktiviert - Korb bleibt fuer diese Session leer statt zu crashen.
       }
     },
-    add(name) {
-      const names = cart.get();
-      if (!names.includes(name)) names.push(name);
-      cart.set(names);
+    add(name, fromBundle = null) {
+      const entries = cart.get();
+      const existing = entries.find((e) => e.name === name);
+      if (existing) {
+        if (fromBundle) existing.fromBundle = fromBundle;
+      } else {
+        entries.push({ name, fromBundle });
+      }
+      cart.set(entries);
       cart.updateBadge();
     },
     remove(name) {
-      cart.set(cart.get().filter((n) => n !== name));
+      cart.set(cart.get().filter((e) => e.name !== name));
       cart.updateBadge();
+    },
+    names() {
+      return cart.get().map((e) => e.name);
+    },
+    has(name) {
+      return cart.get().some((e) => e.name === name);
     },
     clear() {
       cart.set([]);

@@ -14,6 +14,7 @@
       <a class="brand" href="index.html">Skill-Shop</a>
       <nav class="nav-links">
         <a href="katalog.html">Katalog</a>
+        <a href="berater.html">Berater</a>
         <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
         <a href="bibliothek.html">Bibliothek</a>
         <a href="merkliste.html">Merkliste</a>
@@ -46,12 +47,16 @@
 
       document.title = `${bundle.title} — Skill-Shop`;
 
+      const available = bundle.skills.filter((s) => s.status === 'verfuegbar');
+      const pending = bundle.skills.filter((s) => s.status !== 'verfuegbar');
+      const ctaLabel = available.length === 0 ? 'Bundle merken' : 'Bundle in den Warenkorb';
+
       content.innerHTML = `
         <section class="bundle-hero container">
           <h1>${Shop.escapeHtml(bundle.title)}</h1>
           <p class="claim">${Shop.escapeHtml(bundle.claim)}</p>
           <div class="cta-row">
-            <button class="btn primary" id="bundle-cta">Verfuegbare Skills in den Warenkorb</button>
+            <button class="btn primary" id="bundle-cta">${ctaLabel}</button>
             <span class="hint-text" id="bundle-hint" style="display:none;"></span>
           </div>
         </section>
@@ -70,14 +75,27 @@
         </div>
       `;
 
-      document.getElementById('bundle-cta').addEventListener('click', () => {
-        const available = bundle.skills.filter((s) => s.status === 'verfuegbar');
-        for (const s of available) Shop.cart.add(s.name);
+      document.getElementById('bundle-cta').addEventListener('click', async () => {
+        for (const s of available) Shop.cart.add(s.name, bundle.slug);
+        for (const s of pending) {
+          try {
+            await fetch('/api/watchlist', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ skillName: s.name }),
+            });
+          } catch (err) { /* Merkliste ist ein Komfort-Feature, kein Grund den Klick abzubrechen */ }
+        }
+
         const hint = document.getElementById('bundle-hint');
         hint.style.display = 'inline';
-        hint.textContent = available.length > 0
-          ? `${available.length} von ${bundle.skills.length} Skills in den Warenkorb gelegt. Der Rest ist noch in Entwicklung.`
-          : 'Noch keiner der Skills in diesem Bundle ist verfuegbar.';
+        if (available.length === 0) {
+          hint.textContent = `Noch keiner der ${bundle.skills.length} Skills ist verfuegbar - alle auf die Merkliste gelegt.`;
+        } else if (pending.length === 0) {
+          hint.textContent = `Alle ${available.length} Skills in den Warenkorb gelegt.`;
+        } else {
+          hint.textContent = `${available.length} in den Warenkorb, ${pending.length} auf die Merkliste gelegt.`;
+        }
       });
     }
     mount();

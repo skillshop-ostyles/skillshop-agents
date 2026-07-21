@@ -20,6 +20,12 @@ const CATALOG_OK = path.join(__dirname, 'fixture', 'catalog');
 const CATALOG_BAD_TERM = path.join(__dirname, 'fixture', 'catalog-bad-term');
 const CATALOG_BAD_BUNDLE = path.join(__dirname, 'fixture', 'catalog-bad-bundle');
 
+const MINIMAL_ADVISOR_RULES = JSON.stringify({
+  q1: { question: 'q1', required: true, options: [{ id: 'a', label: 'A' }] },
+  q2: { question: 'q2', required: false, options: [{ id: 'a', label: 'A' }] },
+  q3: { question: 'q3', required: true, options: [{ id: 'a', label: 'A', filter: null }] },
+});
+
 function tmpDbPath() {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shop-test-'));
   return path.join(dir, 'shop.db');
@@ -105,6 +111,7 @@ test('skill folder without curated catalog entry is marked uncurated', () => {
       usecase: [], thema: [], stichwort: [], ziel: [], branche: [], taetigkeit: [], level: [], risiko: [],
     })
   );
+  fs.writeFileSync(path.join(catalog, 'advisor-rules.json'), MINIMAL_ADVISOR_RULES);
 
   const dbPath = tmpDbPath();
   const summary = runImport({ rootDir: root, catalogDir: catalog, dbPath });

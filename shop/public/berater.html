@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Berater — Skill-Shop</title>
+  <link rel="stylesheet" href="app.css" />
+  <style>
+    .advisor-box { max-width: 640px; margin: 0 auto; }
+    .advisor-progress { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 8px; }
+    .advisor-options { display: flex; flex-direction: column; gap: 10px; margin: 20px 0; }
+    .advisor-options label {
+      display: block; padding: 12px 16px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+    }
+    .advisor-options label:has(input:checked) { border-color: var(--accent); background: var(--bg-alt); }
+    .advisor-options input { margin-right: 10px; }
+  </style>
+</head>
+<body>
+  <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um den Berater zu laden.</div></noscript>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">Skill-Shop</a>
+      <nav class="nav-links">
+        <a href="katalog.html">Katalog</a>
+        <a href="berater.html">Berater</a>
+        <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
+        <a href="bibliothek.html">Bibliothek</a>
+        <a href="merkliste.html">Merkliste</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container advisor-box" style="padding: 40px 0 64px;">
+    <h1>Berater</h1>
+    <div id="advisor-app"></div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    const STEPS = ['q1', 'q2', 'q3'];
+    let rules = null;
+    let step = 0;
+    const answers = {};
+
+    function renderQuestion(qKey) {
+      const q = rules[qKey];
+      const app = document.getElementById('advisor-app');
+      const skipHint = q.required ? '' : `<p class="hint-text"><button class="btn secondary" id="skip-btn" type="button">Ueberspringen</button></p>`;
+      app.innerHTML = `
+        <p class="advisor-progress">Schritt ${step + 1} von ${STEPS.length}</p>
+        <h2>${Shop.escapeHtml(q.question)}</h2>
+        <form id="q-form">
+          <div class="advisor-options">
+            ${q.options.map((o) => `
+              <label>
+                <input type="radio" name="opt" value="${Shop.escapeHtml(o.id)}" />
+                ${Shop.escapeHtml(o.label)}
+              </label>
+            `).join('')}
+          </div>
+          <button type="submit" class="btn primary">Weiter</button>
+        </form>
+        ${skipHint}
+      `;
+      document.getElementById('q-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const checked = e.target.querySelector('input[name=opt]:checked');
+        if (!checked) return;
+        answers[qKey] = checked.value;
+        step += 1;
+        renderStep();
+      });
+      const skipBtn = document.getElementById('skip-btn');
+      if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+          delete answers[qKey];
+          step += 1;
+          renderStep();
+        });
+      }
+    }
+
+    async function renderResult() {
+      const app = document.getElementById('advisor-app');
+      app.innerHTML = '<p class="hint-text">Werte aus ...</p>';
+      let result;
+      try {
+        const res = await fetch('/api/advisor', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(answers),
+        });
+        result = await res.json();
+        if (!res.ok) throw new Error(result.error || 'Berater-Anfrage fehlgeschlagen');
+      } catch (err) {
+        app.innerHTML = `<p class="empty-state">${Shop.escapeHtml(err.message)}</p><p><button class="btn secondary" id="retry-btn">Nochmal anders beantworten</button></p>`;
+        document.getElementById('retry-btn').addEventListener('click', restart);
+        return;
+      }
+
+      const bundleHtml = result.primaryBundle
+        ? `<section class="section">
+             <h2>Passt als Bundle</h2>
+             <a class="card" href="bundle.html?slug=${encodeURIComponent(result.primaryBundle.slug)}">
+               <h3>${Shop.escapeHtml(result.primaryBundle.title)}</h3>
+               <p class="claim">${Shop.escapeHtml(result.primaryBundle.claim)}</p>
+             </a>
+           </section>`
+        : '';
+
+      const recsHtml = result.recommendations.length > 0
+        ? `<div class="card-grid">${result.recommendations.map((r) => `
+            <div class="card">
+              <h3>${Shop.escapeHtml(r.name)}</h3>
+              <p class="claim">${Shop.escapeHtml(r.reason)}</p>
+              <div class="card-badges">${Shop.statusBadge(r.status)}${r.wouldFitButTouches ? '<span class="badge risk-write">fasst an</span>' : ''}</div>
+            </div>
+          `).join('')}</div>`
+        : '<p class="empty-state">Fuer diese Kombination gibt es aktuell keine Empfehlung.</p>';
+
+      app.innerHTML = `
+        ${result.fallbackNotice ? `<p class="hint-text">${Shop.escapeHtml(result.fallbackNotice)}</p>` : ''}
+        ${bundleHtml}
+        <section class="section">
+          <h2>Empfehlungen</h2>
+          ${recsHtml}
+        </section>
+        <div class="cta-row">
+          <button class="btn primary" id="add-all-btn">Alle in den Warenkorb</button>
+          <button class="btn secondary" id="restart-btn">Nochmal anders beantworten</button>
+        </div>
+      `;
+
+      const addAllBtn = document.getElementById('add-all-btn');
+      if (addAllBtn) {
+        addAllBtn.addEventListener('click', () => {
+          for (const r of result.recommendations) {
+            if (r.status === 'verfuegbar') Shop.cart.add(r.name);
+          }
+          window.location.href = 'warenkorb.html';
+        });
+      }
+      document.getElementById('restart-btn').addEventListener('click', restart);
+    }
+
+    function restart() {
+      step = 0;
+      for (const key of Object.keys(answers)) delete answers[key];
+      renderStep();
+    }
+
+    function renderStep() {
+      if (step >= STEPS.length) {
+        renderResult();
+        return;
+      }
+      renderQuestion(STEPS[step]);
+    }
+
+    async function mount() {
+      const app = document.getElementById('advisor-app');
+      try {
+        rules = await Shop.fetchJson('/api/advisor/rules');
+      } catch (err) {
+        app.innerHTML = `<p class="empty-state">${Shop.escapeHtml(err.message)}</p>`;
+        return;
+      }
+      renderStep();
+    }
+    mount();
+  </script>
+</body>
+</html>

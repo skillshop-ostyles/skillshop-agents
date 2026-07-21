@@ -14,6 +14,7 @@
       <a class="brand" href="index.html">Skill-Shop</a>
       <nav class="nav-links">
         <a href="katalog.html">Katalog</a>
+        <a href="berater.html">Berater</a>
         <a href="warenkorb.html">Warenkorb (<span id="cart-count">0</span>)</a>
         <a href="bibliothek.html">Bibliothek</a>
         <a href="merkliste.html">Merkliste</a>
@@ -57,18 +58,20 @@
 
     function renderItems(skills) {
       const el = document.getElementById('cart-items');
-      const names = Shop.cart.get();
-      if (names.length === 0) {
+      const entries = Shop.cart.get();
+      if (entries.length === 0) {
         el.innerHTML = '<p class="empty-state">Dein Warenkorb ist leer. <a href="katalog.html">Stoebere im Katalog</a>.</p>';
         document.getElementById('checkout-section').style.display = 'none';
         return;
       }
-      const items = names.map((n) => skills.find((s) => s.name === n)).filter(Boolean);
-      el.innerHTML = `<div class="card-grid">${items.map((s) => `
+      const items = entries
+        .map((entry) => ({ entry, skill: skills.find((s) => s.name === entry.name) }))
+        .filter((x) => x.skill);
+      el.innerHTML = `<div class="card-grid">${items.map(({ entry, skill: s }) => `
         <div class="card">
           <h3>${Shop.escapeHtml(s.name)}</h3>
           <p class="claim">${Shop.escapeHtml(s.claim)}</p>
-          <div class="card-badges">${Shop.triggerChip(s.trigger)}</div>
+          <div class="card-badges">${Shop.triggerChip(s.trigger)}${entry.fromBundle ? `<span class="badge uncurated">aus Bundle ${Shop.escapeHtml(entry.fromBundle)}</span>` : ''}</div>
           <p><button class="btn secondary" data-remove="${Shop.escapeHtml(s.name)}">Entfernen</button></p>
         </div>
       `).join('')}</div>`;
@@ -118,7 +121,7 @@
         return;
       }
 
-      const items = Shop.cart.get();
+      const items = Shop.cart.names();
       let body;
       try {
         const res = await fetch('/api/checkout', {

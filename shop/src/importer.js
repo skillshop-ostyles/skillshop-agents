@@ -220,6 +220,50 @@ function loadCatalogBundles(catalogDir) {
 }
 
 /**
+ * Loads + validates catalog/advisor-rules.json against the taxonomy. Called
+ * both at import time (npm run import) and at server startup, so a typo'd
+ * term in the rules fails loudly in either path rather than silently matching
+ * nothing at request time.
+ * @param {string} catalogDir
+ * @param {Record<string, Set<string>>} taxonomy from loadTaxonomy()
+ */
+function loadAdvisorRules(catalogDir, taxonomy) {
+  const rulesPath = path.join(catalogDir, 'advisor-rules.json');
+  if (!fs.existsSync(rulesPath)) {
+    throw new ImportError(`advisor-rules.json fehlt: ${rulesPath}`);
+  }
+  const rules = readJson(rulesPath);
+
+  const validateTermMap = (termMap, context) => {
+    if (!termMap) return;
+    for (const [dim, terms] of Object.entries(termMap)) {
+      if (!DIMENSIONS.includes(dim)) {
+        throw new ImportError(`advisor-rules.json (${context}): unbekannte Dimension '${dim}'`);
+      }
+      for (const term of terms) {
+        if (!taxonomy[dim].has(term)) {
+          throw new ImportError(`advisor-rules.json (${context}): unbekannter Term '${term}' in Dimension '${dim}'`);
+        }
+      }
+    }
+  };
+
+  for (const qKey of ['q1', 'q2', 'q3']) {
+    const question = rules[qKey];
+    if (!question || !Array.isArray(question.options)) {
+      throw new ImportError(`advisor-rules.json: Frage '${qKey}' fehlt oder hat keine options`);
+    }
+    for (const option of question.options) {
+      if (!option.id) throw new ImportError(`advisor-rules.json (${qKey}): Option ohne id`);
+      validateTermMap(option.terms, `${qKey}.${option.id}.terms`);
+      validateTermMap(option.filter, `${qKey}.${option.id}.filter`);
+    }
+  }
+
+  return rules;
+}
+
+/**
  * Runs a full, idempotent import: files -> SQLite.
  * @param {{rootDir: string, catalogDir: string, dbPath: string}} opts
  * @returns {{skills: {verfuegbar: number, inEntwicklung: number, uncurated: number},
@@ -230,6 +274,7 @@ function runImport({ rootDir, catalogDir, dbPath }) {
   const warnings = [];
   const folders = scanSkillFolders(rootDir);
   const taxonomy = loadTaxonomy(catalogDir);
+  loadAdvisorRules(catalogDir, taxonomy); // validate only - fail the import loudly on a bad rule reference
   const catalogSkills = loadCatalogSkills(catalogDir);
   const catalogBundles = loadCatalogBundles(catalogDir);
 
@@ -480,6 +525,7 @@ module.exports = {
   loadTaxonomy,
   loadCatalogSkills,
   loadCatalogBundles,
+  loadAdvisorRules,
   runImport,
   DIMENSIONS,
 };

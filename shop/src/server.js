@@ -9,6 +9,7 @@ const bundlesApi = require('./api/bundles');
 const checkoutApi = require('./api/checkout');
 const libraryApi = require('./api/library');
 const watchlistApi = require('./api/watchlist');
+const advisorApi = require('./api/advisor');
 
 const HOST = '127.0.0.1';
 const PORT = 4711;
@@ -20,7 +21,8 @@ const PORT = 4711;
  * rootDir is the AGENTS repo root - the source of truth for skill folders,
  * used by the installer (Sprint 23).
  */
-function createApp({ dbPath, publicDir, rootDir } = {}) {
+function createApp({ dbPath, publicDir, rootDir, catalogDir } = {}) {
+  const resolvedCatalogDir = catalogDir || path.join(path.resolve(__dirname, '..'), 'catalog');
   const app = express();
   let db = null;
   let dbOpenAttempted = false;
@@ -42,6 +44,7 @@ function createApp({ dbPath, publicDir, rootDir } = {}) {
   app.use('/api', checkoutApi.router(getDb, rootDir));
   app.use('/api', libraryApi.router(getDb, rootDir));
   app.use('/api', watchlistApi.router(getDb));
+  app.use('/api', advisorApi.router(getDb, resolvedCatalogDir));
   app.use(express.static(publicDir));
 
   app.close = () => {
@@ -56,7 +59,8 @@ function main() {
   const dbPath = path.join(shopDir, 'data', 'shop.db');
   const publicDir = path.join(shopDir, 'public');
   const rootDir = path.resolve(shopDir, '..');
-  const app = createApp({ dbPath, publicDir, rootDir });
+  const catalogDir = path.join(shopDir, 'catalog');
+  const app = createApp({ dbPath, publicDir, rootDir, catalogDir });
 
   const server = app.listen(PORT, HOST, () => {
     console.log(`Skill-Shop laeuft auf http://${HOST}:${PORT}`);
