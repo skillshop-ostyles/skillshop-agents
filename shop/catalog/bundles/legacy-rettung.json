@@ -1,0 +1,8 @@
+{
+  "id": "legacy-rettung",
+  "title": "Legacy-Rettung",
+  "claim": "Altsystem verstehen, entruempeln, Wissen sichern - bevor es zu spaet ist.",
+  "story": "Ein gewachsenes System hat drei Probleme gleichzeitig: niemand weiss mehr warum, niemand traut sich aufzuraeumen, und das Wissen der Alt-Entwickler ist nirgends festgehalten. Dieses Bundle greift alle drei Probleme in einem Zug an: die Warum-Geschichte rekonstruieren, tote Pfade mit Beweis identifizieren, verstreute Geschaeftsregeln konsolidieren und das verbleibende Kopf-Wissen konservieren, bevor es verloren geht.",
+  "skills": ["intent-archaeologie", "totpfad-bestatter", "wissens-testament", "konsistenz-enforcer"],
+  "priceTier": "bundle"
+}

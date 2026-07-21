@@ -1,0 +1,19 @@
+{
+  "name": "ghost-skill",
+  "trigger": "/ghost",
+  "claim": "Sollte niemals im Import landen",
+  "short": "Geisterprodukt-Testfall",
+  "long": "Kein Ordner, keine tracking.md-Zeile - muss uebersprungen werden.",
+  "terms": {
+    "usecase": ["testen"],
+    "thema": ["testing"],
+    "stichwort": ["demo"],
+    "ziel": ["zeit-sparen"],
+    "branche": ["alle"],
+    "taetigkeit": ["entwickeln"],
+    "level": ["alle"],
+    "risiko": ["read-only"]
+  },
+  "priceTier": "single",
+  "related": []
+}

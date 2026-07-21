@@ -1,0 +1,43 @@
+{
+  "name": "zeitbomben-scanner",
+  "trigger": "/timebomb",
+  "description": "Findet hartkodierte Ablaufdaten und verrottete \"temporaer\"-Marker mit Git-Alter - sortiert nach Zuenddatum. Trigger: /timebomb",
+  "claim": "Jede Codebase tickt. Diese hier weisst du, wann.",
+  "short": "Findet hartkodierte Ablaufdaten und verrottete \"temporaer\"-Marker mit Git-Alter - sortiert nach Zuenddatum.",
+  "long": "Hartkodierte Jahreszahlen, Gutschein-Deadlines, ein Workaround von 2021 - diese Bomben explodieren erst am Zuendtag. zeitbomben-scanner findet sie vorher und liefert eine Entschaerfungsliste: ueberfaellig zuerst, dann nach Zuenddatum, mit Blame-Beleg fuer jedes Alter.",
+  "terms": {
+    "usecase": [
+      "aufraeumen",
+      "incident-aufklaeren"
+    ],
+    "thema": [
+      "resilienz"
+    ],
+    "stichwort": [
+      "zeitbombe",
+      "provisorium"
+    ],
+    "ziel": [
+      "risiko-senken"
+    ],
+    "branche": [
+      "alle"
+    ],
+    "taetigkeit": [
+      "devops",
+      "qa",
+      "reviewen"
+    ],
+    "level": [
+      "alle"
+    ],
+    "risiko": [
+      "read-only"
+    ]
+  },
+  "priceTier": "single",
+  "related": [
+    "prod-spiegel",
+    "totpfad-bestatter"
+  ]
+}

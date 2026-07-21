@@ -1,0 +1,8 @@
+{
+  "id": "bad",
+  "title": "Bad Bundle",
+  "claim": "Referenziert einen nicht existenten Skill",
+  "story": "Muss beim Import einen Fehler ausloesen.",
+  "skills": ["nonexistent-skill"],
+  "priceTier": "bundle"
+}

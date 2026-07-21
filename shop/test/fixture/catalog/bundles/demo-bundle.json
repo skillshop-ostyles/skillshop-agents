@@ -1,0 +1,8 @@
+{
+  "id": "demo-bundle",
+  "title": "Demo Bundle",
+  "claim": "Demo Bundle Claim",
+  "story": "Ein Testfixture-Bundle aus A und B.",
+  "skills": ["demo-skill-a", "demo-skill-b"],
+  "priceTier": "bundle"
+}

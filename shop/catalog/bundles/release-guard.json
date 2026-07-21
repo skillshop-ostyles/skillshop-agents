@@ -1,0 +1,8 @@
+{
+  "id": "release-guard",
+  "title": "Release-Guard",
+  "claim": "Vor jedem Release: Vertraege, Blast-Radius, Testluecken und Doku in einem Durchlauf.",
+  "story": "Die meisten Release-Ueberraschungen kommen aus vier immer gleichen Ecken: ein gebrochener API-Vertrag, ein unterschaetzter Blast-Radius, eine Testluecke im falschen Verhalten, eine veraltete Doku-Behauptung. Dieses Bundle prueft alle vier vor dem Merge - kein Chaos-Testing, reine statische Vorab-Sicherheit.",
+  "skills": ["api-vertrags-waechter", "seiteneffekt-radar", "test-luecken-kartograf", "doku-drift-detektor"],
+  "priceTier": "bundle"
+}

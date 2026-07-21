@@ -1,0 +1,43 @@
+{
+  "name": "migrations-chirurg",
+  "trigger": "/migrate",
+  "description": "Diffed zwei Schema-Staende und generiert Forward-Migration, Rollback und Validierungs-Queries mit expliziten Datenverlust-Warnungen. Trigger: /migrate",
+  "claim": "Schema-Migrationen sind Operationen am offenen Herzen. Diese hier kommt mit Rollback.",
+  "short": "Diffed zwei Schema-Staende und generiert Forward-Migration, Rollback und Validierungs-Queries mit expliziten Datenverlust-Warnungen.",
+  "long": "Der Rollback wird traditionell vergessen, bis man ihn um 3 Uhr nachts braucht. migrations-chirurg generiert das komplette Paket - Forward, Rollback, Pre/Post-Validierung - und markiert jede verlustbehaftete Operation explizit. Fuehrt nie selbst etwas gegen eine Datenbank aus.",
+  "terms": {
+    "usecase": [
+      "migration-planen"
+    ],
+    "thema": [
+      "datenbank"
+    ],
+    "stichwort": [
+      "schema",
+      "migration",
+      "rollback"
+    ],
+    "ziel": [
+      "risiko-senken"
+    ],
+    "branche": [
+      "alle",
+      "enterprise-it"
+    ],
+    "taetigkeit": [
+      "entwickeln",
+      "devops"
+    ],
+    "level": [
+      "fortgeschritten"
+    ],
+    "risiko": [
+      "schreibend-mit-freigabe"
+    ]
+  },
+  "priceTier": "single",
+  "related": [
+    "seiteneffekt-radar",
+    "api-vertrags-waechter"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "api-vertrags-waechter",
+  "trigger": "/api-diff",
+  "description": "Diffed die API-Oberflaeche zweier Git-Staende, klassifiziert jede Aenderung als breaking/additiv und schreibt die Migrations-Notiz. Trigger: /api-diff",
+  "claim": "Breaking Changes passieren nebenbei - bis ein Konsument bricht, den niemand kannte.",
+  "short": "Diffed die API-Oberflaeche zweier Git-Staende, klassifiziert jede Aenderung als breaking/additiv und schreibt die Migrations-Notiz.",
+  "long": "api-vertrags-waechter extrahiert Routen, DTOs und Signaturen (bevorzugt aus OpenAPI, sonst aus Code) fuer zwei Staende, vergleicht sie und liefert fuer jeden Vertragsbruch eine kopierfertige Migrations-Notiz plus SemVer-Empfehlung - vor dem Release, nicht danach.",
+  "terms": {
+    "usecase": [
+      "release-absichern"
+    ],
+    "thema": [
+      "api"
+    ],
+    "stichwort": [
+      "breaking-change",
+      "semver"
+    ],
+    "ziel": [
+      "risiko-senken",
+      "zeit-sparen"
+    ],
+    "branche": [
+      "alle",
+      "saas"
+    ],
+    "taetigkeit": [
+      "architektur",
+      "product",
+      "entwickeln"
+    ],
+    "level": [
+      "fortgeschritten"
+    ],
+    "risiko": [
+      "read-only"
+    ]
+  },
+  "priceTier": "single",
+  "related": [
+    "seiteneffekt-radar",
+    "test-luecken-kartograf"
+  ]
+}

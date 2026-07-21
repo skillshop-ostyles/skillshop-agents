@@ -1,0 +1,42 @@
+{
+  "name": "onboarding-pfadfinder",
+  "trigger": "/onboard",
+  "description": "Analysiert die Topologie einer Codebase und generiert eine didaktisch sequenzierte Lese-Tour mit Verstaendnisfragen und ersten sicheren Aufgaben. Trigger: /onboard",
+  "claim": "Neue Devs verdienen eine gefuehrte Tour, nicht ein README und 'frag halt'.",
+  "short": "Analysiert die Topologie einer Codebase und generiert eine didaktisch sequenzierte Lese-Tour mit Verstaendnisfragen und ersten sicheren Aufgaben.",
+  "long": "Wer eine Tour schreiben koennte, hat die Anfaenger-Sicht meist verloren. onboarding-pfadfinder hat beide Sichten gleichzeitig: es liest Entry-Points, Modul-Struktur und Git-Churn und sequenziert daraus Stationen vom Was zum Wie - jede Aussage nur ueber tatsaechlich Gelesenes.",
+  "terms": {
+    "usecase": [
+      "onboarding"
+    ],
+    "thema": [
+      "wissens-management"
+    ],
+    "stichwort": [
+      "onboarding-tour",
+      "topologie"
+    ],
+    "ziel": [
+      "zeit-sparen"
+    ],
+    "branche": [
+      "alle"
+    ],
+    "taetigkeit": [
+      "product",
+      "entwickeln"
+    ],
+    "level": [
+      "einsteiger",
+      "alle"
+    ],
+    "risiko": [
+      "read-only"
+    ]
+  },
+  "priceTier": "single",
+  "related": [
+    "vokabular-waechter",
+    "doku-drift-detektor"
+  ]
+}

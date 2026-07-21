@@ -1,0 +1,8 @@
+{
+  "id": "qualitaets-fundament",
+  "title": "Qualitaets-Fundament",
+  "claim": "Ein Projekt auf Enterprise-Niveau heben - und dort halten.",
+  "story": "Qualitaet ist kein einmaliger Zustand, sondern eine Kombination aus drei Dauer-Aufgaben: die Enterprise-Basics (Tests, CI, Secrets, Docs) etablieren, wissen, welches Verhalten wirklich ungetestet ist, und verhindern, dass Geschaeftsregeln unbemerkt auseinanderdriften. Dieses Bundle deckt alle drei ab.",
+  "skills": ["elevate", "test-luecken-kartograf", "konsistenz-enforcer"],
+  "priceTier": "bundle"
+}

@@ -1,0 +1,45 @@
+{
+  "name": "deps-erbschaft",
+  "trigger": "/deps-audit",
+  "description": "Beantwortet fuer jede direkte Dependency: Zweck, echte Nutzungstiefe, Risiko, Austauschbarkeit, konkreter Exit-Plan. Trigger: /deps-audit",
+  "claim": "Jede Dependency wurde angeheiratet. Zeit fuer die Erbschaftsfragen.",
+  "short": "Beantwortet fuer jede direkte Dependency: Zweck, echte Nutzungstiefe, Risiko, Austauschbarkeit, konkreter Exit-Plan.",
+  "long": "npm audit findet CVEs. deps-erbschaft findet die Fragen, die niemand stellt: Wofuer wird das Paket WIRKLICH genutzt, wie tief ist die Kopplung, und was sind die ersten drei Schritte, falls es ersetzt werden muss - aus echten Nutzungsstellen im Code, nicht aus Vermutungen.",
+  "terms": {
+    "usecase": [
+      "audit-vorbereiten",
+      "qualitaet-heben"
+    ],
+    "thema": [
+      "konfiguration"
+    ],
+    "stichwort": [
+      "dependency",
+      "lockfile"
+    ],
+    "ziel": [
+      "risiko-senken",
+      "kosten-senken"
+    ],
+    "branche": [
+      "alle",
+      "enterprise-it"
+    ],
+    "taetigkeit": [
+      "architektur",
+      "devops",
+      "security"
+    ],
+    "level": [
+      "alle"
+    ],
+    "risiko": [
+      "read-only"
+    ]
+  },
+  "priceTier": "single",
+  "related": [
+    "konfig-kartograf",
+    "berechtigungs-roentgen"
+  ]
+}

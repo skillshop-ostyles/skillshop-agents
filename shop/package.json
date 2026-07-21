@@ -1,0 +1,17 @@
+{
+  "name": "skill-shop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Marktplatz und Fachgeschaeft fuer Claude-Code-Skills aus dem AGENTS-Repo.",
+  "type": "commonjs",
+  "scripts": {
+    "import": "node bin/import.js",
+    "stats": "node bin/stats.js",
+    "start": "node -e \"console.log('shop-katalog kommt in Sprint 22')\"",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.3.0",
+    "express": "^4.19.2"
+  }
+}

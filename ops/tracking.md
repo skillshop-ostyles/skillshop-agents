@@ -26,7 +26,7 @@ Stand: 2026-07-21
 | 18 | berechtigungs-roentgen | offen | — | — |
 | 19 | datenspuren-verfolger | offen | — | — |
 | 20 | onboarding-pfadfinder | offen | — | — |
-| 21 | shop-fundament | offen | — | — |
+| 21 | shop-fundament | fertig | 2026-07-21 | — |
 | 22 | shop-katalog | offen | — | — |
 | 23 | shop-checkout-installer | offen | — | — |
 | 24 | shop-berater-bundles | offen | — | — |

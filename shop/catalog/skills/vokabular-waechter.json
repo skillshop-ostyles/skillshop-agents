@@ -1,0 +1,44 @@
+{
+  "name": "vokabular-waechter",
+  "trigger": "/vocab",
+  "description": "Findet Synonym-Cluster und Homonym-Warnungen fuer Domaenen-Konzepte im Code und schlaegt einen Kanon vor. Trigger: /vocab",
+  "claim": "Customer, Client, Account, Kunde - vier Namen, ein Konzept, ein staendiges Missverstaendnis.",
+  "short": "Findet Synonym-Cluster und Homonym-Warnungen fuer Domaenen-Konzepte im Code und schlaegt einen Kanon vor.",
+  "long": "Sprach-Drift erzeugt Bugs und vergiftet jedes Onboarding. vokabular-waechter erntet Bezeichner aus Code, Schema und API, clustert Synonyme (auch ueber Sprachgrenzen) und warnt bei Homonymen - mit kanonischem Namensvorschlag und Impact-Schaetzung. Benennt nie selbst um.",
+  "terms": {
+    "usecase": [
+      "onboarding",
+      "qualitaet-heben"
+    ],
+    "thema": [
+      "wissens-management"
+    ],
+    "stichwort": [
+      "vokabular",
+      "synonym"
+    ],
+    "ziel": [
+      "qualitaet-heben",
+      "zeit-sparen"
+    ],
+    "branche": [
+      "alle"
+    ],
+    "taetigkeit": [
+      "architektur",
+      "product",
+      "entwickeln"
+    ],
+    "level": [
+      "alle"
+    ],
+    "risiko": [
+      "read-only"
+    ]
+  },
+  "priceTier": "single",
+  "related": [
+    "doku-drift-detektor",
+    "konsistenz-enforcer"
+  ]
+}

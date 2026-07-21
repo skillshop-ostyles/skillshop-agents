@@ -1,0 +1,43 @@
+{
+  "name": "prod-spiegel",
+  "trigger": "/mirror",
+  "description": "Gleicht exportierte Logs statistisch gegen Code-Erwartungen ab: tote Features, verschluckte Fehler, unerwartete Hot Paths. Trigger: /mirror",
+  "claim": "Was dein Code verspricht, und was Prod wirklich tut, sind zwei Geschichten.",
+  "short": "Gleicht exportierte Logs statistisch gegen Code-Erwartungen ab: tote Features, verschluckte Fehler, unerwartete Hot Paths.",
+  "long": "Prod-Realitaet kennt niemand ganz. prod-spiegel liest exportierte Log-Dateien lokal, verdichtet sie zu Mustern und Fehlerquoten und haelt sie gegen Log-Statements, Catch-Bloecke und Routen im Code - mit belegten Deltas statt Bauchgefuehl.",
+  "terms": {
+    "usecase": [
+      "incident-aufklaeren"
+    ],
+    "thema": [
+      "resilienz"
+    ],
+    "stichwort": [
+      "logs",
+      "prod-verhalten"
+    ],
+    "ziel": [
+      "risiko-senken",
+      "zeit-sparen"
+    ],
+    "branche": [
+      "alle"
+    ],
+    "taetigkeit": [
+      "devops",
+      "product",
+      "architektur"
+    ],
+    "level": [
+      "alle"
+    ],
+    "risiko": [
+      "read-only"
+    ]
+  },
+  "priceTier": "single",
+  "related": [
+    "ausfall-simulant",
+    "zeitbomben-scanner"
+  ]
+}

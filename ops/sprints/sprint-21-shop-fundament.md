@@ -106,13 +106,42 @@ Import verändert nichts (Hash-Vergleich der Kennzahlen-Ausgabe).
 
 Negativ: `npm run import -- --root C:\gibt\es\nicht` → exit != 0, Klartext-Fehler.
 
+## Entscheidungen während der Umsetzung
+
+**Diskrepanz zum Plan:** Nur 2 der 22 Skill-Ordner existieren real (`elevate`,
+`project-init`); die anderen 20 sind bislang reine Sprint-Spezifikationen ohne
+`SKILL.md`. Der ursprüngliche Importer-Entwurf ("jeder Ordner mit SKILL.md = Skill")
+haette 20 Katalog-Eintraege gar nicht erst entdeckt.
+
+**Loesung (dokumentiert statt stillschweigend angenommen, BIBEL § 1/§ 8):**
+Skill-Erkennung laeuft ueber die Vereinigung aus (a) real gescannten Ordnern und
+(b) kuratierten `catalog/skills/*.json`-Dateien.
+
+- Existiert der Ordner: `trigger`/`description` kommen aus dem SKILL.md-Frontmatter
+  (Code ist Quelle der Wahrheit), `folder_hash` wird berechnet.
+- Existiert nur die Katalog-Datei (kein Ordner): `trigger`/`description` muessen
+  in der Katalog-JSON selbst stehen (deshalb tragen alle 20 spec-only Skills jetzt
+  `trigger`+`description`); Status wird IMMER auf `in-entwicklung` erzwungen
+  (nicht installierbar), `folder_hash` bleibt `null`.
+- Ein Katalog-Eintrag ohne Ordner ist nur dann ein legitimes Produkt ("geplanter
+  Sprint"), wenn `ops/tracking.md` eine Zeile fuer den Namen kennt ODER
+  tracking.md unlesbar ist (Sicherheitsnetz). Fehlt beides, ist es ein echtes
+  Geisterprodukt (Tippfehler/Waise) → Warnung, uebersprungen, kein harter Fehler.
+- Ist tracking.md unlesbar/kein Statusfeld auffindbar: ALLE Skills (auch mit
+  Ordner) werden sicherheitshalber `in-entwicklung`, mit globaler Warnung.
+
+Damit bleibt das Ehrlichkeits-Prinzip (SHOP-BIBEL § 2.5) exakt erfuellt: der Shop
+zeigt schon jetzt alle 22 geplanten Produkte, aber installierbar sind nur die 2,
+die tatsaechlich fertig sind.
+
 ## 7. DoD-Checkliste
 
-- [ ] shop/-Gerüst inkl. .gitignore (node_modules, data/*.db) — package-lock.json wird committet
-- [ ] Schema vollständig (SHOP-BIBEL § 5) inkl. FTS5
-- [ ] Importer mit allen 8 Schritten + Fehler-/Warnregeln
-- [ ] 22 kuratierte Skill-JSONs (Claim-Qualität: kein Feature-Satz), taxonomy.json, 6 Bundles
-- [ ] Alle Tests grün (node --test), Idempotenz bewiesen
-- [ ] Negativ-Test bestanden
-- [ ] bin/stats.js liefert korrekte Kennzahlen
-- [ ] tracking.md aktualisiert, Commit `sprint-21: shop-fundament implementiert`
+- [x] shop/-Gerüst inkl. .gitignore (node_modules, data/*.db) — package-lock.json wird committet
+- [x] Schema vollständig (SHOP-BIBEL § 5) inkl. FTS5 (Korrektur: nicht-contentless FTS5-Tabelle,
+      da contentless-Tabellen kein DELETE unterstuetzen — sonst waere Re-Import nicht idempotent)
+- [x] Importer mit allen 8 Schritten + Fehler-/Warnregeln (plus Discovery-Erweiterung s.o.)
+- [x] 22 kuratierte Skill-JSONs (Claim-Qualität: kein Feature-Satz), taxonomy.json, 6 Bundles
+- [x] Alle Tests grün (node --test: 12/12), Idempotenz bewiesen (identische Kennzahlen + Zeilenzahlen nach 2. Lauf)
+- [x] Negativ-Test bestanden (`--root` auf nicht existenten Pfad → exit 1, Klartext-Fehler)
+- [x] bin/stats.js liefert korrekte Kennzahlen (22 Skills: 2 verfuegbar/20 in-entwicklung, 6 Bundles)
+- [x] tracking.md aktualisiert, Commit `sprint-21: shop-fundament implementiert`

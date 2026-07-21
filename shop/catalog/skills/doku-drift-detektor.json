@@ -1,0 +1,43 @@
+{
+  "name": "doku-drift-detektor",
+  "trigger": "/doc-drift",
+  "description": "Prueft jede pruefbare Doku-Behauptung - Pfade, Kommandos, Config-Schluessel, Endpoints - statisch gegen die Code-Realitaet. Trigger: /doc-drift",
+  "claim": "Dein README log seit sechs Monaten. Zeit, es zu ertappen.",
+  "short": "Prueft jede pruefbare Doku-Behauptung - Pfade, Kommandos, Config-Schluessel, Endpoints - statisch gegen die Code-Realitaet.",
+  "long": "Kommandos, die es nicht mehr gibt, Pfade, die umgezogen sind: doku-drift-detektor extrahiert jede pruefbare Behauptung aus README und Docs und haelt sie gegen das Repo, mit konkretem Korrektur-Vorschlag je Drift-Fund. Fuehrt nie ein dokumentiertes Kommando aus.",
+  "terms": {
+    "usecase": [
+      "onboarding",
+      "qualitaet-heben"
+    ],
+    "thema": [
+      "doku"
+    ],
+    "stichwort": [
+      "doku-drift"
+    ],
+    "ziel": [
+      "zeit-sparen",
+      "qualitaet-heben"
+    ],
+    "branche": [
+      "alle"
+    ],
+    "taetigkeit": [
+      "product",
+      "reviewen",
+      "entwickeln"
+    ],
+    "level": [
+      "alle"
+    ],
+    "risiko": [
+      "read-only"
+    ]
+  },
+  "priceTier": "single",
+  "related": [
+    "vokabular-waechter",
+    "onboarding-pfadfinder"
+  ]
+}
