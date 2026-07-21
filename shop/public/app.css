@@ -279,6 +279,12 @@ code, .mono { font-family: var(--mono); }
 }
 .card-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 4px; }
 
+/* Karten mit eigenen interaktiven Buttons (Warenkorb/Merkliste): unsichtbarer
+   Cover-Link macht die ganze Karte klickbar, .card-actions bleibt darueber
+   bedienbar (stretched-link-Muster). */
+.card-cover { position: absolute; inset: 0; z-index: 1; cursor: pointer; }
+.card > .card-actions { position: relative; z-index: 2; margin: 0; }
+
 /* Status als Punkt + Label (statt Pill-Suppe) */
 .status-dot { position: relative; display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 600; }
 .status-dot::before { content: ""; width: 8px; height: 8px; border-radius: 50%; }

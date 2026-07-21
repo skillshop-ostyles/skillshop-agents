@@ -101,7 +101,7 @@
         ? `<section class="section">
              <h2>Passt als Bundle</h2>
              <a class="card" href="bundle.html?slug=${encodeURIComponent(result.primaryBundle.slug)}">
-               <h3>${Shop.escapeHtml(result.primaryBundle.title)}</h3>
+               <h3 class="card-title">${Shop.escapeHtml(result.primaryBundle.title)}</h3>
                <p class="claim">${Shop.escapeHtml(result.primaryBundle.claim)}</p>
              </a>
            </section>`
@@ -109,11 +109,12 @@
 
       const recsHtml = result.recommendations.length > 0
         ? `<div class="card-grid">${result.recommendations.map((r) => `
-            <div class="card">
-              <h3>${Shop.escapeHtml(r.name)}</h3>
+            <a class="card" href="skill.html?name=${encodeURIComponent(r.name)}">
+              <div class="card-head"><code class="card-cmd">${Shop.escapeHtml(r.trigger)}</code>${Shop.statusDot(r.status)}</div>
+              <h3 class="card-title">${Shop.escapeHtml(r.name)}</h3>
               <p class="claim">${Shop.escapeHtml(r.reason)}</p>
-              <div class="card-badges">${Shop.statusBadge(r.status)}${r.wouldFitButTouches ? '<span class="badge risk-write">fasst an</span>' : ''}</div>
-            </div>
+              ${r.wouldFitButTouches ? `<div class="card-foot"><span class="tag tag-risk-write">fasst an</span></div>` : ''}
+            </a>
           `).join('')}</div>`
         : '<p class="empty-state">Für diese Kombination gibt es aktuell keine Empfehlung.</p>';
 

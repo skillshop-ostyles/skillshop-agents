@@ -65,10 +65,11 @@
         : '';
       el.innerHTML = `${sumHtml}<div class="card-grid">${items.map(({ entry, skill: s }) => `
         <div class="card">
-          <h3>${Shop.escapeHtml(s.name)}</h3>
+          <a class="card-cover" href="skill.html?name=${encodeURIComponent(s.name)}" aria-label="${Shop.escapeHtml(s.name)} ansehen"></a>
+          <h3 class="card-title">${Shop.escapeHtml(s.name)}</h3>
           <p class="claim">${Shop.escapeHtml(s.claim)}</p>
-          <div class="card-badges">${Shop.triggerChip(s.trigger)}${Shop.priceLabel(s.price)}${entry.fromBundle ? `<span class="badge uncurated">aus Bundle ${Shop.escapeHtml(entry.fromBundle)}</span>` : ''}</div>
-          <p><button class="btn secondary" data-remove="${Shop.escapeHtml(s.name)}">Entfernen</button></p>
+          <div class="card-foot">${Shop.triggerChip(s.trigger)}${Shop.priceLabel(s.price)}${entry.fromBundle ? `<span class="tag tag-muted">aus Bundle ${Shop.escapeHtml(entry.fromBundle)}</span>` : ''}</div>
+          <p class="card-actions"><button class="btn secondary" data-remove="${Shop.escapeHtml(s.name)}">Entfernen</button></p>
         </div>
       `).join('')}</div>`;
       el.querySelectorAll('button[data-remove]').forEach((btn) => {

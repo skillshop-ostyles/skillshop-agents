@@ -48,11 +48,11 @@
 
       el.innerHTML = `<div class="card-grid">${items.map((s) => `
         <div class="card">
-          <h3>${Shop.escapeHtml(s.name)}</h3>
+          <a class="card-cover" href="skill.html?name=${encodeURIComponent(s.name)}" aria-label="${Shop.escapeHtml(s.name)} ansehen"></a>
+          <h3 class="card-title">${Shop.escapeHtml(s.name)}</h3>
           <p class="claim">${Shop.escapeHtml(s.claim)}</p>
-          <div class="card-badges">${Shop.statusBadge(s.status)}${s.status === 'verfuegbar' ? '<span class="badge status-ok">jetzt verfügbar</span>' : ''}</div>
-          <p style="margin-top: 10px;">
-            <a class="btn secondary" href="skill.html?name=${encodeURIComponent(s.name)}">Ansehen</a>
+          <div class="card-foot">${Shop.statusDot(s.status)}${s.status === 'verfuegbar' ? '<span class="tag tag-price">jetzt verfügbar</span>' : ''}</div>
+          <p class="card-actions">
             ${s.status === 'verfuegbar' ? `<button class="btn primary" data-cart="${Shop.escapeHtml(s.name)}">In den Warenkorb</button>` : ''}
             <button class="btn secondary" data-remove="${Shop.escapeHtml(s.name)}">Entfernen</button>
           </p>
