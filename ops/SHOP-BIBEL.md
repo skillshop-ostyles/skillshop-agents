@@ -218,3 +218,26 @@ ohne JS-Framework; Ladezeit lokal < 100 ms; leere Zustände sind gestaltet
   End-zu-End-Installationstests gegen ein Wegwerf-Zielprojekt im Scratch-Ordner.
 - Frontend-Prüfung: curl-basierte API-Tests + manuelle Browser-Prüfliste im
   Sprint-File (dokumentierte Screenshots optional).
+
+---
+
+## 9. Ausblick Phase 2 (nicht jetzt, bewusst vorgemerkt)
+
+Entscheidung (2026-07-21): Phase 1 bleibt wie sie ist — Vanilla-JS/Express/
+better-sqlite3, kein Build-Schritt, kein Frontend-Framework (§ 2.1 gilt
+unverändert). Ein Umbau auf **Astro** (https://astro.build/) wurde geprüft
+und bewusst zurückgestellt, weil seine Kernvorteile (SEO, Netzwerk-Performance,
+Content-Skalierung, Islands für komplexe Interaktivität) erst greifen, wenn
+der Shop Phase 1 verlässt: öffentlicher Deploy + echte Zahlungsintegration
+(Stripe/PayPal o.ä.) statt „vorbereitet, nicht aktiv" (§ 2.6).
+
+Wenn Phase 2 ansteht (User-Entscheidung, kein Termin): Astro-Frage erneut
+aufgreifen, bevor weiter in Vanilla-JS-Eigenbau investiert wird. Zwei Optionen
+im Kopf behalten:
+- **Nur als Seiten-Compiler**: `astro build` → `dist/`, Express+SQLite-API
+  bleibt unangetastet (niedrigstes Risiko, bestehende Tests bleiben gültig).
+- **Voller Umbau inkl. SSR/API-Routen**: nur sinnvoll, wenn öffentlicher
+  Deploy + echte Zahlungslogik ohnehin einen Architektur-Cut nötig machen.
+
+Zahlungsintegration selbst ist frameworkunabhängig — kein Astro-spezifischer
+Vorteil dort, nur bessere DX für die Checkout-UI-Komponenten.
