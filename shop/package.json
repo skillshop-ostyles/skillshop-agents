@@ -7,7 +7,7 @@
   "scripts": {
     "import": "node bin/import.js",
     "stats": "node bin/stats.js",
-    "start": "node -e \"console.log('shop-katalog kommt in Sprint 22')\"",
+    "start": "node src/server.js",
     "test": "node --test test/"
   },
   "dependencies": {

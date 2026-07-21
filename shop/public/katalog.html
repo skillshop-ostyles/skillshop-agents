@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Katalog — Skill-Shop</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um den Katalog zu laden.</div></noscript>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">Skill-Shop</a>
+      <nav class="nav-links">
+        <a href="katalog.html">Katalog</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container katalog-layout">
+    <aside class="facets" id="facets">
+      <form class="search-form" id="search-form" style="margin-bottom: 20px;">
+        <input type="search" name="q" placeholder="Suche im Katalog" aria-label="Suche" />
+        <button type="submit">Suchen</button>
+      </form>
+      <div id="facet-list"></div>
+    </aside>
+
+    <main>
+      <div class="active-filters" id="active-filters"></div>
+      <div class="card-grid" id="card-grid"></div>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    const DIM_LABELS = Shop.DIMENSION_LABELS;
+
+    function paramsToObject(params) {
+      const obj = {};
+      for (const [k, v] of params.entries()) {
+        if (!obj[k]) obj[k] = [];
+        obj[k].push(v);
+      }
+      return obj;
+    }
+
+    function updateParams(mutator) {
+      const params = Shop.currentParams();
+      mutator(params);
+      history.pushState({}, '', `katalog.html?${params.toString()}`);
+      render();
+    }
+
+    function toggleTerm(dim, term) {
+      updateParams((params) => {
+        const values = params.getAll(dim);
+        params.delete(dim);
+        if (values.includes(term)) {
+          for (const v of values) if (v !== term) params.append(dim, v);
+        } else {
+          for (const v of values) params.append(dim, v);
+          params.append(dim, term);
+        }
+      });
+    }
+
+    function removeFilter(dim, term) {
+      updateParams((params) => {
+        const values = params.getAll(dim).filter((v) => v !== term);
+        params.delete(dim);
+        for (const v of values) params.append(dim, v);
+      });
+    }
+
+    function removeQuery() {
+      updateParams((params) => params.delete('q'));
+    }
+
+    function renderFacets(facets, selected) {
+      const el = document.getElementById('facet-list');
+      el.innerHTML = Shop.DIMENSIONS.map((dim) => {
+        const terms = facets[dim] || [];
+        if (terms.length === 0) return '';
+        const selectedForDim = selected[dim] || [];
+        const isOpen = selectedForDim.length > 0 ? 'open' : '';
+        const labels = terms.map((t) => {
+          const checked = selectedForDim.includes(t.term) ? 'checked' : '';
+          const id = `f-${dim}-${t.term}`;
+          return `
+            <label for="${id}">
+              <input type="checkbox" id="${id}" data-dim="${dim}" data-term="${Shop.escapeHtml(t.term)}" ${checked} />
+              ${Shop.escapeHtml(t.term)} (${t.count})
+            </label>
+          `;
+        }).join('');
+        return `<details ${isOpen}><summary>${DIM_LABELS[dim]}</summary>${labels}</details>`;
+      }).join('');
+
+      el.querySelectorAll('input[type=checkbox]').forEach((input) => {
+        input.addEventListener('change', () => toggleTerm(input.dataset.dim, input.dataset.term));
+      });
+    }
+
+    function renderActiveFilters(selected, q) {
+      const el = document.getElementById('active-filters');
+      const chips = [];
+      if (q) {
+        chips.push(`<span class="chip removable">q: ${Shop.escapeHtml(q)} <button data-remove-q>&times;</button></span>`);
+      }
+      for (const dim of Shop.DIMENSIONS) {
+        for (const term of selected[dim] || []) {
+          chips.push(`<span class="chip removable">${DIM_LABELS[dim]}: ${Shop.escapeHtml(term)} <button data-dim="${dim}" data-term="${Shop.escapeHtml(term)}">&times;</button></span>`);
+        }
+      }
+      el.innerHTML = chips.join('');
+      el.querySelectorAll('button[data-remove-q]').forEach((btn) => btn.addEventListener('click', removeQuery));
+      el.querySelectorAll('button[data-dim]').forEach((btn) => {
+        btn.addEventListener('click', () => removeFilter(btn.dataset.dim, btn.dataset.term));
+      });
+    }
+
+    function renderGrid(skills) {
+      const el = document.getElementById('card-grid');
+      if (skills.length === 0) {
+        el.outerHTML = '<div class="empty-state" id="card-grid">Keine Treffer. Filter anpassen oder Suchbegriff aendern.</div>';
+        return;
+      }
+      el.innerHTML = skills.map(Shop.card).join('');
+    }
+
+    async function render() {
+      const params = Shop.currentParams();
+      const selected = paramsToObject(params);
+      delete selected.q;
+      const q = params.get('q') || '';
+      document.querySelector('#search-form input[name=q]').value = q;
+
+      try {
+        const [skills, facets] = await Promise.all([
+          Shop.fetchJson(Shop.apiUrlFromParams('/api/skills', params)),
+          Shop.fetchJson(Shop.apiUrlFromParams('/api/facets', params)),
+        ]);
+        renderFacets(facets, selected);
+        renderActiveFilters(selected, q);
+        renderGrid(skills);
+      } catch (err) {
+        document.getElementById('card-grid').innerHTML = `<p class="empty-state">${Shop.escapeHtml(err.message)}</p>`;
+      }
+    }
+
+    document.getElementById('search-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = new FormData(e.target).get('q');
+      updateParams((params) => {
+        if (q) params.set('q', q); else params.delete('q');
+      });
+    });
+
+    window.addEventListener('popstate', render);
+    render();
+  </script>
+</body>
+</html>

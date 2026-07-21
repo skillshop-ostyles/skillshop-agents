@@ -316,6 +316,7 @@ function runImport({ rootDir, catalogDir, dbPath }) {
       uncurated: catalog ? 0 : 1,
       folderHash: folder ? folder.folderHash : null,
       terms,
+      related: catalog?.related || [],
     });
   }
 
@@ -325,6 +326,15 @@ function runImport({ rootDir, catalogDir, dbPath }) {
     for (const skillName of bundle.skills || []) {
       if (!productNames.has(skillName)) {
         throw new ImportError(`Bundle '${bundle.id}': unbekannter Skill '${skillName}'`);
+      }
+    }
+  }
+
+  // Related-skill referential integrity.
+  for (const p of products) {
+    for (const relatedName of p.related) {
+      if (!productNames.has(relatedName)) {
+        throw new ImportError(`Skill '${p.name}': unbekannter related-Skill '${relatedName}'`);
       }
     }
   }
@@ -363,6 +373,8 @@ function runImport({ rootDir, catalogDir, dbPath }) {
       INSERT INTO prices (ref_type, ref_id, tier, amount_cents, currency) VALUES ('skill', ?, ?, 0, 'EUR')
     `);
     const clearFts = db.prepare('DELETE FROM skills_fts');
+    const clearRelated = db.prepare('DELETE FROM skill_related WHERE skill_id = ?');
+    const insertRelated = db.prepare('INSERT INTO skill_related (skill_id, related_name) VALUES (?, ?)');
 
     for (const [dim, terms] of Object.entries(taxonomy)) {
       for (const term of terms) upsertTerm.run(dim, term);
@@ -387,6 +399,10 @@ function runImport({ rootDir, catalogDir, dbPath }) {
       }
       clearPrices.run(skillId);
       insertPrice.run(skillId, p.priceTier);
+      clearRelated.run(skillId);
+      for (const relatedName of p.related) {
+        insertRelated.run(skillId, relatedName);
+      }
     }
 
     // FTS rebuild (all products).

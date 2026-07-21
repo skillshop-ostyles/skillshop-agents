@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skill — Skill-Shop</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um Produktdaten zu laden.</div></noscript>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">Skill-Shop</a>
+      <nav class="nav-links">
+        <a href="katalog.html">Katalog</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="content"></div>
+
+  <footer class="site-footer">
+    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    async function mount() {
+      const name = new URLSearchParams(window.location.search).get('name');
+      const content = document.getElementById('content');
+      if (!name) {
+        content.innerHTML = '<p class="container empty-state">Kein Skill angegeben.</p>';
+        return;
+      }
+      let skill;
+      try {
+        skill = await Shop.fetchJson(`/api/skills/${encodeURIComponent(name)}`);
+      } catch (err) {
+        content.innerHTML = `<p class="container empty-state">${Shop.escapeHtml(err.message)}</p>`;
+        return;
+      }
+
+      document.title = `${skill.name} — Skill-Shop`;
+
+      const ctaHtml = skill.status === 'verfuegbar'
+        ? `<button class="btn primary" id="install-btn">In den Warenkorb</button>
+           <span class="hint-text" id="install-hint" style="display:none;">Kasse kommt in Kuerze — Warenkorb folgt in Sprint 23.</span>`
+        : `${Shop.statusBadge(skill.status)}
+           <button class="btn secondary" disabled title="Merkliste kommt in Kuerze">Merken</button>`;
+
+      const bundlesHtml = skill.bundles.length > 0
+        ? `<div class="card-grid">${skill.bundles.map((b) => `
+            <a class="card" href="bundle.html?slug=${encodeURIComponent(b.slug)}">
+              <h3>${Shop.escapeHtml(b.title)}</h3>
+            </a>`).join('')}</div>`
+        : '<p class="hint-text">In keinem Bundle enthalten.</p>';
+
+      const relatedHtml = skill.related.length > 0
+        ? `<div class="card-grid">${skill.related.map((r) => `
+            <a class="card" href="skill.html?name=${encodeURIComponent(r.name)}">
+              <h3>${Shop.escapeHtml(r.name)}</h3>
+              <p class="claim">${Shop.escapeHtml(r.claim)}</p>
+              <div class="card-badges">${Shop.statusBadge(r.status)}</div>
+            </a>`).join('')}</div>`
+        : '<p class="hint-text">Keine verwandten Skills kuratiert.</p>';
+
+      content.innerHTML = `
+        <section class="product-hero container">
+          <h1>${Shop.escapeHtml(skill.name)}</h1>
+          <p class="claim">${Shop.escapeHtml(skill.claim)}</p>
+          <div class="cta-row">${ctaHtml}${Shop.riskBadge(skill.risk)}${Shop.triggerChip(skill.trigger)}</div>
+        </section>
+
+        <div class="container">
+          <section class="section">
+            <h2>Das bekommst du</h2>
+            <p>${Shop.escapeHtml(skill.long)}</p>
+          </section>
+
+          <section class="section">
+            <h2>Evidenz-Versprechen</h2>
+            <p class="hint-text">Jede Aussage, die dieser Skill trifft, traegt einen Beleg — Commit-Hash, Datei:Zeile oder Zitat mit Fundstelle. Keine Behauptung ohne Beleg.</p>
+          </section>
+
+          <section class="section">
+            <h2>Enthalten in Bundles</h2>
+            ${bundlesHtml}
+          </section>
+
+          <section class="section">
+            <h2>Verwandte Skills</h2>
+            ${relatedHtml}
+          </section>
+
+          <section class="section">
+            <h2>Technische Fakten</h2>
+            <p class="hint-text">Trigger: ${Shop.escapeHtml(skill.trigger)} — Risiko: ${skill.risk} — Status: ${skill.status}${skill.uncurated ? ' — unkuratiert (Ordner-Frontmatter, keine Katalog-Kuration)' : ''}</p>
+          </section>
+        </div>
+      `;
+
+      const installBtn = document.getElementById('install-btn');
+      if (installBtn) {
+        installBtn.addEventListener('click', () => {
+          document.getElementById('install-hint').style.display = 'inline';
+        });
+      }
+    }
+    mount();
+  </script>
+</body>
+</html>

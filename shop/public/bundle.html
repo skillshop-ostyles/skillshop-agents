@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bundle — Skill-Shop</title>
+  <link rel="stylesheet" href="app.css" />
+</head>
+<body>
+  <noscript><div class="noscript-warning">Diese Seite braucht JavaScript, um Bundle-Daten zu laden.</div></noscript>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html">Skill-Shop</a>
+      <nav class="nav-links">
+        <a href="katalog.html">Katalog</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="content"></div>
+
+  <footer class="site-footer">
+    <div class="container">Skill-Shop — lokal, ohne Telemetrie.</div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    async function mount() {
+      const slug = new URLSearchParams(window.location.search).get('slug');
+      const content = document.getElementById('content');
+      if (!slug) {
+        content.innerHTML = '<p class="container empty-state">Kein Bundle angegeben.</p>';
+        return;
+      }
+      let bundle;
+      try {
+        bundle = await Shop.fetchJson(`/api/bundles/${encodeURIComponent(slug)}`);
+      } catch (err) {
+        content.innerHTML = `<p class="container empty-state">${Shop.escapeHtml(err.message)}</p>`;
+        return;
+      }
+
+      document.title = `${bundle.title} — Skill-Shop`;
+
+      content.innerHTML = `
+        <section class="bundle-hero container">
+          <h1>${Shop.escapeHtml(bundle.title)}</h1>
+          <p class="claim">${Shop.escapeHtml(bundle.claim)}</p>
+          <div class="cta-row">
+            <button class="btn primary" id="bundle-cta">Bundle in den Warenkorb</button>
+            <span class="hint-text" id="bundle-hint" style="display:none;">Kasse kommt in Kuerze — Warenkorb folgt in Sprint 23.</span>
+          </div>
+        </section>
+
+        <div class="container">
+          <section class="section">
+            <h2>Worum es geht</h2>
+            <p>${Shop.escapeHtml(bundle.story)}</p>
+          </section>
+
+          <section class="section">
+            <h2>Enthaltene Skills</h2>
+            <p class="status-aggregate">${bundle.status.verfuegbar} von ${bundle.status.total} verfuegbar</p>
+            <div class="card-grid">${bundle.skills.map(Shop.card).join('')}</div>
+          </section>
+        </div>
+      `;
+
+      document.getElementById('bundle-cta').addEventListener('click', () => {
+        document.getElementById('bundle-hint').style.display = 'inline';
+      });
+    }
+    mount();
+  </script>
+</body>
+</html>

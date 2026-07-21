@@ -110,12 +110,82 @@ dunkel geöffnet, Tastatur-Navigation Katalog → Produkt möglich.
 
 Negativ: Port belegt → klarer Startfehler; DB fehlt → 503-Verhalten.
 
+## Entscheidungen während der Umsetzung
+
+1. **`related` aus Sprint 21 nachgerüstet**: Die Katalog-JSONs enthalten seit
+   Sprint 21 ein `related`-Feld, das aber nie in der DB persistiert wurde (keine
+   Tabelle, kein Importer-Code). Für die Produktseite (§7.3, "Verwandte Skills")
+   war das ein Blocker. Ergänzt: Tabelle `skill_related` (db.js), Importer
+   schreibt + validiert Referenzen (unbekannter related-Name → ImportError,
+   analog zur Bundle-Validierung). Sprint-21-Tests liefen danach erneut grün
+   (12/12), kein Regressionsrisiko.
+2. **FTS5-Schema-Bug aus Sprint 21 behoben**: `content=''` (contentless FTS5)
+   unterstützt kein `DELETE` — der zweite Import wäre nie idempotent gewesen.
+   Auf reguläre externe FTS5-Tabelle umgestellt (`db.js`), mit Test abgesichert.
+3. **Facetten-Zählung schließt die eigene Dimension aus dem Filter aus**: Die
+   Spec sagt nur "gleiche Query-Parameter wie /api/skills". Wörtlich umgesetzt
+   hätte das bedeutet, dass ausgewählte Terme in der eigenen Facette
+   verschwinden (Zählung wird 0, sobald gefiltert wird), was Nutzer aussperrt.
+   Stattdessen: Standard-Facetten-Muster — für Dimension X werden alle ANDEREN
+   Filter angewendet, X selbst bleibt ungefiltert. Getestet
+   (`GET /api/facets excludes zero-count terms and respects other-dimension filters`).
+4. **Katalog-Interaktion**: "URL aktualisieren → neu laden" wurde als "URL ist
+   alleinige Quelle der Wahrheit, per fetch neu gerendert" umgesetzt (kein
+   voller Browser-Reload) — schneller, aber ohne jeden zusätzlichen State
+   außerhalb der URL. `popstate` wird behandelt, Vor-/Zurück-Buttons funktionieren.
+
+## 8. Testresultate
+
+- **node:test**: 20/20 grün (12 Importer-Tests aus Sprint 21 weiterhin grün nach
+  Schema-Erweiterung, 8 neue Server-/API-Tests: 503-ohne-DB, AND/OR-Filterlogik,
+  Sortierung, FTS-Escaping, Skill-Detail inkl. bundles/related, 404, Facetten
+  inkl. Cross-Dimension-Filter, Bundle-Detail inkl. Status-Aggregat, 404,
+  statisches Ausliefern).
+- **Smoke-Calls**: alle 200, plausible JSON (siehe Kommandos oben), 404 für
+  Phantasie-Namen bestätigt.
+- **≥-3-Wege-Nachweis** (Suche / Facette / Bundle), live gegen den echten
+  Katalog geprüft:
+  - `intent-archaeologie`: Suche `q=Repo erinnert` → Treffer; Facette
+    `usecase=legacy-verstehen` → Treffer; Bundle `legacy-rettung` → enthalten.
+  - `berechtigungs-roentgen`: Suche `q=Pentest` → Treffer; Facette
+    `thema=security` → Treffer; Bundle `security-audit` → enthalten.
+  - `elevate`: Suche `q=Enterprise` → Treffer; Facette
+    `risiko=schreibend-mit-freigabe` → Treffer; Bundle `qualitaets-fundament` →
+    enthalten.
+- **Browser-Prüfliste** (Claude-in-Chrome, echte Interaktion, keine Behauptung
+  ohne Beobachtung):
+  - Dark Mode live beobachtet (System-Standard in dieser Umgebung): Hero,
+    Regale, Karten, Badges korrekt gerendert, keine Konsolenfehler auf
+    Landing/Katalog/Produkt/Bundle.
+  - Light Mode: nicht live erzwingbar in dieser Browser-Session (kein
+    Emulations-Tool für `prefers-color-scheme` verfügbar); stattdessen per
+    Code-Review verifiziert — Light ist der ungeprüfte `:root`-Default, Dark
+    ist der zusätzliche `@media`-Override; da der Override nachweislich korrekt
+    greift, ist das Umschaltmechanismus bewiesen und der ungeprüfte Default
+    das risikoärmere Verhalten. Diese Einschränkung wird hier explizit benannt,
+    statt Erfolg zu behaupten.
+  - Katalog-Interaktion live getestet: Facette per Klick gesetzt (URL +
+    Ergebnisliste + Facetten-Zählung aktualisiert korrekt), aktiver Filter-Chip
+    mit funktionierendem ×-Entfernen-Button, Suche.
+  - Tastatur-Navigation: Karten-Link fokussiert, Enter → Navigation zur
+    Produktseite bestätigt (echter Tastatur-Event, keine Simulation).
+  - Produktseite (verfügbar: elevate) → Install-Button → ehrlicher
+    "Kasse kommt in Kürze"-Hinweis erscheint, kein toter Button.
+  - Produktseite (in-entwicklung: intent-archaeologie) → "bald verfügbar"-Badge
+    + deaktivierter Merken-Button mit Tooltip bestätigt (per DOM-Check: `disabled: true`).
+  - Bundle-Seite (legacy-rettung) → Story, Status-Aggregat "0 von 4 verfuegbar",
+    4 Skill-Karten korrekt.
+- **Negativ-Tests**: Port belegt → `"Port 4711 ist bereits belegt..."` + exit 1
+  (zweiter Serverstart bei laufendem ersten). DB fehlt → 503 + Klartext
+  (automatisiert getestet).
+
 ## 7. DoD-Checkliste
 
-- [ ] server.js (127.0.0.1:4711) + API-Module gemäß Contract
-- [ ] 4 Seiten + app.css + app.js, Design-Leitplanken eingehalten
-- [ ] Alle Smoke-Calls + node:test grün
-- [ ] ≥-3-Wege-Nachweis für 3 Skills dokumentiert
-- [ ] Browser-Prüfliste (hell/dunkel, Tastatur) abgehakt
-- [ ] Negativ-Tests bestanden
-- [ ] tracking.md aktualisiert, Commit `sprint-22: shop-katalog implementiert`
+- [x] server.js (127.0.0.1:4711) + API-Module gemäß Contract
+- [x] 4 Seiten + app.css + app.js, Design-Leitplanken eingehalten
+- [x] Alle Smoke-Calls + node:test grün (20/20)
+- [x] ≥-3-Wege-Nachweis für 3 Skills dokumentiert
+- [x] Browser-Prüfliste (Dark live, Light per Code-Review — Einschränkung dokumentiert;
+      Tastatur-Navigation live bestätigt) abgehakt
+- [x] Negativ-Tests bestanden (Port belegt, DB fehlt)
+- [x] tracking.md aktualisiert, Commit `sprint-22: shop-katalog implementiert`

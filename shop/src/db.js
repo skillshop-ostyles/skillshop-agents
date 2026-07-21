@@ -84,6 +84,12 @@ CREATE TABLE IF NOT EXISTS watchlist (
   added_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS skill_related (
+  skill_id INTEGER NOT NULL REFERENCES skills(id) ON DELETE CASCADE,
+  related_name TEXT NOT NULL,
+  PRIMARY KEY(skill_id, related_name)
+);
+
 CREATE VIRTUAL TABLE IF NOT EXISTS skills_fts USING fts5(
   name, claim, short, long, terms_flat
 );
