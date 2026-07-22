@@ -163,11 +163,78 @@ Negativ: ungültiger Pfad → exit != 0.
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig (inkl. Nie-Umbenennen-Regel)
-- [ ] term-harvest.ps1 (3 Quellen, Split, Stoppwörter, Frequenz, Kappung)
-- [ ] Fixture mit Synonym-Trio + Homonym angelegt
-- [ ] Smoke bestanden; Cluster + Homonym-Warnung korrekt
-- [ ] Akzeptanz-Lauf dokumentiert (3 Stichproben)
-- [ ] Negativ-Test bestanden
-- [ ] Report erfüllt BIBEL § 4 (≥ 2 Belege je Cluster)
-- [ ] tracking.md aktualisiert, Commit `sprint-13: vokabular-waechter implementiert`
+- [x] SKILL.md vollständig (inkl. Nie-Umbenennen-Regel)
+- [x] term-harvest.ps1 (3 Quellen, Split, Stoppwörter, Frequenz, Kappung)
+- [x] Fixture mit Synonym-Trio + Homonym angelegt
+- [x] Smoke bestanden; Cluster + Homonym-Warnung korrekt
+- [x] Akzeptanz-Lauf dokumentiert (3 Stichproben)
+- [x] Negativ-Test bestanden
+- [x] Report erfüllt BIBEL § 4 (≥ 2 Belege je Cluster)
+- [x] tracking.md aktualisiert, Commit `sprint-13: vokabular-waechter implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/vokabular-waechter/` (BIBEL-§-3-Konvention).
+2. **Neuer PowerShell-5.1-Bug gefunden**: `-replace` ist in PowerShell
+   case-**in**sensitiv — die CamelCase-Grenzregex `([a-z0-9])([A-Z])` traf
+   dadurch JEDES Zeichenpaar (nicht nur echte Kleinbuchstabe→Großbuchstabe-
+   Übergänge), z. B. `createCustomer` → `c re at eC us to me r` statt
+   `create Customer`. Fix: `-creplace` (case-**sensitiv**) für beide
+   CamelCase-Grenzregexe. Neue institutionelle Erkenntnis für Sprints 14-20:
+   jede zeichenklassen-abhängige `-replace`-Regex braucht `-creplace`, sonst
+   verschwimmen Groß-/Kleinschreibungs-Unterscheidungen.
+3. **Zweiter PSEnumerableBinder-Bug (Variante von Sprint 03)**: `samples =
+   @($t.samples)` als Hashtable-Wert innerhalb eines `foreach`-in-`@()`-Blocks
+   wirft `ArgumentException` ("Argumenttypen stimmen nicht überein") — auch
+   bei reiner Zuweisung (nicht nur `+=` wie in Sprint 03). Reproduziert mit
+   Minimal-Repro (`debug13d.ps1`/`debug13e.ps1`, siehe Testergebnisse). Fix:
+   `$t.samples` (bereits eine `List[object]`) OHNE erneutes `@()`-Wrapping
+   direkt zuweisen. Regel für Sprints 14-20 verschärft: **niemals** eine
+   bereits-enumerierbare Collection (`List[object]`, Array) nochmal in
+   `@(...)` einwickeln, wenn sie als Hashtable-Wert in einem `foreach`-in-
+   `@()`-Block landet — egal ob per `+=` oder direkter Zuweisung.
+4. **Config-Regex/Env-Vars nicht Teil dieses Sprints**: anders als Sprint 12
+   ging es hier nicht um Config-Schlüssel, sondern um Domänen-Vokabular —
+   Env-Var-Erkennung entfällt bewusst.
+5. **Akzeptanz-Ziel**: `dreamzzz-api_vs/src` (nicht Repo-Wurzel) — Code- und
+   Schema-Bezeichner leben dort, docs-artige Root-Dateien sind für dieses
+   Skill nicht relevant (anders als Sprint 12).
+
+## 11. Testergebnisse
+
+**Smoke** (Fixture `skills/vokabular-waechter/tests/fixture/`:
+`customer.ts` mit `class Customer`/`createCustomer`, `billing.ts` mit
+`getClientId`/`clientName`, `schema.sql` mit `CREATE TABLE kunde` +
+Spalten `kunde_id`/`kunde_name`, `orders.ts` mit `class Order`/`placeOrder`
+(Bestellung), `sorting.ts` mit `sortByOrder`/`defaultOrder` (Sortierung)):
+`term-harvest.ps1 -MinFrequency 1` erntet alle 4 Ziel-Terme korrekt
+typisiert — `customer` (freq 2, code), `client` (freq 2, code), `kunde`
+(freq 3, **schema**-Quelle über Tabellen- und Spaltennamen), `order` (freq 4,
+code — **beide** Kontexte in den Samples sichtbar: `Order`/`placeOrder` aus
+`orders.ts` UND `sortByOrder`/`defaultOrder` aus `sorting.ts`). JSON valide,
+exit 0. Manuelle Klassifikation (harte Kriterien): customer/client/kunde als
+EIN Konzept geclustert (`synonym-divergenz`, Kanon-Kandidat `kunde` wegen
+Schema-Verankerung + höchster Frequenz); `order` als `homonym-warnung`
+gemeldet (Bestellung in `orders.ts` vs. Sortierung in `sorting.ts`, beide
+Bedeutungen mit ≥ 2 Fundstellen belegt).
+
+**Akzeptanz** (`dreamzzz-api_vs/src`): 9 Dateien, 1057 rohe Bezeichner,
+250 Terme nach `MinFrequency 2`, nicht gekappt. 3 Cluster-Zuordnungen
+stichprobenartig gegen echte Fundstellen verifiziert (`Grep` gegen die
+Originaldateien):
+- `lang` (freq 23, u. a. `index.ts:375` `const lang: string = (body?.lang
+  ?? "de")...`) vs. `language` (freq 3, u. a. `prompts.ts:545` `export const
+  LANGUAGE_INSTRUCTIONS: Record<string, string> = {`) → `synonym-divergenz`
+  (Abkürzung vs. Vollform, gleiches Domänen-Konzept "Sprache").
+- `err` (freq 18, u. a. `gemini.ts:136` `const errText = await
+  geminiRes.text()...`) vs. `error` (freq 3, u. a. `gemini.ts:126` `let
+  lastError: unknown;`) → `synonym-divergenz` mit Nuance: `errText` ist
+  reiner HTTP-Fehlertext, `lastError` das zuletzt gefangene Retry-Exception-
+  Objekt — leicht unterschiedliche Rollen, aber dasselbe Kernkonzept "Fehler".
+- `dream` (freq 63, höchste Frequenz im Projekt; u. a. `entitlements.ts:22`
+  `dreamId: string,`) → **kein** Divergenz-Fund, ein einziges konsistent
+  verwendetes Konzept (`dreamId`/`dreamText`/`dream_ego_role` — nur
+  Schreibvarianten, keine Sprach-Drift per Sprint-Definition § 6.1).
+
+**Negativ**: nicht existenter Pfad → `Write-Error` "ProjectDir existiert
+nicht" + Exit-Code 1.

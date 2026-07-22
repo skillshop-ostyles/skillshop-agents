@@ -18,7 +18,7 @@ Stand: 2026-07-22
 | 10 | migrations-chirurg | fertig | 2026-07-22 | — |
 | 11 | zeitbomben-scanner | fertig | 2026-07-22 | — |
 | 12 | doku-drift-detektor | fertig | 2026-07-22 | — |
-| 13 | vokabular-waechter | offen | — | — |
+| 13 | vokabular-waechter | fertig | 2026-07-22 | — |
 | 14 | konfig-kartograf | offen | — | — |
 | 15 | test-luecken-kartograf | offen | — | — |
 | 16 | ausfall-simulant | offen | — | — |
