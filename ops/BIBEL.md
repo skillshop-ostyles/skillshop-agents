@@ -20,8 +20,10 @@ verändert (Ausnahme: Lese-Zugriff auf Test-Ziele, siehe § 6).
 
 ## 2. Nicht verhandelbare Regeln
 
-1. **Lokal-only**: Dieses Repo hat keinen Remote und bekommt nie einen. Niemals
-   `git remote add`, niemals `git push`, niemals Remote-Hosting vorschlagen.
+1. **Remote nur mit expliziter Freigabe**: Das Repo hat seit 2026-07 einen privaten
+   GitHub-Remote (`skillshop-ostyles/skill-shop-agents`, User-Entscheidung). `git push`
+   nur nach explizitem User-Wunsch pro Aktion, nie automatisch/blanko. Öffentlich
+   schalten ist ein separater, eigens freizugebender Schritt.
 2. **Schutzregel `~/.claude/`**: Kein Skript und keine Session darf
    `C:\Users\ostol\.claude\` (oder Unterordner) verändern. Jedes Skript, das schreibt,
    trägt diesen Guard (Copy-Vorlage, unverändert übernehmen):

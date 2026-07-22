@@ -6,7 +6,7 @@ Stand: 2026-07-21
 
 | Sprint | Skill | Status | Datum | Blocker |
 |---|---|---|---|---|
-| 01 | intent-archaeologie | offen | — | — |
+| 01 | intent-archaeologie | fertig | 2026-07-22 | — |
 | 02 | spec-luegendetektor | offen | — | — |
 | 03 | seiteneffekt-radar | offen | — | — |
 | 04 | konsistenz-enforcer | offen | — | — |

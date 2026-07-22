@@ -151,10 +151,60 @@ Negativ:
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig (Frontmatter, Steps, Usage, --help)
-- [ ] git-mine.ps1: alle 4 Evidenz-Quellen, JSON-Schema eingehalten, Zusammenfassung
-- [ ] Smoke bestanden (JSON durch ConvertFrom-Json validiert)
-- [ ] Akzeptanz-Lauf dokumentiert (Kommando + Kern-Output hier unten anfügen)
-- [ ] Beide Negativ-Tests bestanden
-- [ ] Report-Beispiel erzeugt und gegen BIBEL § 4 geprüft (Evidenz + Konfidenz + Offene Fragen)
-- [ ] tracking.md aktualisiert, lokaler Commit `sprint-01: intent-archaeologie implementiert`
+- [x] SKILL.md vollständig (Frontmatter, Steps, Usage, --help)
+- [x] git-mine.ps1: alle 4 Evidenz-Quellen, JSON-Schema eingehalten, Zusammenfassung
+- [x] Smoke bestanden (JSON durch ConvertFrom-Json validiert)
+- [x] Akzeptanz-Lauf dokumentiert (Kommando + Kern-Output hier unten anfügen)
+- [x] Beide Negativ-Tests bestanden
+- [x] Report-Beispiel erzeugt und gegen BIBEL § 4 geprüft (Evidenz + Konfidenz + Offene Fragen)
+- [x] tracking.md aktualisiert, lokaler Commit `sprint-01: intent-archaeologie implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/intent-archaeologie/` statt des im File oben
+   genannten `intent-archaeologie/` — BIBEL § 3 wurde in Sprint 29 auf die
+   `skills/`-Konvention umgestellt, gilt für alle folgenden Sprints.
+2. **Record-/Feld-Trenner statt Newlines**: `git-mine.ps1` nutzt eigene
+   Unit-/Record-Separatoren (`%x1f`/`%x1e`) im `--pretty=format`, weil PowerShell die
+   Ausgabe externer Programme automatisch zeilenweise in ein Array zerlegt —
+   mehrzeilige Commit-Bodies wurden dadurch zunächst zerrissen. Fix: Array vor dem
+   Parsen mit `-join "`n"` wieder zu einem String zusammenfügen, danach auf den
+   eigenen Separatoren splitten. Zusätzlich: an Rename-Übergängen (`--follow`) hängt
+   git gelegentlich einen Stray-Newline an den Record-Anfang — jedes Feld wird daher
+   getrimmt, bevor `Substring` auf den Hash angewendet wird.
+3. **UTF-8-Encoding-Fix**: `[Console]::OutputEncoding`/`$OutputEncoding` müssen vor
+   dem ersten `git`-Aufruf auf UTF8 gesetzt werden, sonst werden Umlaute/Sonderzeichen
+   in Commit-Messages unter PowerShell 5.1 zu Mojibake. Beim Akzeptanz-Lauf gegen
+   dreamzzz-api (echte deutsche Commit-Texte) gefunden und behoben.
+4. **Falsch-positiver Ticket-Treffer bewusst akzeptiert**: die JIRA-Regex
+   (`[A-Z][A-Z0-9]+-\d+`) matcht im Akzeptanz-Lauf auch "SHA-256" (aus
+   "HMAC-SHA256..."). Exakt das im Sprint-File spezifizierte Muster — keine
+   Abweichung ohne Rückfrage, im Report unter "Offene Fragen" transparent gemacht statt
+   stillschweigend nachgeschärft.
+
+## 11. Testergebnisse
+
+**Smoke** (gegen AGENTS-Repo, `skills/elevate/SKILL.md` und `ops/tracking.md`):
+exit 0, JSON via `ConvertFrom-Json` valide, 2 bzw. 12 Commits gefunden. Symbol-Lauf
+gegen `shop/src/importer.js` / `scanSkillFolders` bestätigt `symbolLogAvailable: true`.
+
+**Akzeptanz** (`dreamzzz-api_vs/src`, Datei `index.ts`, 5 Commits in der echten
+Historie):
+
+```
+& skills/intent-archaeologie/scripts/git-mine.ps1 `
+    -ProjectDir "C:\Users\ostol\Desktop\dreamzzz-api_vs\src" -File "index.ts"
+```
+
+Ergebnis: 5 Commits, chronologisch 2026-05-20 bis 2026-06-24, `truncated: false`,
+1 Ticket-ID-Treffer (falsch-positiv, s. o.), Blame zeigt Haupt-Autor + 15 unkommittete
+Zeilen ("Not Committed Yet" — realer Edge-Case, korrekt abgebildet). Vollständiger
+Beispiel-Report mit 5 Phasen, Konfidenz-Stufen und "Offene Fragen"-Abschnitt erzeugt
+und gegen BIBEL § 4 geprüft (Evidenz-Pflicht erfüllt: jede Aussage trägt einen
+Commit-Hash oder ist explizit als `vermutet` markiert).
+
+**Negativ**: nicht existenter Pfad → `Write-Error` "ProjectDir existiert nicht" +
+Exit-Code 1. Kein Git-Repo (Wegwerf-Ordner ohne `.git`) → `Write-Error` "Kein
+Git-Repo" + Exit-Code 1. Beide Fehlermeldungen identisch im Stil zum etablierten
+`elevate/scripts/audit.ps1`-Muster (verifiziert durch direkten Vergleich) — kein
+unkontrollierter Stack-Trace, klare Meldung + definierter Exit-Code.
