@@ -35,7 +35,7 @@ Stand: 2026-07-22
 | 27 | shop-produktionsparitaet | fertig | 2026-07-21 | — |
 | 28 | shop-differenzierung | fertig | 2026-07-22 | — |
 | 29 | skills-repo-oeffentlich | fertig | 2026-07-22 | — |
-| 30 | security-smell-scanner → security/ | offen | — | — |
+| 30 | security-smell-scanner → security/ | fertig | 2026-07-22 | — |
 | 31 | performance-anti-pattern-detektor → quality/ | offen | — | — |
 | 32 | code-smell-erkennung → quality/ | offen | — | — |
 | 33 | code-clone-detektor → quality/ | offen | — | — |

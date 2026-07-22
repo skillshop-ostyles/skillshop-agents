@@ -25,7 +25,7 @@ vibe-coders who want to know whether their generated code is structurally sound.
 Some security-relevant smell detection is grouped with the security cluster
 for thematic coherence, but is also highly relevant to quality:
 
-- `security-smell-scanner` (planned, Sprint 30) — security anti-patterns
-  (SQL injection shape, XSS sinks, IDOR patterns, insecure defaults) will
-  physically live under `security/` but is also linked here because the same
-  detection patterns surface as general code smells.
+- [security-smell-scanner](../security/security-smell-scanner/) (Sprint 30) —
+  security anti-patterns (SQL injection shape, XSS sinks, IDOR patterns,
+  insecure defaults). Lives under `security/` but also linked here because the
+  same detection patterns surface as general code smells.
