@@ -1,10 +1,17 @@
---
+﻿---
 name: code-clone-detector
 description: "Code clone detector: finds exact (Type 1), parameterized (Type 2), near-miss (Type 3), and semantic (Type 4) clones. Risk-tiered report with deduplication proposals. Read-only. Audience: Both. Trigger: /code-clone"
 trigger: /code-clone
---
-
+---
 # /code-clone - Code Clone Detector
+
+## What this is for
+
+Code clones - identical or near-identical code blocks - are a maintenance
+liability: bugs must be fixed in N places, refactoring carries hidden scope,
+and the codebase grows without corresponding value. This skill systematically
+finds all 4 clone types, validates each cluster, and produces deduplication
+proposals.
 
 Detects all 4 clone types in a target directory. Produces a structured report
 with similarity scores, risk tiers, and LLM-validated deduplication proposals.
@@ -17,7 +24,7 @@ with similarity scores, risk tiers, and LLM-validated deduplication proposals.
 /code-clone -help        # show usage
 ```
 
-## Steps
+## What You Must Do When Invoked
 
 1. `-help` / `-h` -> print usage, exit 0.
 2. Confirm target directory exists.

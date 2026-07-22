@@ -1,9 +1,8 @@
---
+﻿---
 name: dep-inheritance
 description: "Dependency inheritance audit: for every direct dependency answers the questions nobody asks - why is it here (from actual usage sites), how deep is the coupling, how replaceable is it, and what is the concrete exit plan. Parses manifests/lockfiles, scans usage, optionally enriches with registry metadata (offline-safe). Read-only. Trigger: /deps-audit"
-trigger: /dep-inheritance
---
-
+trigger: /deps-audit
+---
 # /deps-audit
 
 For each direct dependency answers the inheritance questions nobody asks:

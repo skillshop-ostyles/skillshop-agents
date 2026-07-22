@@ -8,8 +8,8 @@ they are meant to protect.
 
 | Skill | Trigger | Audience | Purpose |
 |--|--|--|--|
-| [migration-surgeon](../data/migration-surgeon/) | /migration-surgeon | Senior | Given a schema diff, generate a migration plan + rollback script + validation queries. Handles online migrations, long-running locks, and backfill strategies. |
-| [test-gap-cartographer](../data/test-gap-cartographer/) | /test-gap-cartographer | Senior | Find untested BEHAVIOR (not lines) per public symbol: which functions have no tests, which branches are untested, which edge cases are missing. |
+| [migration-surgeon](../data/migration-surgeon/) | /migrate | Senior | Given a schema diff, generate a migration plan + rollback script + validation queries. Handles online migrations, long-running locks, and backfill strategies. |
+| [test-gap-cartographer](../data/test-gap-cartographer/) | /testgap | Senior | Find untested BEHAVIOR (not lines) per public symbol: which functions have no tests, which branches are untested, which edge cases are missing. |
 
 ## Cross-Links
 

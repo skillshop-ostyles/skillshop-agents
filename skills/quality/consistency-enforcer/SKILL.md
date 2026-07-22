@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: consistency-enforcer
 description: "Finds duplicated BUSINESS LOGIC (not duplicated text): extracts rule candidates (validations, calculations, domain constants, regexes, status logic) from a codebase, then has the LLM cluster semantically equal rules across different implementations and flag divergent ones with a single-source-of-truth proposal. Read-only. Trigger: /consist"
-trigger: /consistency-enforcer
---
-
+trigger: /consist
+---
 # /consist
 
 Finds semantically identical business rules in different code (not

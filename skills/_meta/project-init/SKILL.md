@@ -1,9 +1,8 @@
---
+﻿---
 name: project-init
 description: "Bootstraps a brand-new, empty project with a complete, optimized file & directory structure plus an interactive LLM onboarding dialog. Use when the user wants to start a fresh/pristine project from scratch and have the LLM set it up via a guided, dynamic, stack-agnostic conversation covering all project areas (goal, stack, tooling, docs, secrets, platform). Trigger: /project-init"
 trigger: /project-init
---
-
+---
 # /project-init
 
 Start a fresh, virgin project from scratch. This skill runs an interactive, dynamic

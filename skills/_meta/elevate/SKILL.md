@@ -1,9 +1,8 @@
---
+﻿---
 name: elevate
 description: "Audits any project for software quality, refactoring readiness, testing, and CI/CD, then automatically elevates it to enterprise level across 7 dimensions (tests+coverage, lint/format, CI/CD, secrets, docs, type-safety/strict, dependency-audit). Generic across stacks and CI systems, runs locally too. Trigger: /elevate"
 trigger: /elevate
---
-
+---
 # /elevate
 
 Audit a project and automatically elevate it to enterprise quality. Generic across
@@ -78,7 +77,7 @@ runs regardless, as a CI mirror).
 
 ### Step 4 - Approve each dimension individually
 
-For EACH dimension a�g that is not `ok`, ask the user individually:
+For EACH dimension a–g that is not `ok`, ask the user individually:
 
 ```
 Dimension <X> (<name>): <proposed action>. Create? (yes/no)

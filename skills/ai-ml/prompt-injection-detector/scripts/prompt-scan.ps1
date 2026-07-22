@@ -10,7 +10,7 @@ param(
 
 $resolved = Resolve-Path -LiteralPath $ProjectDir -ErrorAction SilentlyContinue
 if (-not $resolved) {
-    Write-Host "ERROR: Path not found: $ProjectDir"
+    Write-Error "Path not found: $ProjectDir"
     exit 1
 }
 $ProjectDir = $resolved.Path

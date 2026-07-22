@@ -1,7 +1,7 @@
 ﻿---
 name: failure-simulator
 description: "Failure simulator on code level: inventories every external touchpoint (HTTP clients, DB access, filesystem, queues, caches) with its surrounding error handling, then for a chosen failure scenario (DB down, API timeouts, disk full) mentally executes the failure path at each touchpoint and reports the resulting behavior - retry, degradation, crash or silent loss - plus inconsistencies and hardening recommendations. Pure thought experiment, nothing is ever shut down. Read-only. Trigger: /failsim"
-trigger: /failure-simulator
+trigger: /failsim
 ---
 
 ## What this is for

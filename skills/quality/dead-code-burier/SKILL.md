@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: dead-code-burier
 description: "Dead-path undertaker: identifies provably unreachable code by combining static reachability (unreferenced exports/files), optional runtime evidence (coverage reports, logs) and git age, then produces a burial list ranked by evidence strength. NEVER deletes automatically - prepares patches for individual user approval only. Trigger: /bury"
-trigger: /dead-code-burier
---
-
+trigger: /bury
+---
 # /bury
 
 Identifies provably unreachable code (static unreachability +

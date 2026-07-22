@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: doc-drift-detector
 description: "Documentation drift detector: extracts verifiable claims from a repo's markdown docs (file paths, commands/scripts, config keys, endpoints, versions, referenced symbols) and statically verifies each one against the actual code, reporting every stale claim with a concrete fix suggestion. Never executes documented commands. Read-only. Trigger: /doc-drift"
-trigger: /doc-drift-detector
---
-
+trigger: /doc-drift
+---
 # /doc-drift
 
 Your README has been lying for six months. Time to catch it. Extracts verifiable

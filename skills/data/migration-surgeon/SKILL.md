@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: migration-surgeon
 description: "Schema migration surgeon: diffs two schema states (SQL DDL or Prisma), then generates the complete package nobody writes by hand - forward migration, rollback, pre/post validation queries and a risk protocol with explicit data-loss warnings. NEVER executes anything against a database; generates files only. Trigger: /migrate"
-trigger: /migration-surgeon
---
-
+trigger: /migrate
+---
 # /migrate
 
 Schema migrations are open-heart surgery. This one comes with

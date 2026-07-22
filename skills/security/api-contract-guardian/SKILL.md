@@ -1,7 +1,7 @@
 ﻿---
 name: api-contract-guardian
 description: "API contract guard: extracts the API surface (HTTP routes with params, DTO fields, exported signatures - preferring OpenAPI files when present) from two git states of a repo, diffs them, classifies every change as breaking / non-breaking / additive, and writes a ready-to-ship consumer migration note per breaking change. Read-only. Trigger: /api-diff"
-trigger: /api-contract-guardian
+trigger: /api-diff
 ---
 
 ## What this is for

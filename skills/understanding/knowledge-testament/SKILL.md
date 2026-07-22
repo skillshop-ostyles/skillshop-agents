@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: knowledge-testament
 description: "Knowledge testament: mines git blame/log to map where one developer's exclusive knowledge lives (sole-author hotspots, high-churn areas they own), generates a targeted interview asking exactly the questions nobody would know to ask, and writes a structured, code-linked testament document. Read-only towards the repo. Trigger: /testament"
-trigger: /knowledge-testament
---
-
+trigger: /testament
+---
 # /testament
 
 Mines git ownership to find where a person's exclusive knowledge lives and

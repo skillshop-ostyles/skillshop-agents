@@ -12,7 +12,7 @@ param(
 
 $resolved = Resolve-Path -LiteralPath $ProjectDir -ErrorAction SilentlyContinue
 if (-not $resolved) {
-    Write-Host "ERROR: Path not found: $ProjectDir"
+    Write-Error "Path not found: $ProjectDir"
     exit 1
 }
 $ProjectDir = $resolved.Path
@@ -232,6 +232,10 @@ $result = @{
     scannedFiles = $scannedFiles
     counts = @{ symbols = $symbols.Count; routes = $routes.Count }
 }
+
+Write-Output "=== Surface Inventory Complete ==="
+Write-Output "  Symbols: $($symbols.Count)"
+Write-Output "  Routes: $($routes.Count)"
 
 $json = $result | ConvertTo-Json -Depth 10
 Write-Output $json

@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: vocabulary-guardian
 description: "Ubiquitous language guard: harvests identifiers from code, schema and API definitions, has the LLM cluster synonyms that name the same domain concept (customer/client/account/kunde), reports naming divergences with all locations and proposes one canonical term per concept including rename impact estimate. Never renames anything. Read-only. Trigger: /vocab"
-trigger: /vocabulary-guardian
---
-
+trigger: /vocab
+---
 # /vocab
 
 Customer, Client, Account, Kunde - four names, one concept, a constant

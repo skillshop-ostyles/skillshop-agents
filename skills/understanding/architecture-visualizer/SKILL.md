@@ -1,10 +1,16 @@
---
+﻿---
 name: architecture-visualizer
 description: "Architecture visualizer: maps module dependencies, detects layer violations, circular dependencies, entry points, and computes structural health score. Generates Mermaid diagrams. Read-only. Audience: Both. Trigger: /arch-vis"
 trigger: /arch-vis
---
-
+---
 # /arch-vis - Architecture Visualizer
+
+## What this is for
+
+As codebases grow, their architecture degrades: layer boundaries blur, circular
+dependencies emerge, and no one has a current dependency map. This skill
+reverse-engineers the module graph from source code imports, detects structural
+issues, and generates Mermaid diagrams for visualization.
 
 Maps the module dependency graph of a target directory. Produces a structured
 report with Mermaid diagrams, layer violation analysis, circular dependency
@@ -18,7 +24,7 @@ detection, and structural health metrics.
 /arch-vis -help            # show usage
 ```
 
-## Steps
+## What You Must Do When Invoked
 
 1. `-help` / `-h` -> print usage, exit 0.
 2. Confirm target directory exists.

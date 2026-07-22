@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: side-effect-radar
 description: "Blast-radius predictor for a planned change: combines a static reference scan (which files mention the target's exported symbols) with git co-change analysis (which files historically changed together with the target), then produces a risk-tiered report with concrete review/test recommendations. Read-only. Trigger: /blast"
-trigger: /side-effect-radar
---
-
+trigger: /blast
+---
 # /blast
 
 Combines static reference search with historical co-change analysis (which

@@ -1,7 +1,7 @@
 ﻿---
 name: authorization-xray
 description: "Authorization X-ray for your own codebase (defensive audit): inventories every HTTP endpoint and every recognizable protection layer (middleware chains, authorize decorators, inline role checks, router mounts), builds the permission matrix endpoint x required check, and reports unprotected mutating endpoints and inconsistent protection of similar resources. Static, sends no requests. Read-only. Trigger: /authz"
-trigger: /authorization-xray
+trigger: /authz
 ---
 
 ## What this is for

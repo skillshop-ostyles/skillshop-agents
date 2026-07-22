@@ -1,9 +1,8 @@
---
+﻿---
 name: prod-mirror
 description: "Production behavior mirror: ingests exported log files (text or JSON lines), statistically condenses them (frequencies, error rates, hot paths), extracts the code's expectations (log statements, catch blocks, routes), then has the LLM report the deltas - dead features, swallowed errors firing daily, unexpected hot paths. Works fully offline on exported logs. Read-only. Trigger: /mirror"
-trigger: /prod-mirror
---
-
+trigger: /mirror
+---
 # /mirror
 
 What your code promises and what prod actually does are two different stories.

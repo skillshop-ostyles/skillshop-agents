@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: timebomb-scanner
 description: "Time bomb scanner: finds hardcoded dates, expiry deadlines, cert references, 32-bit time usage and 'temporary' markers rotting since years (git age via blame), then has the LLM classify each finding as live bomb / rotten provisional / false alarm and produce a defusal list ranked by detonation date. Read-only. Trigger: /timebomb"
-trigger: /timebomb-scanner
---
-
+trigger: /timebomb
+---
 # /timebomb
 
 Every codebase ticks. This one tells you when. Finds hardcoded

@@ -278,5 +278,11 @@ $result = @{
     counts = @{ routes = $dedupedRoutes.Count; dtos = $dtos.Count; signatures = $signatures.Count; openapiFiles = $openapiFiles.Count }
 }
 
+Write-Output "=== API Surface Scan Complete ==="
+Write-Output "  Routes: $($dedupedRoutes.Count)"
+Write-Output "  DTOs: $($dtos.Count)"
+Write-Output "  Signatures: $($signatures.Count)"
+Write-Output "  OpenAPI files: $($openapiFiles.Count)"
+
 Write-Output ($result | ConvertTo-Json -Depth 10)
 exit 0

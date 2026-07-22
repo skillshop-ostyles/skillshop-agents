@@ -8,8 +8,8 @@ expectations.
 
 | Skill | Trigger | Audience | Purpose |
 |--|--|--|--|
-| [prod-mirror](../runtime/prod-mirror/) | /prod-mirror | Senior > Vibe | Compare code-level expectations against log reality: which assumptions the code makes about the world, and whether those assumptions hold in production. |
-| [repro-builder](../runtime/repro-builder/) | /repro-builder | Both | From a vague bug report, build a minimal, runnable reproduction. Sniffs the repo, suggests the config/environment/steps needed to trigger the bug. |
+| [prod-mirror](../runtime/prod-mirror/) | /mirror | Senior > Vibe | Compare code-level expectations against log reality: which assumptions the code makes about the world, and whether those assumptions hold in production. |
+| [repro-builder](../runtime/repro-builder/) | /repro | Both | From a vague bug report, build a minimal, runnable reproduction. Sniffs the repo, suggests the config/environment/steps needed to trigger the bug. |
 
 ## Cross-Links
 

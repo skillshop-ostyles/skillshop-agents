@@ -1,9 +1,8 @@
---
+﻿---
 name: security-smell-scanner
 description: "Security smell scanner: statically detects 10 families of security anti-patterns across a codebase (SQL injection, XSS, command injection, path traversal, hardcoded credentials, insecure defaults, IDOR, open redirect, TOCTOU, missing input validation). Produces an evidence-backed report with severity, location, and contextual analysis. Read-only. Audience: Senior > Vibe. Cross-link from quality/ cluster. Trigger: /security-scan"
 trigger: /security-scan
---
-
+---
 ## What this is for
 
 Security vulnerabilities don't always come from one bad line - they come from

@@ -62,5 +62,11 @@ $ct = @{}
 foreach ($fp in $failpoints) { $ct[$fp.type] = ($ct[$fp.type] + 1) }
 
 $result = @{ failpoints = @($failpoints); countsByType = $ct; scannedFiles = $scannedFiles }
+
+Write-Output "=== Failure Point Scan Complete ==="
+Write-Output "  Files scanned: $scannedFiles"
+Write-Output "  Total failpoints: $($failpoints.Count)"
+foreach ($t in $ct.Keys | Sort-Object) { Write-Output "  $t`: $($ct[$t])" }
+
 Write-Output ($result | ConvertTo-Json -Depth 10)
 exit 0

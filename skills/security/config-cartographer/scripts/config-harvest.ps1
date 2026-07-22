@@ -9,7 +9,7 @@ param(
 
 $resolved = Resolve-Path -LiteralPath $ProjectDir -ErrorAction SilentlyContinue
 if (-not $resolved) {
-    Write-Host "ERROR: Path not found: $ProjectDir"
+    Write-Error "Path not found: $ProjectDir"
     exit 1
 }
 $ProjectDir = $resolved.Path
@@ -376,6 +376,12 @@ $result = @{
         dynamicReads = $dynamicReads.Count
     }
 }
+
+Write-Output "=== Config Harvest Complete ==="
+Write-Output "  Definitions: $($definitions.Count)"
+Write-Output "  Reads: $($reads.Count)"
+Write-Output "  Distinct keys: $($distinctKeys.Count)"
+Write-Output "  Dynamic reads: $($dynamicReads.Count)"
 
 $json = $result | ConvertTo-Json -Depth 10
 Write-Output $json

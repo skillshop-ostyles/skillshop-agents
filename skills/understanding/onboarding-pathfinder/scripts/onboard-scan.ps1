@@ -1,7 +1,8 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
-    [string]$ProjectDir
+    [string]$ProjectDir,
+    [switch]$PassThru
 )
 
 $ErrorActionPreference = 'Stop'
@@ -145,6 +146,13 @@ $result = @{
     comprehension = $comprehension
     firstSafeTasks = $firstTasks
 }
+
+Write-Output "=== Onboarding Pathfinder Complete ==="
+Write-Output "  Files scanned: $scannedFiles"
+Write-Output "  Tour steps: $($readingTour.Count)"
+Write-Output "  Comprehension questions: $($comprehension.Count)"
+Write-Output "  First safe tasks: $($firstTasks.Count)"
+foreach ($c in $cats) { Write-Output "  $($c.category): $($c.count) files" }
 
 $json = $result | ConvertTo-Json -Depth 5
 if ($PassThru) { return $json }

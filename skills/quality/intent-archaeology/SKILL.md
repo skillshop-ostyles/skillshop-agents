@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: intent-archaeology
 description: "Reconstructs WHY code exists the way it does: mines git history (log -follow, blame, ticket references) for a file or symbol, then has the LLM rebuild the intent story with commit-level evidence and confidence ratings. Read-only. Trigger: /intent"
-trigger: /intent-archaeology
---
-
+trigger: /intent
+---
 # /intent
 
 Reconstructs the intent story of a file (or a symbol within it) from

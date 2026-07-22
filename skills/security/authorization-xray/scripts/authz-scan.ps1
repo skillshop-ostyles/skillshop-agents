@@ -196,5 +196,11 @@ $result = @{
     scannedFiles = $scannedFiles
 }
 
+Write-Output "=== Authorization X-Ray Complete ==="
+Write-Output "  Endpoints: $($endpoints.Count)"
+Write-Output "  Mutating: $(@($endpoints | Where-Object { $_.mutating }).Count)"
+Write-Output "  Global mounts: $($globalUse.Count)"
+Write-Output "  Inline checks: $($inlineChecks.Count)"
+
 Write-Output ($result | ConvertTo-Json -Depth 10)
 exit 0

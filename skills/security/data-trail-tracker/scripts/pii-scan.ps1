@@ -194,5 +194,14 @@ $result = @{
     scannedFiles = $scannedFiles
 }
 
+Write-Output "=== PII Scan Complete ==="
+Write-Output "  Files scanned: $scannedFiles"
+Write-Output "  PII candidates: $($piiCandidates.Count)"
+Write-Output "  Log sinks: $($sinks.log.Count)"
+Write-Output "  External sinks: $($sinks.external.Count)"
+Write-Output "  Export sinks: $($sinks.export.Count)"
+Write-Output "  Storage sinks: $($sinks.storage.Count)"
+Write-Output "  Deletion signals: $($sinks.deletion.Count)"
+
 Write-Output ($result | ConvertTo-Json -Depth 10)
 exit 0

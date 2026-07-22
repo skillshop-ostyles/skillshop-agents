@@ -1,10 +1,16 @@
-﻿--
+﻿---
 name: code-smell-detection
 description: "Code smell detector: statically identifies 10 families of structural code quality issues (long methods, deep nesting, god classes, feature envy, primitive obsession, data clumps, shotgun surgery, message chains, refused bequest, speculative generality). Evidence-based report with metrics and LLM validation. Read-only. Audience: Both. Trigger: /code-smell"
 trigger: /code-smell
---
+---
+# /code-smell - Code Smell Detector
 
-# /code-smell â€” Code Smell Detector
+## What this is for
+
+Structural code smells indicate design problems that make the codebase hard to
+change, understand, or extend. This skill scans for 10 smell families,
+quantifies each finding with metrics, and validates them against code context
+for actionable, evidence-based refactoring proposals.
 
 Detects 10 code smell families in a target directory. Produces a structured report
 with metrics, evidence, and LLM-based validation of each finding.
@@ -17,7 +23,7 @@ with metrics, evidence, and LLM-based validation of each finding.
 /code-smell -help       # show usage
 ```
 
-## Steps
+## What You Must Do When Invoked
 
 1. `-help` / `-h` â†’ print usage, exit 0.
 2. Confirm target directory exists.

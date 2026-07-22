@@ -1,10 +1,16 @@
---
+﻿---
 name: error-handling-auditor
 description: "Error handling auditor: detects 8 anti-patterns (swallowed exceptions, generic catches, missing error handling, missing finally, error handling inconsistency, logging without context, ignored return codes, exception type abuse). Risk-tiered report with remediation suggestions. Read-only. Audience: Both. Trigger: /error-audit"
 trigger: /error-audit
---
-
+---
 # /error-audit - Error Handling Auditor
+
+## What this is for
+
+Error handling grows scattered and inconsistent: swallowed exceptions, generic
+catches, missing cleanup. This skill systematically scans code for 8
+anti-patterns, validates each finding against context, and produces a
+risk-tiered remediation report.
 
 Detects 8 error-handling anti-patterns in a target directory. Produces a structured
 report with severity tiers, evidence, and LLM-validated remediation suggestions.
@@ -17,7 +23,7 @@ report with severity tiers, evidence, and LLM-validated remediation suggestions.
 /error-audit -help        # show usage
 ```
 
-## Steps
+## What You Must Do When Invoked
 
 1. `-help` / `-h` -> print usage, exit 0.
 2. Confirm target directory exists.

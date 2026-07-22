@@ -1,9 +1,8 @@
-﻿--
+﻿---
 name: spec-lie-detector
 description: "Requirements lie detector: reads a corpus of specs/tickets (text files) and finds contradictions, gaps, ambiguities, silent assumptions and untestable statements - each finding with quote, location, severity and a concrete clarification question. Read-only. Trigger: /spec-check"
-trigger: /spec-lie-detector
---
-
+trigger: /spec-check
+---
 # /spec-check
 
 Reads a corpus of specs/tickets (text files) and finds contradictions, gaps,

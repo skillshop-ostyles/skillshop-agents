@@ -1,13 +1,19 @@
-﻿--
+﻿---
 name: repro-builder
 description: "Turns a vague bug report into a minimal, runnable reproduction: extracts hypotheses from the report text, snapshots the environment, generates a repro test/script, EXECUTES it and iterates (max 5 attempts) until the bug demonstrably reproduces - or documents precisely which information is missing. The repro lives outside the target project. Trigger: /repro"
-trigger: /repro-builder
---
-
+trigger: /repro
+---
 # /repro
 
 Turns a vague bug report into a minimal, actually EXECUTED
 repro test - or a precise list of which information is missing to reproduce.
+
+## PROTECTION RULE - never modify target project or ~/.claude/
+
+This skill writes repro artifacts to a `repro/` subfolder in the **working
+directory**, never inside the target project. It also never touches
+`~/.claude/`. If `$ProjectDir` resolves to a path under `~/.claude/`, the
+collector rejects it with an error.
 
 ## What this is for
 
