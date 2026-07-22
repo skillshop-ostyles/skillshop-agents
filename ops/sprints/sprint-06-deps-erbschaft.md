@@ -161,11 +161,58 @@ Negativ: ungültiger Pfad → exit != 0.
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig
-- [ ] deps-inventory.ps1 (Manifeste, Lock-Zählung, Nutzungs-Scan, unusedDeclared)
-- [ ] registry-meta.ps1 mit Offline-Fallback (beide Testfälle bestanden)
-- [ ] Fixture angelegt, Smoke bestanden
-- [ ] Akzeptanz-Lauf dokumentiert (Stichproben verifiziert)
-- [ ] Negativ-Test bestanden
-- [ ] Report erfüllt BIBEL § 4
-- [ ] tracking.md aktualisiert, Commit `sprint-06: deps-erbschaft implementiert`
+- [x] SKILL.md vollständig
+- [x] deps-inventory.ps1 (Manifeste, Lock-Zählung, Nutzungs-Scan, unusedDeclared)
+- [x] registry-meta.ps1 mit Offline-Fallback (beide Testfälle bestanden)
+- [x] Fixture angelegt, Smoke bestanden
+- [x] Akzeptanz-Lauf dokumentiert (Stichproben verifiziert)
+- [x] Negativ-Test bestanden
+- [x] Report erfüllt BIBEL § 4
+- [x] tracking.md aktualisiert, Commit `sprint-06: deps-erbschaft implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/deps-erbschaft/` (BIBEL-§-3-Konvention seit
+   Sprint 29).
+2. **`ConvertFrom-Json`-Bug mit npm-Lockfile-v3 gefunden und behoben**: npm
+   `lockfileVersion: 3` trägt den Root-Package-Eintrag unter dem Key `""` (leerer
+   String) im `packages`-Objekt. PowerShell 5.1s `ConvertFrom-Json` baut daraus ein
+   `PSCustomObject`, das keine leeren Property-Namen erlaubt → harter Absturz
+   ("Das Argument kann nicht verarbeitet werden"). Fix: für `package-lock.json`
+   gezielt `System.Web.Script.Serialization.JavaScriptSerializer` statt
+   `ConvertFrom-Json` — liefert ein `Hashtable`, das mit leeren Keys klarkommt.
+   Betrifft NUR die Lockfile-Zählung (package.json selbst hat keine leeren Keys,
+   bleibt bei `ConvertFrom-Json`). Wichtig für künftige Sprints, die npm-v3-Lockfiles
+   parsen.
+3. **Manifest-Parser für pyproject.toml/Cargo.toml/go.mod bewusst als
+   Zeilen-Heuristik** (kein voller TOML-Parser) — Simplicity First, konsistent mit
+   der Grep-Niveau-Linie aus Sprint 03/04/05. Nur `package.json`/`package-lock.json`
+   sind vollständig JSON-basiert robust, da das der Akzeptanz-Zielstack ist.
+4. **`time.modified` aus der npm-Registry ist kein reines Publish-Datum**: bei
+   `lodash` zeigte der Test ein Datum von HEUTE, obwohl das Paket seit Jahren keine
+   neue Version bekommen hat — die Registry aktualisiert `time.modified` auch bei
+   reinen Metadaten-Änderungen. In SKILL.md Step 3 als Näherungswert-Hinweis
+   dokumentiert, damit der Report das nicht als "Paket wurde heute released"
+   missversteht.
+
+## 11. Testergebnisse
+
+**Smoke** (Fixture `skills/deps-erbschaft/tests/fixture/`: `package.json` mit
+`lodash` (genutzt in `src/util.ts`) und `left-pad` (ungenutzt)):
+`deps-inventory.ps1` liefert `lodash` mit 1 Fundstelle, `left-pad` korrekt in
+`unusedDeclared`. `registry-meta.ps1` gegen `lodash` (echte Metadaten: Lizenz MIT,
+3 Maintainer) und einen erfundenen Paketnamen (`metaError` mit 404-Meldung, exit 0,
+kein Abbruch) getestet — beide Fälle bestanden.
+
+**Akzeptanz** (`dreamzzz-api_vs`, Komplettlauf): 3 direkte Dependencies
+(`@cloudflare/workers-types`, `typescript`, `wrangler`, alle `devDependencies`),
+91 transitive Pakete laut `package-lock.json`. Alle 3 zeigen `usageCount: 0` im
+Quellcode-Scan — aber KEINE echten `unusedDeclared`-Funde: manuell gegen
+`tsconfig.json` (`"types": ["@cloudflare/workers-types"]`) und `package.json`
+`scripts` (`"dev": "wrangler dev"`, `"deploy": "wrangler deploy"`) sowie
+`wrangler.toml` (von der `wrangler`-CLI gelesen) verifiziert — alle 3 sind
+Tooling-Dependencies, die nur über Config/CLI genutzt werden, nicht per Import.
+Exakt die Config-Nutzungs-Falle aus § 7 der Sprint-Spec, mit einem echten Projekt
+bestätigt statt nur theoretisch beschrieben.
+
+**Negativ**: nicht existenter Pfad → `Write-Error` + Exit-Code 1.

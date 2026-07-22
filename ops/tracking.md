@@ -11,7 +11,7 @@ Stand: 2026-07-21
 | 03 | seiteneffekt-radar | fertig | 2026-07-22 | — |
 | 04 | konsistenz-enforcer | fertig | 2026-07-22 | — |
 | 05 | totpfad-bestatter | fertig | 2026-07-22 | — |
-| 06 | deps-erbschaft | offen | — | — |
+| 06 | deps-erbschaft | fertig | 2026-07-22 | — |
 | 07 | wissens-testament | offen | — | — |
 | 08 | repro-automat | offen | — | — |
 | 09 | prod-spiegel | offen | — | — |
