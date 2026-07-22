@@ -10,7 +10,7 @@ Stand: 2026-07-21
 | 02 | spec-luegendetektor | fertig | 2026-07-22 | — |
 | 03 | seiteneffekt-radar | fertig | 2026-07-22 | — |
 | 04 | konsistenz-enforcer | fertig | 2026-07-22 | — |
-| 05 | totpfad-bestatter | offen | — | — |
+| 05 | totpfad-bestatter | fertig | 2026-07-22 | — |
 | 06 | deps-erbschaft | offen | — | — |
 | 07 | wissens-testament | offen | — | — |
 | 08 | repro-automat | offen | — | — |

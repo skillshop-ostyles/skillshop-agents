@@ -170,10 +170,57 @@ SKILL.md-Ablauf nicht vorkommen (Review des SKILL.md-Texts gegen § 6.4).
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig, Lösch-Ablauf NUR nach Einzel-Freigabe formuliert
-- [ ] reachability.ps1 + evidence.ps1 gemäß Spezifikation
-- [ ] Fixture angelegt; Smoke bestanden ohne False Positives
-- [ ] Akzeptanz-Lauf dokumentiert (3 Kandidaten manuell verifiziert, nichts verändert)
-- [ ] Negativ-Test bestanden
-- [ ] Report erfüllt BIBEL § 4 inkl. Restrisiko-Ausweis je Kandidat
-- [ ] tracking.md aktualisiert, Commit `sprint-05: totpfad-bestatter implementiert`
+- [x] SKILL.md vollständig, Lösch-Ablauf NUR nach Einzel-Freigabe formuliert
+- [x] reachability.ps1 + evidence.ps1 gemäß Spezifikation
+- [x] Fixture angelegt; Smoke bestanden ohne False Positives
+- [x] Akzeptanz-Lauf dokumentiert (3 Kandidaten manuell verifiziert, nichts verändert)
+- [x] Negativ-Test bestanden
+- [x] Report erfüllt BIBEL § 4 inkl. Restrisiko-Ausweis je Kandidat
+- [x] tracking.md aktualisiert, Commit `sprint-05: totpfad-bestatter implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/totpfad-bestatter/` (BIBEL-§-3-Konvention seit
+   Sprint 29).
+2. **Löschung bleibt reine SKILL.md-Instruktion, kein Skript**: `reachability.ps1`
+   und `evidence.ps1` sind beide strikt read-only (wie von § 2.6 gefordert). Die
+   eigentliche Löschung erfolgt als Edit-Aktion des Modells im Zielprojekt, NUR nach
+   Step 7 der SKILL.md (Einzel-Freigabe) — es gibt bewusst kein `delete.ps1`, das
+   das umgehen könnte.
+3. **Coverage-Granularität ist datei-, nicht funktionsgenau**: exakt wie im
+   Sprint-File spezifiziert ("pro Kandidaten-Datei"). Eine Datei mit mehreren
+   Kandidaten (genutzte + tote Funktion) zeigt für beide dieselbe Datei-Coverage —
+   dokumentierte, spezifikationskonforme Vereinfachung, kein Bug.
+4. **`$matches` als Variablenname vermieden**: kollidiert mit PowerShells
+   automatischer `$matches`-Variable (von `-match` befüllt) — `$refHits` verwendet,
+   um Verwechslungsrisiko in künftigen Sprints zu vermeiden (kein Fehler
+   ausgelöst, aber vorsorglich sauber gehalten).
+
+## 11. Testergebnisse
+
+**Smoke** (Fixture `skills/totpfad-bestatter/tests/fixture/`: `a.ts` exportiert
+`usedFn` (von `b.ts` genutzt) und `deadFn` (ungenutzt), `c.ts` von niemandem
+referenziert): `reachability.ps1` liefert `deadFn`, `run` (aus `b.ts`, ebenfalls
+echt unreferenziert) und `orphanFn` als Symbol-Kandidaten — **`usedFn` erscheint
+korrekt NICHT** (hartes Kriterium: keine False Positives erfüllt).
+`b.ts`/`c.ts` als Datei-Kandidaten (beide echt unreferenziert). `evidence.ps1` mit
+Mini-lcov (`a.ts`: 6/10, `b.ts`: 5/5 covered) korrekt angereichert; Log-Test mit
+einer Mini-Logdatei bestätigt: `orphanFn` im Log gefunden (`logHits: 1`,
+Lebens-Evidenz), `deadFn`/`run` mit `logHits: 0`.
+
+**Akzeptanz** (`dreamzzz-api_vs/src`, nur statisch + Git-Alter, KEINE Löschung):
+14 Symbol-Kandidaten, 0 Datei-Kandidaten (jede Quelldatei wird von `index.ts`
+importiert). Alle Kandidaten sind `export interface`-Deklarationen, die nur
+INNERHALB ihrer eigenen Datei genutzt werden (z. B. `Env` nur in `index.ts`,
+`EntitlementResult` nur in `entitlements.ts`) — 3 Stichproben
+(`EntitlementResult`, `Env`, `VisionV5Perspective`) per `grep -rn` gegen das
+gesamte Projekt verifiziert: tatsächlich 0 dateiübergreifende Referenzen. Genau
+die Art False-Positive-Klasse, die SKILL.md Step 5.1 explizit adressiert
+(datei-lokale Typen sind nicht tot, nur nicht cross-file geteilt) — im Bericht
+korrekt als "aussortiert, kein echter Totpfad" zu behandeln, nicht als
+Bestattungsliste. Fremdprojekt unverändert (kein Edit ausgeführt).
+
+**Negativ**: nicht existenter Pfad → beide Skripte `Write-Error` + Exit-Code 1.
+SKILL.md-Review gegen § 6.4: Löschung ausschließlich in Step 7, ausschließlich
+nach explizit benannter Einzel-Freigabe — keine pauschale/automatische
+Lösch-Formulierung im Text.
