@@ -32,6 +32,24 @@ einem Sprint umgesetzt.
 | 19 | datenspuren-verfolger | /pii-trace | PII-Felder und ihre Senken (Logs, Dritt-APIs, Exporte) kartieren |
 | 20 | onboarding-pfadfinder | /onboard | Geführte Lese-Tour durch die Codebase für neue Devs generieren |
 
+## Cluster-Taxonomy (Sprint 30+)
+
+Skills are organized into thematic clusters under `skills/`. Each cluster has
+its own `README.md` listing its skills and cross-links.
+
+| Cluster | Directory | Skills (existing + new) | Sprint range |
+|---|---|---|---|
+| Meta (lifecycle) | skills/_meta/ | 2 existing | — |
+| Quality | skills/quality/ | 7 existing + 4 new | 30-34 |
+| Understanding | skills/understanding/ | 2 existing + 1 new | 35 |
+| Security | skills/security/ | 5 existing + 2 new | 30 (cross), 36 |
+| Data | skills/data/ | 2 existing | — |
+| Runtime | skills/runtime/ | 2 existing | — |
+| Operations | skills/operations/ | 2 existing + 1 new | 38 |
+| AI/ML | skills/ai-ml/ | 0 + 2 new | 39-40 |
+
+Total: 22 existing + 10 new = **32 skills** across **8 clusters**.
+
 ## Skill-Shop (Sprints 21-25)
 
 Plattform: Marktplatz + Fachgeschäft in einem — Skills als Produkt, einzeln und in
@@ -62,4 +80,5 @@ Masterspezifikation: `ops/SHOP-BIBEL.md`.
 - `ops/BIBEL.md` — Master-Regeln, Skill-Anatomie, Sprint-/Test-Protokoll, DoD
 - `ops/tracking.md` — Sprint-Status + Blocker
 - `ops/sprints/sprint-NN-<skill>.md` — je Sprint die vollständige Spezifikation
-- `skills/<skill-name>/` — die Skills (fertig oder als Platzhalter, entstehen sprintweise)
+- `skills/<cluster>/<skill-name>/` — Skills organisiert in thematischen Clustern
+- `skills/<cluster>/README.md` — Cluster-Übersicht mit Skill-Liste und Cross-Links

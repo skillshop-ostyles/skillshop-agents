@@ -45,8 +45,12 @@ verändert (Ausnahme: Lese-Zugriff auf Test-Ziele, siehe § 6).
 
 3. **Karpathy-Regeln** (globale Bibel): erst denken, dann coden; Simplicity First;
    chirurgische Änderungen; zielgetriebene Ausführung mit Erfolgskriterien.
-4. **Sprachstil**: Deutsch, direkt, keine Floskeln, keine Emojis. Skript-Ausgaben und
-   Reports auf Deutsch; Code-Bezeichner Englisch.
+4. **Sprachstil**: Deutsch, direkt, keine Floskeln, keine Emojis. Code-Bezeichner
+   Englisch.
+   - **Sprint 01-29** (bestehend): Skript-Ausgaben und Reports auf Deutsch.
+   - **Sprint 30+** (neue Cluster-Architektur): Skript-Ausgaben, Reports, READMEs,
+     Commit-Messages und alle Dateinamen auf Englisch. Bestehende deutschsprachige
+     Skills bleiben unverändert.
 5. **Secrets**: niemals vollständig loggen — nur maskiert (erste 8 + letzte 4 Zeichen).
    Collector-Skripte, die Dateien einlesen, geben Inhalte von `.env`-artigen Dateien
    grundsätzlich NICHT aus.

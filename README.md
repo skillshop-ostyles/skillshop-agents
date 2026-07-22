@@ -1,75 +1,74 @@
-# AGENTS
+# AGENTS — Skill Program
 
-22 Claude-Code-Skills, die jahrzehntealte Entwickler-Schmerzen lösen — Git-Forensik,
-Test-Lücken, Security-Audits, Schema-Migrationen und mehr. **2 sind fertig und
-installierbar, 20 sind vollständig spezifiziert** und werden schrittweise gebaut. Jeder
-Skill folgt demselben Muster: `SKILL.md` (Claude-Code-Instruktion) + `scripts/` +
-`README.md` (Installation).
+A curated collection of **LLM-powered developer skills** — executable knowledge
+packages that solve real coding pain points. Each skill is a `SKILL.md` instruction
+file plus deterministic collector scripts (`scripts/*.ps1`) that a coding agent
+(TBD, Sonnet, or any LLM) can run against a target project.
 
-Zwei Dinge in einem Repo:
+Two things in one repo:
 
-1. **Das Skill-Programm** (`skills/`) — die Skills selbst, einzeln installierbar.
-2. **Der Skill-Shop** (`shop/`) — Marktplatz und Fachgeschäft in einem, das diese
-   Skills als Produkt anbietet: einzeln, in Bundles, facettiert durchsuchbar, mit
-   Berater und Ein-Klick-Installation in ein Zielprojekt. Läuft **nur lokal**
-   (`127.0.0.1`, kein Hosting — Begründung in [`ops/SHOP-BIBEL.md`](ops/SHOP-BIBEL.md) § 9).
+1. **The Skill Program** (`skills/`) — skills organized in thematic clusters,
+   each installable individually into `~/.claude/skills/`.
+2. **The Skill Shop** (`shop/`) — a local marketplace and specialty store
+   (Express + SQLite, localhost-only) that offers skills as products: single
+   installs, bundles, faceted search, and a rule-based advisor. See
+   [`shop/README.md`](shop/README.md).
 
-## Skills installieren
+## Skills at a Glance
 
-Jeder Skill hat eine eigene `README.md` mit Terminal-Befehlen für macOS/Linux und
-Windows, z. B. [`skills/elevate/README.md`](skills/elevate/README.md). Kurzform:
+| Cluster | Focus | Skills | Sprints |
+|---|---|---|---|
+| [_meta](skills/_meta/) | Repository lifecycle tooling | 2 | — |
+| [quality](skills/quality/) | Code smells, patterns, refactoring signals | 7 + 4 planned | 30-34 |
+| [understanding](skills/understanding/) | Knowledge preservation, onboarding, architecture | 2 + 1 planned | 35 |
+| [security](skills/security/) | Protection, compliance, trust boundaries | 5 + 2 planned | 30 (cross), 36 |
+| [data](skills/data/) | Schemas, migrations, test coverage | 2 | — |
+| [runtime](skills/runtime/) | Performance, reproduction, production mirroring | 2 | — |
+| [operations](skills/operations/) | Deployment, resilience, maintainability | 2 + 1 planned | 38 |
+| [ai-ml](skills/ai-ml/) | LLM apps, ML pipelines | 2 planned | 39-40 |
+
+Total: **22 existing + 10 planned = 32 skills** across **8 clusters**.
+
+## Install a Skill
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/elevate ~/.claude/skills/elevate
+cp -r skill-shop-agents/skills/quality/spec-luegendetektor ~/.claude/skills/
 ```
 
-Alternativ: über den lokalen Skill-Shop installieren (Pfad-Guards, Update-Tracking,
-Berater) — siehe [`shop/README.md`](shop/README.md).
-
-## Struktur
-
-```
-skills/                   ein Ordner je Skill (SKILL.md + scripts/ + README.md)
-  elevate/, project-init/   fertig, installierbar
-  <20 weitere>/              geplant — Platzhalter mit Link zur Sprint-Spec
-ops/                      die "Bibel": verbindliche Regeln + Sprint-Programm
-  BIBEL.md                Master-Regeln fuers Skill-Programm
-  SHOP-BIBEL.md           Master-Regeln fuer den Shop
-  manifest.md             Ziel + Scope
-  tracking.md             Sprint-Status (Quelle der Wahrheit fuer "fertig"/"geplant")
-  sprints/                je Skill/Feature eine vollstaendige Spezifikation
-shop/                     der Skill-Shop (Node/Express + SQLite, siehe shop/README.md)
-```
-
-## Schnellstart Shop
+Use the Shop for guided installation (path guards, update tracking, advisor):
 
 ```bash
 cd shop
 npm install
-npm run import   # baut die Produkt-DB aus skills/ + shop/catalog/
-npm start        # http://127.0.0.1:4711
+npm run import
+npm start    # http://127.0.0.1:4711
 ```
 
-Details: [`shop/README.md`](shop/README.md).
+## Repository Structure
 
-## Regeln
+```
+.
+├── README.md            This file — cluster tour
+├── CLAUDE.md            Project bible (local instance)
+├── ops/                 The "bible": rules, manifest, tracking, sprint specs
+│   ├── BIBEL.md         Master rules for the skill program
+│   ├── SHOP-BIBEL.md    Master rules for the shop
+│   ├── manifest.md      Scope, cluster taxonomy, constraints
+│   ├── tracking.md      Sprint status (source of truth)
+│   └── sprints/         Full specification per sprint
+├── skills/<cluster>/    Thematic directories with skill folders
+└── shop/                The skill shop (Node + Express + SQLite)
+```
 
-Verbindlich sind [`ops/BIBEL.md`](ops/BIBEL.md) und
-[`ops/SHOP-BIBEL.md`](ops/SHOP-BIBEL.md). Kurz:
+## Rules
 
-- **`~/.claude/` ist unantastbar** — kein Skript und kein Installer verändert es
-  jemals (case-insensitiver Pfad-Guard, getestet).
-- Deutsch, direkt; Simplicity First; chirurgische Änderungen; jeder Fix mit Test.
-- Ehrlichkeits-Prinzip: Status kommt aus `ops/tracking.md`, keine Fake-Reviews, keine
-  erfundenen Zahlen.
+- **`~/.claude/` is off-limits** — no script or installer ever modifies it
+  (case-insensitive path guard, tested).
+- Simplicity First; surgical changes; every fix with a test.
+- Honesty principle: status from `ops/tracking.md`, no fake reviews,
+  no fabricated numbers.
 
-## Qualität
-
-Der Shop hat eine node:test-Suite (`npm test` in `shop/`) und ESLint
-(`npm run lint`). `.editorconfig` + `.gitattributes` halten Format und Zeilenenden
-konsistent.
-
-## Lizenz
+## License
 
 [MIT](LICENSE).
