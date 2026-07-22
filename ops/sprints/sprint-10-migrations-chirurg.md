@@ -173,13 +173,69 @@ Negativ: fehlende Datei → exit != 0; Format-Mix → exit != 0.
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig, Nie-Ausführen-Regel und Freigabe-Pflicht ausformuliert
-- [ ] schema-diff.ps1 (SQL + Prisma, alle Diff-Kategorien, renameCandidates, unparsed)
-- [ ] Fixture-Paar mit allen 5 Pflicht-Änderungen angelegt
-- [ ] Smoke bestanden (alle 5 erkannt, Rename-Kandidat gemeldet)
-- [ ] LLM-Paket vollständig (5 Dateien), Warnungen/Nicht-Umkehrbarkeit vorhanden
-- [ ] SQL-Prüfung dokumentiert (Review + Parse-Probe falls Binary verfügbar)
-- [ ] Akzeptanz dokumentiert (dreamzzz oder begründeter Fixture-Fallback)
-- [ ] Negativ-Tests bestanden
-- [ ] Protokoll erfüllt BIBEL § 4 (jede Zeile auf Diff rückführbar)
-- [ ] tracking.md aktualisiert, Commit `sprint-10: migrations-chirurg implementiert`
+- [x] SKILL.md vollständig, Nie-Ausführen-Regel und Freigabe-Pflicht ausformuliert
+- [x] schema-diff.ps1 (SQL + Prisma, alle Diff-Kategorien, renameCandidates, unparsed)
+- [x] Fixture-Paar mit allen 5 Pflicht-Änderungen angelegt
+- [x] Smoke bestanden (alle 5 erkannt, Rename-Kandidat gemeldet)
+- [x] LLM-Paket vollständig (5 Dateien), Warnungen/Nicht-Umkehrbarkeit vorhanden
+- [x] SQL-Prüfung dokumentiert (Review + Parse-Probe falls Binary verfügbar)
+- [x] Akzeptanz dokumentiert (dreamzzz oder begründeter Fixture-Fallback)
+- [x] Negativ-Tests bestanden
+- [x] Protokoll erfüllt BIBEL § 4 (jede Zeile auf Diff rückführbar)
+- [x] tracking.md aktualisiert, Commit `sprint-10: migrations-chirurg implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/migrations-chirurg/` (BIBEL-§-3-Konvention seit
+   Sprint 29).
+2. **Klammer-tiefen-bewusstes Parsing**: `CREATE TABLE`-Bodies und einzelne
+   Spalten-Definitionen werden über eigene Klammer-Tiefen-Scanner
+   (`Get-ParenBlock`, `Split-TopLevel`) zerlegt statt über naive Regex-Splits —
+   sonst hätte `NUMERIC(10,2)` das Komma als Spalten-Trenner missverstanden.
+   Erster Entwurf, kein Bug beim Testen gefunden (im Gegensatz zu den meisten
+   Vorsprints) — die sorgfältige Vorab-Planung hat sich hier ausgezahlt.
+3. **Tabellen-weite Constraints (PRIMARY KEY/FOREIGN KEY/UNIQUE als eigene
+   Zeile) werden erkannt und übersprungen**, nicht einzeln modelliert — bewusst
+   pragmatisch (Spec: "kein voller SQL-Parser"), reicht für die geforderten
+   Diff-Kategorien (Spalten/Tabellen/Indizes).
+4. **SQL-Prüfung**: `sqlite3` lokal gefunden, aber das generierte Paket ist
+   PostgreSQL-Dialekt (`SERIAL`, `ALTER COLUMN ... TYPE`) — direkte Ausführung
+   gegen sqlite kann diese Dialekt-spezifischen Statements naturgemäß nicht
+   validieren (sqlite kennt `ALTER COLUMN TYPE` nicht). Best-effort-Probe
+   trotzdem gefahren: `CREATE TABLE`/`RENAME COLUMN`/`DROP COLUMN`/`CREATE INDEX`
+   liefen fehlerfrei durch sqlite, nur die beiden echten Postgres-spezifischen
+   `ALTER COLUMN ... TYPE`-Zeilen schlugen erwartungsgemäß fehl — kein Bug,
+   sondern der dokumentierte Dialekt-Unterschied selbst. Ergänzend: manuelles
+   Review, jede generierte Zeile gegen einen Diff-Eintrag zurückverfolgt.
+
+## 11. Testergebnisse
+
+**Smoke** (Fixture `skills/migrations-chirurg/tests/fixture/old.sql`+`new.sql`,
+alle 5 Pflicht-Änderungen: neue Tabelle `payments`, entfernte Spalte
+`legacy_notes`, Typ-Änderung mit NOT-NULL-Einführung `orders.total`
+(NUMERIC(10,2) nullable → NUMERIC(12,2) NOT NULL), Rename-Kandidat
+`users.status`→`users.state`, neuer Index `idx_users_email`): `schema-diff.ps1`
+erkennt **alle 5 auf Anhieb korrekt** (harte Kriterien erfüllt, kein Bugfix
+nötig). Identische Schemas → sauber 0 Änderungen, kein leeres Paket.
+
+Voller LLM-Durchlauf (Dialekt PostgreSQL): 5-Dateien-Paket erzeugt
+(`00-protokoll.md`, `01-forward.sql`, `02-rollback.sql`, `03-validate-pre.sql`,
+`04-validate-post.sql`). Forward enthält WARNUNG-Kommentarblöcke vor beiden
+verlustbehafteten Schritten (Drop `legacy_notes`, NOT-NULL-Backfill mit
+TODO-Platzhalter). Rollback kennzeichnet den Drop als NICHT umkehrbar
+(Datenverlust nur über Backup behebbar). `03-validate-pre.sql` zählt
+NOT-NULL-Verletzer VOR der Migration. Datenverlust-Abschnitt im Protokoll
+prominent, mit beiden Fällen benannt. SQL-Prüfung: sqlite-Parse-Probe
+bestätigt 4 von 6 Forward-Statements dialektunabhängig syntaktisch valide, die
+2 Postgres-spezifischen `ALTER COLUMN TYPE`-Zeilen scheitern erwartungsgemäß
+an sqlite (Dialekt-Grenze, kein Bug) — zusätzlich jede generierte Zeile
+manuell gegen einen Diff-Eintrag zurückverfolgt (Evidenz-Pflicht erfüllt).
+
+**Akzeptanz** (`dreamzzz-api_vs`): keine `*.sql`/`*.prisma`-Dateien im Projekt
+gefunden (Supabase-Migrationen wurden laut früheren Commit-Messages offenbar
+nicht als Dateien in diesem Repo geführt) — Akzeptanz vollständig über die
+Fixture erbracht, wie im Sprint-File als zulässig vorgesehen (Fixture deckt
+alle Kern-Fälle ab).
+
+**Negativ**: fehlende Datei → `Write-Error` + Exit-Code 1. Format-Mix (SQL vs.
+Prisma) → `Write-Error` "Format-Mix nicht unterstuetzt" + Exit-Code 1.

@@ -15,7 +15,7 @@ Stand: 2026-07-21
 | 07 | wissens-testament | fertig | 2026-07-22 | — |
 | 08 | repro-automat | fertig | 2026-07-22 | — |
 | 09 | prod-spiegel | fertig | 2026-07-22 | — |
-| 10 | migrations-chirurg | offen | — | — |
+| 10 | migrations-chirurg | fertig | 2026-07-22 | — |
 | 11 | zeitbomben-scanner | offen | — | — |
 | 12 | doku-drift-detektor | offen | — | — |
 | 13 | vokabular-waechter | offen | — | — |
