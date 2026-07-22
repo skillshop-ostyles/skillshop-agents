@@ -20,8 +20,7 @@ A single repo with one focus:
 | [operations](skills/operations/) | Deployment, resilience, maintainability | 3 | 38 |
 | [ai-ml](skills/ai-ml/) | LLM apps, ML pipelines | 2 | 39-40 |
 
-Total: **32 skills** across **8 clusters**. Phase A (sprints 01-13) and Phase B
-(sprints 30-40) complete. Sprints 14-20 specified but not implemented.
+Phase A (sprints 01-20) and Phase B (sprints 30-40) complete.
 
 ## Install a Skill
 
