@@ -57,11 +57,14 @@ verändert (Ausnahme: Lese-Zugriff auf Test-Ziele, siehe § 6).
 
 ## 3. Skill-Anatomie (uniform, verbindlich)
 
-Jeder Skill ist ein eigener Ordner direkt unter `AGENTS\`:
+Jeder Skill ist ein eigener Ordner unter `AGENTS\skills\` (Sprint 29: Umzug von
+`AGENTS\<skill-name>\` nach `AGENTS\skills\<skill-name>\` für die öffentliche
+GitHub-Präsentation):
 
 ```
-<skill-name>\
+skills\<skill-name>\
   SKILL.md
+  README.md          (GitHub-Installationsanleitung, siehe skills/elevate/README.md)
   scripts\
     *.ps1
     templates\        (nur falls das Sprint-File Templates vorsieht)
@@ -69,7 +72,7 @@ Jeder Skill ist ein eigener Ordner direkt unter `AGENTS\`:
 
 ### 3.1 SKILL.md
 
-Exakt das Muster von `elevate/SKILL.md`:
+Exakt das Muster von `skills/elevate/SKILL.md`:
 
 - Frontmatter: `name`, `description` (englisch, mit "Trigger: /<x>" am Ende), `trigger`.
 - Abschnitt `## What this is for`.
@@ -82,14 +85,14 @@ Exakt das Muster von `elevate/SKILL.md`:
 
 - `[CmdletBinding()] param(...)` mit `[Parameter(Mandatory = $true)]` für Pflicht-Parameter.
 - `$ErrorActionPreference = 'Stop'` für Collector (Fehler sollen knallen),
-  `'Continue'` nur für Best-Effort-Runner (wie `elevate/scripts/ci-local.ps1`).
+  `'Continue'` nur für Best-Effort-Runner (wie `skills/elevate/scripts/ci-local.ps1`).
 - Guard aus § 2.2 in jedem Skript, das schreibt. Reine Lese-Skripte brauchen ihn nicht,
   prüfen aber die Existenz des Zielpfads (`Test-Path` → `Write-Error` + `exit 1`).
 - Pfad-Parameter heißen einheitlich `-ProjectDir`; weitere Parameter je Sprint-File.
 
 ### 3.3 Output-Contract
 
-Jedes Analyse-Skript liefert BEIDES (Muster `elevate/scripts/audit.ps1`):
+Jedes Analyse-Skript liefert BEIDES (Muster `skills/elevate/scripts/audit.ps1`):
 
 1. **JSON** via `ConvertTo-Json -Depth 5` (oder tiefer, falls nötig) auf stdout —
    maschinenlesbar, Schema steht im Sprint-File.

@@ -34,6 +34,7 @@ Stand: 2026-07-21
 | 26 | shop-perfektion | fertig | 2026-07-21 | — |
 | 27 | shop-produktionsparitaet | fertig | 2026-07-21 | — |
 | 28 | shop-differenzierung | fertig | 2026-07-22 | — |
+| 29 | skills-repo-oeffentlich | fertig | 2026-07-22 | — |
 
 Status-Werte: `offen` | `in Arbeit` | `fertig`. Pflege gemäß BIBEL § 5.
 

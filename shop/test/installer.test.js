@@ -91,7 +91,7 @@ test('install() copies the full skill folder and verifies the hash', () => {
   const destDir = path.join(target, '.claude', 'skills', 'demo-skill-a');
   assert.equal(result.destDir, destDir);
   assert.ok(fs.existsSync(path.join(destDir, 'SKILL.md')));
-  assert.equal(computeFolderHash(destDir), computeFolderHash(path.join(FIXTURE_ROOT, 'demo-skill-a')));
+  assert.equal(computeFolderHash(destDir), computeFolderHash(path.join(FIXTURE_ROOT, 'skills', 'demo-skill-a')));
   assert.equal(result.files, 1); // just SKILL.md in the fixture
 });
 

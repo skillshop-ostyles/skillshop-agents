@@ -4,7 +4,7 @@
 
 10 neue KI-Skills bauen, die klassische Entwickler-Schmerzen lösen, welche erst durch
 LLMs automatisierbar wurden. Jeder Skill folgt dem bestehenden Muster
-(`SKILL.md` + `scripts/*.ps1`, siehe `elevate/`, `project-init/`) und wird in genau
+(`SKILL.md` + `scripts/*.ps1`, siehe `skills/elevate/`, `skills/project-init/`) und wird in genau
 einem Sprint umgesetzt.
 
 ## Scope
@@ -62,4 +62,4 @@ Masterspezifikation: `ops/SHOP-BIBEL.md`.
 - `ops/BIBEL.md` — Master-Regeln, Skill-Anatomie, Sprint-/Test-Protokoll, DoD
 - `ops/tracking.md` — Sprint-Status + Blocker
 - `ops/sprints/sprint-NN-<skill>.md` — je Sprint die vollständige Spezifikation
-- `<skill-name>/` — die fertigen Skills (entstehen sprintweise)
+- `skills/<skill-name>/` — die Skills (fertig oder als Platzhalter, entstehen sprintweise)

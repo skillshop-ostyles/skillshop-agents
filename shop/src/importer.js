@@ -10,8 +10,6 @@ const DIMENSIONS = [
   'usecase', 'thema', 'stichwort', 'ziel', 'branche', 'taetigkeit', 'level', 'risiko',
 ];
 
-const EXCLUDED_TOP_LEVEL = new Set(['shop', 'ops', '.git', 'node_modules']);
-
 class ImportError extends Error {}
 
 /**
@@ -84,22 +82,22 @@ function computeFolderHash(folderPath) {
 }
 
 /**
- * Scans rootDir for skill folders (any direct subfolder containing SKILL.md,
- * excluding shop/ops/.git/node_modules).
+ * Scans rootDir/skills for skill folders (any direct subfolder containing SKILL.md).
+ * Sprint 29: Skills leben jetzt unter skills/<name>/ statt direkt im Repo-Root.
  * @returns {Map<string, {folderPath: string, frontmatter: object, folderHash: string}>}
  */
 function scanSkillFolders(rootDir) {
   const result = new Map();
+  const skillsDir = path.join(rootDir, 'skills');
   let entries;
   try {
-    entries = fs.readdirSync(rootDir, { withFileTypes: true });
+    entries = fs.readdirSync(skillsDir, { withFileTypes: true });
   } catch (err) {
-    throw new ImportError(`ProjectDir nicht lesbar: ${rootDir} (${err.message})`);
+    throw new ImportError(`skills/-Ordner nicht lesbar: ${skillsDir} (${err.message})`);
   }
   for (const entry of entries) {
     if (!entry.isDirectory()) continue;
-    if (EXCLUDED_TOP_LEVEL.has(entry.name) || entry.name.startsWith('.')) continue;
-    const folderPath = path.join(rootDir, entry.name);
+    const folderPath = path.join(skillsDir, entry.name);
     const skillMdPath = path.join(folderPath, 'SKILL.md');
     if (!fs.existsSync(skillMdPath)) continue;
     const text = fs.readFileSync(skillMdPath, 'utf8');

@@ -98,9 +98,9 @@ test('skill folder without curated catalog entry is marked uncurated', () => {
     path.join(root, 'ops', 'tracking.md'),
     '| Sprint | Skill | Status | Datum | Blocker |\n|---|---|---|---|---|\n'
   );
-  fs.mkdirSync(path.join(root, 'lonely-skill'), { recursive: true });
+  fs.mkdirSync(path.join(root, 'skills', 'lonely-skill'), { recursive: true });
   fs.writeFileSync(
-    path.join(root, 'lonely-skill', 'SKILL.md'),
+    path.join(root, 'skills', 'lonely-skill', 'SKILL.md'),
     '---\nname: lonely-skill\ndescription: "Ohne Katalog. Trigger: /lonely"\ntrigger: /lonely\n---\n'
   );
   fs.mkdirSync(path.join(catalog, 'skills'), { recursive: true });
@@ -126,9 +126,9 @@ test('frontmatter name mismatch with folder name raises ImportError', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'shop-test-mismatch-'));
   fs.mkdirSync(path.join(root, 'ops'), { recursive: true });
   fs.writeFileSync(path.join(root, 'ops', 'tracking.md'), '');
-  fs.mkdirSync(path.join(root, 'folder-name'), { recursive: true });
+  fs.mkdirSync(path.join(root, 'skills', 'folder-name'), { recursive: true });
   fs.writeFileSync(
-    path.join(root, 'folder-name', 'SKILL.md'),
+    path.join(root, 'skills', 'folder-name', 'SKILL.md'),
     '---\nname: different-name\ndescription: "x"\ntrigger: /x\n---\n'
   );
   assert.throws(
@@ -141,9 +141,9 @@ test('unreadable tracking.md falls back to in-entwicklung for everyone, with war
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'shop-test-notrack-'));
   fs.mkdirSync(path.join(root, 'ops'), { recursive: true });
   fs.writeFileSync(path.join(root, 'ops', 'tracking.md'), 'kein Tabellen-Header hier');
-  fs.mkdirSync(path.join(root, 'demo-skill-a'), { recursive: true });
+  fs.mkdirSync(path.join(root, 'skills', 'demo-skill-a'), { recursive: true });
   fs.writeFileSync(
-    path.join(root, 'demo-skill-a', 'SKILL.md'),
+    path.join(root, 'skills', 'demo-skill-a', 'SKILL.md'),
     '---\nname: demo-skill-a\ndescription: "x"\ntrigger: /demo-a\n---\n'
   );
 
