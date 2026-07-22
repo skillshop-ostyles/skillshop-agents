@@ -9,3 +9,4 @@ responsible AI usage.
 | Skill | Trigger | Audience | Purpose |
 |--|--|--|--|
 | [prompt-injection-detector](../ai-ml/prompt-injection-detector/) | /prompt-inspect | Senior > Vibe | Static analysis for prompt injection: find LLM API calls, trace untrusted data into prompts, classify countermeasures. |
+| [llm-cost-controller](../ai-ml/llm-cost-controller/) | /llm-cost | Senior | Audit LLM API calls for cost anti-patterns: expensive models, unlimited tokens, no caching, batchable calls. Estimates monthly spend and savings potential. |
