@@ -45,4 +45,11 @@ Grundmuster zuerst, Risiko aufsteigend). Abweichung nur nach User-Freigabe.
 
 ## Blocker / Offene Punkte
 
-- Keine.
+- Keine Blocker. Sprints 01-13 fertig, jeweils committet und (nur `skills/`,
+  via `git subtree split`) an den Remote gepusht — zuletzt Sprint 13
+  (Commit `5514d7d`, Remote-Stand `528353c`).
+- Sprints 14-20 offen (`konfig-kartograf`, `test-luecken-kartograf`,
+  `ausfall-simulant`, `api-vertrags-waechter`, `berechtigungs-roentgen`,
+  `datenspuren-verfolger`, `onboarding-pfadfinder`). Fortsetzung nach
+  User-Freigabe — Session pausiert auf expliziten User-Wunsch nach dem
+  Sprint-13-Push ("stoppe nach dem nächsten push").
