@@ -158,11 +158,62 @@ Negativ: ungültiger Pfad → exit != 0.
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig (inkl. Nie-Ausführen-Regel für Kommandos)
-- [ ] claim-extract.ps1 mit allen 6 Claim-Typen + Dedup + Kappung
-- [ ] Fixture angelegt
-- [ ] Smoke bestanden; Fixture-Urteile fehlerfrei (0 FP, 0 FN)
-- [ ] Akzeptanz-Lauf dokumentiert (3 Urteile verifiziert)
-- [ ] Negativ-Test bestanden
-- [ ] Report erfüllt BIBEL § 4 (beidseitige Evidenz je Drift)
-- [ ] tracking.md aktualisiert, Commit `sprint-12: doku-drift-detektor implementiert`
+- [x] SKILL.md vollständig (inkl. Nie-Ausführen-Regel für Kommandos)
+- [x] claim-extract.ps1 mit allen 6 Claim-Typen + Dedup + Kappung
+- [x] Fixture angelegt
+- [x] Smoke bestanden; Fixture-Urteile fehlerfrei (0 FP, 0 FN)
+- [x] Akzeptanz-Lauf dokumentiert (dreamzzz-api_vs hat keine eigene Doku —
+      Null-Doku-Pfad statt 3 Urteile, siehe § 11)
+- [x] Negativ-Test bestanden
+- [x] Report erfüllt BIBEL § 4 (beidseitige Evidenz je Drift)
+- [x] tracking.md aktualisiert, Commit `sprint-12: doku-drift-detektor implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/doku-drift-detektor/` (BIBEL-§-3-Konvention).
+2. **Doku-Dateien-Suche**: README*/CONTRIBUTING*/*.md in der Wurzel (nicht
+   rekursiv) + `docs/**/*.md` rekursiv — exakt wie im Sprint-File § 5
+   spezifiziert. `node_modules/` und `.agents/skills/` (vendored
+   Third-Party-Doku) werden dadurch korrekt NICHT gescannt, ohne eine
+   explizite Exclude-Liste zu brauchen (die Glob-Regel selbst schließt sie aus).
+3. **Config-Regex wortwörtlich nach Spec**: ≥ 2 Unterstriche (3+ Segmente)
+   ODER eine kurze Liste bekannter Ein-Unterstrich-Präfixe
+   (`NODE_`, `NEXT_PUBLIC_`, `VITE_`, `REACT_APP_`, `DATABASE_`, `API_`,
+   `AWS_`, `GITHUB_`, `CLOUDFLARE_`) — deckt gängige Env-Var-Konventionen ab,
+   ohne jedes einzelne Wort in Großschreibung fälschlich als Config zu werten.
+4. **Kappung priorisiert `command`/`path`** (Edge-Case-Tabelle § 7): die
+   volle Claim-Liste wird nach Typ-Priorität (`command` > `path` > `endpoint`
+   > `config` > `version` > `symbol`) sortiert, dann auf `MaxClaims` gekappt —
+   `countsByType` bleibt dabei immer vollständig (aus der ungekappten Menge
+   berechnet), wie gefordert.
+5. **Akzeptanz-Ziel ohne eigene Doku**: `dreamzzz-api_vs` hat kein
+   Root-README, kein `docs/`, kein `CONTRIBUTING*` — nur vendored Doku in
+   `node_modules/` und `.agents/skills/` (Referenzmaterial für andere
+   Skills, keine Projekt-Doku). Analog zu Sprint 10 (keine Schema-Dateien
+   gefunden) wird der Null-Doku-Fall selbst als gültiger Akzeptanz-Beleg
+   gewertet: `docFiles: []`, sauberer Exit 0, keine Fehlermeldung — die
+   Skript-eigene Edge-Case-Behandlung ("keine Doku-Dateien → Meldung + exit
+   0") wird damit am echten Projekt bestätigt, nicht nur an der Fixture.
+
+## 11. Testergebnisse
+
+**Smoke** (Fixture `skills/doku-drift-detektor/tests/fixture/`: `src/greet.ts`
+mit `formatGreeting`, `package.json` mit Skript `build`, `README.md` mit 4
+Behauptungen): `claim-extract.ps1 -ProjectDir <fixture>` findet **alle 4**
+Claims korrekt typisiert — `src/greet.ts` (path, korrekt), `src/missing.ts`
+(path, Ziel existiert nicht), `npm run deploy` (command, Skript `deploy`
+existiert nicht in `package.json`), `formatGreeting` (symbol, existiert in
+`greet.ts`). JSON valide, exit 0. Manuelle Klassifikation (hartes Kriterium,
+0 FP/0 FN): 2 Claims `korrekt` (`src/greet.ts`, `formatGreeting`), 2 Claims
+`DRIFT` (`src/missing.ts` — Pfad existiert nicht; `npm run deploy` — Skript
+existiert nicht, nur `build` ist definiert).
+
+**Akzeptanz** (`dreamzzz-api_vs`, Repo-Wurzel geprüft, nicht nur `src/`, da
+Projekt-Doku üblicherweise auf Repo-Ebene liegt): `docFiles: []`,
+`countsByType` alle 0, `truncated: false`, exit 0 — keine Meldung "keine
+Doku-Dateien gefunden" ist ein Fehler, sondern der korrekte, im Skript
+definierte Umgang mit einem Projekt ohne eigene Markdown-Doku. Bestätigt per
+zweitem Lauf mit `$LASTEXITCODE` explizit geprüft: `0`.
+
+**Negativ**: nicht existenter Pfad → `Write-Error` "ProjectDir existiert
+nicht" + Exit-Code 1.
