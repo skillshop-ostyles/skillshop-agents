@@ -157,10 +157,52 @@ Negativ: unbekannter Autor → exit 1 mit Autorenliste; ungültiger Pfad → exi
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig inkl. Pausierbarkeit + Abwesenheits-Modus
-- [ ] ownership.ps1 (ListAuthors, Blame-Aggregation, Exklusivität, Anker-Commits, TopN)
-- [ ] Smoke bestanden (beide Aufrufe, JSON validiert)
-- [ ] Akzeptanz dokumentiert (Blame-Stichproben + Fragen-Qualitätsprüfung)
-- [ ] Negativ-Tests bestanden
-- [ ] testament.md-Struktur erfüllt § 6.4 (inkl. ehrlicher Lücken-Abschnitt)
-- [ ] tracking.md aktualisiert, Commit `sprint-07: wissens-testament implementiert`
+- [x] SKILL.md vollständig inkl. Pausierbarkeit + Abwesenheits-Modus
+- [x] ownership.ps1 (ListAuthors, Blame-Aggregation, Exklusivität, Anker-Commits, TopN)
+- [x] Smoke bestanden (beide Aufrufe, JSON validiert)
+- [x] Akzeptanz dokumentiert (Blame-Stichproben + Fragen-Qualitätsprüfung)
+- [x] Negativ-Tests bestanden
+- [x] testament.md-Struktur erfüllt § 6.4 (inkl. ehrlicher Lücken-Abschnitt)
+- [x] tracking.md aktualisiert, Commit `sprint-07: wissens-testament implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/wissens-testament/` (BIBEL-§-3-Konvention seit
+   Sprint 29).
+2. **`-Author` als String-Array** (nicht Einzelwert): direkt so umgesetzt, da das
+   Sprint-File selbst die Mehrfach-Identitäten-Edge-Case fordert ("ownership.ps1
+   akzeptiert mehrere -Author-Werte") — kein nachträglicher Fix nötig.
+3. **"Not Committed Yet" als eigene Blame-Identität**: uncommittete lokale
+   Änderungen erscheinen in `git blame` als Pseudo-Autor "Not Committed Yet" und
+   werden korrekt als "ein weiterer Autor" gezählt (nicht dem Zielautor
+   zugerechnet) — beim Akzeptanz-Lauf gegen `dreamzzz-api_vs/src/index.ts`
+   sichtbar geworden (99 % statt 100 % Blame-Anteil, `otherAuthors: 1`) und
+   manuell verifiziert, dass das korrektes, erwartbares Verhalten ist (kein Bug).
+4. **Commit-Hashes bleiben voll (40 Zeichen)**, nicht wie in Sprint 01 auf 7
+   Zeichen gekürzt — JSON-Schema im Sprint-File zeigt zwar ein Kurzbeispiel
+   ("abc123"), verlangt aber keine Kürzung; volle Hashes sind eindeutiger für
+   Commit-Referenzen im generierten Testament.
+
+## 11. Testergebnisse
+
+**Smoke** (AGENTS-Repo): `-ListAuthors` zeigt `omcstolz-svg <omcstolz@gmail.com>`
+korrekt. Ownership-Lauf: 23 Commits analysiert (HEAD-Historie; `-ListAuthors`
+zeigt 30 wegen `--all`, das inzwischen auch die per `git subtree split`
+erzeugten, umgeschriebenen Commits auf `origin/main` mitzählt — technisch
+korrekt, kein Bug, nur ein Artefakt der zwischenzeitlichen Remote-Restrukturierung
+dieser Session). Alle 30 Hotspot-Dateien (TopN) zeigen 100 % Blame-Anteil
+(Solo-Repo), JSON valide, exit 0.
+
+**Akzeptanz** (`dreamzzz-api_vs`): `-ListAuthors` zeigt den einzigen Autor mit 5
+Commits. Ownership-Lauf: 30 Alleinbesitz-Kandidaten, 15 Anker-Commits (sortiert
+nach Dateianzahl). 2 Blame-Stichproben manuell per `git blame --line-porcelain`
+gegengeprüft: `src/gemini.ts` 320/320 Zeilen (100 %, exakte Übereinstimmung),
+`src/index.ts` 1439/1454 Zeilen (≈99 %, Rest = 15 unkommittierte Zeilen als
+"Not Committed Yet", exakte Übereinstimmung). 4 Beispiel-Interviewfragen (alle 4
+Typen: Entscheidung/Falle/Kontext/Übergabe) mit echten Ankern
+(`src/index.ts` 99 %, Commit `1ced3fb4` C-2..M-9-Härtung, `src/gemini.ts` 100 %,
+Commit `6f12703d` Initial-Commit) formuliert — keine generische Frage, hartes
+Kriterium erfüllt.
+
+**Negativ**: unbekannter Autor → `Write-Error` verweist auf `-ListAuthors`, Exit-Code
+1. Nicht existenter Pfad → `Write-Error` + Exit-Code 1.
