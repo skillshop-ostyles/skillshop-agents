@@ -12,15 +12,16 @@ A single repo with one focus:
 | Cluster | Focus | Skills | Sprints |
 |--|--|--|--|
 | [_meta](skills/_meta/) | Repository lifecycle tooling | 2 | - |
-| [quality](skills/quality/) | Code smells, patterns, refactoring signals | 7 + 4 planned | 30-34 |
-| [understanding](skills/understanding/) | Knowledge preservation, onboarding, architecture | 2 + 1 planned | 35 |
-| [security](skills/security/) | Protection, compliance, trust boundaries | 5 + 2 planned | 30 (cross), 36 |
+| [quality](skills/quality/) | Code smells, patterns, refactoring signals | 12 | 30-34 |
+| [understanding](skills/understanding/) | Knowledge preservation, onboarding, architecture | 3 | 35 |
+| [security](skills/security/) | Protection, compliance, trust boundaries | 7 | 30 (cross), 36 |
 | [data](skills/data/) | Schemas, migrations, test coverage | 2 | - |
 | [runtime](skills/runtime/) | Performance, reproduction, production mirroring | 2 | - |
-| [operations](skills/operations/) | Deployment, resilience, maintainability | 2 + 1 planned | 38 |
-| [ai-ml](skills/ai-ml/) | LLM apps, ML pipelines | 2 planned | 39-40 |
+| [operations](skills/operations/) | Deployment, resilience, maintainability | 3 | 38 |
+| [ai-ml](skills/ai-ml/) | LLM apps, ML pipelines | 2 | 39-40 |
 
-Total: **22 existing + 10 planned = 32 skills** across **8 clusters**.
+Total: **32 skills** across **8 clusters**. Phase A (sprints 01-13) and Phase B
+(sprints 30-40) complete. Sprints 14-20 specified but not implemented.
 
 ## Install a Skill
 
@@ -36,10 +37,10 @@ cp -r skill-shop-agents/skills/quality/intent-archaeology ~/.claude/skills/
 +-- README.md            This file - cluster tour
 +-- CLAUDE.md            Project bible (local instance)
 +-- ops/                 The "bible": rules, manifest, tracking, sprint specs
-¦   +-- BIBEL.md         Master rules for the skill program
-¦   +-- manifest.md      Scope, cluster taxonomy, constraints
-¦   +-- tracking.md      Sprint status (source of truth)
-¦   +-- sprints/         Full specification per sprint
+ï¿½   +-- BIBEL.md         Master rules for the skill program
+ï¿½   +-- manifest.md      Scope, cluster taxonomy, constraints
+ï¿½   +-- tracking.md      Sprint status (source of truth)
+ï¿½   +-- sprints/         Full specification per sprint
 +-- skills/<cluster>/    Thematic directories with skill folders
 ```
 

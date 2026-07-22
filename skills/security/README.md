@@ -24,4 +24,4 @@ scanners miss.
 ## Cross-Links
 
 - [quality/README.md](../quality/README.md) - `quality/cluster` lists the
-  planned `security-smell-scanner` (Sprint 30) as a quality-relevant cross-link.
+  `security-smell-scanner` as a quality-relevant cross-link.
