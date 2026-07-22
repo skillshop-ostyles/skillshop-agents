@@ -23,7 +23,7 @@ if (-not (Test-Path -LiteralPath $ProjectDir)) {
     exit 1
 }
 
-$isRepo = & git -C $ProjectDir rev-parse -is-inside-work-tree 2>$null
+$isRepo = & git -C $ProjectDir rev-parse --is-inside-work-tree 2>$null
 if ($LASTEXITCODE -ne 0 -or $isRepo -ne 'true') {
     Write-Error "Not a git repo: $ProjectDir"
     exit 1
@@ -41,7 +41,7 @@ $format = '%H%x1f%ad%x1f%an%x1f%s%x1f%b%x1e'
 # PowerShell splits external program output line by line into an
 # array - use -join to reassemble into a single string, otherwise
 # multi-line commit bodies would break our 0x1e/0x1f record structure.
-$rawLines = & git -C $ProjectDir log -follow -date=short "-pretty=format:$format" - $File 2>$null
+$rawLines = & git -C $ProjectDir log --follow --date=short "--pretty=format:$format" '--' $File 2>$null
 $raw = if ($rawLines) { ($rawLines -join "`n") } else { '' }
 
 $records = @()
@@ -93,12 +93,12 @@ $ticketIdsUnique = @($allTicketIds | Select-Object -Unique)
 # -- 2. Symbol-Log (optional) --
 $symbolLogAvailable = $false
 if ($Symbol) {
-    $symbolOutput = & git -C $ProjectDir log "-L:${Symbol}:${File}" -oneline 2>$null
+    $symbolOutput = & git -C $ProjectDir log "-L:${Symbol}:${File}" '--oneline' 2>$null
     if ($LASTEXITCODE -eq 0 -and $symbolOutput) { $symbolLogAvailable = $true }
 }
 
 # -- 4. Blame-Aggregation --
-$blameRaw = & git -C $ProjectDir blame -line-porcelain - $File 2>$null
+$blameRaw = & git -C $ProjectDir blame '--line-porcelain' '--' $File 2>$null
 $byAuthor = @{}
 $byCommit = @{}
 if ($blameRaw) {

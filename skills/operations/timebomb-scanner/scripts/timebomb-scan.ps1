@@ -38,7 +38,7 @@ function Test-ChangelogPath($fullPath) {
 }
 
 $gitAvailable = $false
-$repoCheck = & git -C $root rev-parse -is-inside-work-tree 2>$null
+$repoCheck = & git -C $root rev-parse --is-inside-work-tree 2>$null
 if ($LASTEXITCODE -eq 0 -and $repoCheck -eq 'true') { $gitAvailable = $true }
 
 $allFiles = @(

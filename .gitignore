@@ -11,6 +11,9 @@ desktop.ini
 /ops/
 /shop/
 
-# nested git repos for test fixtures
-skills/security/api-contract-guardian/tests/fixtures/smoke/
+# nested git repos for test fixtures (ignore .git dirs, track source files)
+skills/security/api-contract-guardian/tests/fixtures/smoke/.git/
+skills/quality/intent-archaeology/tests/fixtures/smoke/.git/
+skills/quality/side-effect-radar/tests/fixtures/smoke/.git/
+skills/understanding/knowledge-testament/tests/fixtures/smoke/.git/
 

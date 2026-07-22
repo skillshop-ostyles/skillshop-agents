@@ -68,7 +68,7 @@ if ($stack -eq 'node-ts' -and (Exist 'package.json')) {
 
 # -- 3. Git-Zustand --
 $gitInfo = $null
-$isRepo = & git -C $root rev-parse -is-inside-work-tree 2>$null
+$isRepo = & git -C $root rev-parse --is-inside-work-tree 2>$null
 if ($LASTEXITCODE -eq 0 -and $isRepo -eq 'true') {
     $branch = [string](& git -C $root rev-parse -abbrev-ref HEAD 2>$null | Select-Object -First 1)
     $head = [string](& git -C $root rev-parse HEAD 2>$null | Select-Object -First 1)

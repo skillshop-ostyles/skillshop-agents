@@ -19,7 +19,7 @@ if (-not (Test-Path -LiteralPath $ProjectDir)) {
     exit 1
 }
 
-$isRepo = & git -C $ProjectDir rev-parse -is-inside-work-tree 2>$null
+$isRepo = & git -C $ProjectDir rev-parse --is-inside-work-tree 2>$null
 if ($LASTEXITCODE -ne 0 -or $isRepo -ne 'true') {
     Write-Error "Not a git repo: $ProjectDir"
     exit 1
@@ -50,7 +50,7 @@ $truncatedAny = $false
 foreach ($file in $Files) {
     $fileNorm = $file -replace '\\', '/'
 
-    $hashLines = & git -C $ProjectDir log '-format=%H' - $file 2>$null
+    $hashLines = & git -C $ProjectDir log '--format=%H' '--' $file 2>$null
     $hashes = @()
     if ($hashLines) { $hashes = @(($hashLines -join "`n") -split "`n" | Where-Object { $_.Trim() -ne '' }) }
     $totalCommitCount = $hashes.Count
@@ -60,7 +60,7 @@ foreach ($file in $Files) {
 
     $coCounts = @{}
     foreach ($h in $usedHashes) {
-        $namesRaw = & git -C $ProjectDir show -name-only '-format=' $h 2>$null
+        $namesRaw = & git -C $ProjectDir show '--format=' '--name-only' $h 2>$null
         if (-not $namesRaw) { continue }
         $names = @(($namesRaw -join "`n") -split "`n" | Where-Object { $_.Trim() -ne '' })
         foreach ($n in $names) {

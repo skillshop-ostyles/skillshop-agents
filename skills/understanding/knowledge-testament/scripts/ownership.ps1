@@ -20,14 +20,14 @@ if (-not (Test-Path -LiteralPath $ProjectDir)) {
     exit 1
 }
 
-$isRepo = & git -C $ProjectDir rev-parse -is-inside-work-tree 2>$null
+$isRepo = & git -C $ProjectDir rev-parse --is-inside-work-tree 2>$null
 if ($LASTEXITCODE -ne 0 -or $isRepo -ne 'true') {
     Write-Error "Not a git repo: $ProjectDir"
     exit 1
 }
 
 if ($ListAuthors) {
-    $shortlogRaw = & git -C $ProjectDir shortlog -sne -all 2>$null
+    $shortlogRaw = & git -C $ProjectDir shortlog -sne --all 2>$null
     $authors = @(
         foreach ($line in $shortlogRaw) {
             $m = [regex]::Match([string]$line, '^\s*(\d+)\s+(.+)$')
@@ -62,8 +62,8 @@ function Test-AuthorMatch($name, $mail, $authorList) {
 # -- Author commits with affected files (for hotspots + anchor commits) --
 $format = "$([char]0x01)%H$([char]0x1f)%ad$([char]0x1f)%s$([char]0x02)"
 $authorArgs = @()
-foreach ($a in $Author) { $authorArgs += "-author=$a" }
-$rawLines = & git -C $ProjectDir log $authorArgs '-date=short' "-pretty=format:$format" -name-only 2>$null
+foreach ($a in $Author) { $authorArgs += "--author=$a" }
+$rawLines = & git -C $ProjectDir log $authorArgs '--date=short' "--pretty=format:$format" --name-only 2>$null
 $raw = if ($rawLines) { ($rawLines -join "`n") } else { '' }
 
 $commits = @()
@@ -107,7 +107,7 @@ $hotspots = @(
 # -- Blame shares for the TopN hotspot files --
 $soleOwnership = @(
     foreach ($h in $hotspots) {
-        $blameRaw = & git -C $ProjectDir blame -line-porcelain - $h.file 2>$null
+        $blameRaw = & git -C $ProjectDir blame '--line-porcelain' '--' $h.file 2>$null
         if (-not $blameRaw) { continue }
         $totalLines = 0
         $authorLines = 0
