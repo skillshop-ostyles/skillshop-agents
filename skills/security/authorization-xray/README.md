@@ -1,16 +1,17 @@
 ﻿# authorization-xray
 
-**Planned - not yet implemented.**
-
 **Trigger:** `/authz`
 
-"Who can do what?" - the question that stays unanswered before every pentest.
+Authorization X-ray for your own codebase (defensive audit). Inventories every HTTP endpoint and every recognizable protection layer (middleware chains, authorize decorators, inline role checks, router mounts), builds the permission matrix endpoint x required check, and reports unprotected mutating endpoints and inconsistent protection.
 
-Builds the permission matrix from code: unprotected mutation endpoints,
-inconsistencies, IDOR suspicions.
+## Usage
+
+```powershell
+& .\scripts\authz-scan.ps1 -ProjectDir "C:\Projects\my-app"
+```
+
+Produces JSON with `endpoints`, `globalUse`, and `inlineChecks` arrays plus counts.
 
 ## Status
 
-This skill is specified as a sprint but not yet built. Full
-specification (problem, benefit, scope): [`ops/sprints/sprint-18-berechtigungs-roentgen.md`](../../ops/sprints/sprint-18-berechtigungs-roentgen.md).
-Current overall skill status: [`ops/tracking.md`](../../ops/tracking.md).
+Implemented. Full specification: [`ops/sprints/sprint-18-authorization-xray.md`](../../ops/sprints/sprint-18-authorization-xray.md).
