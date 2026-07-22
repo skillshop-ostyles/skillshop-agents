@@ -1,16 +1,17 @@
 ﻿# config-cartographer
 
-**Planned - not yet implemented.**
-
 **Trigger:** `/config-map`
 
-Which env vars does your system really need? Nobody knew completely - until now.
+Maps a system's complete config surface: every env var, setting and flag — where it is defined (.env, config files, Dockerfile, docker-compose) versus where it is read in code. Reports read-but-never-defined keys (crash candidates), defined-but-never-read orphans, and divergent defaults. Never outputs values — keys only.
 
-Maps the complete config surface: defined vs. read, orphaned keys,
-crash candidates. Never outputs values.
+## Usage
+
+```powershell
+& .\scripts\config-harvest.ps1 -ProjectDir "C:\Projects\my-app"
+```
+
+Produces JSON with `definitions`, `reads`, and `dynamicReads` arrays plus counts.
 
 ## Status
 
-This skill is specified as a sprint but not yet built. Full
-specification (problem, benefit, scope): [`ops/sprints/sprint-14-konfig-kartograf.md`](../../ops/sprints/sprint-14-konfig-kartograf.md).
-Current overall skill status: [`ops/tracking.md`](../../ops/tracking.md).
+Implemented. Full specification: [`ops/sprints/sprint-14-config-cartographer.md`](../../ops/sprints/sprint-14-config-cartographer.md).
