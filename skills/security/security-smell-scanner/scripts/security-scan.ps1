@@ -17,6 +17,9 @@ if (-not $resolved) {
 $ProjectDir = $resolved.Path
 
 $ErrorActionPreference = "Stop"
+$PSDefaultParameterValues['Out-File:Encoding'] = 'utf8'
+$OutputEncoding = [System.Text.UTF8Encoding]::new()
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
 $extList = $Extensions -split ',' | ForEach-Object { $_.Trim() }
 $excludeList = if ($Exclude) { $Exclude -split ',' | ForEach-Object { $_.Trim() } } else { @() }
