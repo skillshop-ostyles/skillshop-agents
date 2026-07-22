@@ -1,6 +1,6 @@
 # Tracking — AGENTS Skill-Programm
 
-Stand: 2026-07-21
+Stand: 2026-07-22
 
 ## Sprint-Status
 
@@ -16,7 +16,7 @@ Stand: 2026-07-21
 | 08 | repro-automat | fertig | 2026-07-22 | — |
 | 09 | prod-spiegel | fertig | 2026-07-22 | — |
 | 10 | migrations-chirurg | fertig | 2026-07-22 | — |
-| 11 | zeitbomben-scanner | offen | — | — |
+| 11 | zeitbomben-scanner | fertig | 2026-07-22 | — |
 | 12 | doku-drift-detektor | offen | — | — |
 | 13 | vokabular-waechter | offen | — | — |
 | 14 | konfig-kartograf | offen | — | — |
