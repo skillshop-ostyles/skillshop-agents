@@ -2,7 +2,8 @@
 
 Skills in this cluster detect, classify, and reason about **code quality**:
 smells, inconsistencies, dead code, refactoring opportunities, and the relationship
-between documentation, intent, and the code as it actually exists.
+between documentation, intent, and the code as it actually exists. Phase C
+expanded the cluster from 11 to 21 skills (see `ops/phase-c-catalog.md`).
 
 These skills are the first line of defense for "this code works, but should it look
 like this?" - they support both senior engineers who refactor deliberately and
@@ -23,6 +24,16 @@ vibe-coders who want to know whether their generated code is structurally sound.
 | [performance-anti-pattern-detektor](../quality/performance-anti-pattern-detektor/) | /perf | Senior | Detects 8 performance anti-patterns: N+1 queries, sync-over-async, hot-loop allocation, listener leaks, string concat in loops, unnecessary serialization, large closure captures, redundant computation in loops. |
 | [code-clone-detector](../quality/code-clone-detector/) | /code-clone | Senior | Finds code clones across a codebase: Type 1-3 (exact, renamed, modified) via deterministic fingerprinting, Type 4 (semantic) via LLM candidate selection. Reports clone clusters with density metrics. |
 | [error-handling-auditor](../quality/error-handling-auditor/) | /error-audit | Senior | Audits error handling across a codebase: swallowed exceptions, generic catch blocks, missing error propagation, missing finally blocks, exception type abuse, logging without context, and ignored return codes. |
+| [comment-lie-detector](../quality/comment-lie-detector/) | /comment-lies | Both | Every behavioral-claim comment ("returns null", "thread-safe") paired with 30 lines of surrounding code; LLM judges consistency / contradicts / outdated. |
+| [test-honesty-auditor](../quality/test-honesty-auditor/) | /test-honesty | Both | Tests that cannot fail: zero-assertion, tautologies, mock-asserts-itself, rotting skips. Bucketized then LLM-judged for honesty. |
+| [misleading-name-detector](../quality/misleading-name-detector/) | /name-lies | Both | `getUser()` that writes / `isValid()` returning a string / `tempFix()` from 2019. Prefix classification + body preview; LLM judges promise vs behavior. |
+| [migration-limbo-detector](../quality/migration-limbo-detector/) | /migration-limbo | Senior | Half-finished migrations: axios AND fetch, moment AND date-fns. 18 built-in pattern pairs, custom pairs via -CustomPairs, git-timeline per side. |
+| [clone-drift-tracker](../quality/clone-drift-tracker/) | /clone-drift | Senior | Code blocks USED to be clones and silently diverged. Body-hash comparison current vs `HEAD~N` (default 100). Requires git repo. |
+| [magic-value-genealogist](../quality/magic-value-genealogist/) | /magic-values | Both | Numeric and uppercase-string literals outside tests with origin (git blame), informed-by author, intro commit. LLM judges unify/rethink/unexplained. |
+| [wheel-reinvention-detector](../quality/wheel-reinvention-detector/) | /reinvented-wheels | Both | Short exported utility functions paired with installed libraries; LLM judges stdlib-equivalence and library-replacement. |
+| [api-footgun-reviewer](../quality/api-footgun-reviewer/) | /footguns | Senior > Vibe | Internal function signatures: boolean traps, same-type adjacent, inconsistent family conventions. |
+| [paranoia-profiler](../quality/paranoia-profiler/) | /paranoia | Senior | Every defensive guard cataloged with context. LLM judges paranoid (impossible case) vs naive (external input). |
+| [invariant-miner](../quality/invariant-miner/) | /invariants | Senior | Hidden invariants statically inferred from code structure (array-index without guard, division-by-computed, JSON.parse-trust). LLM proposes assertions/docs. |
 
 ## Cross-Links
 
