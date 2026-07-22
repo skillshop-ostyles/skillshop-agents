@@ -1,15 +1,17 @@
 ﻿# failure-simulator
 
-**Planned - not yet implemented.**
-
 **Trigger:** `/failsim`
 
-"What happens when the DB goes away?" - someone now knows the answer.
+Failure simulator on code level. Inventories every external touchpoint (HTTP clients, DB access, filesystem, queues, caches) with its surrounding error handling, then for a chosen failure scenario mentally executes the failure path at each touchpoint and reports the resulting behavior — retry, degradation, crash or silent loss — plus inconsistencies and hardening recommendations.
 
-Thinks failure paths through statically per scenario: robust, degraded, silent, crash or hang - without chaos engineering.
+## Usage
+
+```powershell
+& .\scripts\failpoint-scan.ps1 -ProjectDir "C:\Projects\my-app"
+```
+
+Produces JSON with `failpoints` array (type, file, line, context, error-handling flags).
 
 ## Status
 
-This skill is specified as a sprint but not yet built. Full
-specification (problem, benefit, scope): [`ops/sprints/sprint-16-ausfall-simulant.md`](../../ops/sprints/sprint-16-ausfall-simulant.md).
-Current overall skill status: [`ops/tracking.md`](../../ops/tracking.md).
+Implemented. Full specification: [`ops/sprints/sprint-16-failure-simulator.md`](../../ops/sprints/sprint-16-failure-simulator.md).
