@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [string]$ProjectDir
@@ -6,7 +6,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-# SCHUTZ: ~/.claude/ niemals veraendern.
+# PROTECTION: never modify ~/.claude/.
 function Normalize($p) {
     $base = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
     $expanded = if ($p.StartsWith('~')) { Join-Path $base $p.Substring(1) } else { $p }
@@ -15,15 +15,15 @@ function Normalize($p) {
 $claudeRoot = Normalize (Join-Path $env:USERPROFILE '.claude')
 $targetPath = Normalize $ProjectDir
 # StartsWith case-insensitiv (OrdinalIgnoreCase): NTFS ist case-insensitiv, sonst
-# wuerde C:\USERS\...\.claude den Guard umgehen (Review-Befund A2). -eq ist in
+# would bypass the guard (review finding A2). -eq ist in
 # PowerShell bereits case-insensitiv.
 if ($targetPath -eq $claudeRoot -or $targetPath.StartsWith("$claudeRoot\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    Write-Error "SCHUTZ: ProjectDir liegt unter $claudeRoot. Abbruch."
+    Write-Error "PROTECTION: ProjectDir is inside $claudeRoot. Aborting."
     exit 1
 }
 
 if (-not (Test-Path -LiteralPath $ProjectDir)) {
-    Write-Error "ProjectDir existiert nicht: $ProjectDir"
+    Write-Error "ProjectDir does not exist: $ProjectDir"
     exit 1
 }
 

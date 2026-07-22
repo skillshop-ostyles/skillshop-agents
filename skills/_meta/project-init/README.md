@@ -1,55 +1,49 @@
-# project-init
+﻿# project-init
 
-✅ **Verfügbar** · **Trigger:** `/project-init` · **Risiko:** schreibend (nur nach Freigabe)
+Available - **Trigger:** `/project-init` - **Risk:** writing (only after approval)
 
-> Ein leeres Verzeichnis, ein gutes Gespräch, ein fertiges Fundament.
+> An empty directory, a good conversation, a finished foundation.
 
-Führt ein interaktives Onboarding-Interview und scaffoldet ein neues Projekt komplett
-— Struktur, Tooling, ops-Doku. Statt ein leeres Repo zu erraten, fragt `project-init`
-gezielt nach Ziel, Stack, Struktur, Tooling, Docs, Secrets und Plattform, und schreibt
-daraus ein vollständiges, konsistentes Grundgerüst inklusive `manifest.md` und
-`tracking.md`, das jede spätere Session automatisch wieder einliest.
+Runs an interactive onboarding interview and scaffolds a new project completely
+- structure, tooling, ops docs. Instead of guessing an empty repo, `project-init`
+asks specifically about goal, stack, structure, tooling, docs, secrets and platform,
+and writes a complete, consistent foundation including `manifest.md` and
+`tracking.md` that every later session automatically reads back.
 
 ## Installation
 
-### Voraussetzungen
+### Prerequisites
 
-- [Claude Code](https://claude.com/claude-code) installiert.
-- Das Skript `scripts/init.ps1` ist PowerShell (5.1+ oder 7+). Unter Windows nativ
-  vorhanden. Unter macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) — **plattformübergreifender Betrieb ist bisher nicht getestet**, entwickelt
-  wurde unter Windows.
+- [Claude Code](https://claude.com/claude-code) installed.
+- Script `scripts/init.ps1` requires PowerShell (5.1+ or 7+). Available natively on
+  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
+  (`pwsh`) - **cross-platform operation not yet tested**, developed
+  on Windows.
 
-### Per Terminal
+### Via Terminal
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/project-init ~/.claude/skills/project-init       # global
-# oder projekt-lokal:
-cp -r skill-shop-agents/skills/project-init <dein-projekt>/.claude/skills/project-init
+cp -r skill-shop-agents/skills/_meta/project-init ~/.claude/skills/_meta/project-init       # global
+# or project-local:
+cp -r skill-shop-agents/skills/_meta/project-init <your-project>/.claude/skills/_meta/project-init
 ```
 
 Windows (PowerShell):
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\project-init $HOME\.claude\skills\project-init
+Copy-Item -Recurse skill-shop-agents\skills\_meta\project-init $HOME\.claude\skills\_meta\project-init
 ```
 
-### Über den Skill-Shop
+## Usage
 
-Der Skill-Shop (`shop/` im selben Repo) installiert diesen Skill mit einem Klick,
-inklusive Pfad-Guards und Versions-Tracking beim Aktualisieren. Der Shop läuft nur
-lokal auf deinem eigenen Rechner (kein Hosting) — siehe [`shop/README.md`](../../shop/README.md).
-
-## Nutzung
-
-In Claude Code, im (leeren) Zielprojekt:
+In Claude Code, in the (empty) target project:
 
 ```
-/project-init                 # interaktives Onboarding im aktuellen Verzeichnis
-/project-init <pfad>          # interaktives Onboarding in <pfad>
-/project-init --help          # Kurzhilfe
+/project-init                 # interactive onboarding in current directory
+/project-init <path>          # interactive onboarding in <path>
+/project-init -help          # short help
 ```
 
-Details zum Ablauf: [`SKILL.md`](SKILL.md).
+Details: [`SKILL.md`](SKILL.md).

@@ -10,12 +10,12 @@ $cwd = Resolve-Path -LiteralPath $ProjectDir
 Write-Output "=== LOCAL CI MIRROR: $cwd ==="
 
 function Run($label, $cmd) {
-    Write-Output "`n--- $label ---"
+    Write-Output "`n-- $label --"
     try {
         Invoke-Expression $cmd
         Write-Output "[$label] OK"
     } catch {
-        Write-Output "[$label] UEBERSPRUNGEN / FEHLER: $($_.Exception.Message)"
+        Write-Output "[$label] SKIPPED / ERROR: $($_.Exception.Message)"
     }
 }
 
@@ -29,9 +29,9 @@ elseif (Test-Path (Join-Path $cwd 'go.mod')) { $stack = 'go' }
 Push-Location $cwd
 switch ($stack) {
     'node-ts' {
-        Run 'Lint' 'npm run lint --if-present'
-        Run 'Test' 'npm test --if-present'
-        Run 'Audit' 'npm audit --audit-level=high'
+        Run 'Lint' 'npm run lint -if-present'
+        Run 'Test' 'npm test -if-present'
+        Run 'Audit' 'npm audit -audit-level=high'
     }
     'python' {
         Run 'Lint (ruff)' 'ruff check .'
@@ -39,7 +39,7 @@ switch ($stack) {
         Run 'Audit (pip-audit)' 'pip-audit'
     }
     'rust' {
-        Run 'Lint (clippy)' 'cargo clippy --all-targets'
+        Run 'Lint (clippy)' 'cargo clippy -all-targets'
         Run 'Test' 'cargo test'
         Run 'Audit (cargo-audit)' 'cargo audit'
     }
@@ -49,9 +49,9 @@ switch ($stack) {
         Run 'Audit' 'go list -m -u all'
     }
     default {
-        Write-Output "Unbekannter Stack - manuell pruefen: lint, test, audit."
+        Write-Output "Unknown stack - check manually: lint, test, audit."
     }
 }
 Pop-Location
 
-Write-Output "LOCAL MIRROR FERTIGIG"
+Write-Output "LOCAL MIRROR DONE"

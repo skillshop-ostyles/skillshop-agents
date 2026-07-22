@@ -1,55 +1,49 @@
-# elevate
+﻿# elevate
 
-✅ **Verfügbar** · **Trigger:** `/elevate` · **Risiko:** schreibend (nur nach Freigabe)
+Available - **Trigger:** `/elevate` - **Risk:** writing (only after approval)
 
-> Dein Projekt verdient Enterprise-Niveau — ohne dass du dafür bezahlst, es selbst zu
-> erfinden.
+> Your project deserves enterprise level - without paying for it or inventing it
+> yourself.
 
-Auditiert ein Projekt gegen 7 Enterprise-Dimensionen (Tests+Coverage, Lint/Format,
-CI/CD, Secrets-Hygiene, Docs, Type-Safety, Dependency-Audit) und hebt es an — nur die
-Teile, die du einzeln freigibst. Generisch über Stacks und CI-Systeme, läuft auch
-komplett lokal.
+Audits a project against 7 enterprise dimensions (tests+coverage, lint/format,
+CI/CD, secrets hygiene, docs, type-safety, dependency audit) and elevates it - only the
+parts you individually approve. Generic across stacks and CI systems, runs
+completely locally.
 
 ## Installation
 
-### Voraussetzungen
+### Prerequisites
 
-- [Claude Code](https://claude.com/claude-code) installiert.
-- Die Skripte in `scripts/*.ps1` sind PowerShell (5.1+ oder 7+). Unter Windows nativ
-  vorhanden. Unter macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) — **plattformübergreifender Betrieb ist bisher nicht getestet**, entwickelt
-  wurde unter Windows.
+- [Claude Code](https://claude.com/claude-code) installed.
+- Scripts in `scripts/*.ps1` require PowerShell (5.1+ or 7+). Available natively on
+  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
+  (`pwsh`) - **cross-platform operation not yet tested**, developed
+  on Windows.
 
-### Per Terminal
+### Via Terminal
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/elevate ~/.claude/skills/elevate       # global, alle Projekte
-# oder projekt-lokal:
-cp -r skill-shop-agents/skills/elevate <dein-projekt>/.claude/skills/elevate
+cp -r skill-shop-agents/skills/_meta/elevate ~/.claude/skills/_meta/elevate       # global, all projects
+# or project-local:
+cp -r skill-shop-agents/skills/_meta/elevate <your-project>/.claude/skills/_meta/elevate
 ```
 
 Windows (PowerShell):
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\elevate $HOME\.claude\skills\elevate
+Copy-Item -Recurse skill-shop-agents\skills\_meta\elevate $HOME\.claude\skills\_meta\elevate
 ```
 
-### Über den Skill-Shop
+## Usage
 
-Der Skill-Shop (`shop/` im selben Repo) installiert diesen Skill mit einem Klick,
-inklusive Pfad-Guards und Versions-Tracking beim Aktualisieren. Der Shop läuft nur
-lokal auf deinem eigenen Rechner (kein Hosting) — siehe [`shop/README.md`](../../shop/README.md).
-
-## Nutzung
-
-In Claude Code, im Zielprojekt:
+In Claude Code, in the target project:
 
 ```
-/elevate                 # audit + elevate aktuelles Verzeichnis
-/elevate <pfad>          # audit + elevate <pfad>
-/elevate --help          # Kurzhilfe
+/elevate                 # audit + elevate current directory
+/elevate <path>          # audit + elevate <path>
+/elevate -help          # short help
 ```
 
-Details zum Ablauf: [`SKILL.md`](SKILL.md).
+Details: [`SKILL.md`](SKILL.md).

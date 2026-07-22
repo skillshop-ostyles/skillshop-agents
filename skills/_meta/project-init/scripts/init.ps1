@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [string]$ProjectDir,
@@ -9,8 +9,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-# SCHUTZ: ~/.claude/ niemals veraendern. Pfad ohne Erstellung normalisieren
-# (GetFullPath macht keinen Zugriff aufs Dateisystem, erstellt nichts).
+# PROTECTION: never modify ~/.claude/. Normalize path without creating anything
+# (GetFullPath does not access the filesystem, creates nothing).
 function Normalize($p) {
     $base = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
     $expanded = if ($p.StartsWith('~')) { Join-Path $base $p.Substring(1) } else { $p }
@@ -21,22 +21,22 @@ $claudeRoot = Normalize (Join-Path $env:USERPROFILE '.claude')
 $targetPath = Normalize $ProjectDir
 
 # StartsWith case-insensitiv (OrdinalIgnoreCase): NTFS ist case-insensitiv, sonst
-# wuerde C:\USERS\...\.claude den Guard umgehen (Review-Befund A2). -eq ist in
+# would bypass the guard (review finding A2). -eq ist in
 # PowerShell bereits case-insensitiv.
 if ($targetPath -eq $claudeRoot -or $targetPath.StartsWith("$claudeRoot\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    Write-Error "SCHUTZ: ProjectDir liegt unter $claudeRoot. Das Verzeichnis C:\Users\ostol\.claude\ darf NIEMALS veraendert werden. Abbruch."
+    Write-Error "PROTECTION: ProjectDir is inside $claudeRoot. This directory must NEVER be modified. Aborting."
     exit 1
 }
 
 if (-not (Test-Path -LiteralPath $AnswersFile)) {
-    Write-Error "AnswersFile nicht gefunden: $AnswersFile"
+    Write-Error "AnswersFile not found: $AnswersFile"
     exit 1
 }
 
 $answers = Get-Content -LiteralPath $AnswersFile -Raw -Encoding UTF8 | ConvertFrom-Json
 
 $name = if ($answers.name) { $answers.name } else { (Split-Path $ProjectDir -Leaf) }
-$goal = if ($answers.goal) { $answers.goal } else { '(nicht definiert)' }
+$goal = if ($answers.goal) { $answers.goal } else { '(not defined)' }
 $stack = if ($answers.stack) { $answers.stack } else { 'generic' }
 $pkgManager = if ($answers.pkgManager) { $answers.pkgManager } else { 'n/a' }
 $layout = if ($answers.layout) { $answers.layout } else { 'src/docs/ops' }
@@ -64,76 +64,75 @@ function Write-File($relPath, $content) {
 }
 
 $bibleRef = @"
-# Projekt-Bibel — nicht verhandelbar
+# Project Bible - non-negotiable
 
-Die verbindlichen Regeln für dieses Projekt sind in der globalen Benutzer-Bibel festgelegt:
+The binding rules for this project are defined in the global user bible:
 
-- **Quelle:** `C:\Users\ostol\.claude\CLAUDE.md` (gültig für ALLE Projekte dieses Users)
-- **Status:** IMMER präsent, aktiv und gültig. Nicht verhandelbar.
+- **Source:** `C:\Users\ostol\.claude\CLAUDE.md` (valid for ALL projects of this user)
+- **Status:** ALWAYS present, active, and valid. Non-negotiable.
 
-## Projekt-Kurzprofil
+## Project Profile
 - **Name:** $name
-- **Ziel:** $goal
+- **Goal:** $goal
 - **Stack:** $stack ($pkgManager)
-- **Plattform:** $(($platform -join ', '))
-- **Blocker:** $blockers
+- **Platform:** $(($platform -join ', '))
+- **Blockers:** $blockers
 
-## Verankerung
-Diese Datei ist die projekt-lokale Instanz der Bibel. Bei Widersprüchen zwischen
-projektspezifischem Code/Text und der Bibel gilt die Bibel.
+## Anchoring
+This file is the project-local instance of the bible. In case of conflicts between project-specific code/text and the bible, the bible takes precedence.
 "@
 Write-File 'CLAUDE.md' $bibleRef
 
 $manifest = @"
-# Manifest — $name
+# Manifest - $name
 
-## Ziel
+## Goal
 $goal
 
 ## Scope
 - Stack: $stack ($pkgManager)
-- Plattform: $(($platform -join ', '))
+- Platform: $(($platform -join ', '))
 - Tooling: $(($tooling -join ', '))
 
 ## Secrets / Tokens
 $(if ($secrets.Count -eq 0) { 'none' } else { ($secrets | ForEach-Object { "- $_" }) -join "`n" })
 
-## Blocker
+## Blockers
 $blockers
 
-## Erstellt
+## Created
 $(Get-Date -Format 'yyyy-MM-dd HH:mm')
 "@
 Write-File 'ops/manifest.md' $manifest
 
 $tracking = @"
-# Tracking — $name
+# Tracking - $name
 
 ## Status
 - Phase: Init
-- Letzte Aktivität: $(Get-Date -Format 'yyyy-MM-dd HH:mm')
+- Last activity: $(Get-Date -Format 'yyyy-MM-dd HH:mm')
 
-## Offen
-- (eintragen)
+## Open
+- (add items)
 
-## Blocker
+## Blockers
 $blockers
 
-## Sprint-Referenz
-- Siehe ops/sprints/
+## Sprint Reference
+- See ops/sprints/
 "@
 Write-File 'ops/tracking.md' $tracking
 
 $sprintsReadme = @"
-# Sprints — $name
+# Sprints - $name
 
-Jeder Sprint ist eine Datei `sprint-NN.md` in diesem Ordner.
+Each sprint is a file `sprint-NN.md` in this folder.
 
 Template:
-- Ziel
+- Goal
 - Tasks
-- Done / Offen
-- Blockierungen
+- Done / Open
+- Blockers
 "@
 Write-File 'ops/sprints/README.md' $sprintsReadme
 
@@ -142,7 +141,7 @@ $readme = @"
 
 > $goal
 
-Siehe `ops/manifest.md` für Ziel & Scope und `ops/tracking.md` für Status.
+Siehe `ops/manifest.md` fÃ¼r Ziel & Scope und `ops/tracking.md` fÃ¼r Status.
 "@
 Write-File 'README.md' $readme
 
@@ -168,7 +167,7 @@ Write-File '.gitignore' ($gitignoreLines -join "`n")
 
 switch ($stack) {
     'node-ts' {
-        Write-File 'src/index.ts' "export function main(): void {`n  // TODO: Einstiegspunkt`n}`n"
+        Write-File 'src/index.ts' "export function main(): void {`n  // TODO: entry point`n}`n"
     }
     'python' {
         Write-File 'src/main.py' "def main() -> None:`n    pass`n`n`nif __name__ == '__main__':`n    main()`n"
@@ -180,10 +179,10 @@ switch ($stack) {
         Write-File 'src/main.rs' "fn main() {`n    // TODO`n}`n"
     }
     default {
-        Write-File 'src/main.txt' "# Einstiegspunkt-Stub für Stack: $stack`n"
+        Write-File 'src/main.txt' "# Entry point stub for stack: $stack`n"
     }
 }
 
-Write-Output "Projekt '$name' initialisiert in $ProjectDir"
-Write-Output "  Struktur erstellt: $(($layoutDirs -join '/')) + ops/ + README.md + .gitignore + CLAUDE.md"
-Write-Output "  Naechster Schritt: 'weiter' eingeben fuer Session-Start-Routine."
+Write-Output "Project '$name' initialized in $ProjectDir"
+Write-Output "  Structure created: $(($layoutDirs -join '/')) + ops/ + README.md + .gitignore + CLAUDE.md"
+Write-Output "  Next step: type 'weiter' for session start routine."

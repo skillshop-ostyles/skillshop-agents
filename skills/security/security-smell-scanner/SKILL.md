@@ -1,12 +1,12 @@
----
+--
 name: security-smell-scanner
 description: "Security smell scanner: statically detects 10 families of security anti-patterns across a codebase (SQL injection, XSS, command injection, path traversal, hardcoded credentials, insecure defaults, IDOR, open redirect, TOCTOU, missing input validation). Produces an evidence-backed report with severity, location, and contextual analysis. Read-only. Audience: Senior > Vibe. Cross-link from quality/ cluster. Trigger: /config-map"
 trigger: /config-map
----
+--
 
 ## What this is for
 
-Security vulnerabilities don't always come from one bad line — they come from
+Security vulnerabilities don't always come from one bad line - they come from
 **recurring patterns**: unsanitized input in SQL strings, innerHTML without
 escaping, user-controlled file paths, exec() calls with string interpolation,
 hardcoded credentials, or security features explicitly disabled.
@@ -24,46 +24,46 @@ security-smell report.
 
 ### Trigger: `/config-map`
 
-Intervention-free static analysis. The collector reads only — never writes,
+Intervention-free static analysis. The collector reads only - never writes,
 never executes the target code, never connects to a network.
 
-## SCHUTZREGEL — niemals ~/.claude/
+## PROTECTION RULE - never `~/.claude/`
 
-Dieser Skill analysiert fremde Projekte. Er ist read-only. Der Schutz-Guard
-ist trotzdem aktiv: falls der Skill jemals einen Schreibmodus bekommt, muss
-der Guard aus `ops/BIBEL.md` § 2.2 eingebaut werden.
+This skill analyzes foreign projects. It is read-only. The protection guard
+is still active: if the skill ever gets a write mode, the guard from
+`ops/BIBEL.md` section 2.2 must be implemented.
 
 ## What You Must Do When Invoked
 
-### Step 1 — `--help`/`-h` check
-If invoked with `--help` or `-h`, print the usage block below and stop.
+### Step 1 - `-help`/`-h` check
+If invoked with `-help` or `-h`, print the usage block below and stop.
 
-### Step 2 — Confirm `-ProjectDir`
+### Step 2 - Confirm `-ProjectDir`
 If not provided, prompt the user. Confirm the path exists. Print:
 `Security smell scan on <path> ...`
 
-### Step 3 — Run Collector
+### Step 3 - Run Collector
 ```powershell
 & .\scripts\security-scan.ps1 -ProjectDir "<path>"
 ```
 
-Parse the JSON output. If exit code ≠ 0, report error and stop.
+Parse the JSON output. If exit code ? 0, report error and stop.
 
-### Step 4 — LLM Context Analysis
+### Step 4 - LLM Context Analysis
 For each finding in the JSON:
 1. Read the `context` snippet (3 lines before + 3 lines after the evidence line).
 2. Determine if this is a **true positive**, **false positive**, or **uncertain**.
-3. Assign confidence: `belegt`, `wahrscheinlich`, `vermutet`.
+3. Assign confidence: `proven`, `likely`, `suspected`.
 4. For `hardcoded-creds` findings: redact the value in your output.
-   Show only `[REDACTED]` — never the actual credential.
+   Show only `[REDACTED]` - never the actual credential.
 5. For SQL/command injection: check if the code path is reachable from a
    public entry point (HTTP handler, CLI command, message consumer).
 
-### Step 5 — Produce Report
+### Step 5 - Produce Report
 Write `security-smell-report.md` to the working directory:
 
 ```
-# Security Smell Report — <project-name>
+# Security Smell Report - <project-name>
 
 ## Executive Summary
 - <count> findings: <n> high, <m> medium, <p> low
@@ -71,7 +71,7 @@ Write `security-smell-report.md` to the working directory:
 
 ## Critical Findings (high confidence + high severity)
 | # | File | Line | Pattern | Evidence (truncated) | Suggested Fix |
-|---|------|------|---------|---------------------|---------------|
+|--|---|---|-----|-----------|--------|
 ...
 
 ## Medium Findings
@@ -82,18 +82,18 @@ Stuff worth knowing but not blocking.
 
 ## False Positives (matched by heuristics, dismissed by LLM)
 | File | Line | Pattern | Dismissal Reason |
-|------|------|---------|-----------------|
+|---|---|-----|---------|
 
-## Open Questions (uncertain — needs manual review)
+## Open Questions (uncertain - needs manual review)
 | File | Line | Pattern | Why Uncertain |
-|------|------|---------|--------------|
+|---|---|-----|-------|
 
 ## Pattern Coverage
 Applied: sql-injection, xss, command-injection, path-traversal, hardcoded-creds,
 insecure-defaults, idor, open-redirect, toctou, missing-input-validation.
 ```
 
-### Step 6 — Console Summary
+### Step 6 - Console Summary
 After writing the file, print a short summary:
 ```
 === Security Smell Scan Complete ===
@@ -107,5 +107,5 @@ After writing the file, print a short summary:
 ```
 /config-map                   # interactive, prompts for directory
 /config-map /path/to/project  # scan project directory
-/config-map --help            # show this usage info
+/config-map -help            # show this usage info
 ```

@@ -1,4 +1,4 @@
-# security-smell-scanner — /config-map
+# security-smell-scanner - /config-map
 
 Statically detect 10 families of security anti-patterns across a codebase:
 SQL injection, XSS, command injection, path traversal, hardcoded credentials,
@@ -16,10 +16,10 @@ cp -r skill-shop-agents/skills/security/security-smell-scanner ~/.claude/skills/
 
 ## How It Works
 
-1. **Collector** (`scripts/security-scan.ps1`) — regex-based heuristic scan over all
+1. **Collector** (`scripts/security-scan.ps1`) - regex-based heuristic scan over all
    source files. Finds candidate smells, extracts context snippets, assigns initial
    severity based on pattern type.
-2. **LLM analysis** — validates each candidate by reading the context block.
+2. **LLM analysis** - validates each candidate by reading the context block.
    Filters false positives (e.g. parameterized ORM calls that look like SQL),
    adjusts severity based on reachability, and masks credential values.
 
@@ -28,18 +28,18 @@ cp -r skill-shop-agents/skills/security/security-smell-scanner ~/.claude/skills/
 ```
 /config-map                           # interactive
 /config-map /path/to/your/project     # scan directory
-/config-map --help
+/config-map -help
 ```
 
 ## Output
 
-- `security-smell-report.md` — full report with executive summary, critical findings,
+- `security-smell-report.md` - full report with executive summary, critical findings,
   medium findings, false positive log, and open questions.
 - Console summary with counts broken down by severity and pattern.
 
 ## Audience
 
-**Senior > Vibe** — structured enough for a senior to use as a systematic
+**Senior > Vibe** - structured enough for a senior to use as a systematic
 review tool, explanatory enough for a vibe-coder to learn from each finding.
 
 This skill is a **cross-link** between the `security/` cluster (where it

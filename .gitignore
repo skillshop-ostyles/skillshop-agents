@@ -5,4 +5,8 @@ desktop.ini
 
 # Ausnahme: Test-Fixture fuer prod-spiegel (Sprint 09) braucht eine echte .log-
 # Datei, um die *.log-Erkennung von log-ingest.ps1 zu testen.
-!skills/prod-spiegel/tests/fixture/logs/*.log
+!skills/prod-mirror/tests/fixture/logs/*.log
+
+# Local-only directories (internal process docs, shop platform)
+/ops/
+/shop/

@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [string]$ProjectDir,
@@ -9,7 +9,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-# SCHUTZ: ~/.claude/ niemals veraendern.
+# PROTECTION: never modify ~/.claude/.
 function Normalize($p) {
     $base = if ($env:USERPROFILE) { $env:USERPROFILE } else { $HOME }
     $expanded = if ($p.StartsWith('~')) { Join-Path $base $p.Substring(1) } else { $p }
@@ -18,15 +18,15 @@ function Normalize($p) {
 $claudeRoot = Normalize (Join-Path $env:USERPROFILE '.claude')
 $targetPath = Normalize $ProjectDir
 # StartsWith case-insensitiv (OrdinalIgnoreCase): NTFS ist case-insensitiv, sonst
-# wuerde C:\USERS\...\.claude den Guard umgehen (Review-Befund A2). -eq ist in
+# would bypass the guard (review finding A2). -eq ist in
 # PowerShell bereits case-insensitiv.
 if ($targetPath -eq $claudeRoot -or $targetPath.StartsWith("$claudeRoot\", [System.StringComparison]::OrdinalIgnoreCase)) {
-    Write-Error "SCHUTZ: ProjectDir liegt unter $claudeRoot. Abbruch."
+    Write-Error "PROTECTION: ProjectDir is inside $claudeRoot. Aborting."
     exit 1
 }
 
 if (-not (Test-Path -LiteralPath $ConfigFile)) {
-    Write-Error "ConfigFile nicht gefunden: $ConfigFile"
+    Write-Error "ConfigFile not found: $ConfigFile"
     exit 1
 }
 
@@ -52,7 +52,7 @@ if ($approve.a) {
         }
         'python' {
             Write-File 'tests/test_smoke.py' "def test_smoke():`n    assert 1 + 1 == 2`n"
-            Write-File 'pytest.ini' "[pytest]`naddopts = --cov=src --cov-report=term-missing`n"
+            Write-File 'pytest.ini' "[pytest]`naddopts = -cov=src -cov-report=term-missing`n"
         }
         'rust' {
             Write-File 'tests/smoke.rs' "#[test]`nfn smoke() { assert_eq!(1 + 1, 2); }`n"
@@ -64,7 +64,7 @@ if ($approve.a) {
             Write-File 'tests/README.md' "# Tests`nFuege hier Stack-spezifische Tests hinzu.`n"
         }
     }
-    Write-Output "[a] Tests + Coverage angelegt ($stack)"
+        Write-Output "[a] Tests + Coverage created ($stack)"
 }
 
 # b) Lint / Format
@@ -87,10 +87,10 @@ if ($approve.b) {
             Write-File '.editorconfig' "root = true`n[*]`ncharset = utf-8`nindent_style = space`n"
         }
     }
-    Write-Output "[b] Lint / Format angelegt ($stack)"
+        Write-Output "[b] Lint / Format created ($stack)"
 }
 
-# c) CI/CD — nur gewaehltes System
+# c) CI/CD â€” nur gewaehltes System
 if ($approve.c) {
     $ciSrc = Join-Path $templateDir "ci-$ci.yml"
     if (Test-Path $ciSrc) {
@@ -100,9 +100,9 @@ if ($approve.c) {
             'azure' { Write-File 'azure-pipelines.yml' (Get-Content $ciSrc -Raw) }
             'local' { Write-File 'scripts/ci-local.ps1' (Get-Content $ciSrc -Raw) }
         }
-        Write-Output "[c] CI angelegt: $ci"
+        Write-Output "[c] CI created: $ci"
     } else {
-        Write-Output "[c] CI-Vorlage fehlt fuer: $ci (uebersprungen)"
+        Write-Output "[c] CI template missing for: $ci (skipped)"
     }
 }
 
@@ -114,18 +114,18 @@ if ($approve.d) {
         $gi += '', '# secrets', '.env', '.env.*', '*.secret'
         Set-Content -LiteralPath $giPath -Value ($gi -join "`n") -Encoding UTF8
     }
-    Write-Output "[d] Secrets-Hygiene (.gitignore) geprueft/ergaenzt"
+        Write-Output "[d] Secrets hygiene (.gitignore) checked/enhanced"
 }
 
 # e) Docs
 if ($approve.e) {
     if (-not (Test-Path (Join-Path $ProjectDir 'README.md'))) {
-        Write-File 'README.md' "# $stack Projekt`n`nSiehe ops/manifest.md für Kontext.`n"
+        Write-File 'README.md' "# $stack Project`n`nSee ops/manifest.md for context.`n"
     }
-    Write-File 'CONTRIBUTING.md' "# Contributing`n`n## Setup`n1. Abhaengigkeiten installieren`n2. `scripts/ci-local.ps1` lokal ausfuehren`n`n## Regeln`n- Tests + Lint vor jedem PR`n- Siegel: alle CI-Checks gruen`n"
+    Write-File 'CONTRIBUTING.md' "# Contributing`n`n## Setup`n1. Install dependencies`n2. Run `scripts/ci-local.ps1` locally`n`n## Rules`n- Tests + Lint before every PR`n- Seal: all CI checks green`n"
     New-Item -ItemType Directory -Force -Path (Join-Path $ProjectDir 'docs/adr') | Out-Null
-    Write-File 'docs/adr/0001-record-architecture-decisions.md' "# 1. Record Architecture Decisions`n`nDatum: $(Get-Date -Format 'yyyy-MM-dd')`n`n## Status`nAngenommen`n`n## Kontext`n<Worum geht es?>`n`n## Entscheidung`n<Was wurde entschieden?>`n`n## Konsequenzen`n<Was folgt daraus?>`n"
-    Write-Output "[e] Docs (CONTRIBUTING + ADR) angelegt"
+    Write-File 'docs/adr/0001-record-architecture-decisions.md' "# 1. Record Architecture Decisions`n`nDate: $(Get-Date -Format 'yyyy-MM-dd')`n`n## Status`nAccepted`n`n## Context`n<What is this about?>`n`n## Decision`n<What was decided?>`n`n## Consequences`n<What follows from this?>`n"
+        Write-Output "[e] Docs (CONTRIBUTING + ADR) created"
 }
 
 # f) Type-Safety / Strict
@@ -147,22 +147,22 @@ if ($approve.f) {
             Write-File 'pyproject.mypy.toml' "[mypy]`nstrict = true`n"
         }
         default {
-            Write-Output "[f] ${stack}: keine automatische Strict-Config (manuell pruefen)"
+            Write-Output "[f] ${stack}: no automatic strict config (check manually)"
         }
     }
-    Write-Output "[f] Type-Safety / Strict angelegt ($stack)"
+        Write-Output "[f] Type safety / strict mode created ($stack)"
 }
 
 # g) Dependency-Audit
 if ($approve.g) {
     switch ($stack) {
-        'node-ts' { Write-File 'scripts/audit-deps.ps1' "npm audit --audit-level=high`n" }
+        'node-ts' { Write-File 'scripts/audit-deps.ps1' "npm audit -audit-level=high`n" }
         'python' { Write-File 'scripts/audit-deps.ps1' "pip-audit`n" }
         'rust' { Write-File 'scripts/audit-deps.ps1' "cargo audit`n" }
         'go' { Write-File 'scripts/audit-deps.ps1' "go list -m -u all`n" }
         default { Write-File 'scripts/audit-deps.ps1' "# Dependency-Audit: Stack-spezifisch ergaenzen`n" }
     }
-    Write-Output "[g] Dependency-Audit-Skript angelegt ($stack)"
+        Write-Output "[g] Dependency audit script created ($stack)"
 }
 
-Write-Output "`nElevate abgeschlossen."
+Write-Output "`nElevate complete."
