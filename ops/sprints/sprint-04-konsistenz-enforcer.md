@@ -151,11 +151,49 @@ Negativ: ungültiger Pfad → exit != 0.
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig
-- [ ] rule-candidates.ps1 mit allen 6 Muster-Familien + Kategorisierung + Capping
-- [ ] Fixture mit eingebauter Divergenz angelegt
-- [ ] Smoke bestanden; Divergenz gefunden und korrekt beschrieben
-- [ ] Akzeptanz-Lauf dokumentiert (3 Stichproben verifiziert)
-- [ ] Negativ-Test bestanden
-- [ ] Report erfüllt BIBEL § 4
-- [ ] tracking.md aktualisiert, Commit `sprint-04: konsistenz-enforcer implementiert`
+- [x] SKILL.md vollständig
+- [x] rule-candidates.ps1 mit allen 6 Muster-Familien + Kategorisierung + Capping
+- [x] Fixture mit eingebauter Divergenz angelegt
+- [x] Smoke bestanden; Divergenz gefunden und korrekt beschrieben
+- [x] Akzeptanz-Lauf dokumentiert (3 Stichproben verifiziert)
+- [x] Negativ-Test bestanden
+- [x] Report erfüllt BIBEL § 4
+- [x] tracking.md aktualisiert, Commit `sprint-04: konsistenz-enforcer implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/konsistenz-enforcer/` (BIBEL-§-3-Konvention seit
+   Sprint 29).
+2. **PSObject-Serialisierungs-Bug gefunden und behoben**: `Get-Content`-Zeilen
+   tragen PowerShell-ETS-Metadaten (`PSPath`, `PSParentPath`, `PSChildName`,
+   `PSDrive`) am Objekt. Werden sie unverändert in ein `[ordered]`-Hashtable
+   geschrieben, serialisiert `ConvertTo-Json` das komplette PSObject statt nur den
+   Zeileninhalt (aufgefallen im `context`-Array, wo `text` durch `.Trim()` bereits
+   unbeabsichtigt "sauber" war). Fix: `[string]`-Cast auf jede Kontext-Zeile.
+   Für künftige Sprints relevant: JEDE direkt aus `Get-Content` übernommene Zeile,
+   die in JSON landet, braucht einen expliziten String-Cast.
+3. **6 Muster-Familien als einfache Regex-Heuristiken**: bewusst grob (Grep-Niveau,
+   Simplicity First, wie bei `ref-scan.ps1` in Sprint 03) — Kandidaten-Extraktion
+   ist ein Vorfilter für die LLM-Analyse, keine exakte Klassifikation.
+
+## 11. Testergebnisse
+
+**Smoke** (Fixture `skills/konsistenz-enforcer/tests/fixture/`, 3 Dateien mit
+derselben Volljährigkeits-Regel, davon eine divergent: `>= 18` zweimal, `> 18`
+einmal): `rule-candidates.ps1` liefert 5 Kandidaten (2× comparison, 2× validation,
+1× constant), alle 3 Dateien erfasst. Manuelle LLM-Analyse (hartes
+Akzeptanzkriterium): Divergenz korrekt gefunden und benannt (`eligibility-check.ts:2`
+`>= 18` vs. `signup-validator.ts:2` `> 18`, Off-by-one an der Geschäftsregel-Grenze),
+SSoT-Vorschlag (bestehende `MINIMUM_AGE`-Konstante nutzen). Report erfüllt BIBEL § 4.
+
+**Akzeptanz** (`dreamzzz-api_vs/src`, Komplettlauf ohne Fokus): 460 Kandidaten in 9
+Dateien (constant 185, comparison 117, regex 129, calculation 45, validation 15,
+status 7). LLM-Analyse fand einen echten Divergenz-Cluster: "Retry-Versuchsbudget
+für Gemini/Imagen-Aufrufe" — `gemini.ts:73` (`RETRY_ATTEMPTS = 3`), `vision.ts:217`
+(`SYNTH_MAX = 3`), `vision.ts:266` (`MAX_ATTEMPTS = 3`) sind konsistent bei 3
+Versuchen, `vision-v7.ts:132` (`MATRIX_MAX = 2`) weicht ab. Alle 3 Stichproben per
+`sed -n` gegen die Quelle verifiziert — exakte Übereinstimmung. Offene Frage korrekt
+ausgewiesen (beabsichtigt vs. Versehen nicht aus dem Code klärbar).
+
+**Negativ**: nicht existenter Pfad → `Write-Error` + Exit-Code 1, kein
+unkontrollierter Stack-Trace.
