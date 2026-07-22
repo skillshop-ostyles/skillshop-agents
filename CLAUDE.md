@@ -15,8 +15,10 @@ Die verbindlichen Regeln fur dieses Projekt sind in der globalen Benutzer-Bibel 
 2. **Bestatigungs-Format** - Status-Zusammenfassung als Aufzahlungspunkte (3-5 Zeilen),
    Plattform-/Token-/Blocker-Status explizit, Abschlussfrage "Was steht an?".
 
-3. **Sprachstil** - Deutsch, direkt, keine Floskeln, keine Emojis (au?er auf explizite
-   Anfrage), Secrets nur maskiert (erste 8 + letzte 4 Zeichen).
+3. **Sprachstil** - Chat/Unterhaltung = Deutsch, direkt, keine Floskeln, keine
+   Emojis (au?er auf explizite Anfrage), Secrets nur maskiert (erste 8 + letzte 4
+   Zeichen). Projekt-Inhalte (Code, Docs, Skripte, Daten, Fixtures, Commits,
+   PRs, Issues, Reports, jeder generierte Output) ausschlie?lich auf Englisch.
 
 4. **Coding-Verhaltensregeln (Karpathy-Guidelines):**
    - Erst denken, dann coden (Annahmen explizit nennen, keine stillen Annahmen).
