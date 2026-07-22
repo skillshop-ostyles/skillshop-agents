@@ -1,7 +1,7 @@
 --
 name: security-smell-scanner
-description: "Security smell scanner: statically detects 10 families of security anti-patterns across a codebase (SQL injection, XSS, command injection, path traversal, hardcoded credentials, insecure defaults, IDOR, open redirect, TOCTOU, missing input validation). Produces an evidence-backed report with severity, location, and contextual analysis. Read-only. Audience: Senior > Vibe. Cross-link from quality/ cluster. Trigger: /config-map"
-trigger: /config-map
+description: "Security smell scanner: statically detects 10 families of security anti-patterns across a codebase (SQL injection, XSS, command injection, path traversal, hardcoded credentials, insecure defaults, IDOR, open redirect, TOCTOU, missing input validation). Produces an evidence-backed report with severity, location, and contextual analysis. Read-only. Audience: Senior > Vibe. Cross-link from quality/ cluster. Trigger: /security-scan"
+trigger: /security-scan
 --
 
 ## What this is for
@@ -22,7 +22,7 @@ security-smell report.
 - Vibe-coders get an "idiot-proofing" pass: the LLM explains what's wrong and
   what to do about it, so every finding is a learning opportunity.
 
-### Trigger: `/config-map`
+### Trigger: `/security-scan`
 
 Intervention-free static analysis. The collector reads only - never writes,
 never executes the target code, never connects to a network.
@@ -105,7 +105,7 @@ After writing the file, print a short summary:
 ## Usage
 
 ```
-/config-map                   # interactive, prompts for directory
-/config-map /path/to/project  # scan project directory
-/config-map -help            # show this usage info
+/security-scan                   # interactive, prompts for directory
+/security-scan /path/to/project  # scan project directory
+/security-scan -help            # show this usage info
 ```

@@ -1,8 +1,11 @@
+[CmdletBinding()]
 param(
+    [Parameter(Mandatory = $true)]
     [string]$ProjectDir,
     [string]$ExtraTerms = ""
 )
 
+$ErrorActionPreference = 'Stop'
 $pdir = Resolve-Path -LiteralPath $ProjectDir -ErrorAction SilentlyContinue
 if (-not $pdir) { Write-Error "Path not found: $ProjectDir"; exit 1 }
 $pdir = $pdir.Path

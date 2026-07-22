@@ -1,4 +1,4 @@
-# security-smell-scanner - /config-map
+# security-smell-scanner - /security-scan
 
 Statically detect 10 families of security anti-patterns across a codebase:
 SQL injection, XSS, command injection, path traversal, hardcoded credentials,
@@ -26,9 +26,9 @@ cp -r skill-shop-agents/skills/security/security-smell-scanner ~/.claude/skills/
 ## Usage with Claude
 
 ```
-/config-map                           # interactive
-/config-map /path/to/your/project     # scan directory
-/config-map -help
+/security-scan                           # interactive
+/security-scan /path/to/your/project     # scan directory
+/security-scan -help
 ```
 
 ## Output
