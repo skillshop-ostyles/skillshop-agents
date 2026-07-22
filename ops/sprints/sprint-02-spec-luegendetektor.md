@@ -140,11 +140,53 @@ Negativ: nicht existentes Verzeichnis → exit != 0.
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig
-- [ ] intake.ps1 inkl. Secrets-Ausschluss und Oversized-Markierung
-- [ ] Test-Fixture mit eingebauten Fehlern angelegt
-- [ ] Smoke bestanden; eingebauter Widerspruch wird gefunden, Zitate stimmen
-- [ ] Akzeptanz-Lauf dokumentiert (3 Zitat-Stichproben verifiziert)
-- [ ] Negativ-Test bestanden
-- [ ] Report erfüllt BIBEL § 4
-- [ ] tracking.md aktualisiert, Commit `sprint-02: spec-luegendetektor implementiert`
+- [x] SKILL.md vollständig
+- [x] intake.ps1 inkl. Secrets-Ausschluss und Oversized-Markierung
+- [x] Test-Fixture mit eingebauten Fehlern angelegt
+- [x] Smoke bestanden; eingebauter Widerspruch wird gefunden, Zitate stimmen
+- [x] Akzeptanz-Lauf dokumentiert (3 Zitat-Stichproben verifiziert)
+- [x] Negativ-Test bestanden
+- [x] Report erfüllt BIBEL § 4
+- [x] tracking.md aktualisiert, Commit `sprint-02: spec-luegendetektor implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/spec-luegendetektor/` (BIBEL-§-3-Konvention seit
+   Sprint 29), Sprint-29-Platzhalter für SKILL.md/README.md durch die echte
+   Implementierung ersetzt.
+2. **`-Files`-Erkennung von Nicht-.md/.txt-Dateien**: bei explizit genannten Dateien
+   (`-Files`) wendet `intake.ps1` bewusst KEINEN Extensions-Filter an ("exakt diese"
+   laut Sprint-File) — nur bei `-SpecDir` wird nach `.md`/`.txt` gefiltert.
+3. **`Get-ChildItem -Include` vermieden**: `-Include` mit `-Recurse` + `-LiteralPath`
+   ist ein bekannter PowerShell-Stolperstein (filtert nicht zuverlässig ohne
+   Wildcard-Pfad). Stattdessen `Get-ChildItem -Recurse -File | Where-Object
+   Extension -in`, robuster und leichter nachvollziehbar.
+
+## 11. Testergebnisse
+
+**Smoke** (Test-Fixture `skills/spec-luegendetektor/tests/fixture/`, 2 Dateien mit
+eingebautem Widerspruch + Lücke + nicht testbarer Aussage): `intake.ps1` liefert
+`count: 2`, `excluded: 0`, Überschriften korrekt erkannt. Secrets-Ausschluss separat
+mit einer `secret-keys.md`-Testdatei bestätigt (`excluded: 1`, Inhalt nie gelesen).
+
+Manuelle LLM-Analyse gegen die Fixture (das harte Akzeptanzkriterium): der eingebaute
+Widerspruch wurde gefunden — `checkout.md:5-6` ("nur EINMAL ... Kombination ... nicht
+vorgesehen") vs. `payment.md:5-6` ("können mit anderen Rabattcodes kombiniert
+werden"), plus die Lücke (Bestellbestätigungs-E-Mail-Fehlschlag nirgends definiert)
+und die nicht-testbare Aussage ("schnell und benutzerfreundlich"). Report erfüllt
+BIBEL § 4 (jeder Fund `belegt` mit Zitat + Datei:Zeile, keine `vermutet`-Funde in
+diesem einfachen Fixture-Fall, Abschnitt "Offene Fragen" trotzdem vorhanden und
+korrekt leer).
+
+**Akzeptanz** (`dreamzzz-api_vs/.agents/skills/stripe-best-practices/references/`,
+5 echte Stripe-Referenzdokumente, nur gelesen): `intake.ps1` liefert `count: 5`.
+LLM-Analyse fand 3 Funde (kein Widerspruch — plausibel bei einautorigen,
+offiziellen Anleitungstexten): Ambiguität in `security.md:20` (Env-Var-Richtlinie
+zweideutig lesbar), Lücke in `payments.md:56` (Tokens-API-Zeile der
+Migrations-Tabelle ohne Migrationsleitfaden-Link, im Gegensatz zu allen anderen
+Zeilen), nicht testbar in `payments.md:50` ("specific need and absolutely no other
+way" ohne Kriterium). Alle 3 Zitate stichprobenartig per `grep -n` gegen die
+Quelldateien verifiziert — exakte Übereinstimmung (Zeilen 20/56/50).
+
+**Negativ**: nicht existentes Verzeichnis → `Write-Error` "SpecDir existiert nicht"
++ Exit-Code 1, kein unkontrollierter Stack-Trace.
