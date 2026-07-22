@@ -37,7 +37,7 @@ Stand: 2026-07-22
 | 29 | skills-repo-oeffentlich | fertig | 2026-07-22 | — |
 | 30 | security-smell-scanner → security/ | fertig | 2026-07-22 | — |
 | 31 | performance-anti-pattern-detektor → quality/ | fertig | 2026-07-22 | — |
-| 32 | code-smell-erkennung → quality/ | offen | — | — |
+| 32 | code-smell-erkennung → quality/ | fertig | 2026-07-22 | — |
 | 33 | code-clone-detektor → quality/ | offen | — | — |
 | 34 | error-handling-auditor → quality/ | offen | — | — |
 | 35 | architektur-visualisierer → understanding/ | offen | — | — |

@@ -19,6 +19,7 @@ vibe-coders who want to know whether their generated code is structurally sound.
 | [totpfad-bestatter](../quality/totpfad-bestatter/) | /bury | Senior | Identify provably dead code with evidence (unreachable, no callers, removed from all entry points) — supports opt-in removal. |
 | [doku-drift-detektor](../quality/doku-drift-detektor/) | /doc-drift | Senior > Vibe | Statically check documentation claims against code reality (wrong function names, outdated parameter lists, missing return types). |
 | [vokabular-waechter](../quality/vokabular-waechter/) | /vocab | Both | Detect synonyms and homonyms for the same domain concept across a codebase, propose a canonical vocabulary. |
+| [code-smell-erkennung](../quality/code-smell-erkennung/) | /code-smell | Both | Statically detects 10 code-smell families: long methods, deep nesting, god classes, feature envy, data clumps, message chains, shotgun surgery, refused bequest, primitive obsession, speculative generality. |
 
 ## Cross-Links
 
