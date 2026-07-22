@@ -26,12 +26,7 @@
     <div id="advisor-app"></div>
   </div>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span class="foot-brand"><span class="brand-mark">/</span> Skill-Shop</span>
-      <span>Lokal, ohne Telemetrie · „Skill is the hero."</span>
-    </div>
-  </footer>
+  <footer id="site-footer"></footer>
 
   <script src="shop-core.js"></script>
   <script src="app.js"></script>
@@ -45,6 +40,8 @@
       const q = rules[qKey];
       const app = document.getElementById('advisor-app');
       const skipHint = q.required ? '' : `<p class="hint-text"><button class="btn secondary" id="skip-btn" type="button">Überspringen</button></p>`;
+      const backBtn = step > 0 ? `<button type="button" class="btn secondary" id="back-btn">Zurück</button>` : '';
+      const previousAnswer = answers[qKey];
       app.innerHTML = `
         <p class="advisor-progress">Schritt ${step + 1} von ${STEPS.length}</p>
         <h2>${Shop.escapeHtml(q.question)}</h2>
@@ -52,12 +49,12 @@
           <div class="advisor-options">
             ${q.options.map((o) => `
               <label>
-                <input type="radio" name="opt" value="${Shop.escapeHtml(o.id)}" />
+                <input type="radio" name="opt" value="${Shop.escapeHtml(o.id)}" ${previousAnswer === o.id ? 'checked' : ''} />
                 ${Shop.escapeHtml(o.label)}
               </label>
             `).join('')}
           </div>
-          <button type="submit" class="btn primary">Weiter</button>
+          <div class="cta-row">${backBtn}<button type="submit" class="btn primary">Weiter</button></div>
         </form>
         ${skipHint}
       `;
@@ -74,6 +71,13 @@
         skipBtn.addEventListener('click', () => {
           delete answers[qKey];
           step += 1;
+          renderStep();
+        });
+      }
+      const back = document.getElementById('back-btn');
+      if (back) {
+        back.addEventListener('click', () => {
+          step -= 1;
           renderStep();
         });
       }

@@ -16,11 +16,20 @@
       <span class="eyebrow"><span class="dot"></span> 22 Skills · 6 Bundles · lokal &amp; ohne Telemetrie</span>
       <h1>Skill is <span class="accent">the hero.</span></h1>
       <p class="subline">Marktplatz und Fachgeschäft für Claude-Code-Skills — einzeln oder im Bundle, mit einem Klick installiert.</p>
-      <form class="search-form" id="search-form">
-        <input type="search" name="q" placeholder="Wonach suchst du? z. B. &quot;git&quot;, &quot;dsgvo&quot;, &quot;breaking change&quot;" aria-label="Suche" />
-        <button type="submit">Suchen</button>
-      </form>
-      <p class="advisor-hint">Nicht sicher, was du brauchst? <a href="berater.html">Frag den Berater →</a></p>
+      <div class="hero-paths">
+        <div class="hero-path">
+          <h3>Ich weiß, was ich suche</h3>
+          <form class="search-form" id="search-form">
+            <input type="search" name="q" placeholder="z. B. &quot;git&quot;, &quot;dsgvo&quot;, &quot;breaking change&quot;" aria-label="Suche" />
+            <button type="submit">Suchen</button>
+          </form>
+        </div>
+        <span class="hero-paths-divider">oder</span>
+        <div class="hero-path">
+          <h3>Ich weiß nicht, wo ich anfangen soll</h3>
+          <a class="btn primary" href="berater.html">Zum Berater →</a>
+        </div>
+      </div>
       <div class="hero-stats">
         <span>◆ Jede Aussage mit <b>Beleg</b></span>
         <span>◆ <b>Read-only</b> per Default</span>
@@ -29,14 +38,29 @@
     </div>
   </section>
 
+  <section class="onboarding">
+    <div class="container onboarding-steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <h3>Skill wählen</h3>
+        <p>Im Katalog stöbern, Facetten nutzen oder den Berater fragen.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <h3>Ziel angeben</h3>
+        <p>An der Kasse den absoluten Pfad zu deinem Projekt eintragen.</p>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <h3>Direkt loslegen</h3>
+        <p>Trigger wie <code>/elevate</code> in Claude Code im Projekt nutzen.</p>
+      </div>
+    </div>
+  </section>
+
   <main class="container" id="shelves"></main>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span class="foot-brand"><span class="brand-mark">/</span> Skill-Shop</span>
-      <span>Lokal, ohne Telemetrie · „Skill is the hero."</span>
-    </div>
-  </footer>
+  <footer id="site-footer"></footer>
 
   <script src="shop-core.js"></script>
   <script src="app.js"></script>

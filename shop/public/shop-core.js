@@ -54,5 +54,19 @@
 
   const DIMENSIONS = ['usecase', 'thema', 'stichwort', 'ziel', 'branche', 'taetigkeit', 'level', 'risiko'];
 
-  return { escapeHtml, normalizeCartEntries, dedupeCartEntries, formatPrice, sumPrices, DIMENSIONS };
+  /** Sortiert eine Skill-Liste fuer die Katalog-Ansicht (rein clientseitig,
+   *  kein API-Query-Param). 'relevanz' laesst die vom Server gelieferte
+   *  Reihenfolge unveraendert. */
+  function sortSkills(skills, mode) {
+    const list = skills.slice();
+    if (mode === 'name') {
+      list.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (mode === 'status') {
+      const rank = (s) => (s.status === 'verfuegbar' ? 0 : 1);
+      list.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
+    }
+    return list;
+  }
+
+  return { escapeHtml, normalizeCartEntries, dedupeCartEntries, formatPrice, sumPrices, sortSkills, DIMENSIONS };
 });

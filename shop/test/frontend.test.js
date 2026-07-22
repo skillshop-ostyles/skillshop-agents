@@ -51,3 +51,33 @@ test('sumPrices adds amounts, returns null when any price is missing', () => {
   assert.equal(ShopCore.sumPrices([{ amountCents: 100, currency: 'EUR' }, null]), null);
   assert.equal(ShopCore.sumPrices([]), null);
 });
+
+test('sortSkills: relevanz leaves the input order untouched', () => {
+  const input = [{ name: 'b', status: 'verfuegbar' }, { name: 'a', status: 'in-entwicklung' }];
+  assert.deepEqual(ShopCore.sortSkills(input, 'relevanz'), input);
+});
+
+test('sortSkills: name sorts alphabetically', () => {
+  const input = [{ name: 'zebra', status: 'verfuegbar' }, { name: 'apfel', status: 'verfuegbar' }];
+  assert.deepEqual(ShopCore.sortSkills(input, 'name').map((s) => s.name), ['apfel', 'zebra']);
+});
+
+test('sortSkills: status ranks verfuegbar before in-entwicklung, then by name', () => {
+  const input = [
+    { name: 'b-soon', status: 'in-entwicklung' },
+    { name: 'a-ok', status: 'verfuegbar' },
+    { name: 'a-soon', status: 'in-entwicklung' },
+    { name: 'b-ok', status: 'verfuegbar' },
+  ];
+  assert.deepEqual(
+    ShopCore.sortSkills(input, 'status').map((s) => s.name),
+    ['a-ok', 'b-ok', 'a-soon', 'b-soon']
+  );
+});
+
+test('sortSkills: does not mutate the input array', () => {
+  const input = [{ name: 'b', status: 'verfuegbar' }, { name: 'a', status: 'verfuegbar' }];
+  const copy = input.slice();
+  ShopCore.sortSkills(input, 'name');
+  assert.deepEqual(input, copy);
+});

@@ -23,18 +23,18 @@
     <main>
       <div class="catalog-bar">
         <span class="result-count" id="result-count"></span>
+        <select id="sort-select" aria-label="Sortierung">
+          <option value="relevanz">Relevanz</option>
+          <option value="name">Name A-Z</option>
+          <option value="status">Status</option>
+        </select>
       </div>
       <div class="active-filters" id="active-filters"></div>
       <div class="card-grid" id="card-grid"></div>
     </main>
   </div>
 
-  <footer class="site-footer">
-    <div class="container">
-      <span class="foot-brand"><span class="brand-mark">/</span> Skill-Shop</span>
-      <span>Lokal, ohne Telemetrie · „Skill is the hero."</span>
-    </div>
-  </footer>
+  <footer id="site-footer"></footer>
 
   <script src="shop-core.js"></script>
   <script src="app.js"></script>
@@ -127,20 +127,29 @@
       });
     }
 
+    let lastSkills = [];
+    let sortMode = 'relevanz';
+
     function renderGrid(skills) {
       const el = document.getElementById('card-grid');
       const count = document.getElementById('result-count');
-      count.innerHTML = skills.length === 1
+      const sorted = Shop.sortSkills(skills, sortMode);
+      count.innerHTML = sorted.length === 1
         ? '<b>1</b> Skill'
-        : `<b>${skills.length}</b> Skills`;
-      if (skills.length === 0) {
+        : `<b>${sorted.length}</b> Skills`;
+      if (sorted.length === 0) {
         el.className = '';
         el.innerHTML = '<div class="empty-state">Keine Treffer. Filter anpassen oder Suchbegriff ändern.</div>';
         return;
       }
       el.className = 'card-grid';
-      el.innerHTML = skills.map(Shop.card).join('');
+      el.innerHTML = sorted.map(Shop.card).join('');
     }
+
+    document.getElementById('sort-select').addEventListener('change', (e) => {
+      sortMode = e.target.value;
+      renderGrid(lastSkills);
+    });
 
     async function render() {
       const params = Shop.currentParams();
@@ -154,9 +163,10 @@
           Shop.fetchJson(Shop.apiUrlFromParams('/api/skills', params)),
           Shop.fetchJson(Shop.apiUrlFromParams('/api/facets', params)),
         ]);
+        lastSkills = skills;
         renderFacets(facets, selected);
         renderActiveFilters(selected, q);
-        renderGrid(skills);
+        renderGrid(lastSkills);
       } catch (err) {
         document.getElementById('card-grid').innerHTML = `<p class="empty-state">${Shop.escapeHtml(err.message)}</p>`;
       }

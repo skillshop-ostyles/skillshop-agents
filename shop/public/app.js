@@ -198,6 +198,19 @@ window.Shop = (function () {
     cart.updateBadge();
   }
 
+  // Fusszeile aus einer Quelle (gleicher Grund wie renderHeader: C1 - der
+  // Nav-Header war 8x kopiert, das darf der Fusszeile nicht nochmal passieren).
+  function renderFooter() {
+    const host = document.getElementById('site-footer');
+    if (!host) return;
+    host.className = 'site-footer';
+    host.innerHTML = `
+      <div class="container">
+        <span class="foot-brand"><span class="brand-mark">/</span> Skill-Shop</span>
+        <span>Lokal, ohne Telemetrie · „Skill is the hero." · <a href="transparenz.html">Transparenz</a></span>
+      </div>`;
+  }
+
   // ---------- Warenkorb (localStorage, robust gegen vollen/defekten Storage) ----------
   // Einträge sind { name, fromBundle } - fromBundle ist der Bundle-Slug, falls der
   // Skill über "Bundle in den Warenkorb" hinzugefügt wurde, sonst null.
@@ -260,9 +273,12 @@ window.Shop = (function () {
   return {
     DIMENSIONS, DIMENSION_LABELS, escapeHtml, fetchJson,
     statusBadge, riskBadge, triggerChip, priceLabel, statusDot, riskTag, card, bundleCard, renderShelf,
-    currentParams, apiUrlFromParams, cart, renderHeader, usecaseLabel,
-    sumPrices: Core.sumPrices, formatPrice: Core.formatPrice,
+    currentParams, apiUrlFromParams, cart, renderHeader, renderFooter, usecaseLabel,
+    sumPrices: Core.sumPrices, formatPrice: Core.formatPrice, sortSkills: Core.sortSkills,
   };
 })();
 
-document.addEventListener('DOMContentLoaded', () => window.Shop.renderHeader());
+document.addEventListener('DOMContentLoaded', () => {
+  window.Shop.renderHeader();
+  window.Shop.renderFooter();
+});
