@@ -209,6 +209,13 @@ Negativ: leeres/fehlendes LogDir → exit != 0.
    Cloudflare Worker manuell über `url.pathname`-Vergleiche routet, nicht über
    Express-Stil/Decorators (außerhalb des Skill-Scopes, keine weitere
    Nacharbeit nötig).
+5. **`.gitignore`-Lücke gefunden und behoben**: das Root-`.gitignore` schließt
+   pauschal `*.log` aus — dadurch wurde die Fixture-Logdatei
+   `tests/fixture/logs/app.log` beim ersten Commit-Versuch stillschweigend NICHT
+   mitgenommen (Commit zeigte nur `server.ts`, `git status` danach clean trotz
+   fehlender Datei). Gezielte Ausnahme `!skills/prod-spiegel/tests/fixture/logs/*.log`
+   ergänzt, damit genau diese Testdatei trackbar ist, ohne die eigentlich
+   sinnvolle Regel (keine echten Laufzeit-Logs committen) aufzuweichen.
 
 ## 11. Testergebnisse
 

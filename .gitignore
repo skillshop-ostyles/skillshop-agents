@@ -2,3 +2,7 @@ Thumbs.db
 desktop.ini
 .DS_Store
 *.log
+
+# Ausnahme: Test-Fixture fuer prod-spiegel (Sprint 09) braucht eine echte .log-
+# Datei, um die *.log-Erkennung von log-ingest.ps1 zu testen.
+!skills/prod-spiegel/tests/fixture/logs/*.log
