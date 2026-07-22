@@ -1,16 +1,18 @@
 ﻿# test-gap-cartographer
 
-**Planned - not yet implemented.**
-
 **Trigger:** `/testgap`
 
-100% coverage, 0% confidence? Coverage measures lines, not behavior.
+Semantic test gap mapper. Inventories the public code surface (exports, routes) and all existing tests, then maps which BEHAVIORS of each public symbol are covered by which test and which are not — reporting untested behaviors ranked by risk with proposed test case names.
 
-Finds untested BEHAVIOR per public symbol - edge cases, error paths,
-boundary values - with proposed test case names.
+## Usage
+
+```powershell
+& .\scripts\surface-inventory.ps1 -ProjectDir "C:\Projects\my-app"
+& .\scripts\test-inventory.ps1 -ProjectDir "C:\Projects\my-app"
+```
+
+Produces JSON with `symbols`/`routes` (surface) and `testFiles`/`cases` (test inventory).
 
 ## Status
 
-This skill is specified as a sprint but not yet built. Full
-specification (problem, benefit, scope): [`ops/sprints/sprint-15-test-luecken-kartograf.md`](../../ops/sprints/sprint-15-test-luecken-kartograf.md).
-Current overall skill status: [`ops/tracking.md`](../../ops/tracking.md).
+Implemented. Full specification: [`ops/sprints/sprint-15-test-gap-cartographer.md`](../../ops/sprints/sprint-15-test-gap-cartographer.md).
