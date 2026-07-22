@@ -160,11 +160,52 @@ Negativ: ungültiger Pfad → exit != 0.
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig inkl. 5-Versuche-Limit und repro/-Isolation
-- [ ] env-snapshot.ps1 gemäß Spezifikation
-- [ ] Fixture mit eingebautem Bug + Beispiel-Report angelegt
-- [ ] Smoke bestanden; Fixture-Bug innerhalb 5 Versuchen reproduziert, Protokoll vollständig
-- [ ] Akzeptanz dokumentiert (mind. Snapshot gegen dreamzzz)
-- [ ] Negativ-Test bestanden
-- [ ] Protokoll erfüllt § 6.6 (Evidenz = wörtlicher Lauf-Output)
-- [ ] tracking.md aktualisiert, Commit `sprint-08: repro-automat implementiert`
+- [x] SKILL.md vollständig inkl. 5-Versuche-Limit und repro/-Isolation
+- [x] env-snapshot.ps1 gemäß Spezifikation
+- [x] Fixture mit eingebautem Bug + Beispiel-Report angelegt
+- [x] Smoke bestanden; Fixture-Bug innerhalb 5 Versuchen reproduziert, Protokoll vollständig
+- [x] Akzeptanz dokumentiert (mind. Snapshot gegen dreamzzz)
+- [x] Negativ-Test bestanden
+- [x] Protokoll erfüllt § 6.6 (Evidenz = wörtlicher Lauf-Output)
+- [x] tracking.md aktualisiert, Commit `sprint-08: repro-automat implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/repro-automat/` (BIBEL-§-3-Konvention seit
+   Sprint 29).
+2. **Fixture-Bug**: klassische JavaScript-`Date.setMonth()`-Falle (Tag-Überlauf
+   normalisiert monatsübergreifend statt auf den Monatsletzten zu clampen) —
+   real, bekannt, deterministisch reproduzierbar, exakt passend zum
+   Beispiel-Symptom "Rechnung vom Monatsletzten landet im Folgemonat".
+3. **Repro-Artefakt für den Sprint-Nachweis im Scratchpad erzeugt** (nicht im
+   Skill-Ordner committet) — genau wie SKILL.md Step 5/6 vorschreiben: Repro-
+   Artefakte gehören ins Arbeitsverzeichnis des jeweiligen Aufrufs, niemals als
+   Dauerzustand ins Repo. Das Sprint-File hier dokumentiert den Lauf-Output als
+   Beleg, das Artefakt selbst ist Wegwerf-Ware.
+
+## 11. Testergebnisse
+
+**Smoke**: `env-snapshot.ps1` gegen die Fixture erkennt Stack `node-ts`, Node
+v24.12.0, Git-Zustand korrekt (läuft innerhalb des AGENTS-Repos). Voller
+Skill-Durchlauf gegen die Fixture (Bug-Report `bug-report.md`, Zielfunktion
+`nextBillingDate` in `billing.js`): Hypothese aus Code-Lektüre (`Date.setMonth()`
+normalisiert Tag-Überlauf monatsübergreifend) — **reproduziert im 1. von max. 5
+Versuchen**:
+
+```
+nextBillingDate('2024-01-31') = 2024-03-02
+FEHLGESCHLAGEN: erwartet ein Datum im Februar (2024-02-*), erhalten: 2024-03-02
+```
+
+Exit-Code 1, exakt das gemeldete Symptom (Datum landet im Folgemonat — hier sogar
+übernächsten). Repro-Protokoll mit Umgebungs-Snapshot, Hypothese, Artefakt,
+wörtlichem Lauf-Output und Einordnung erstellt — erfüllt § 6.6 (Evidenz =
+wörtlicher Lauf-Output, keine Behauptung ohne Beleg).
+
+**Akzeptanz** (`dreamzzz-api_vs`): `env-snapshot.ps1` korrekt: Stack `node-ts`,
+Node v24.12.0, Git-Zustand (Branch/Head/dirty), Entry-Point `src/index.ts`
+gefunden. Kein echter Bug-Report für dreamzzz-api_vs vorhanden — Akzeptanz auf
+Snapshot-Ebene erbracht, wie im Sprint-File als zulässig vorgesehen (die
+Kern-Schleife ist an der Fixture bewiesen).
+
+**Negativ**: nicht existenter Pfad → `Write-Error` + Exit-Code 1.

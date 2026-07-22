@@ -13,7 +13,7 @@ Stand: 2026-07-21
 | 05 | totpfad-bestatter | fertig | 2026-07-22 | — |
 | 06 | deps-erbschaft | fertig | 2026-07-22 | — |
 | 07 | wissens-testament | fertig | 2026-07-22 | — |
-| 08 | repro-automat | offen | — | — |
+| 08 | repro-automat | fertig | 2026-07-22 | — |
 | 09 | prod-spiegel | offen | — | — |
 | 10 | migrations-chirurg | offen | — | — |
 | 11 | zeitbomben-scanner | offen | — | — |
