@@ -164,10 +164,57 @@ Negativ: ungültiger Pfad → exit != 0 (beide Skripte).
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig
-- [ ] ref-scan.ps1 (Whitelist, Exclude, Capping) + co-change.ps1 (Ratio, MinCoChanges)
-- [ ] Smoke bestanden (beide Skripte, JSON validiert)
-- [ ] Akzeptanz-Lauf dokumentiert (3 Stichproben Stufe 1 verifiziert)
-- [ ] Negativ-Tests bestanden
-- [ ] Report erfüllt BIBEL § 4 (Stufen sauber getrennt, Kopplungszahlen als Evidenz)
-- [ ] tracking.md aktualisiert, Commit `sprint-03: seiteneffekt-radar implementiert`
+- [x] SKILL.md vollständig
+- [x] ref-scan.ps1 (Whitelist, Exclude, Capping) + co-change.ps1 (Ratio, MinCoChanges)
+- [x] Smoke bestanden (beide Skripte, JSON validiert)
+- [x] Akzeptanz-Lauf dokumentiert (3 Stichproben Stufe 1 verifiziert)
+- [x] Negativ-Tests bestanden
+- [x] Report erfüllt BIBEL § 4 (Stufen sauber getrennt, Kopplungszahlen als Evidenz)
+- [x] tracking.md aktualisiert, Commit `sprint-03: seiteneffekt-radar implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/seiteneffekt-radar/` (BIBEL-§-3-Konvention seit
+   Sprint 29).
+2. **PowerShell-5.1-Binder-Bug gefunden und umgangen**: `$array += [ordered]@{ ... }`
+   löst eine `System.ArgumentException` ("Argumenttypen stimmen nicht überein",
+   `PSEnumerableBinder.MaybeDebase`) aus, wenn ein Property-Wert im Hashtable-Literal
+   selbst ein Collection-Ausdruck ist (z. B. `hits = @($list)` oder ein verschachteltes
+   Array). Betraf `ref-scan.ps1` (`symbolResults`) und `co-change.ps1` (`coChanged`).
+   Fix: `foreach`-als-Ausdruck (`$arr = @( foreach (...) { [ordered]@{...} } )`) statt
+   `+=` — löst das Problem vollständig, gleiche Semantik. Dokumentiert für künftige
+   Sprints, die dasselbe Muster verwenden könnten.
+3. **`co-change.ps1` ohne `--follow`**: bewusste Vereinfachung laut Sprint-File
+   (Edge-Case-Tabelle) — Historie vor einer Umbenennung fehlt. Bei `skills/`-Dateien,
+   die erst in Sprint 29 dorthin verschoben wurden, ist `commitCount` deshalb
+   entsprechend niedrig (z. B. `skills/elevate/SKILL.md`: nur 1 Commit an der neuen
+   Stelle) — korrektes, dokumentiertes Verhalten, kein Bug.
+4. **`-ProjectDir` als Unterordner der Repo-Wurzel**: `co-change.ps1` ermittelt die
+   echte Repo-Wurzel via `git rev-parse --show-toplevel` und rechnet alle
+   `git show --name-only`-Pfade (die immer repo-wurzel-relativ sind) auf
+   `-ProjectDir`-relative Pfade um, damit sie mit `-Files` konsistent vergleich- und
+   lesbar sind (gleiche Konvention wie `intent-archaeologie`/Sprint 01).
+
+## 11. Testergebnisse
+
+**Smoke** (AGENTS-Repo): `ref-scan.ps1 -Symbols 'Normalize' -Extensions 'ps1'` →
+9 gescannte Dateien, 9 Treffer exakt in `skills/elevate/scripts/{apply,audit}.ps1`
+und `skills/project-init/scripts/init.ps1` (belegt die Kopie-Verwandtschaft aus der
+BIBEL-Guard-Vorlage). `co-change.ps1 -Files 'ops/tracking.md' -MinCoChanges 3` →
+14 Commits, 21 gekoppelte Dateien, plausible Ratios (0.43 für `shop/public/*.html`,
+die im selben Sprint oft zusammen mit `tracking.md` geändert wurden). Beide: exit 0,
+JSON valide.
+
+**Akzeptanz** (`dreamzzz-api_vs/src`, Ziel `entitlements.ts`, Symbol
+`checkEntitlement`, Change-Beschreibung "Signatur einer exportierten Funktion
+ändern"): ref-scan fand 5 Treffer (Definition, Import, 2 echte Aufrufe in `index.ts`,
+1 Kommentar-Erwähnung — korrekt als Kollision markierbar). co-change fand 3 Commits
+für `entitlements.ts`, davon `index.ts`/`gemini.ts` in allen 3 gemeinsam (Ratio 1.0),
+`prompts.ts`/`vision.ts`/`vision-v7.ts` in 2 von 3 (Ratio 0.67). Beispiel-Report mit
+Stufe 1/2/3, Kopplungszahlen als Evidenz, Konfidenz-Stufen und "Offene Fragen"
+erzeugt und gegen BIBEL § 4 geprüft. 3 Stufe-1-Stichproben (`entitlements.ts:20`,
+`index.ts:435`, `index.ts:507`) per `sed -n` gegen die Quelle verifiziert — exakte
+Übereinstimmung.
+
+**Negativ**: nicht existenter Pfad → beide Skripte `Write-Error` + Exit-Code 1, kein
+unkontrollierter Stack-Trace.

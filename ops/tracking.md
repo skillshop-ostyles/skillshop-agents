@@ -8,7 +8,7 @@ Stand: 2026-07-21
 |---|---|---|---|---|
 | 01 | intent-archaeologie | fertig | 2026-07-22 | — |
 | 02 | spec-luegendetektor | fertig | 2026-07-22 | — |
-| 03 | seiteneffekt-radar | offen | — | — |
+| 03 | seiteneffekt-radar | fertig | 2026-07-22 | — |
 | 04 | konsistenz-enforcer | offen | — | — |
 | 05 | totpfad-bestatter | offen | — | — |
 | 06 | deps-erbschaft | offen | — | — |
