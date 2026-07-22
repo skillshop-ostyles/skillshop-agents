@@ -175,12 +175,65 @@ Negativ: leeres/fehlendes LogDir → exit != 0.
 
 ## 9. DoD-Checkliste
 
-- [ ] SKILL.md vollständig
-- [ ] log-ingest.ps1 (Normalisierung, Aggregation, PII-Maskierung, Kappung)
-- [ ] code-claims.ps1 (Logs, Catches inkl. swallowGuess, Routen)
-- [ ] Fixture angelegt; Smoke bestanden inkl. Maskierungs-Test
-- [ ] LLM-Durchlauf findet beide eingebauten Deltas
-- [ ] Akzeptanz dokumentiert (mind. code-claims gegen dreamzzz, 3 Stichproben)
-- [ ] Negativ-Test bestanden
-- [ ] Report erfüllt BIBEL § 4 (beidseitige Evidenz je Delta)
-- [ ] tracking.md aktualisiert, Commit `sprint-09: prod-spiegel implementiert`
+- [x] SKILL.md vollständig
+- [x] log-ingest.ps1 (Normalisierung, Aggregation, PII-Maskierung, Kappung)
+- [x] code-claims.ps1 (Logs, Catches inkl. swallowGuess, Routen)
+- [x] Fixture angelegt; Smoke bestanden inkl. Maskierungs-Test
+- [x] LLM-Durchlauf findet beide eingebauten Deltas
+- [x] Akzeptanz dokumentiert (mind. code-claims gegen dreamzzz, 3 Stichproben)
+- [x] Negativ-Test bestanden
+- [x] Report erfüllt BIBEL § 4 (beidseitige Evidenz je Delta)
+- [x] tracking.md aktualisiert, Commit `sprint-09: prod-spiegel implementiert`
+
+## 10. Entscheidungen während der Umsetzung
+
+1. **Skill-Ordner-Pfad**: `skills/prod-spiegel/` (BIBEL-§-3-Konvention seit
+   Sprint 29).
+2. **Zahlen-Normalisierung ohne Wortgrenze gefunden und behoben**: `\b\d+\b`
+   matcht keine Zahlen mit direkt angehängter Einheit ("39ms" — zwischen "9" und
+   "m" liegt kein Wortgrenzen-Übergang, beides sind Wortzeichen). Dadurch fielen
+   gleichartige Zeilen NICHT auf ein Muster zusammen (30 statt 4 Muster in der
+   Fixture). Fix: `\d+` ohne `\b`.
+3. **PII-Maskierung auf den Pattern-Key ausgeweitet**: die Spec verlangt
+   Maskierung "in ALLEN Ausgaben" (Nicht-Scope), ursprünglich aber nur in
+   `samples` implementiert — der `pattern`-Schlüssel selbst (der als Freitext im
+   LLM-Report landet) enthielt noch unmaskierte E-Mail-Adressen. Fix: `Get-PatternKey`
+   maskiert E-Mails jetzt zuerst, bevor normalisiert wird.
+4. **Routen-Regex-Falsch-Positive gefunden und behoben**: `\b(get|post|...)\(` ohne
+   Anker am Zeilenanfang matcht jeden generischen Methodenaufruf (`Headers.get()`,
+   `Map.get()` etc.), nicht nur Route-Registrierungen — 27 falsche Treffer beim
+   Akzeptanz-Lauf gegen `dreamzzz-api_vs`. Fix: Anker `^\s*[\w.]*\b` verlangt, dass
+   der Aufruf am (getrimmten) Zeilenanfang steht, wie es bei echten
+   `app.get(...)`/`router.post(...)`-Registrierungen praktisch immer der Fall ist.
+   Nach dem Fix: 0 Routen bei dreamzzz-api_vs — korrekt und ehrlich, da der
+   Cloudflare Worker manuell über `url.pathname`-Vergleiche routet, nicht über
+   Express-Stil/Decorators (außerhalb des Skill-Scopes, keine weitere
+   Nacharbeit nötig).
+
+## 11. Testergebnisse
+
+**Smoke** (Fixture `skills/prod-spiegel/tests/fixture/`: `server.ts` mit toter
+Route, einem Log-Statement, einem verschluckenden Catch + `logs/app.log`, 190
+synthetische Zeilen mit einem 50×-Error-Muster, das zum Catch passt, plus einer
+E-Mail-Adresse): `log-ingest.ps1` liefert nach dem Zahlen-Normalisierungs-Fix 4
+Muster (statt fälschlich 30), Error-Muster korrekt mit `count: 50`, E-Mail korrekt
+zu `<EMAIL>` maskiert (in Sample UND Pattern-Key). `code-claims.ps1` findet die
+Route (`server.ts:5`), das Log-Statement (`server.ts:20`) und den Catch mit
+`swallowGuess: true` (`server.ts:12`) — exakt wie erwartet.
+
+Manuelle LLM-Analyse (hartes Akzeptanzkriterium): **beide eingebauten Deltas
+gefunden** — totes Feature (`/api/legacy-report`, 0 Log-Spuren in 190 Zeilen,
+Level-Abdeckung geprüft) und stiller Dauerbrenner (Catch `server.ts:12` +
+50×-Error-Muster "gateway timeout", Mapping über wörtliche Teilübereinstimmung
+"gateway timeout" zwischen geworfenem `Error` und Log-Text, Konfidenz
+`wahrscheinlich`). Report-Struktur erfüllt BIBEL § 4.
+
+**Akzeptanz** (`dreamzzz-api_vs/src`, `code-claims.ps1`): 63 Log-Statements, 58
+Catch-Blöcke, 0 Routen (nach dem Regex-Fix — korrekt, s. o.). 3 Stichproben
+(`entitlements.ts:98`, `gemini.ts:141` Log-Statements, `entitlements.ts:96`
+Catch) per `sed -n` gegen die Quelle verifiziert — exakte Übereinstimmung. Kein
+Log-Export für dreamzzz-api_vs vorhanden — Akzeptanz auf Code-Claims-Seite
+erbracht, wie im Sprint-File als zulässig vorgesehen.
+
+**Negativ**: leeres LogDir → `Write-Error` "Keine Log-Dateien gefunden" + Exit-Code
+1. Nicht existentes LogDir → `Write-Error` + Exit-Code 1.

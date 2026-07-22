@@ -14,7 +14,7 @@ Stand: 2026-07-21
 | 06 | deps-erbschaft | fertig | 2026-07-22 | — |
 | 07 | wissens-testament | fertig | 2026-07-22 | — |
 | 08 | repro-automat | fertig | 2026-07-22 | — |
-| 09 | prod-spiegel | offen | — | — |
+| 09 | prod-spiegel | fertig | 2026-07-22 | — |
 | 10 | migrations-chirurg | offen | — | — |
 | 11 | zeitbomben-scanner | offen | — | — |
 | 12 | doku-drift-detektor | offen | — | — |
