@@ -1,16 +1,18 @@
 ﻿# api-contract-guardian
 
-**Planned - not yet implemented.**
-
 **Trigger:** `/api-diff`
 
-Breaking changes happen on the side - until a consumer breaks that nobody knew about.
+API contract guard. Extracts the API surface (HTTP routes, DTO fields, exported signatures — preferring OpenAPI files when present) from two git states of a repo, diffs them, classifies every change as breaking / non-breaking / additive, and writes a ready-to-ship consumer migration note per breaking change.
 
-Diffs the API surface of two git states, classifies each change as
-breaking/additive and writes the migration note.
+## Usage
+
+```powershell
+& .\scripts\api-surface.ps1 -ProjectDir "C:\Projects\my-app" -Ref "v1.4.0"
+& .\scripts\api-surface.ps1 -ProjectDir "C:\Projects\my-app"
+```
+
+Produces JSON with `routes`, `dtos`, `signatures` arrays plus counts.
 
 ## Status
 
-This skill is specified as a sprint but not yet built. Full
-specification (problem, benefit, scope): [`ops/sprints/sprint-17-api-vertrags-waechter.md`](../../ops/sprints/sprint-17-api-vertrags-waechter.md).
-Current overall skill status: [`ops/tracking.md`](../../ops/tracking.md).
+Implemented. Full specification: [`ops/sprints/sprint-17-api-contract-guardian.md`](../../ops/sprints/sprint-17-api-contract-guardian.md).

@@ -10,3 +10,7 @@ desktop.ini
 # Local-only directories (internal process docs, shop platform)
 /ops/
 /shop/
+
+# nested git repos for test fixtures
+skills/security/api-contract-guardian/tests/fixtures/smoke/
+
