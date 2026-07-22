@@ -19,6 +19,7 @@ scanners miss.
 | [api-contract-guardian](../security/api-contract-guardian/) | /api-contract-guardian | Senior | Detect breaking changes between two API states; generate migration notes and per-consumer impact analysis. |
 | [authorization-xray](../security/authorization-xray/) | /authorization-xray | Senior | Reconstruct the permission matrix from code: who can do what, where unprotected endpoints live, where the model is inconsistent. |
 | [data-trail-tracker](../security/data-trail-tracker/) | /data-trail-tracker | Senior > Vibe | Map PII fields and their sinks: where personal data flows (logs, third-party APIs, exports, error reports). |
+| [input-validation-audit](../security/input-validation-audit/) | /input-audit | Senior > Vibe | Find every external input surface, classify its validation state (none/weak/adequate), and rank gaps by severity. |
 
 ## Cross-Links
 
