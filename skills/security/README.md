@@ -20,6 +20,12 @@ scanners miss.
 | [authorization-xray](../security/authorization-xray/) | /authz | Senior | Reconstruct the permission matrix from code: who can do what, where unprotected endpoints live, where the model is inconsistent. |
 | [data-trail-tracker](../security/data-trail-tracker/) | /data-trail-tracker | Senior > Vibe | Map PII fields and their sinks: where personal data flows (logs, third-party APIs, exports, error reports). |
 | [input-validation-audit](../security/input-validation-audit/) | /input-audit | Senior > Vibe | Find every external input surface, classify its validation state (none/weak/adequate), and rank gaps by severity. |
+| [secret-lifecycle-auditor](../security/secret-lifecycle-auditor/) | /secret-lifecycle | Senior | Inventory secret references, derive age from git, classify lifecycle health, recommend rotation. |
+| [error-message-leakage](../security/error-message-leakage/) | /error-leakage | Both | Harvest error-return and log-error calls; classify leaked info type (stacktrace, SQL, env-vars). |
+| [permission-chain](../security/permission-chain/) | /permission-chain | Senior | Reconstruct transitive role closure: which roles can reach which endpoints through middleware inheritance. |
+| [rate-limit-shape-analyzer](../security/rate-limit-shape-analyzer/) | /rate-shape | Senior | Map rate-limit policies per endpoint; find missing or asymmetric limits on expansive operations. |
+| [third-party-trust](../security/third-party-trust/) | /third-party-trust | Senior | Fingerprint every outbound call; classify trust contracts, SSRF risk, webhook verification gaps. |
+| [authz-coverage-gap-detector](../security/authz-coverage-gap-detector/) | /authz-coverage | Senior | Detect mutating endpoints relying solely on middleware inheritance; find unprotected gaps. |
 
 ## Cross-Links
 
