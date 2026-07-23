@@ -68,19 +68,15 @@ foreach ($ext in ($Extensions -split ',' | ForEach-Object { $_.Trim() } | Where-
 # registration, but no local check within -5..+25 lines.
 $gappedMutating = @()
 foreach ($m in $mutatingRoutes) {
-    Write-Output "DEBUG gap-loop: route $($m.file):$($m.line)"
     $hasLocal = $false
     foreach ($c in $localChecks) {
-        Write-Output "  checking check $($c.file):$($c.line) diff=$([Math]::Abs($c.line - $m.line))"
         if ($c.file -eq $m.file -and [Math]::Abs($c.line - $m.line) -le 25) { $hasLocal = $true; break }
     }
     if (-not $hasLocal) {
-        # Check whether some middleware-mount in same file applies BEFORE the route.
         $hasMountAfter = $false
         foreach ($mt in $mounts) {
             if ($mt.file -eq $m.file -and $mt.line -le $m.line) { $hasMountAfter = $true; break }
         }
-        Write-Output "  hasLocal=$hasLocal -> would gap"
         $gappedMutating += @{
             file = $m.file
             line = $m.line

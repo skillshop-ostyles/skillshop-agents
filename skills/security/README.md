@@ -26,6 +26,14 @@ scanners miss.
 | [rate-limit-shape-analyzer](../security/rate-limit-shape-analyzer/) | /rate-shape | Senior | Map rate-limit policies per endpoint; find missing or asymmetric limits on expansive operations. |
 | [third-party-trust](../security/third-party-trust/) | /third-party-trust | Senior | Fingerprint every outbound call; classify trust contracts, SSRF risk, webhook verification gaps. |
 | [authz-coverage-gap-detector](../security/authz-coverage-gap-detector/) | /authz-coverage | Senior | Detect mutating endpoints relying solely on middleware inheritance; find unprotected gaps. |
+| [type-confusion-bypass-detector](../security/type-confusion-bypass-detector/) | /bypass-detector | Senior | Trace validation paths from input source to sink; test edge-case input shapes (str/int/obj/null/array) for bypass. |
+| [tls-config-drift](../security/tls-config-drift/) | /ssl-drift | Senior | Find TLS version drifts, weak cipher suites, cert-pinning gaps, mTLS config issues, and FIPS mode inconsistencies. |
+| [log-injection-detector](../security/log-injection-detector/) | /log-injection | Senior | Detect CRLF injection risks, unsanitized user input in log calls, and sensitive data exposure in log statements. |
+| [flask-anti-pattern-detector](../security/flask-anti-pattern-detector/) | /flask-detector | Senior | Find Flask-specific security anti-patterns: hardcoded SECRET_KEY, debug mode in production, SSTI via render_template_string, pickle/eval on request data. |
+| [crypto-downgrade-detector](../security/crypto-downgrade-detector/) | /crypto-downgrade | Senior | Find deprecated crypto algorithms, weak hash/encryption configs, hardcoded JWT secrets, and downgrade-vulnerable defaults. |
+| [cors-config-drift](../security/cors-config-drift/) | /cors-drift | Senior | Map all per-route CORS policies; flag dangerous patterns (credentials+wildcard, reflecting origins, route-level drifts). |
+| [session-state-anomaly](../security/session-state-anomaly/) | /session-anomaly | Senior | Detect session state machine violations: missing regeneration after login, missing cleanup on logout, no refresh token rotation. |
+| [ssrf-detector](../security/ssrf-detector/) | /ssrf-detector | Senior | Find outbound HTTP calls with user-controlled URLs; classify validation coverage (hostname allowlist, scheme check, metadata-IP blocking). |
 
 ## Cross-Links
 
