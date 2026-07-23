@@ -1,0 +1,124 @@
+diff --git a/src/api/users.js b/src/api/users.js
+index abc123..def456 100644
+--- a/src/api/users.js
++++ b/src/api/users.js
+@@ -1,10 +1,12 @@
+ const express = require('express');
+ const router = express.Router();
+ const db = require('../lib/db');
++const { validateEmail } = require('../lib/validation');
+
+-router.get('/:id', (req, res) => {
+-  const user = db.users.findById(req.params.id);
+-  res.json({ id: user.id, name: user.name, email: user.email });
++router.get('/profile/:id', (req, res) => {
++  const user = db.users.findById(req.params.id);
++  if (!user) return res.status(404).json({ error: 'User not found' });
++  res.json({ id: user.id, name: user.name, email: user.email, preferences: user.preferences || {} });
+ });
+
+ router.post('/', (req, res) => {
+
+diff --git a/src/api/orders.js b/src/api/orders.js
+index ghi789..jkl012 100644
+--- a/src/api/orders.js
++++ b/src/api/orders.js
+@@ -1,8 +1,10 @@
+ const express = require('express');
+ const router = express.Router();
+ const db = require('../lib/db');
+-const { validateOrder } = require('../lib/validation');
++const { validateOrder, validateBulkOrder } = require('../lib/validation');
++const cache = require('../lib/cache');
+
+ router.post('/', (req, res) => {
++  if (!req.body.customerId) return res.status(400).json({ error: 'customerId is required' });
+   const errors = validateOrder(req.body);
+   if (errors.length > 0) return res.status(400).json({ errors });
+   const order = db.orders.create(req.body);
+@@ -10,4 +12,10 @@ router.post('/', (req, res) => {
+ });
+
+ router.get('/:id/status', (req, res) => {
+-  const status = db.orders.getStatus(req.params.id);
+-  res.json({ id: req.params.id, status });
++  const cached = cache.get(`order:status:${req.params.id}`);
++  if (cached) return res.json(cached);
++  const status = db.orders.getStatus(req.params.id);
++  cache.set(`order:status:${req.params.id}`, status);
++  res.json({ id: req.params.id, status });
+ });
+
++router.post('/bulk-status', (req, res) => {
++  const ids = req.body.ids || [];
++  const results = ids.map(id => ({ id, status: db.orders.getStatus(id) }));
++  res.json(results);
++});
+
+diff --git a/src/lib/db.js b/src/lib/db.js
+index mno345..pqr678 100644
+--- a/src/lib/db.js
++++ b/src/lib/db.js
+@@ -1,10 +1,14 @@
++const pool = require('./pool');
++
+ const users = {
+-  findById(id) { return { id, name: 'Test', email: 'test@example.com' }; },
+-  create(data) { return { id: Date.now(), ...data }; },
++  findById(id) { return pool.query('SELECT * FROM users WHERE id = ?', [id]); },
++  create(data) { return pool.query('INSERT INTO users SET ?', [data]); },
+   remove(id) { return true; }
+ };
+
+ const orders = {
+-  create(data) { return { id: Date.now(), ...data, status: 'pending' }; },
+-  getStatus(id) { return 'shipped'; }
++  create(data) { return pool.query('INSERT INTO orders SET ?', [data]); },
++  getStatus(id) { return pool.query('SELECT status FROM orders WHERE id = ?', [id]); },
++  updateStatus(id, status) { return pool.query('UPDATE orders SET status = ? WHERE id = ?', [status, id]); }
+ };
+
+-module.exports = { users, orders };
++module.exports = { users, orders, getConnection: () => pool.getConnection() };
+
+diff --git a/src/lib/validation.js b/src/lib/validation.js
+index stu901..vwx234 100644
+--- a/src/lib/validation.js
++++ b/src/lib/validation.js
+@@ -1,5 +1,8 @@
++function validateEmail(email) {
++  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
++}
++
+ function validateOrder(data) {
+-  const errors = [];
+-  if (!data.items || data.items.length === 0) errors.push('Order must have at least one item');
+-  if (!data.customerId) errors.push('customerId is required');
+-  return errors;
++  const errors = [];
++  if (!data.items || data.items.length === 0) errors.push('Order must have at least one item');
++  if (!data.customerId) errors.push('customerId is required');
++  return errors;
+ }
+
+-module.exports = { validateOrder };
++function validateBulkOrder(data) {
++  const errors = [];
++  if (!data.ids || !Array.isArray(data.ids)) errors.push('ids must be an array');
++  return errors;
++}
++
++module.exports = { validateOrder, validateEmail, validateBulkOrder };
+
+diff --git a/src/index.js b/src/index.js
+index yza345..bcd678 100644
+--- a/src/index.js
++++ b/src/index.js
+@@ -1,5 +1,6 @@
+ const express = require('express');
+ const usersRouter = require('./api/users');
+ const ordersRouter = require('./api/orders');
++const cache = require('./lib/cache');
+
+ const app = express();
+
