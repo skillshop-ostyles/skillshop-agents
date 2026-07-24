@@ -7,7 +7,7 @@ modifying them.
 
 | | | | |
 |--|--|--|--|
-| ![skills](https://img.shields.io/badge/skills-99-2ea44f) | ![sprints](https://img.shields.io/badge/sprints-107-blue) | ![license](https://img.shields.io/badge/license-MIT-yellow) | ![status](https://img.shields.io/badge/status-active-brightgreen) |
+| ![skills](https://img.shields.io/badge/skills-103-2ea44f) | ![sprints](https://img.shields.io/badge/sprints-111-blue) | ![license](https://img.shields.io/badge/license-MIT-yellow) | ![status](https://img.shields.io/badge/status-active-brightgreen) |
 
 ---
 
@@ -38,10 +38,10 @@ off-limits — no skill ever modifies your agent configuration.
 | [Understanding](skills/understanding/) | 14 | Knowledge preservation, onboarding, architecture | 65–75 |
 | [Data](skills/data/) | 14 | Schemas, migrations, test coverage | 76–87 |
 | [Operations](skills/operations/) | 15 | Deployment, resilience, maintainability | 88–99 |
-| [Runtime](skills/runtime/) | 10 | Performance, reproduction, production mirroring | 100–107 |
+| [Runtime](skills/runtime/) | 14 | Performance, reproduction, production mirroring | 100–111 |
 | [AI/ML](skills/ai-ml/) | 2 | LLM apps, ML pipelines | 39–40 |
 | [_meta](skills/_meta/) | 2 | Repository lifecycle tooling | — |
-| **Total** | **99** | | **107 sprints** |
+| **Total** | **103** | | **111 sprints** |
 
 ---
 
@@ -175,7 +175,7 @@ directory.
 | `/env-drift` | env-drift-tracker | Track environment configuration drift |
 | `/dep-graveyard` | dependency-graveyard | Find dead dependencies |
 
-### Runtime — 10 skills
+### Runtime — 14 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -189,6 +189,10 @@ directory.
 | `/schema-query` | schema-query-mismatch | Find schema-query mismatches |
 | `/sideorder` | side-effect-ordering | Analyze side-effect ordering risks |
 | `/mock-gap` | mock-production-gap | Find mock-production divergences |
+| `/type-mismatch` | runtime-type-mismatch | Find unvalidated runtime type assumptions |
+| `/shutdown` | shutdown-gracefulness | Analyze shutdown hook implementation quality |
+| `/runtime-deps` | dependency-runtime-availability | Find dynamic imports and resources that fail at runtime |
+| `/dead-runtime` | dead-code-at-runtime | Find feature flags, date gates, and env checks that make code unreachable |
 
 ### AI/ML — 2 skills
 
@@ -284,8 +288,7 @@ skills/<cluster>/<skill-name>/
 
 ## Roadmap
 
-- **Phase C-Runtime Wave 3** (R9–R12, sprints 108–111): runtime-type-mismatch,
-  shutdown-gracefulness, dependency-runtime-availability, dead-code-at-runtime
+- **Phase C-Runtime Complete** (sprints 100–111): all 12 R-skills done
 - **Phase C-AI/ML** (sprints 112–117): 10 AI/ML pipeline skills
 - **Phase C-Meta** (sprints 118–127): 10 meta-tooling skills
 
