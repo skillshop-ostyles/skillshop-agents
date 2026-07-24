@@ -1,0 +1,14 @@
+{
+  "customers": {
+    "id": "int", "name": "string", "email": "string?", "status": "string",
+    "credit_limit": "decimal?", "created_at": "timestamp?"
+  },
+  "products": {
+    "id": "int", "name": "string", "price": "decimal", "category": "string?",
+    "in_stock": "boolean"
+  },
+  "orders": {
+    "id": "int", "customer_id": "int", "product_id": "int", "quantity": "int",
+    "total": "decimal", "status": "string", "ordered_at": "timestamp?"
+  }
+}
