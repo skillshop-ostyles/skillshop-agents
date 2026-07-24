@@ -1,13 +1,13 @@
 # AGENTS — Skill Program
 
-**115 executable developer skills** for LLM-powered coding agents. Each skill is a
+**125 executable developer skills** for LLM-powered coding agents. Each skill is a
 deterministic collector script (`scripts/*.ps1`) paired with an LLM instruction file
 (`SKILL.md`) that together audit, analyze, and report on real codebases without
 modifying them.
 
 | | | | |
 |--|--|--|--|
-| ![skills](https://img.shields.io/badge/skills-115-2ea44f) | ![sprints](https://img.shields.io/badge/sprints-123-blue) | ![license](https://img.shields.io/badge/license-MIT-yellow) | ![status](https://img.shields.io/badge/status-active-brightgreen) |
+| ![skills](https://img.shields.io/badge/skills-125-2ea44f) | ![sprints](https://img.shields.io/badge/sprints-133-blue) | ![license](https://img.shields.io/badge/license-MIT-yellow) | ![status](https://img.shields.io/badge/status-active-brightgreen) |
 
 ---
 
@@ -40,8 +40,8 @@ off-limits — no skill ever modifies your agent configuration.
 | [Operations](skills/operations/) | 15 | Deployment, resilience, maintainability | 88–99 |
 | [Runtime](skills/runtime/) | 14 | Performance, reproduction, production mirroring | 100–111 |
 | [AI/ML](skills/ai-ml/) | 14 | LLM apps, ML pipelines | 39–40, 112–123 |
-| [_meta](skills/_meta/) | 2 | Repository lifecycle tooling | — |
-| **Total** | **115** | | **123 sprints** |
+| [_meta](skills/_meta/) | 12 | Repository lifecycle tooling, BIBEL enforcement | 124–133 |
+| **Total** | **125** | | **133 sprints** |
 
 ---
 
@@ -213,12 +213,22 @@ directory.
 | `/finetune-deps` | fine-tune-dependency-check | Find fine-tuned model references with deprecated base models |
 | `/ml-determinism` | ml-pipeline-determinism-check | Find sources of non-determinism in ML training pipelines |
 
-### Meta — 2 skills
+### Meta — 12 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
 | `/project-init` | project-init | Initialize new AGENTS-compatible project structure |
 | `/elevate` | elevate | Elevate skill quality to target standard |
+| `/bibel-gate` | bibel-gate | Pre-commit compliance gate for BIBEL rules |
+| `/skill-dedup` | skill-dedup | Detect functional overlap between skills |
+| `/impact` | impact | Trace BIBEL rule changes to affected skills |
+| `/manifest-audit` | manifest-audit | Verify disk vs tracking vs README consistency |
+| `/smoke-coverage` | smoke-coverage | Audit smoke test coverage across all skills |
+| `/cluster-purity` | cluster-purity | Detect cross-cluster boundary violations |
+| `/trigger-audit` | trigger-audit | Validate trigger uniqueness and convention |
+| `/benchmark` | benchmark | Benchmark collector script performance |
+| `/bibel-migrate` | bibel-migrate | Generate migration patches for BIBEL changes |
+| `/skill-lifecycle` | skill-lifecycle | Report skill freshness and lifecycle status |
 
 ---
 
@@ -233,7 +243,7 @@ directory.
 │   ├── BIBEL.md                 # Master rules for the skill program
 │   ├── tracking.md              # Sprint and cluster status
 │   └── phase-c-catalog.md       # Full catalog of Phase C candidates
-└── skills/                      # All 115 skills, organized by cluster
+└── skills/                      # All 125 skills, organized by cluster
     ├── quality/                 # 21 quality assurance skills
     ├── security/                # 21 security analysis skills
     ├── understanding/           # 14 code understanding skills
@@ -241,7 +251,7 @@ directory.
     ├── operations/              # 15 operations and SRE skills
     ├── runtime/                 # 14 runtime analysis skills
     ├── ai-ml/                   # 14 AI/ML pipeline skills
-    └── _meta/                   # 2 meta-tooling skills
+    └── _meta/                   # 12 meta-tooling skills
 ```
 
 Each skill directory follows a consistent structure:
@@ -304,7 +314,8 @@ skills/<cluster>/<skill-name>/
 - **Phase C-AI/ML Wave 1** (sprints 112–115): prompt-quality, embed-quality, train-leak, guardrails (done)
 - **Phase C-AI/ML Wave 2** (sprints 116–119): prompt-drift, token-budget, rag-consistency, llm-obs (done)
 - **Phase C-AI/ML Wave 3** (sprints 120–123): ai-log, tool-fidelity, finetune-deps, ml-determinism (done)
-- **Phase C-Meta** (sprints 124–133): 10 meta-tooling skills
+- **Phase C-Meta Complete** (sprints 124–133): all 10 meta-tooling skills done
+- **Phase C Complete**: all 8 clusters × 10 (or more) skills implemented
 
 ## License
 
