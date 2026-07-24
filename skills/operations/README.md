@@ -16,6 +16,10 @@ paged.
 | [dependency-graveyard](../operations/dependency-graveyard/) | /dep-graveyard | Senior | Inventory every dependency, check registry health; LLM classifies each as healthy/aging/zombie/dead. |
 | [ci-debt-analyzer](../operations/ci-debt-analyzer/) | /ci-debt | Both | Read CI configuration, measure pipeline health; LLM identifies the biggest time waste and recommends fixes. |
 | [log-quality-auditor](../operations/log-quality-auditor/) | /log-audit | Both | Inventory every log statement; LLM judges structured logging, correlation ID coverage, and PII risk. |
+| [backup-coverage-scanner](../operations/backup-coverage-scanner/) | /backup-scan | Senior | Inventory every stateful resource; LLM identifies critical backup gaps before the incident. |
+| [leak-detector](../operations/leak-detector/) | /leak-scan | Senior | Trace resource acquisition/release; LLM classifies each as clean/leaky/uncertain. |
+| [healthcheck-mapper](../operations/healthcheck-mapper/) | /healthcheck | Both | Audit health/readiness/liveness endpoints against service dependencies; LLM judges coverage. |
+| [env-drift-tracker](../operations/env-drift-tracker/) | /env-drift | Senior | Compare config across environments; LLM flags dangerous drifts. |
 
 ## Cross-Links
 
