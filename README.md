@@ -1,13 +1,13 @@
 # AGENTS — Skill Program
 
-**111 executable developer skills** for LLM-powered coding agents. Each skill is a
+**115 executable developer skills** for LLM-powered coding agents. Each skill is a
 deterministic collector script (`scripts/*.ps1`) paired with an LLM instruction file
 (`SKILL.md`) that together audit, analyze, and report on real codebases without
 modifying them.
 
 | | | | |
 |--|--|--|--|
-| ![skills](https://img.shields.io/badge/skills-111-2ea44f) | ![sprints](https://img.shields.io/badge/sprints-119-blue) | ![license](https://img.shields.io/badge/license-MIT-yellow) | ![status](https://img.shields.io/badge/status-active-brightgreen) |
+| ![skills](https://img.shields.io/badge/skills-115-2ea44f) | ![sprints](https://img.shields.io/badge/sprints-123-blue) | ![license](https://img.shields.io/badge/license-MIT-yellow) | ![status](https://img.shields.io/badge/status-active-brightgreen) |
 
 ---
 
@@ -39,9 +39,9 @@ off-limits — no skill ever modifies your agent configuration.
 | [Data](skills/data/) | 14 | Schemas, migrations, test coverage | 76–87 |
 | [Operations](skills/operations/) | 15 | Deployment, resilience, maintainability | 88–99 |
 | [Runtime](skills/runtime/) | 14 | Performance, reproduction, production mirroring | 100–111 |
-| [AI/ML](skills/ai-ml/) | 10 | LLM apps, ML pipelines | 39–40, 112–119 |
+| [AI/ML](skills/ai-ml/) | 14 | LLM apps, ML pipelines | 39–40, 112–123 |
 | [_meta](skills/_meta/) | 2 | Repository lifecycle tooling | — |
-| **Total** | **111** | | **119 sprints** |
+| **Total** | **115** | | **123 sprints** |
 
 ---
 
@@ -194,7 +194,7 @@ directory.
 | `/runtime-deps` | dependency-runtime-availability | Find dynamic imports and resources that fail at runtime |
 | `/dead-runtime` | dead-code-at-runtime | Find feature flags, date gates, and env checks that make code unreachable |
 
-### AI/ML — 10 skills
+### AI/ML — 14 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -208,6 +208,10 @@ directory.
 | `/token-budget` | token-budget-analyzer | Analyze static code for token usage waste and budget risks |
 | `/rag-consistency` | rag-pipeline-consistency-auditor | Audit RAG pipeline config for consistency issues |
 | `/llm-obs` | llm-call-observability-gap | Find LLM API calls lacking observability coverage |
+| `/ai-log` | ai-decision-logger | Find model-based decision points missing audit logging |
+| `/tool-fidelity` | tool-call-fidelity-checker | Check tool/function definitions for hallucination-prone schemas |
+| `/finetune-deps` | fine-tune-dependency-check | Find fine-tuned model references with deprecated base models |
+| `/ml-determinism` | ml-pipeline-determinism-check | Find sources of non-determinism in ML training pipelines |
 
 ### Meta — 2 skills
 
@@ -229,14 +233,14 @@ directory.
 │   ├── BIBEL.md                 # Master rules for the skill program
 │   ├── tracking.md              # Sprint and cluster status
 │   └── phase-c-catalog.md       # Full catalog of Phase C candidates
-└── skills/                      # All 111 skills, organized by cluster
+└── skills/                      # All 115 skills, organized by cluster
     ├── quality/                 # 21 quality assurance skills
     ├── security/                # 21 security analysis skills
     ├── understanding/           # 14 code understanding skills
     ├── data/                    # 14 data management skills
     ├── operations/              # 15 operations and SRE skills
     ├── runtime/                 # 14 runtime analysis skills
-    ├── ai-ml/                   # 10 AI/ML pipeline skills
+    ├── ai-ml/                   # 14 AI/ML pipeline skills
     └── _meta/                   # 2 meta-tooling skills
 ```
 
@@ -299,7 +303,7 @@ skills/<cluster>/<skill-name>/
 - **Phase C-Runtime Complete** (sprints 100–111): all 12 R-skills done
 - **Phase C-AI/ML Wave 1** (sprints 112–115): prompt-quality, embed-quality, train-leak, guardrails (done)
 - **Phase C-AI/ML Wave 2** (sprints 116–119): prompt-drift, token-budget, rag-consistency, llm-obs (done)
-- **Phase C-AI/ML Wave 3** (sprints 120–123): next 4 AI/ML skills
+- **Phase C-AI/ML Wave 3** (sprints 120–123): ai-log, tool-fidelity, finetune-deps, ml-determinism (done)
 - **Phase C-Meta** (sprints 124–133): 10 meta-tooling skills
 
 ## License
