@@ -1,4 +1,4 @@
-# AGENTS — Skill Program
+# AGENTS - Skill Program
 
 **122 executable developer skills** for LLM-powered coding agents. Each skill is a
 deterministic collector script (`scripts/*.ps1`) paired with an LLM instruction file
@@ -15,17 +15,17 @@ modifying them.
 
 AGENTS skills are **not prompt templates**. Every skill has two halves:
 
-1. **Collector** — a deterministic PowerShell script that extracts hard evidence
+1. **Collector** - a deterministic PowerShell script that extracts hard evidence
    from the target project (file content, git history, dependency trees, config files).
    Output: structured JSON.
-2. **LLM judge** — the `SKILL.md` instructs the LLM to interpret the evidence,
+2. **LLM judge** - the `SKILL.md` instructs the LLM to interpret the evidence,
    classify findings, and write a Markdown report with confidence levels.
 
 This means: **every claim in every report is backed by a file:line reference.**
 No hallucinations, no guesswork.
 
 All skills are **read-only by default**. The `~/.claude/` directory is
-off-limits — no skill ever modifies your agent configuration.
+off-limits - no skill ever modifies your agent configuration.
 
 ---
 
@@ -33,14 +33,14 @@ off-limits — no skill ever modifies your agent configuration.
 
 | Cluster | Skills | Focus | Sprints |
 |--|--:|--|--:|
-| [Quality](skills/quality/) | 21 | Code smells, patterns, refactoring signals | 41–50 |
-| [Security](skills/security/) | 21 | Protection, compliance, trust boundaries | 51–64 |
-| [Understanding](skills/understanding/) | 14 | Knowledge preservation, onboarding, architecture | 65–75 |
-| [Data](skills/data/) | 14 | Schemas, migrations, test coverage | 76–87 |
-| [Operations](skills/operations/) | 15 | Deployment, resilience, maintainability | 88–99 |
-| [Runtime](skills/runtime/) | 14 | Performance, reproduction, production mirroring | 100–111 |
-| [AI/ML](skills/ai-ml/) | 14 | LLM apps, ML pipelines | 39–40, 112–123 |
-| [_meta](skills/_meta/) | 9 | Repository lifecycle tooling | 124–133 |
+| [Quality](skills/quality/) | 21 | Code smells, patterns, refactoring signals | 41-50 |
+| [Security](skills/security/) | 21 | Protection, compliance, trust boundaries | 51-64 |
+| [Understanding](skills/understanding/) | 14 | Knowledge preservation, onboarding, architecture | 65-75 |
+| [Data](skills/data/) | 14 | Schemas, migrations, test coverage | 76-87 |
+| [Operations](skills/operations/) | 15 | Deployment, resilience, maintainability | 88-99 |
+| [Runtime](skills/runtime/) | 14 | Performance, reproduction, production mirroring | 100-111 |
+| [AI/ML](skills/ai-ml/) | 14 | LLM apps, ML pipelines | 39-40, 112-123 |
+| [_meta](skills/_meta/) | 9 | Repository lifecycle tooling | 124-133 |
 | **Total** | **122** | | **133 sprints** |
 
 ---
@@ -52,7 +52,7 @@ off-limits — no skill ever modifies your agent configuration.
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
 
 # Install a single skill (example: intent-archaeology)
-cp -r skill-shop-agents/skills/quality/intent-archaeology ~/.claude/skills/
+cp -r skills/quality/intent-archaeology ~/.claude/skills/
 
 # Invoke via your agent's trigger mechanism
 # Your agent reads the SKILL.md and runs the collector script
@@ -65,7 +65,7 @@ directory.
 
 ## Complete Skill Inventory
 
-### Quality — 21 skills
+### Quality - 21 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -91,7 +91,7 @@ directory.
 | `/paranoia` | paranoia-profiler | Find overly defensive code |
 | `/invariants` | invariant-miner | Find implicit invariants that could break |
 
-### Security — 21 skills
+### Security - 21 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -117,7 +117,7 @@ directory.
 | `/session-anomaly` | session-state-anomaly | Find session management gaps |
 | `/ssrf-detector` | ssrf-detector | Find server-side request forgery vectors |
 
-### Understanding — 14 skills
+### Understanding - 14 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -136,7 +136,7 @@ directory.
 | `/runbook` | runbook-automator | Auto-generate runbooks |
 | `/changelog` | changelog-narrator | Generate narrative changelogs |
 
-### Data — 14 skills
+### Data - 14 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -155,7 +155,7 @@ directory.
 | `/infer-rels` | relationship-inference | Infer entity relationships |
 | `/seed-data` | seed-data-strategist | Design seed data strategies |
 
-### Operations — 15 skills
+### Operations - 15 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -175,7 +175,7 @@ directory.
 | `/env-drift` | env-drift-tracker | Track environment configuration drift |
 | `/dep-graveyard` | dependency-graveyard | Find dead dependencies |
 
-### Runtime — 14 skills
+### Runtime - 14 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -194,7 +194,7 @@ directory.
 | `/runtime-deps` | dependency-runtime-availability | Find dynamic imports and resources that fail at runtime |
 | `/dead-runtime` | dead-code-at-runtime | Find feature flags, date gates, and env checks that make code unreachable |
 
-### AI/ML — 14 skills
+### AI/ML - 14 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -213,7 +213,7 @@ directory.
 | `/finetune-deps` | fine-tune-dependency-check | Find fine-tuned model references with deprecated base models |
 | `/ml-determinism` | ml-pipeline-determinism-check | Find sources of non-determinism in ML training pipelines |
 
-### Meta — 9 skills
+### Meta - 9 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -233,26 +233,26 @@ directory.
 
 ```
 .
-├── README.md                    # This file
-├── LICENSE                      # MIT
-└── skills/                      # All skills, organized by cluster
-    ├── quality/                 # 21 quality assurance skills
-    ├── security/                # 21 security analysis skills
-    ├── understanding/           # 14 code understanding skills
-    ├── data/                    # 14 data management skills
-    ├── operations/              # 15 operations and SRE skills
-    ├── runtime/                 # 14 runtime analysis skills
-    ├── ai-ml/                   # 14 AI/ML pipeline skills
-    └── _meta/                   # 9 meta-tooling skills
++-- README.md                    # This file
++-- LICENSE                      # MIT
++-- skills/                      # All skills, organized by cluster
+    +-- quality/                 # 21 quality assurance skills
+    +-- security/                # 21 security analysis skills
+    +-- understanding/           # 14 code understanding skills
+    +-- data/                    # 14 data management skills
+    +-- operations/              # 15 operations and SRE skills
+    +-- runtime/                 # 14 runtime analysis skills
+    +-- ai-ml/                   # 14 AI/ML pipeline skills
+    +-- _meta/                   # 9 meta-tooling skills
 ```
 
 Each skill directory follows a consistent structure:
 
 ```
 skills/<cluster>/<skill-name>/
-├── SKILL.md                     # LLM instruction file with trigger and workflow
-└── scripts/
-    └── <collector>.ps1          # Deterministic evidence collector (PowerShell)
++-- SKILL.md                     # LLM instruction file with trigger and workflow
++-- scripts/
+    +-- <collector>.ps1          # Deterministic evidence collector (PowerShell)
 ```
 
 ---
@@ -260,52 +260,52 @@ skills/<cluster>/<skill-name>/
 ## Architecture
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    LLM Agent (Sonnet, TBD, ...)              │
-│                                                             │
-│   SKILL.md triggers (/intent, /startup, ...)                │
-│      → Step 1: Clarify target                               │
-│      → Step 2: Run collector script                         │
-│      → Step 3: Classify findings from JSON evidence          │
-│      → Step 4: Write Markdown report with confidence levels  │
-│      → Step 5: Summarize results                             │
-└─────────────────────────────────────────────────────────────┘
-                        │
-                        ▼
-┌─────────────────────────────────────────────────────────────┐
-│   Collector Script (PowerShell, deterministic)               │
-│                                                             │
-│   Input:  Project directory                                  │
-│   Output: Structured JSON (file:line evidence)               │
-│   + console summary (=== TITLE ===)                          │
-│                                                             │
-│   • No side effects on target project                        │
-│   • UTF-8 output encoding                                    │
-│   • ErrorActionPreference = 'Stop'                           │
-│   • Tested against smoke fixtures                            │
-└─────────────────────────────────────────────────────────────┘
++-------------------------------------------------------------------+
+|                     LLM Agent (Sonnet, Opus, Haiku, ...)          |
+|                                                                   |
+|   SKILL.md triggers (/intent, /startup, ...)                      |
+|      -> Step 1: Clarify target                                    |
+|      -> Step 2: Run collector script                              |
+|      -> Step 3: Classify findings from JSON evidence              |
+|      -> Step 4: Write Markdown report with confidence levels      |
+|      -> Step 5: Summarize results                                 |
++-------------------------------------------------------------------+
+                            |
+                            v
++-------------------------------------------------------------------+
+|   Collector Script (PowerShell, deterministic)                    |
+|                                                                   |
+|   Input:  Project directory                                       |
+|   Output: Structured JSON (file:line evidence)                    |
+|   + console summary (=== TITLE ===)                               |
+|                                                                   |
+|   * No side effects on target project                             |
+|   * UTF-8 output encoding                                         |
+|   * ErrorActionPreference = 'Stop'                                |
+|   * Tested against smoke fixtures                                 |
++-------------------------------------------------------------------+
 ```
 
 ## Principles
 
-- **Evidence over opinion** — every report finding carries a `file:line` reference
+- **Evidence over opinion** - every report finding carries a `file:line` reference
   and a confidence level (`proven` | `likely` | `suspected`)
-- **Collector + LLM split** — deterministic scripts gather facts; the LLM judges
+- **Collector + LLM split** - deterministic scripts gather facts; the LLM judges
   context and risk
-- **Read-only by default** — skills analyze, they don't modify (exceptions require
+- **Read-only by default** - skills analyze, they don't modify (exceptions require
   explicit user approval)
-- **`~/.claude/` is protected** — no skill ever touches your agent configuration
-- **Ship-ready** — every skill has a smoke test with fixture data and a verified
+- **`~/.claude/` is protected** - no skill ever touches your agent configuration
+- **Ship-ready** - every skill has a smoke test with fixture data and a verified
   JSON output contract
 
 ## Roadmap
 
-- **Phase C-Runtime Complete** (sprints 100–111): all 12 R-skills done
-- **Phase C-AI/ML Wave 1** (sprints 112–115): prompt-quality, embed-quality, train-leak, guardrails (done)
-- **Phase C-AI/ML Wave 2** (sprints 116–119): prompt-drift, token-budget, rag-consistency, llm-obs (done)
-- **Phase C-AI/ML Wave 3** (sprints 120–123): ai-log, tool-fidelity, finetune-deps, ml-determinism (done)
-- **Phase C-Meta Complete** (sprints 124–133): all 10 meta-tooling skills done
-- **Phase C Complete**: all 8 clusters × 10 (or more) skills implemented
+- **Phase C-Runtime Complete** (sprints 100-111): all 14 R-skills done
+- **Phase C-AI/ML Wave 1** (sprints 112-115): prompt-quality, embed-quality, train-leak, guardrails (done)
+- **Phase C-AI/ML Wave 2** (sprints 116-119): prompt-drift, token-budget, rag-consistency, llm-obs (done)
+- **Phase C-AI/ML Wave 3** (sprints 120-123): ai-log, tool-fidelity, finetune-deps, ml-determinism (done)
+- **Phase C-Meta Complete** (sprints 124-133): all 9 meta-tooling skills done
+- **Phase C Complete**: all 8 clusters with 10 (or more) skills implemented
 
 ## License
 

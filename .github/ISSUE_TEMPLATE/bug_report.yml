@@ -1,0 +1,36 @@
+---
+name: Bug Report
+about: Report a reproducible issue in a skill or collector script
+title: "[Bug] "
+labels: bug
+---
+
+**Skill affected:** (e.g., `quality/intent-archaeology`)
+
+**Trigger used:** (e.g., `/intent`)
+
+**Target project:** (language, framework, size)
+
+**Expected behavior:**
+
+**Actual behavior:**
+
+**Collector JSON output (sanitized):**
+```json
+{}
+```
+
+**Console summary:**
+```
+=== TITLE ===
+```
+
+**Steps to reproduce:**
+1.
+2.
+3.
+
+**Environment:**
+- OS:
+- PowerShell version:
+- AGENTS repo commit:

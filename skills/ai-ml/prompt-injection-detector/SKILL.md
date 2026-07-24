@@ -58,5 +58,5 @@ Write `prompt-injection-report.md` to the working directory.
 
 ```powershell
 & .\scripts\prompt-scan.ps1 -ProjectDir "C:\Projects\my-ai-app"
-& .\scripts\prompt-scan.ps1 -ProjectDir "C:\Projects\my-ai-app" -Exclude "test,spec,fixture"
+& .\scripts\prompt-scan.ps1 -ProjectDir "C:\Projects\my-ai-app" -Exclude "test,spec,fixtures"
 ```

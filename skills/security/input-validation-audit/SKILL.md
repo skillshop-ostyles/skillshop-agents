@@ -30,8 +30,8 @@ never executes the target code, never connects to a network.
 ## PROTECTION RULE - never `~/.claude/`
 
 This skill analyzes foreign projects. It is read-only. The protection guard
-is still active: if the skill ever gets a write mode, the guard from
-The protection guard (target path validation) must be implemented.
+is still active: if the skill ever gets a write mode, target path validation
+must be implemented.
 
 ## What You Must Do When Invoked
 

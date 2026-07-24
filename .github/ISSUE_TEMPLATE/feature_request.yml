@@ -1,0 +1,19 @@
+---
+name: Feature Request
+about: Propose a new skill or enhancement
+title: "[Feature] "
+labels: enhancement
+---
+
+**Cluster:** (quality / security / understanding / data / operations / runtime / ai-ml / _meta)
+
+**Problem this solves:**
+
+**Proposed trigger:** `/your-trigger`
+
+**Collector concept:**
+
+**SKILL.md sketch (optional):**
+
+**Existing similar skills checked:**
+- [ ] Yes, looked at related cluster skills

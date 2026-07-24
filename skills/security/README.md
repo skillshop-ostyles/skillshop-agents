@@ -37,5 +37,5 @@ scanners miss.
 
 ## Cross-Links
 
-- [quality/README.md](../quality/README.md) - `quality/cluster` lists the
+- [quality/README.md](../quality/README.md) - lists the
   `security-smell-scanner` as a quality-relevant cross-link.

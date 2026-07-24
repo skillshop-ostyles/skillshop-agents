@@ -34,7 +34,7 @@ if (-not (Test-Path -LiteralPath (Join-Path $ProjectDir $File))) {
     exit 1
 }
 
-# -- 1 + 3. Commit-Historie + Ticket-IDs --
+# -- 1 + 3. Commit history + Ticket IDs --
 # Custom field/record separators (Unit/Record Separator, 0x1f/0x1e) instead of newlines,
 # since commit bodies themselves can be multi-line.
 $format = '%H%x1f%ad%x1f%an%x1f%s%x1f%b%x1e'
@@ -149,7 +149,7 @@ Write-Output "`n=== INTENT-MINE: $File ==="
 Write-Output "  Commits: $commitCount$(if ($truncated) { " (truncated to $MaxCommits of $totalCount)" })"
 Write-Output "  Time span: $dateRange"
 Write-Output "  Top authors (blame): $(if ($topAuthors) { $topAuthors } else { 'no blame data' })"
-Write-Output "  Ticket-IDs gefunden: $($ticketIdsUnique.Count)"
+Write-Output "  Ticket IDs found: $($ticketIdsUnique.Count)"
 if ($Symbol) {
     Write-Output "  Symbol '$Symbol': $(if ($symbolLogAvailable) { 'Log available' } else { 'not found, analysis falls back to file level' })"
 }
