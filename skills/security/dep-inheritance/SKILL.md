@@ -23,12 +23,15 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir` and optionally a focus on individual dependency names.
 Get confirmation.
 
-### Step 2 - Inventory
+### Step 3 - Inventory
 
 ```powershell
 & "<SKILL_DIR>/scripts/deps-inventory.ps1" -ProjectDir "<path>" [-Only <names>]
@@ -36,7 +39,7 @@ Get confirmation.
 
 No manifest found: cleanly report, stop.
 
-### Step 3 - Registry metadata (optional)
+### Step 4 - Registry metadata (optional)
 
 Network available and user not opposed:
 
@@ -50,7 +53,7 @@ field `lastRelease` comes from the `time.modified` field of the registry, which
 does not necessarily mean exact "last publish date" (registry metadata can be
 updated without a new release) - label as approximation in the report.
 
-### Step 4 - Analysis
+### Step 5 - Analysis
 
 Per direct dependency:
 
@@ -73,7 +76,7 @@ Per direct dependency:
 7. Evidence requirement: purpose/coupling always with locations; maintenance
    statements only with registry data (otherwise "no metadata available" - never guess).
 
-### Step 5 - Write report
+### Step 6 - Write report
 
 File `deps-inheritance-report.md` in the current working directory:
 
@@ -82,7 +85,7 @@ File `deps-inheritance-report.md` in the current working directory:
 3. **Detail sections** per notable dependency.
 4. **Open questions**.
 
-### Step 6 - Summarize
+### Step 7 - Summarize
 
 State the report path, quick wins first.
 
@@ -94,3 +97,5 @@ State the report path, quick wins first.
 /deps-audit <dir> <dep> [...]  # only specified dependencies
 /deps-audit -help
 ```
+
+

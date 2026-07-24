@@ -1,18 +1,45 @@
-# Magic-Value Genealogist - /magic-values
+﻿# magic-value-genealogist
 
-Extracts and genealogically analyzes magic numbers and uppercase-string constants outside
-tests. Groups occurrences, traces first-appearance commit + author, helps the LLM decide if
-a literal should be unified into one named constant.
+**Trigger:** `/magic-values` | **Risk:** read-only | **Audience:** Both
+
+> Magic value genealogist: extracts numeric and uppercase-string literals from non-test source files, filters trivials ...
+
+Magic value genealogist: extracts numeric and uppercase-string literals from non-test source files, filters trivials (0/1/24/60/...), groups by literal value, traces each first occurrence to its introducing commit and author via git blame, clusters semantically duplicated constants that should be unified.
+
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/quality/magic-value-genealogist ~/.claude/skills/
+cp -r skills/quality/magic-value-genealogist $HOME/.claude/skills/quality/magic-value-genealogist
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/quality/magic-value-genealogist $HOME\.claude\skills\quality\magic-value-genealogist
 ```
 
 ## Usage
 
 ```
-/magic-values                         # interactive, prompts for directory
-/magic-values <dir>                   # scan project directory
-/magic-values <dir> -MinOccurrence 3 # raise the bar
+/magic-values                    # interactive - prompts for target
+/magic-values <project-dir>      # scan specified project
+/magic-values -help              # show full usage and stop
 ```
+
+## Output
+
+Structured JSON evidence on stdout | Markdown report: values-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

@@ -1,50 +1,45 @@
 ﻿# intent-archaeology
 
-Available - **Trigger:** `/intent` - **Risk:** read-only
+**Trigger:** `/intent` | **Risk:** read-only | **Audience:** Both
 
-> Why does this code exist? Your repo remembers.
+> Reconstructs WHY code exists the way it does: mines git history (log -follow, blame, ticket references) for a file or...
 
-Reconstructs the intent story of a file from git history, blame and
-ticket IDs - with commit evidence. Analyzes one file (optionally a symbol within it)
-per run and delivers a chronological why-story with confidence levels instead of
-guesses.
+Reconstructs WHY code exists the way it does: mines git history (log -follow, blame, ticket references) for a file or symbol, then has the LLM rebuild the intent story with commit-level evidence and confidence ratings.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/git-mine.ps1` requires PowerShell (5.1+ or 7+). Available natively on
-  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-- A local git repo with history as analysis target.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/quality/intent-archaeology ~/.claude/skills/quality/intent-archaeology
-# or project-local:
-cp -r skill-shop-agents/skills/quality/intent-archaeology <your-project>/.claude/skills/quality/intent-archaeology
+cp -r skills/quality/intent-archaeology $HOME/.claude/skills/quality/intent-archaeology
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\quality\intent-archaeology $HOME\.claude\skills\quality\intent-archaeology
+Copy-Item -Recurse skills/quality/intent-archaeology $HOME\.claude\skills\quality\intent-archaeology
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/intent                          # interactive: ask for repo, file, optional symbol
-/intent <repo> <file>            # file analysis
-/intent <repo> <file> <symbol>   # symbol analysis
-/intent -help                   # short help
+/intent                    # interactive - prompts for target
+/intent <project-dir>      # scan specified project
+/intent -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Structured JSON evidence on stdout | Markdown report: intent-archaeology-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

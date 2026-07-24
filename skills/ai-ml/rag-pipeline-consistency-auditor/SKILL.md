@@ -1,4 +1,4 @@
----
+﻿---
 name: rag-pipeline-consistency-auditor
 description: "Audit RAG pipeline configuration for consistency issues that produce bad answers. Trigger: /rag-consistency"
 trigger: /rag-consistency
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/rag-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 For each RAG config:
 
@@ -39,7 +42,7 @@ For each RAG config:
 - **Overflow-risk**: retrieved tokens > context window
 - **Mismatch**: embedding or model incompatibility
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `rag-consistency-report.md` in current working directory:
 
@@ -47,7 +50,7 @@ File `rag-consistency-report.md` in current working directory:
 2. **Config table** - broken first. Per config: file, line, embedding model, LLM model, chunk size, top K, retrieved tokens, context window, overflow risk, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight configurations that will produce bad retrieval results.
 
@@ -58,3 +61,5 @@ State report path, highlight configurations that will produce bad retrieval resu
 /rag-consistency <dir>         # scan project
 /rag-consistency -help
 ```
+
+

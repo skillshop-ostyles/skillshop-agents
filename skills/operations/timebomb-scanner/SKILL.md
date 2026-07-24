@@ -24,18 +24,21 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Record today's date (reference for "overdue").
 Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/timebomb-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each finding in context (if unclear, check the file location via Read):
 
@@ -51,7 +54,7 @@ Read each finding in context (if unclear, check the file location via Read):
 - **32-bit findings**: only report if the type actually stores time
   (`suspected` when uncertain).
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `timebomb-report.md` in the current working directory:
 
@@ -65,7 +68,7 @@ File `timebomb-report.md` in the current working directory:
 Evidence requirement: detonation date only from the literal, age only from
 blame; no estimated date without `suspected` label.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State the report path, summarize overdue findings first.
 
@@ -76,3 +79,5 @@ State the report path, summarize overdue findings first.
 /timebomb <dir>         # scan project
 /timebomb -help
 ```
+
+

@@ -33,12 +33,15 @@ output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target and bug report
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target and bug report
 
 Clarify `-ProjectDir` and the bug report (paste free text or file path).
 Get confirmation.
 
-### Step 2 - Environment snapshot
+### Step 3 - Environment snapshot
 
 ```powershell
 & "<SKILL_DIR>/scripts/env-snapshot.ps1" -ProjectDir "<path>"
@@ -47,14 +50,14 @@ Get confirmation.
 The result (stack, runtimes, test runner, git state, entry points) flows
 into the protocol later - it records AGAINST which state reproduction was done.
 
-### Step 3 - Dissect report
+### Step 4 - Dissect report
 
 Symptom (what happens), expectation (what should happen), trigger candidates
 (inputs, sequence, state), environment hints. Missing core information NOTE
 IMMEDIATELY as "missing info" - but continue with hypotheses anyway, do not
 give up prematurely.
 
-### Step 4 - Localize suspicious code
+### Step 5 - Localize suspicious code
 
 From symptom terms + stacktrace (if present) find the relevant files
 (Grep) and read them completely (Read). Form hypotheses: under which conditions
@@ -64,7 +67,7 @@ No usable hint in the report: make ONE hypothesis attempt from pure
 code reading, then abort early with a list of questions - do not burn 5
 blind attempts.
 
-### Step 5 - Repro loop (max 5 attempts)
+### Step 6 - Repro loop (max 5 attempts)
 
 Per attempt:
 
@@ -87,7 +90,7 @@ Per attempt:
 6. Test runner not installed in target project: standalone script instead of test,
    do not install anything in the target project.
 
-### Step 6 - Finalize
+### Step 7 - Finalize
 
 `repro/` folder in the working directory with repro artifact + `repro-protocol.md`:
 
@@ -102,7 +105,7 @@ Per attempt:
 Evidence requirement: "reproduced" only with verbatim error output of the run in
 the protocol. Hypotheses without a run are at most `suspected`.
 
-### Step 7 - Summarize
+### Step 8 - Summarize
 
 Briefly: reproduced yes/no, how, what (if not reproduced) is missing.
 
@@ -114,3 +117,5 @@ Briefly: reproduced yes/no, how, what (if not reproduced) is missing.
 /repro <repo> <report-file>     # report from file
 /repro -help
 ```
+
+

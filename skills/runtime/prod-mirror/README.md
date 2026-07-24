@@ -1,49 +1,45 @@
 ﻿# prod-mirror
 
-Available - **Trigger:** `/mirror` - **Risk:** read-only
+**Trigger:** `/mirror` | **Risk:** read-only | **Audience:** Both
 
-> What your code promises, and what prod really does, are two different stories.
+> Production behavior mirror: ingests exported log files (text or JSON lines), statistically condenses them (frequencie...
 
-Matches exported logs statistically against code expectations: dead features,
-swallowed errors, unexpected hot paths, "impossible" states that fire anyway.
-Works completely offline on exported log files.
+Production behavior mirror: ingests exported log files (text or JSON lines), statistically condenses them (frequencies, error rates, hot paths), extracts the code's expectations (log statements, catch blocks, routes), then has the LLM report the deltas - dead features, swallowed errors firing daily, unexpected hot paths. Works fully offline on exported logs.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/*.ps1` requires PowerShell (5.1+ or 7+). Available natively on Windows.
-  On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-- Exported log files (`.log`/`.txt`/`.jsonl`/`.json`) - no live connection
-  to observability platforms needed or supported.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/runtime/prod-mirror ~/.claude/skills/runtime/prod-mirror
-# or project-local:
-cp -r skill-shop-agents/skills/runtime/prod-mirror <your-project>/.claude/skills/runtime/prod-mirror
+cp -r skills/runtime/prod-mirror $HOME/.claude/skills/runtime/prod-mirror
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\runtime\prod-mirror $HOME\.claude\skills\runtime\prod-mirror
+Copy-Item -Recurse skills/runtime/prod-mirror $HOME\.claude\skills\runtime\prod-mirror
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/mirror                          # interactive
-/mirror <repo> <logdir>          # compare code vs logs
-/mirror -help
+/mirror                    # interactive - prompts for target
+/mirror <project-dir>      # scan specified project
+/mirror -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Structured JSON evidence on stdout | Markdown report: mirror-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

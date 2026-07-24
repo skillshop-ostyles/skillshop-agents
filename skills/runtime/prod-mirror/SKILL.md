@@ -25,12 +25,15 @@ output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir` (code), `-LogDir` (exported logs) and a rough estimate
 of the log time period (free text, for context in the report). Get confirmation.
 
-### Step 2 - Collect evidence
+### Step 3 - Collect evidence
 
 ```powershell
 & "<SKILL_DIR>/scripts/log-ingest.ps1" -LogDir "<logdir>"
@@ -40,7 +43,7 @@ of the log time period (free text, for context in the report). Get confirmation.
 Empty/missing LogDir: the script aborts with exit code 1 (without logs the
 comparison is pointless) - forward message, stop.
 
-### Step 3 - Compare in four directions
+### Step 4 - Compare in four directions
 
 Actively perform each direction, do not just note what catches your eye:
 
@@ -63,7 +66,7 @@ Actively perform each direction, do not just note what catches your eye:
 Logs from another service (mapping ratio ~0): warn "Logs may not
 match the project" instead of fabricating nonsense deltas.
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `mirror-report.md` in the current working directory:
 
@@ -77,7 +80,7 @@ File `mirror-report.md` in the current working directory:
 Evidence requirement: each delta needs BOTH sides (code location AND
 log statistics) or is labeled as one-sided.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State the report path, summarize the 3 most important deltas directly in chat.
 
@@ -88,3 +91,5 @@ State the report path, summarize the 3 most important deltas directly in chat.
 /mirror <repo> <logdir>          # compare code vs. logs
 /mirror -help
 ```
+
+

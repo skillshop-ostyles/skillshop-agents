@@ -1,49 +1,45 @@
 ﻿# elevate
 
-Available - **Trigger:** `/elevate` - **Risk:** writing (only after approval)
+**Trigger:** `/elevate` | **Risk:** read-only | **Audience:** Both
 
-> Your project deserves enterprise level - without paying for it or inventing it
-> yourself.
+> Audits any project for software quality, refactoring readiness, testing, and CI/CD, then automatically elevates it to...
 
-Audits a project against 7 enterprise dimensions (tests+coverage, lint/format,
-CI/CD, secrets hygiene, docs, type-safety, dependency audit) and elevates it - only the
-parts you individually approve. Generic across stacks and CI systems, runs
-completely locally.
+Audits any project for software quality, refactoring readiness, testing, and CI/CD, then automatically elevates it to enterprise level across 7 dimensions (tests+coverage, lint/format, CI/CD, secrets, docs, type-safety/strict, dependency-audit). Generic across stacks and CI systems, runs locally too.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- Scripts in `scripts/*.ps1` require PowerShell (5.1+ or 7+). Available natively on
-  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**, developed
-  on Windows.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/_meta/elevate ~/.claude/skills/_meta/elevate       # global, all projects
-# or project-local:
-cp -r skill-shop-agents/skills/_meta/elevate <your-project>/.claude/skills/_meta/elevate
+cp -r skills/_meta/elevate $HOME/.claude/skills/_meta/elevate
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\_meta\elevate $HOME\.claude\skills\_meta\elevate
+Copy-Item -Recurse skills/_meta/elevate $HOME\.claude\skills\_meta\elevate
 ```
 
 ## Usage
 
-In Claude Code, in the target project:
-
 ```
-/elevate                 # audit + elevate current directory
-/elevate <path>          # audit + elevate <path>
-/elevate -help          # short help
+/elevate                    # interactive - prompts for target
+/elevate <project-dir>      # scan specified project
+/elevate -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Structured JSON evidence on stdout | Markdown report: elevate-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

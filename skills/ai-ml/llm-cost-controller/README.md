@@ -1,26 +1,45 @@
-# llm-cost-controller
+﻿# llm-cost-controller
 
-Static analyzer for LLM cost optimization. Detects expensive model usage, unlimited tokens, high temperature, missing caching, batchable calls, and more.
+**Trigger:** `/llm-cost` | **Risk:** read-only | **Audience:** Senior
+
+> LLM cost controller: audits all LLM API calls in a codebase, detects cost anti-patterns (expensive models, unlimited ...
+
+LLM cost controller: audits all LLM API calls in a codebase, detects cost anti-patterns (expensive models, unlimited tokens, no caching, batchable calls), and estimates monthly spend with optimization savings.
+
+## Quick Install
+
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/ai-ml/llm-cost-controller $HOME/.claude/skills/ai-ml/llm-cost-controller
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/ai-ml/llm-cost-controller $HOME\.claude\skills\ai-ml\llm-cost-controller
+```
 
 ## Usage
 
-```powershell
-& .\scripts\llm-cost-scan.ps1 -ProjectDir ".\my-ai-app"
-& .\scripts\llm-cost-scan.ps1 -ProjectDir ".\my-ai-app" -MonthlyCallEstimate 50000
+```
+/llm-cost                    # interactive - prompts for target
+/llm-cost <project-dir>      # scan specified project
+/llm-cost -help              # show full usage and stop
 ```
 
-## Checks (8 total)
+## Output
 
-| Severity | Checks |
-|---|---|
-| high | expensive-model, no-max-tokens |
-| medium | high-temperature, no-retry-backoff, no-caching, batchable-calls |
-| low | large-context, streaming-not-used |
+Markdown report: cost-report.md
 
-## Pricing Reference
+## Details
 
-Models priced per 1K tokens (input/output): GPT-4o ($2.50/$10), GPT-4o-mini ($0.15/$0.60), GPT-4 ($30/$60), Claude 3.5 Sonnet ($3/$15), Gemini 1.5 Flash ($0.075/$0.30).
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
 
-## Trigger
+## Prerequisites
 
-`/llm-cost`
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

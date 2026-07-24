@@ -1,40 +1,43 @@
-# Data Fixture Auditor Skill
+﻿# data-fixture-auditor
 
-Sprint 83 · Data Cluster
+**Trigger:** `/fixture-audit` | **Risk:** read-only | **Audience:** Both
 
-Analyzes test seed data against schemas to surface coverage gaps.
+> No description.
 
-## Files
+## Quick Install
 
-| File | Purpose |
-|------|---------|
-| SKILL.md | Skill manifest (trigger: `/fixture-audit`) |
-| scripts/fixture-scan.ps1 | Collector — scans, parses, analyzes fixtures |
-| tests/fixtures/smoke/src/ | Smoke test fixture set (2 customers, 1 product, 1 order) |
-| tests/fixtures/empty/ | Edge case: empty directory |
-
-## Quick Start
-
-```powershell
-powershell -File skills/data/data-fixture-auditor/scripts/fixture-scan.ps1 `
-    -ProjectDir skills/data/data-fixture-auditor/tests/fixtures/smoke/src
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/data/data-fixture-auditor $HOME/.claude/skills/data/data-fixture-auditor
 ```
 
-## Smoke Test
-
-Expect:
-- exit code 0
-- `status` detected as constant field (`"active"` on both customers)
-- `email`, `created_at` flagged as never populated (missing from fixture data)
-- `ordered_at` missing on orders
+### Windows (PowerShell)
 
 ```powershell
-powershell -File scripts/fixture-scan.ps1 -ProjectDir tests/fixtures/smoke/src
-$LASTEXITCODE -eq 0
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/data/data-fixture-auditor $HOME\.claude\skills\data\data-fixture-auditor
+```
+
+## Usage
+
+```
+/fixture-audit                    # interactive - prompts for target
+/fixture-audit <project-dir>      # scan specified project
+/fixture-audit -help              # show full usage and stop
 ```
 
 ## Output
 
-- Console summary with coverage ratios per entity
-- Full JSON to stdout (pipe to file for analysis)
-- `fixture-quality-report.md` from LLM analysis phase
+Structured JSON evidence on stdout | Markdown report: quality-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

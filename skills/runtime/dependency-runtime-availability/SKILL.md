@@ -1,4 +1,4 @@
----
+﻿---
 name: dependency-runtime-availability
 description: "Dependency runtime availability checker: find dynamic imports and runtime resource references that fail in production. Read-only. Trigger: /runtime-deps"
 trigger: /runtime-deps
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/runtime-load-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each reference:
 
@@ -39,7 +42,7 @@ Read each reference:
 - **Might-fail**: platform-specific, path computed from runtime value
 - **Safe**: deterministic path, bundled, cross-platform
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `runtime-dependency-report.md` in current working directory:
 
@@ -47,7 +50,7 @@ File `runtime-dependency-report.md` in current working directory:
 2. **Reference table** - will-fail first. Per reference: file, line, type, target, risk, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight references that will crash at startup.
 
@@ -58,3 +61,5 @@ State report path, highlight references that will crash at startup.
 /runtime-deps <dir>         # scan project
 /runtime-deps -help
 ```
+
+

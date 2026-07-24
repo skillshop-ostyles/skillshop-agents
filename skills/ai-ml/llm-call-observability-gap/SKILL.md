@@ -1,4 +1,4 @@
----
+﻿---
 name: llm-call-observability-gap
 description: "Find LLM API calls that lack observability — no logging, error handling, timeout, or cost tracking. Trigger: /llm-obs"
 trigger: /llm-obs
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/obs-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 For each call site:
 
@@ -39,7 +42,7 @@ For each call site:
 - **Partially-observed**: missing some observability
 - **Blind**: no monitoring at all
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `llm-observability-report.md` in current working directory:
 
@@ -47,7 +50,7 @@ File `llm-observability-report.md` in current working directory:
 2. **Call site table** - blind first. Per site: file, line, provider, has error handling, has logging, has timeout, has cost tracking, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight blind call sites.
 
@@ -58,3 +61,5 @@ State report path, highlight blind call sites.
 /llm-obs <dir>         # scan project
 /llm-obs -help
 ```
+
+

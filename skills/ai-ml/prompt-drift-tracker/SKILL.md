@@ -1,4 +1,4 @@
----
+﻿---
 name: prompt-drift-tracker
 description: "Track prompt changes across git history and flag drift that affects output quality or safety. Trigger: /prompt-drift"
 trigger: /prompt-drift
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir` and `-GitRange` (default: last 20 commits). Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/prompt-drift-scan.ps1" -ProjectDir "<path>" -GitRange 20
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 For each drift:
 
@@ -40,7 +43,7 @@ For each drift:
 - **Significant**: output behavior likely changed
 - **Critical**: safety posture weakened or output constraint removed
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `prompt-drift-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `prompt-drift-report.md` in current working directory:
 2. **Drift table** - critical first. Per drift: file, commit, date, changed sections, before/after snippet, severity.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight critical and significant drifts.
 
@@ -59,3 +62,5 @@ State report path, highlight critical and significant drifts.
 /prompt-drift <dir>         # scan project
 /prompt-drift -help
 ```
+
+

@@ -1,50 +1,45 @@
 ﻿# dead-code-burier
 
-Available - **Trigger:** `/bury` - **Risk:** writing (only after approval)
+**Trigger:** `/bury` | **Risk:** read-only | **Audience:** Both
 
-> Dead code does not die on its own. Someone must bury it - with evidence.
+> Dead-path undertaker: identifies provably unreachable code by combining static reachability (unreferenced exports/fil...
 
-Identifies provably unreachable code (static unreachability + optional
-coverage/log evidence + git age) and buries it - **never automatically**,
-only after your explicit individual approval per candidate.
+Dead-path undertaker: identifies provably unreachable code by combining static reachability (unreferenced exports/files), optional runtime evidence (coverage reports, logs) and git age, then produces a burial list ranked by evidence strength. NEVER deletes automatically - prepares patches for individual user approval only.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/*.ps1` requires PowerShell (5.1+ or 7+). Available natively on Windows.
-  On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-- For age evidence: a local git repo (optional, otherwise this part omitted).
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/quality/dead-code-burier ~/.claude/skills/quality/dead-code-burier
-# or project-local:
-cp -r skill-shop-agents/skills/quality/dead-code-burier <your-project>/.claude/skills/quality/dead-code-burier
+cp -r skills/quality/dead-code-burier $HOME/.claude/skills/quality/dead-code-burier
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\quality\dead-code-burier $HOME\.claude\skills\quality\dead-code-burier
+Copy-Item -Recurse skills/quality/dead-code-burier $HOME\.claude\skills\quality\dead-code-burier
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/bury                                # interactive
-/bury <dir>                          # static + git age only
-/bury <dir> -coverage <report>       # plus coverage evidence
-/bury <dir> -logs <logdir>           # plus log evidence
-/bury -help
+/bury                    # interactive - prompts for target
+/bury <project-dir>      # scan specified project
+/bury -help              # show full usage and stop
 ```
 
-Details (including the approval rule before any deletion): [`SKILL.md`](SKILL.md).
+## Output
+
+Structured JSON evidence on stdout | Markdown report: bury-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

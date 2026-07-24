@@ -31,7 +31,10 @@ If the user invoked `/elevate -help` or `/elevate -h` (no other args), print the
 
 Otherwise follow the steps below in order. Do not skip steps.
 
-### Step 1 - Establish target directory
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Establish target directory
 
 Ask the user for the absolute path of the project to elevate. Confirm it exists and
 is a project (not `~/.claude/`). Show what was detected, then:
@@ -44,7 +47,7 @@ Proceed? (yes/no)
 
 Only continue after explicit confirmation.
 
-### Step 2 - Run the audit
+### Step 3 - Run the audit
 
 ```powershell
 & "<SKILL_DIR>/scripts/audit.ps1" -ProjectDir "<path>"
@@ -64,7 +67,7 @@ Each dimension gets a status: `ok` | `missing` | `partial`, plus a score.
 
 Present a concise summary table to the user (dimension / status / proposed action).
 
-### Step 3 - Choose CI system
+### Step 4 - Choose CI system
 
 Ask which CI system to target (only this one will be generated):
 
@@ -75,7 +78,7 @@ CI-System: (1) GitHub Actions  (2) GitLab CI  (3) Azure DevOps  (4) local only
 Default if user is unsure: **GitHub Actions + local** (the local script always
 runs regardless, as a CI mirror).
 
-### Step 4 - Approve each dimension individually
+### Step 5 - Approve each dimension individually
 
 For EACH dimension a–g that is not `ok`, ask the user individually:
 
@@ -85,7 +88,7 @@ Dimension <X> (<name>): <proposed action>. Create? (yes/no)
 
 Do NOT batch approvals. Only write files for dimensions the user approved.
 
-### Step 5 - Apply approved changes
+### Step 6 - Apply approved changes
 
 Build an answers object and run:
 
@@ -120,7 +123,7 @@ Where `elevate.json` lists approved dimensions + chosen CI system, e.g.:
 - Strict / type-safety flags
 - Dependency-audit script
 
-### Step 6 - Local mirror
+### Step 7 - Local mirror
 
 Regardless of chosen CI, run the local mirror so the user can verify before push:
 
@@ -131,7 +134,7 @@ Regardless of chosen CI, run the local mirror so the user can verify before push
 This executes lint + test + dependency-audit locally (best-effort; skips what is
 not installed, reporting clearly).
 
-### Step 7 - Report
+### Step 8 - Report
 
 Print a concise summary:
 
@@ -150,3 +153,5 @@ Project <path> elevated to enterprise level
 /elevate <path>          # audit + elevate <path>
 /elevate -help          # show this usage block and stop
 ```
+
+

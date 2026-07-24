@@ -1,38 +1,45 @@
-# prompt-injection-detector
+﻿# prompt-injection-detector
 
-Static analyzer for prompt injection vulnerabilities in LLM-integrated applications. Detects API calls to OpenAI, Anthropic, Google Gemini, LangChain, Ollama, and generic endpoints. Traces untrusted data flow into system prompts and user messages. Classifies injection countermeasures.
+**Trigger:** `/prompt-inspect` | **Risk:** read-only | **Audience:** Senior > Vibe
 
-## Installation
+> Prompt injection vulnerability scanner: statically detects LLM API call sites, traces untrusted data flowing into sys...
 
-```powershell
-& .\scripts\prompt-scan.ps1 -ProjectDir ".\my-ai-app"
+Prompt injection vulnerability scanner: statically detects LLM API call sites, traces untrusted data flowing into system prompts and user messages, and classifies injection countermeasures (none/weak/adequate).
+
+## Quick Install
+
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/ai-ml/prompt-injection-detector $HOME/.claude/skills/ai-ml/prompt-injection-detector
 ```
 
-## Requirements
+### Windows (PowerShell)
 
-- PowerShell 5.1+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/ai-ml/prompt-injection-detector $HOME\.claude\skills\ai-ml\prompt-injection-detector
+```
 
 ## Usage
 
-```powershell
-# Full scan
-& .\scripts\prompt-scan.ps1 -ProjectDir "C:\Projects\my-ai-app"
-
-# Exclude test files
-& .\scripts\prompt-scan.ps1 -ProjectDir "C:\Projects\my-ai-app" -Exclude "test,spec,fixture"
+```
+/prompt-inspect                    # interactive - prompts for target
+/prompt-inspect <project-dir>      # scan specified project
+/prompt-inspect -help              # show full usage and stop
 ```
 
-## What It Detects
+## Output
 
-| Provider | Patterns |
-|---|---|
-| OpenAI | `openai`, `chat.completions.create` |
-| Anthropic | `anthropic`, `messages.create` |
-| Google Gemini | `gemini`, `generateContent` |
-| LangChain | `langchain`, `invoke`, `LLMChain` |
-| Ollama | `ollama`, `/api/chat` |
-| Generic | `model.`, `client.`, `/v1/chat/completions` |
+Markdown report: injection-report.md
 
-## Trigger
+## Details
 
-`/prompt-inspect`
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

@@ -1,32 +1,45 @@
-# performance-anti-pattern-detektor - /perf
+﻿# performance-anti-pattern-detektor
 
-Statically detect 8 families of structural performance anti-patterns:
-N+1 queries, sync-over-async, hot-loop allocation, listener leaks,
-unnecessary serialization, large closure captures, string concat in loops,
-and redundant computation.
+**Trigger:** `/perf` | **Risk:** read-only | **Audience:** Senior
+
+> Performance anti-pattern detector: statically finds 8 families of structural performance problems (N+1 queries, sync-...
+
+Performance anti-pattern detector: statically finds 8 families of structural performance problems (N+1 queries, sync-over-async, hot-loop allocation, listener leaks, unnecessary serialization, large closure captures, string concat in loop, redundant computation). Evidence-based report with severity and LLM impact assessment.
 
 ## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/quality/performance-anti-pattern-detektor ~/.claude/skills/
+cp -r skills/quality/performance-anti-pattern-detektor $HOME/.claude/skills/quality/performance-anti-pattern-detektor
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/quality/performance-anti-pattern-detektor $HOME\.claude\skills\quality\performance-anti-pattern-detektor
 ```
 
 ## Usage
 
 ```
-/perf                           # interactive
-/perf /path/to/your/project     # scan directory
-/perf -help
+/perf                    # interactive - prompts for target
+/perf <project-dir>      # scan specified project
+/perf -help              # show full usage and stop
 ```
 
 ## Output
 
-- `perf-report.md` - full report with executive summary, hot path findings,
-  medium findings, false positives, and open questions.
-- Console summary.
+Structured JSON evidence on stdout | Console summary with key metrics | Markdown report: perf-report.md
 
-## Audience
+## Details
 
-**Senior** - findings require understanding of async/await, event loops,
-and database query patterns to assess impact correctly.
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

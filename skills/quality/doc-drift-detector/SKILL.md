@@ -25,11 +25,14 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/claim-extract.ps1" -ProjectDir "<path>"
@@ -38,7 +41,7 @@ Clarify `-ProjectDir`. Get confirmation.
 If `docFiles` is empty: inform the user that no doc files were found
 (README*/*.md/docs/**/*.md/CONTRIBUTING*), stop.
 
-### Step 3 - Verification (NEVER execute commands)
+### Step 4 - Verification (NEVER execute commands)
 
 Check each claim statically against the repo (Grep/Glob/Read):
 
@@ -62,7 +65,7 @@ Verdict per claim: `correct` / `DRIFT` (with both locations: doc line +
 repo evidence or absence) / `not-checkable` (with reason). Severity for
 drift: `high` (command/path in setup path) / `medium` / `low`.
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `doc-drift-report.md` in the current working directory:
 
@@ -75,7 +78,7 @@ File `doc-drift-report.md` in the current working directory:
 
 Evidence requirement: each drift verdict with both locations.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State the report path, drift ratio and high-severity findings first.
 
@@ -86,3 +89,5 @@ State the report path, drift ratio and high-severity findings first.
 /doc-drift <dir>         # check repo docs
 /doc-drift -help
 ```
+
+

@@ -1,48 +1,45 @@
 ﻿# timebomb-scanner
 
-Available - **Trigger:** `/timebomb` - **Risk:** read-only
+**Trigger:** `/timebomb` | **Risk:** read-only | **Audience:** Both
 
-> Every codebase ticks. This one tells you when.
+> Time bomb scanner: finds hardcoded dates, expiry deadlines, cert references, 32-bit time usage and 'temporary' marker...
 
-Finds hardcoded expiry dates, expiry keywords, rotten "temporary" markers (with
-git age) and 32-bit time suspicion - sorted by detonation date.
+Time bomb scanner: finds hardcoded dates, expiry deadlines, cert references, 32-bit time usage and 'temporary' markers rotting since years (git age via blame), then has the LLM classify each finding as live bomb / rotten provisional / false alarm and produce a defusal list ranked by detonation date.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/timebomb-scan.ps1` requires PowerShell (5.1+ or 7+). Available natively on
-  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-- For age analysis of provisional markers: a local git repo (optional, otherwise
-  this evaluation is simply omitted).
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/operations/timebomb-scanner ~/.claude/skills/operations/timebomb-scanner
-# or project-local:
-cp -r skill-shop-agents/skills/operations/timebomb-scanner <your-project>/.claude/skills/operations/timebomb-scanner
+cp -r skills/operations/timebomb-scanner $HOME/.claude/skills/operations/timebomb-scanner
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\operations\timebomb-scanner $HOME\.claude\skills\operations\timebomb-scanner
+Copy-Item -Recurse skills/operations/timebomb-scanner $HOME\.claude\skills\operations\timebomb-scanner
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/timebomb               # interactive
-/timebomb <dir>         # scan project
-/timebomb -help
+/timebomb                    # interactive - prompts for target
+/timebomb <project-dir>      # scan specified project
+/timebomb -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Markdown report: timebomb-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

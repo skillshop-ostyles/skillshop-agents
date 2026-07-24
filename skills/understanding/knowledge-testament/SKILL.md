@@ -24,7 +24,10 @@ output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target and author
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target and author
 
 Clarify `-ProjectDir` and the author (name/email as in git):
 
@@ -36,7 +39,7 @@ shows candidates with commit counts. Multiple git identities for the same person
 (different emails): pass all associated entries as `-Author` values (script
 accepts an array). Get confirmation.
 
-### Step 2 - Ownership mining
+### Step 3 - Ownership mining
 
 ```powershell
 & "<SKILL_DIR>/scripts/ownership.ps1" -ProjectDir "<path>" -Author <values>
@@ -45,7 +48,7 @@ accepts an array). Get confirmation.
 No commits found for the author: forward the `Write-Error` message (points to
 `-ListAuthors`) directly and stop.
 
-### Step 3 - Interview (block-wise, pausable)
+### Step 4 - Interview (block-wise, pausable)
 
 1. Build a **knowledge map** from the JSON: areas, exclusivity level,
    interview priority (critical exclusive knowledge from `criticalExclusive` first).
@@ -70,7 +73,7 @@ No commits found for the author: forward the `Write-Error` message (points to
    are marked as such (source: interview, date) - they need no commit proof, but
    link every code reference as `file:line`/commit where possible.
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 `testament-<author>.md` in the current working directory (**not** into the repo):
 
@@ -81,7 +84,7 @@ No commits found for the author: forward the `Write-Error` message (points to
 4. **Open points** - questions not asked/unanswered. The testament is honest
    about its own gaps.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State the report path, give a short summary.
 
@@ -93,3 +96,5 @@ State the report path, give a short summary.
 /testament <repo> -list          # list authors with shares
 /testament -help
 ```
+
+

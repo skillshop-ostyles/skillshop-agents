@@ -1,47 +1,45 @@
 ﻿# doc-drift-detector
 
-Available - **Trigger:** `/doc-drift` - **Risk:** read-only
+**Trigger:** `/doc-drift` | **Risk:** read-only | **Audience:** Both
 
-> Your README has been lying for six months. Time to catch it.
+> Documentation drift detector: extracts verifiable claims from a repo's markdown docs (file paths, commands/scripts, c...
 
-Extracts verifiable doc claims - paths, commands, config keys,
-endpoints, versions, symbol references - and statically checks each against the
-code reality. Documented commands are never executed.
+Documentation drift detector: extracts verifiable claims from a repo's markdown docs (file paths, commands/scripts, config keys, endpoints, versions, referenced symbols) and statically verifies each one against the actual code, reporting every stale claim with a concrete fix suggestion. Never executes documented commands.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/claim-extract.ps1` requires PowerShell (5.1+ or 7+). Available natively on
-  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/quality/doc-drift-detector ~/.claude/skills/quality/doc-drift-detector
-# or project-local:
-cp -r skill-shop-agents/skills/quality/doc-drift-detector <your-project>/.claude/skills/quality/doc-drift-detector
+cp -r skills/quality/doc-drift-detector $HOME/.claude/skills/quality/doc-drift-detector
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\quality\doc-drift-detector $HOME\.claude\skills\quality\doc-drift-detector
+Copy-Item -Recurse skills/quality/doc-drift-detector $HOME\.claude\skills\quality\doc-drift-detector
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/doc-drift               # interactive
-/doc-drift <dir>         # check repo docs
-/doc-drift -help
+/doc-drift                    # interactive - prompts for target
+/doc-drift <project-dir>      # scan specified project
+/doc-drift -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Structured JSON evidence on stdout | Markdown report: drift-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

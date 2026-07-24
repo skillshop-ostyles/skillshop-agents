@@ -1,17 +1,45 @@
 ﻿# config-cartographer
 
-**Trigger:** `/config-map`
+**Trigger:** `/config-map` | **Risk:** read-only | **Audience:** Senior
 
-Maps a system's complete config surface: every env var, setting and flag — where it is defined (.env, config files, Dockerfile, docker-compose) versus where it is read in code. Reports read-but-never-defined keys (crash candidates), defined-but-never-read orphans, and divergent defaults. Never outputs values — keys only.
+> Configuration cartographer: maps a system's complete config surface - every env var, setting and flag, where it is de...
+
+Configuration cartographer: maps a system's complete config surface - every env var, setting and flag, where it is defined (.env, yaml/json configs, compose, Dockerfile) versus where it is read in code - and reports read-but-never-defined keys (crash candidates), defined-but-never-read orphans and divergent defaults. Never outputs values, keys only.
+
+## Quick Install
+
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/security/config-cartographer $HOME/.claude/skills/security/config-cartographer
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/security/config-cartographer $HOME\.claude\skills\security\config-cartographer
+```
 
 ## Usage
 
-```powershell
-& .\scripts\config-harvest.ps1 -ProjectDir "C:\Projects\my-app"
+```
+/config-map                    # interactive - prompts for target
+/config-map <project-dir>      # scan specified project
+/config-map -help              # show full usage and stop
 ```
 
-Produces JSON with `definitions`, `reads`, and `dynamicReads` arrays plus counts.
+## Output
 
-## Status
+Structured JSON evidence on stdout | Markdown report: map-report.md
 
-Implemented. Full specification: [`ops/sprints/sprint-14-config-cartographer.md`](../../ops/sprints/sprint-14-config-cartographer.md).
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

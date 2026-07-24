@@ -1,4 +1,4 @@
----
+﻿---
 name: backup-coverage-scanner
 description: "Backup coverage scanner: inventory every stateful resource, trace backup configuration for each, then LLM identifies critical gaps. Read-only. Trigger: /backup-scan"
 trigger: /backup-scan
@@ -20,17 +20,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/backup-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 Read each resource without backup coverage:
 
@@ -38,7 +41,7 @@ Read each resource without backup coverage:
 - What would be the impact of data loss?
 - Is there implicit coverage (replication, snapshot inherited from infra)?
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `backup-coverage-report.md` in current working directory:
 
@@ -47,7 +50,7 @@ File `backup-coverage-report.md` in current working directory:
 3. **Covered resources** in appendix for completeness.
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight critical gaps.
 
@@ -58,3 +61,5 @@ State report path, highlight critical gaps.
 /backup-scan <dir>         # scan project
 /backup-scan -help
 ```
+
+

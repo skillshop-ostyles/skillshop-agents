@@ -1,44 +1,45 @@
-# dockerfile-best-practices
+﻿# dockerfile-best-practices
 
-Static analyzer for Dockerfiles that detects 18 common best-practice violations. Helps keep images secure, lean, and maintainable.
+**Trigger:** `/dockerfile-audit` | **Risk:** read-only | **Audience:** Both
 
-## Installation
+> Dockerfile best-practices auditor: statically scans Dockerfiles for 18 common anti-patterns including unpinned base i...
 
-Copy `scripts/dockerfile-scan.ps1` to your project or reference it directly:
+Dockerfile best-practices auditor: statically scans Dockerfiles for 18 common anti-patterns including unpinned base images, root execution, missing HEALTHCHECK, excessive layers, package cache bloat, and hardcoded secrets. Produces an evidence-backed report with severity and remediation.
 
-```powershell
-& .\dockerfile-scan.ps1 -ProjectDir ".\my-project"
+## Quick Install
+
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/operations/dockerfile-best-practices $HOME/.claude/skills/operations/dockerfile-best-practices
 ```
 
-## Requirements
+### Windows (PowerShell)
 
-- PowerShell 5.1+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/operations/dockerfile-best-practices $HOME\.claude\skills\operations\dockerfile-best-practices
+```
 
 ## Usage
 
-```powershell
-# Basic scan
-& .\scripts\dockerfile-scan.ps1 -ProjectDir "C:\Projects\my-app"
-
-# Custom exclusions
-& .\scripts\dockerfile-scan.ps1 -ProjectDir "C:\Projects\my-app" -Exclude "node_modules,.git,dist"
 ```
-
-## Checks (18 total)
-
-| Severity | Checks |
-|---|---|
-| high | tag-pinning, root-user, apt-update-without-install, hardcoded-secret |
-| medium | apt-no-recommends, apt-cache-cleanup, pip-no-cache, npm-no-production, cmd-shell-form, copy-entire-context |
-| low | healthcheck-missing, expose-missing, workdir-before-copy, add-vs-copy, high-layer-count, labels-missing, multi-stage-potential, shell-form-run |
+/dockerfile-audit                    # interactive - prompts for target
+/dockerfile-audit <project-dir>      # scan specified project
+/dockerfile-audit -help              # show full usage and stop
+```
 
 ## Output
 
-JSON on stdout, console summary after. Pipe to a file for LLM analysis:
-```powershell
-& .\scripts\dockerfile-scan.ps1 -ProjectDir ".\my-project" | Select-Object -First 1 | ForEach-Object { $_ > dockerfile-scan.json }
-```
+Structured JSON evidence on stdout | Markdown report: dockerfile-report.md
 
-## Trigger
+## Details
 
-`/dockerfile-audit` — read-only, network-free, safe for CI.
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

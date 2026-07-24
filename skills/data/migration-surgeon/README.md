@@ -1,50 +1,45 @@
 ﻿# migration-surgeon
 
-Available - **Trigger:** `/migrate` - **Risk:** writing (package always created
-in working directory; into target project only after explicit approval)
+**Trigger:** `/migrate` | **Risk:** read-only | **Audience:** Both
 
-> Schema migrations are open-heart surgery. This one comes with rollback.
+> Schema migration surgeon: diffs two schema states (SQL DDL or Prisma), then generates the complete package nobody wri...
 
-Diffs two schema states (SQL-DDL or Prisma) and generates the complete package
-nobody writes by hand: forward migration, rollback, validation queries and a
-risk protocol with explicit data-loss warnings. **Never executes a migration** - only files.
+Schema migration surgeon: diffs two schema states (SQL DDL or Prisma), then generates the complete package nobody writes by hand - forward migration, rollback, pre/post validation queries and a risk protocol with explicit data-loss warnings. NEVER executes anything against a database; generates files only.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/schema-diff.ps1` requires PowerShell (5.1+ or 7+). Available natively on
-  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-- Two schema states as files (SQL-DDL or Prisma) - no access to a live database
-  needed or intended.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/data/migration-surgeon ~/.claude/skills/data/migration-surgeon
-# or project-local:
-cp -r skill-shop-agents/skills/data/migration-surgeon <your-project>/.claude/skills/data/migration-surgeon
+cp -r skills/data/migration-surgeon $HOME/.claude/skills/data/migration-surgeon
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\data\migration-surgeon $HOME\.claude\skills\data\migration-surgeon
+Copy-Item -Recurse skills/data/migration-surgeon $HOME\.claude\skills\data\migration-surgeon
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/migrate                              # interactive
-/migrate <old> <new> <dialect>        # diff + generate package
-/migrate -help
+/migrate                    # interactive - prompts for target
+/migrate <project-dir>      # scan specified project
+/migrate -help              # show full usage and stop
 ```
 
-Details (including the never-execute rule): [`SKILL.md`](SKILL.md).
+## Output
+
+Markdown report: migration-surgeon-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

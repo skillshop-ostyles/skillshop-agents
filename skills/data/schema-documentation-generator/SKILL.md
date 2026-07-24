@@ -1,4 +1,4 @@
----
+﻿---
 name: schema-documentation-generator
 description: "Generate human-readable data dictionary from DDL with LLM-written business descriptions. Reads DDL or ORM models, extracts structural metadata, and writes plain-English descriptions for every table, column, and relationship. Trigger: /schema-docs"
 trigger: /schema-docs
@@ -21,11 +21,14 @@ If `/schema-docs -help` or `/schema-docs -h` (without further arguments) is invo
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Confirm project directory
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Confirm project directory
 
 Confirm `-ProjectDir` exists and contains DDL/ORM files (.sql, .prisma, TypeORM entities, SQLAlchemy models). If not provided, ask the user.
 
-### Step 2 - Run collector
+### Step 3 - Run collector
 
 ```powershell
 & "<SKILL_DIR>/scripts/schema-extract.ps1" -ProjectDir "<ProjectDir>"
@@ -33,19 +36,19 @@ Confirm `-ProjectDir` exists and contains DDL/ORM files (.sql, .prisma, TypeORM 
 
 If exit code != 0: forward the error, stop.
 
-### Step 3 - LLM analysis: tables
+### Step 4 - LLM analysis: tables
 
 For each table in the extracted JSON, write a business name and purpose (1-2 sentences). Use the table name, column names, and inferred meanings to determine the business context.
 
-### Step 4 - LLM analysis: columns
+### Step 5 - LLM analysis: columns
 
 For each column in each table, write a meaningful plain-English description. Use the column name, type, nullability, default, and inferred meaning to determine what the column represents.
 
-### Step 5 - LLM analysis: relationships
+### Step 6 - LLM analysis: relationships
 
 For each foreign key relationship, write the business meaning of the relationship (e.g., "An order belongs to a customer").
 
-### Step 6 - Write schema-dictionary.md
+### Step 7 - Write schema-dictionary.md
 
 Write `schema-dictionary.md` to the project directory with:
 - Title and metadata (table count, column count, FK count, unnamed ratio)
@@ -92,3 +95,5 @@ The output `schema-dictionary.md` contains:
 | cst         | customer  |
 | ...         | ...       |
 ```
+
+

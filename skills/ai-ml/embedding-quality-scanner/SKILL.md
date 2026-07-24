@@ -1,4 +1,4 @@
----
+﻿---
 name: embedding-quality-scanner
 description: "Embedding quality scanner: audit chunking strategy, model selection, and embedding configuration. Read-only. Trigger: /embed-quality"
 trigger: /embed-quality
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/embed-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each embedding config:
 
@@ -40,7 +43,7 @@ Read each embedding config:
 - **Mismatched**: query/doc model difference, no overlap
 - **Broken**: will produce bad retrieval results
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `embedding-quality-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `embedding-quality-report.md` in current working directory:
 2. **Embedding table** - broken first. Per embedding: file, line, model, chunk size, overlap, has model parity, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight embeddings that will produce bad retrieval.
 
@@ -59,3 +62,5 @@ State report path, highlight embeddings that will produce bad retrieval.
 /embed-quality <dir>         # scan project
 /embed-quality -help
 ```
+
+

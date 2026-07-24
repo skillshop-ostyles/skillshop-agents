@@ -1,4 +1,4 @@
----
+﻿---
 name: log-quality-auditor
 description: "Log quality auditor: inventory every log statement, check for structure, correlation IDs, levels, PII risk, then LLM judges operational quality. Read-only. Trigger: /log-audit"
 trigger: /log-audit
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/log-harvest.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 Read log statements in context:
 
@@ -40,7 +43,7 @@ Read log statements in context:
 - Are error logs actionable (include error object + context)?
 - Is there PII risk in log output?
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `log-quality-report.md` in current working directory:
 
@@ -49,7 +52,7 @@ File `log-quality-report.md` in current working directory:
 3. **Recommendations** - add structured fields, standardize levels, add correlation IDs, remove PII.
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight worst modules and quick wins.
 
@@ -60,3 +63,5 @@ State report path, highlight worst modules and quick wins.
 /log-audit <dir>         # scan project
 /log-audit -help
 ```
+
+

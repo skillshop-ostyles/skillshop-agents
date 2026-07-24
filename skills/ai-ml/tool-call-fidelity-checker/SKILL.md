@@ -1,4 +1,4 @@
----
+﻿---
 name: tool-call-fidelity-checker
 description: "Check tool/function definitions for hallucination-prone schemas. Trigger: /tool-fidelity"
 trigger: /tool-fidelity
@@ -22,17 +22,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/tool-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 For each tool definition:
 
@@ -40,7 +43,7 @@ For each tool definition:
 - **Risky**: ambiguous parameters, missing descriptions
 - **Dangerous**: hallucination-prone definitions
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `tool-fidelity-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `tool-fidelity-report.md` in current working directory:
 2. **Tool table** - dangerous first. Per tool: file, line, tool name, parameter count, missing descriptions, ambiguous types, TOCTOU risk, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight dangerous tool definitions.
 
@@ -59,3 +62,5 @@ State report path, highlight dangerous tool definitions.
 /tool-fidelity <dir>         # scan project
 /tool-fidelity -help
 ```
+
+

@@ -1,18 +1,45 @@
 ﻿# test-gap-cartographer
 
-**Trigger:** `/testgap`
+**Trigger:** `/testgap` | **Risk:** read-only | **Audience:** Senior
 
-Semantic test gap mapper. Inventories the public code surface (exports, routes) and all existing tests, then maps which BEHAVIORS of each public symbol are covered by which test and which are not — reporting untested behaviors ranked by risk with proposed test case names.
+> Semantic test gap mapper: inventories the public code surface (exports, routes) and all existing tests, then has the ...
+
+Semantic test gap mapper: inventories the public code surface (exports, routes) and all existing tests, then has the LLM map which BEHAVIORS of each public symbol are covered by which test and which are not - reporting untested behaviors (edge cases, error paths, boundaries) ranked by risk, with proposed test case names. Static, never runs tests.
+
+## Quick Install
+
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/data/test-gap-cartographer $HOME/.claude/skills/data/test-gap-cartographer
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/data/test-gap-cartographer $HOME\.claude\skills\data\test-gap-cartographer
+```
 
 ## Usage
 
-```powershell
-& .\scripts\surface-inventory.ps1 -ProjectDir "C:\Projects\my-app"
-& .\scripts\test-inventory.ps1 -ProjectDir "C:\Projects\my-app"
+```
+/testgap                    # interactive - prompts for target
+/testgap <project-dir>      # scan specified project
+/testgap -help              # show full usage and stop
 ```
 
-Produces JSON with `symbols`/`routes` (surface) and `testFiles`/`cases` (test inventory).
+## Output
 
-## Status
+Markdown report: testgap-report.md
 
-Implemented. Full specification: [`ops/sprints/sprint-15-test-gap-cartographer.md`](../../ops/sprints/sprint-15-test-gap-cartographer.md).
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

@@ -37,13 +37,16 @@ the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir` (not `~/.claude/`, see protection rule) and optionally paths to
 a coverage report (`coverage-summary.json` or `lcov.info`) and/or a
 log directory. Get confirmation.
 
-### Step 2 - Static reachability
+### Step 3 - Static reachability
 
 ```powershell
 & "<SKILL_DIR>/scripts/reachability.ps1" -ProjectDir "<path>"
@@ -51,7 +54,7 @@ log directory. Get confirmation.
 
 Redirect output to a file (needed for Step 3 as `-Candidates`).
 
-### Step 3 - Runtime evidence (if provided)
+### Step 4 - Runtime evidence (if provided)
 
 ```powershell
 & "<SKILL_DIR>/scripts/evidence.ps1" -ProjectDir "<path>" -Candidates "<file-from-step-2>" [-CoverageFile "<path>"] [-LogDir "<path>"]
@@ -60,12 +63,12 @@ Redirect output to a file (needed for Step 3 as `-Candidates`).
 Without coverage/logs: continue with the raw reachability data from Step 2,
 note the missing runtime evidence in the report.
 
-### Step 4 - Age evidence
+### Step 5 - Age evidence
 
 Per candidate: `git -C "<ProjectDir>" log -1 -format=%ci - "<file>"` (no
 custom script needed). No git repo: age evidence omitted, note in report.
 
-### Step 5 - Analysis
+### Step 6 - Analysis
 
 1. Validate candidates: actively check known false-positive classes and
    SORT OUT or downgrade - framework conventions (route handlers,
@@ -81,7 +84,7 @@ custom script needed). No git repo: age evidence omitted, note in report.
 4. Evidence requirement: no candidate without complete evidence line (refs, coverage,
    logs, age - even if a field is "no data", state it explicitly).
 
-### Step 6 - Write report
+### Step 7 - Write report
 
 File `bury-report.md` in the current working directory (**not** into the analyzed
 repo):
@@ -93,7 +96,7 @@ repo):
 3. **Sorted out** - with justification.
 4. **Open questions**.
 
-### Step 7 - Get approval, ONLY THEN delete
+### Step 8 - Get approval, ONLY THEN delete
 
 Summarize the report, then ask: "Which candidates (number) should be buried?"
 Only the individually named candidates via Edit in the target project -
@@ -110,3 +113,5 @@ report, nothing is changed.
 /bury <dir> -logs <logdir>           # plus log evidence
 /bury -help
 ```
+
+

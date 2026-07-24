@@ -1,46 +1,45 @@
-# Error Handling Auditor - /error-audit
+﻿# error-handling-auditor
 
-**Cluster:** `quality/` - **Audience:** Both (Senior + Vibe) - **Trigger:** `/error-audit`
+**Trigger:** `/error-audit` | **Risk:** read-only | **Audience:** Both
 
-## Purpose
+> Error handling auditor: detects 8 anti-patterns (swallowed exceptions, generic catches, missing error handling, missi...
 
-Systematically finds error-handling gaps across 8 anti-pattern categories. Each
-finding includes severity, evidence snippet, and a concrete remediation suggestion.
-This turns implicit "we handle errors" assumptions into a quantified gap map.
+Error handling auditor: detects 8 anti-patterns (swallowed exceptions, generic catches, missing error handling, missing finally, error handling inconsistency, logging without context, ignored return codes, exception type abuse). Risk-tiered report with remediation suggestions.
 
-## Detection Approach
+## Quick Install
 
-The collector uses regex-based pattern matching and scope analysis:
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/quality/error-handling-auditor $HOME/.claude/skills/quality/error-handling-auditor
+```
 
-- **Swallowed exception:** matches empty catch/except/rescue blocks (body is
-  whitespace/comment only)
-- **Generic catch:** matches catch of base Exception/Error types or bare catch
-- **Missing error handling:** error-prone operations (I/O, network, parsing)
-  not within a try/catch scope
-- **Missing finally:** resource acquisition without a finally/ensure block
-- **Error handling inconsistency:** same operation wrapped in try in some
-  call sites but not others (cross-file analysis)
-- **Logging without context:** catch blocks with static log messages (no
-  variable interpolation, no parameters)
-- **Ignored return code:** function calls whose return value is not checked
-- **Exception type abuse:** throwing base Exception/Error or throwing strings
+### Windows (PowerShell)
 
-## Validation
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/quality/error-handling-auditor $HOME\.claude\skills\quality\error-handling-auditor
+```
 
-LLM reads each finding with surrounding code context and answers:
-- Is this a genuine gap or intentional design?
-- What is the confidence level (proven/likely/suspected)?
-- What is the appropriate remediation (with code snippet)?
-
-## Reporting
-
-Output is `error-audit-report.md` with executive summary, findings by severity
-tier, false-positive section, and open questions.
-
-## Files
+## Usage
 
 ```
-scripts/error-scan.ps1        # collector (8 anti-patterns)
-SKILL.md                      # skill definition
-README.md                     # this file
+/error-audit                    # interactive - prompts for target
+/error-audit <project-dir>      # scan specified project
+/error-audit -help              # show full usage and stop
 ```
+
+## Output
+
+Structured JSON evidence on stdout | Markdown report: audit-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

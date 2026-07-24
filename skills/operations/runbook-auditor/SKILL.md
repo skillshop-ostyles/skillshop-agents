@@ -1,4 +1,4 @@
----
+﻿---
 name: runbook-auditor
 description: "Runbook auditor: read runbook files, extract verifiable claims, check each against current codebase. LLM judges correctness and completeness. Read-only. Trigger: /runbook-audit"
 trigger: /runbook-audit
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/runbook-read.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 Read each runbook claim:
 
@@ -40,7 +43,7 @@ Read each runbook claim:
 - Are recovery procedures complete and in order?
 - Are contacts and escalation paths valid?
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `runbook-quality-report.md` in current working directory:
 
@@ -49,7 +52,7 @@ File `runbook-quality-report.md` in current working directory:
 3. **Recommendations** - specific fixes for stale/invalid claims.
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight most out-of-date runbook.
 
@@ -60,3 +63,5 @@ State report path, highlight most out-of-date runbook.
 /runbook-audit <dir>         # scan project
 /runbook-audit -help
 ```
+
+

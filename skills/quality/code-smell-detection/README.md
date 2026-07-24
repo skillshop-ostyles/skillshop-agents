@@ -1,45 +1,45 @@
-# Code Smell Detection - /code-smell
+﻿# code-smell-detection
 
-**Cluster:** `quality/` - **Audience:** Both (Senior + Vibe) - **Trigger:** `/code-smell`
+**Trigger:** `/code-smell` | **Risk:** read-only | **Audience:** Both
 
-## Purpose
+> Code smell detector: statically identifies 10 families of structural code quality issues (long methods, deep nesting,...
 
-Systematically detects 10 families of structural code smells. Each finding includes
-a metric value, code context, and LLM-validated confidence rating. This turns vague
-intuition ("this code feels wrong") into an evidence-based action plan.
+Code smell detector: statically identifies 10 families of structural code quality issues (long methods, deep nesting, god classes, feature envy, primitive obsession, data clumps, shotgun surgery, message chains, refused bequest, speculative generality). Evidence-based report with metrics and LLM validation.
 
-## Detection Approach
+## Quick Install
 
-The collector uses static heuristics per smell family:
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/quality/code-smell-detection $HOME/.claude/skills/quality/code-smell-detection
+```
 
-- **Long method:** counts executable lines (ignoring blanks/comments)
-- **Deep nesting:** tracks brace/indent depth
-- **God class:** class size - method count - field cohesion heuristic
-- **Feature envy:** symbol reference ratio (external vs own)
-- **Primitive obsession:** repeated primitive type parameter patterns
-- **Data clump:** parameter set fingerprinting across methods
-- **Shotgun surgery:** grep-based concept-scatter detection
-- **Message chain:** dot-chain depth on member access
-- **Refused bequest:** subclass-override-ratio < 0.2
-- **Speculative generality:** abstract class/interface usage tracking
+### Windows (PowerShell)
 
-## Validation
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/quality/code-smell-detection $HOME\.claude\skills\quality\code-smell-detection
+```
 
-LLM reads each finding with surrounding code context and answers:
-- Is this a genuine smell or necessary complexity?
-- What is the confidence level (high/medium/low)?
-- What refactoring approach is appropriate?
-
-## Reporting
-
-Output is `code-smell-report.md` with executive summary, findings grouped by
-smell family, and a false-positive section.
-
-## Files
+## Usage
 
 ```
-scripts/smell-scan.ps1        # collector (10 smell families)
-tests/fixture/                # test fixtures
-SKILL.md                      # skill definition
-README.md                     # this file
+/code-smell                    # interactive - prompts for target
+/code-smell <project-dir>      # scan specified project
+/code-smell -help              # show full usage and stop
 ```
+
+## Output
+
+Structured JSON evidence on stdout | Markdown report: smell-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

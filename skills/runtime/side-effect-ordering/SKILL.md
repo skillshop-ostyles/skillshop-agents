@@ -1,4 +1,4 @@
----
+﻿---
 name: side-effect-ordering
 description: "Side-effect ordering analyzer: map operation chains in request handlers, LLM judges if ordering is safe or an incident waiting to happen. Read-only. Trigger: /sideorder"
 trigger: /sideorder
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/sidechain-trace.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each handler's operation chain:
 
@@ -40,7 +43,7 @@ Read each handler's operation chain:
 - **Dangerous**: data loss on crash mid-chain
 - **Inverted**: non-atomic operation order could cause inconsistency
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `side-effect-ordering-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `side-effect-ordering-report.md` in current working directory:
 2. **Handler table** - most dangerous first. Per handler: file, handler name, operation chain, ordering risk, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight handlers that would leave inconsistent state on failure.
 
@@ -59,3 +62,5 @@ State report path, highlight handlers that would leave inconsistent state on fai
 /sideorder <dir>         # scan project
 /sideorder -help
 ```
+
+

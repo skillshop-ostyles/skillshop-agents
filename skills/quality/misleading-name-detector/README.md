@@ -1,50 +1,45 @@
-# Misleading-Name Detector - /name-lies
+﻿# misleading-name-detector
 
-## What this is for
+**Trigger:** `/name-lies` | **Risk:** read-only | **Audience:** Both
 
-`getUser()` that pushes a default user. `isValid()` that returns a string.
-`tempFix()` from 2019. Identifiers whose names promise something the
-implementation does not deliver.
+> Misleading name detector: harvests every prefixed function with reader/mutator/predicate cues (get*/find*/fetch*/set*...
 
-The skill harvests every prefixed function with conventional cues -> reader
-(`get*`, `find*`, `fetch*`), mutator (`set*`, `write*`, `push*`), predicate
-(`is*`, `has*`, `can*`) -> and pairs the symbol name with the first 600 chars
-of brace-balanced body. The LLM judges whether behavior matches promise.
-The collector never raises false positives alone, but it gives the LLM exactly
-what it needs to do so.
-
-## What You Must Do When Invoked
-
-1. If `-help` is passed, print the `## Usage` block below and stop.
-2. Confirm `-ProjectDir` is provided and the path exists.
-3. Run: `scripts/name-harvest.ps1 -ProjectDir "<path>"`
-4. LLM reads the JSON output. For each symbol with prefix-kind + body preview:
-   - Does the body do what the name promises?
-   - Readers (get*) must not mutate or perform I/O.
-   - Predicates (is*/has*/can*) must return boolean.
-   - Mutators (set*/write*/push*) are not subject to a wrong-shape finding.
-   - Async/Sync suffix must match actual sync-ness, not lie about it.
-5. Classify: `truthful` / `lies-kind` (severity by call count and visibility).
-6. Confidence: `proven` (direct evidence in body), `likely` (context clue),
-   `suspected` (judgment call).
-7. Write `name-lies-report.md` to the working directory.
-
-## Usage
-
-```
-/name-lies                           # interactive, prompts for directory
-/name-lies <dir>                     # scan project directory
-/name-lies -help                     # show usage
-```
+Misleading name detector: harvests every prefixed function with reader/mutator/predicate cues (get*/find*/fetch*/set*/write*/is*/has*/can*/...) and extracts the first 600 chars of brace-balanced body. LLM judges whether the code does what the name promises. Severity scales with call count and visibility.
 
 ## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/quality/misleading-name-detector ~/.claude/skills/
+cp -r skills/quality/misleading-name-detector $HOME/.claude/skills/quality/misleading-name-detector
 ```
 
-## Audience
+### Windows (PowerShell)
 
-Both - seniors audit their own code, vibe-coders catch the footguns their LLM
-suggests.
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/quality/misleading-name-detector $HOME\.claude\skills\quality\misleading-name-detector
+```
+
+## Usage
+
+```
+/name-lies                    # interactive - prompts for target
+/name-lies <project-dir>      # scan specified project
+/name-lies -help              # show full usage and stop
+```
+
+## Output
+
+Structured JSON evidence on stdout | Markdown report: lies-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

@@ -1,4 +1,4 @@
----
+﻿---
 name: prompt-quality-auditor
 description: "Prompt quality auditor: audit every prompt for clarity, safety, and injection resistance. Read-only. Trigger: /prompt-quality"
 trigger: /prompt-quality
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/prompt-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each prompt:
 
@@ -40,7 +43,7 @@ Read each prompt:
 - **Open-ended**: no constraints on output
 - **Injection-susceptible**: user input directly in prompt
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `prompt-quality-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `prompt-quality-report.md` in current working directory:
 2. **Prompt table** - injection-susceptible first. Per prompt: file, line, type, has format spec, has safety instructions, risk, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight prompts that could produce harmful or unreliable outputs.
 
@@ -59,3 +62,5 @@ State report path, highlight prompts that could produce harmful or unreliable ou
 /prompt-quality <dir>         # scan project
 /prompt-quality -help
 ```
+
+

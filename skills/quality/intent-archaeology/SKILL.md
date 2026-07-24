@@ -26,7 +26,10 @@ the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify: `-ProjectDir` (repo root or a subfolder), `-File`
 (repo-relative to `-ProjectDir`), optional `-Symbol` (function/class name). If
@@ -41,7 +44,7 @@ Continue? (yes/no)
 
 Only continue after confirmation.
 
-### Step 2 - Collect evidence
+### Step 3 - Collect evidence
 
 ```powershell
 & "<SKILL_DIR>/scripts/git-mine.ps1" -ProjectDir "<path>" -File "<file>" [-Symbol "<symbol>"]
@@ -50,7 +53,7 @@ Only continue after confirmation.
 Read JSON output. If script aborts with Exit-Code != 0 (no git repo, path
 missing, file missing): show the `Write-Error` message to the user, stop.
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 With the JSON from Step 2:
 
@@ -66,7 +69,7 @@ With the JSON from Step 2:
    `suspected`) according to `ops/BIBEL.md` section 4. `suspected` statements belong
    exclusively in the "Open questions" section, never among the proven findings.
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 Report structure (Markdown):
 
@@ -80,7 +83,7 @@ Report structure (Markdown):
 Save the report as `intent-report-<filename>.md` in the current
 working directory (**not** into the analyzed repo).
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 Tell the user the path of the written report and summarize the core findings (2-3
 sentences) directly in chat.
@@ -93,3 +96,5 @@ sentences) directly in chat.
 /intent <repo> <file> <symbol>   # symbol analysis
 /intent -help                    # show usage, stop
 ```
+
+

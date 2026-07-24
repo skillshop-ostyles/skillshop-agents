@@ -1,4 +1,4 @@
----
+﻿---
 name: token-budget-analyzer
 description: "Analyze static code for token usage patterns, waste, and budget risks. Trigger: /token-budget"
 trigger: /token-budget
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/token-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 For each call site:
 
@@ -39,7 +42,7 @@ For each call site:
 - **Wasteful**: could be optimized without quality loss
 - **Critical**: context window exceeded, truncation guaranteed
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `token-budget-report.md` in current working directory:
 
@@ -47,7 +50,7 @@ File `token-budget-report.md` in current working directory:
 2. **Call site table** - critical first. Per site: file, line, estimated input tokens, estimated output tokens, max tokens, truncation risk, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight critical sites that will truncate or waste tokens.
 
@@ -58,3 +61,5 @@ State report path, highlight critical sites that will truncate or waste tokens.
 /token-budget <dir>         # scan project
 /token-budget -help
 ```
+
+

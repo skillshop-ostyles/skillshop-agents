@@ -1,47 +1,45 @@
-# security-smell-scanner - /security-scan
+﻿# security-smell-scanner
 
-Statically detect 10 families of security anti-patterns across a codebase:
-SQL injection, XSS, command injection, path traversal, hardcoded credentials,
-insecure defaults, IDOR, open redirect, TOCTOU, and missing input validation.
+**Trigger:** `/security-scan` | **Risk:** read-only | **Audience:** Senior > Vibe
+
+> Security smell scanner: statically detects 10 families of security anti-patterns across a codebase (SQL injection, XS...
+
+Security smell scanner: statically detects 10 families of security anti-patterns across a codebase (SQL injection, XSS, command injection, path traversal, hardcoded credentials, insecure defaults, IDOR, open redirect, TOCTOU, missing input validation). Produces an evidence-backed report with severity, location, and contextual analysis. > Vibe. Cross-link from quality/ cluster.
 
 ## Quick Install
 
 ```bash
-# Clone the repo (if not already)
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-
-# Copy the skill to your Claude skills directory
-cp -r skill-shop-agents/skills/security/security-smell-scanner ~/.claude/skills/
+cp -r skills/security/security-smell-scanner $HOME/.claude/skills/security/security-smell-scanner
 ```
 
-## How It Works
+### Windows (PowerShell)
 
-1. **Collector** (`scripts/security-scan.ps1`) - regex-based heuristic scan over all
-   source files. Finds candidate smells, extracts context snippets, assigns initial
-   severity based on pattern type.
-2. **LLM analysis** - validates each candidate by reading the context block.
-   Filters false positives (e.g. parameterized ORM calls that look like SQL),
-   adjusts severity based on reachability, and masks credential values.
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/security/security-smell-scanner $HOME\.claude\skills\security\security-smell-scanner
+```
 
-## Usage with Claude
+## Usage
 
 ```
-/security-scan                           # interactive
-/security-scan /path/to/your/project     # scan directory
-/security-scan -help
+/security-scan                    # interactive - prompts for target
+/security-scan <project-dir>      # scan specified project
+/security-scan -help              # show full usage and stop
 ```
 
 ## Output
 
-- `security-smell-report.md` - full report with executive summary, critical findings,
-  medium findings, false positive log, and open questions.
-- Console summary with counts broken down by severity and pattern.
+Structured JSON evidence on stdout | Console summary with key metrics | Markdown report: smell-report.md
 
-## Audience
+## Details
 
-**Senior > Vibe** - structured enough for a senior to use as a systematic
-review tool, explanatory enough for a vibe-coder to learn from each finding.
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
 
-This skill is a **cross-link** between the `security/` cluster (where it
-physically lives) and the `quality/` cluster (where it thematically belongs
-alongside other code-smell detectors).
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

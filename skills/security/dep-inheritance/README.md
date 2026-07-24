@@ -1,49 +1,45 @@
 ﻿# dep-inheritance
 
-Available - **Trigger:** `/deps-audit` - **Risk:** read-only
+**Trigger:** `/deps-audit` | **Risk:** read-only | **Audience:** Both
 
-> Every dependency was married into the family. Time for the inheritance questions.
+> Dependency inheritance audit: for every direct dependency answers the questions nobody asks - why is it here (from ac...
 
-Answers for each direct dependency: purpose (from actual usage sites), real
-coupling depth, risk, replaceability and a concrete exit plan.
+Dependency inheritance audit: for every direct dependency answers the questions nobody asks - why is it here (from actual usage sites), how deep is the coupling, how replaceable is it, and what is the concrete exit plan. Parses manifests/lockfiles, scans usage, optionally enriches with registry metadata (offline-safe).
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/*.ps1` requires PowerShell (5.1+ or 7+). Available natively on Windows.
-  On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-- For registry metadata (optional): internet access. Without network the skill runs
-  with a clear note (offline fallback is mandatory).
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/security/dep-inheritance ~/.claude/skills/security/dep-inheritance
-# or project-local:
-cp -r skill-shop-agents/skills/security/dep-inheritance <your-project>/.claude/skills/security/dep-inheritance
+cp -r skills/security/dep-inheritance $HOME/.claude/skills/security/dep-inheritance
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\security\dep-inheritance $HOME\.claude\skills\security\dep-inheritance
+Copy-Item -Recurse skills/security/dep-inheritance $HOME\.claude\skills\security\dep-inheritance
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/deps-audit                    # interactive, all direct dependencies
-/deps-audit <dir>              # analyze project
-/deps-audit <dir> <dep> [...]  # only specified dependencies
-/deps-audit -help
+/deps-audit                    # interactive - prompts for target
+/deps-audit <project-dir>      # scan specified project
+/deps-audit -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Structured JSON evidence on stdout | Markdown report: inheritance-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

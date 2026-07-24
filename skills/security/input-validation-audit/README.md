@@ -1,57 +1,45 @@
-# input-validation-audit
+﻿# input-validation-audit
 
-Systematically find every external input surface in your codebase and check whether validation exists. Supports 10 languages, 8 surface types.
+**Trigger:** `/input-audit` | **Risk:** read-only | **Audience:** Senior > Vibe
 
-## Installation
+> Input validation audit: statically detects all input surfaces (HTTP params, CLI args, env vars, file reads, stdin) ac...
 
-Copy `scripts/input-scan.ps1` to your project or reference it directly:
+Input validation audit: statically detects all input surfaces (HTTP params, CLI args, env vars, file reads, stdin) across a codebase, classifies their validation state (none/weak/adequate), and flags high-risk gaps. Produces an evidence-backed report with severity, location, and remediation suggestions.
 
-```powershell
-& .\input-scan.ps1 -ProjectDir ".\my-project"
+## Quick Install
+
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/security/input-validation-audit $HOME/.claude/skills/security/input-validation-audit
 ```
 
-## Requirements
+### Windows (PowerShell)
 
-- PowerShell 5.1+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/security/input-validation-audit $HOME\.claude\skills\security\input-validation-audit
+```
 
 ## Usage
 
-```powershell
-# Basic scan
-& .\scripts\input-scan.ps1 -ProjectDir "C:\Projects\my-api"
-
-# High-severity only
-& .\scripts\input-scan.ps1 -ProjectDir "C:\Projects\my-api" -MinSeverity high
-
-# Custom extension filter
-& .\scripts\input-scan.ps1 -ProjectDir "C:\Projects\my-api" -Extensions "*.js,*.ts"
 ```
-
-## What It Detects
-
-| Surface Type | Examples |
-|---|---|
-| http-query | `req.query`, `request.GET`, `$_GET`, `@RequestParam` |
-| http-body | `req.body`, `request.form`, `[FromBody]`, `@RequestBody` |
-| http-params | `req.params`, `@PathVariable`, `c.Param` |
-| http-headers | `req.headers`, `Request.Headers`, `r.Header` |
-| cli-args | `process.argv`, `sys.argv`, `$args`, `os.Args` |
-| env-var | `process.env`, `os.environ`, `$env:`, `getenv()` |
-| file-read | `fs.readFile`, `open()`, `file_get_contents` |
-| stdin | `readline`, `input()`, `Read-Host`, `Console.In` |
+/input-audit                    # interactive - prompts for target
+/input-audit <project-dir>      # scan specified project
+/input-audit -help              # show full usage and stop
+```
 
 ## Output
 
-JSON on stdout, console summary after. The JSON includes:
-- `findings`: each unvalidated/under-validated surface with context
-- `inputSurfaces`: catalog of all detected surfaces
-- `stats`: breakdown by type and severity
+Structured JSON evidence on stdout | Markdown report: validation-report.md
 
-Pipe to a file for LLM analysis:
-```powershell
-& .\scripts\input-scan.ps1 -ProjectDir ".\my-project" | Select-Object -First 1 | ForEach-Object { $_ > scan.json }
-```
+## Details
 
-## Trigger
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
 
-`/input-audit` — read-only, network-free, safe for CI.
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

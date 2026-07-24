@@ -1,4 +1,4 @@
----
+﻿---
 name: shutdown-gracefulness
 description: "Shutdown gracefulness analyzer: check if shutdown hooks actually drain, flush, and complete in-flight work. Read-only. Trigger: /shutdown"
 trigger: /shutdown
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/shutdown-detail-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each shutdown path:
 
@@ -40,7 +43,7 @@ Read each shutdown path:
 - **Risky**: drops in-flight work
 - **Dangerous**: data corruption on termination
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `shutdown-grade-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `shutdown-grade-report.md` in current working directory:
 2. **Path table** - dangerous first. Per path: process, mechanism, grace timeout, drains requests, flushes buffers, releases connections, handles errors, grade.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight processes that would corrupt data if terminated.
 
@@ -59,3 +62,5 @@ State report path, highlight processes that would corrupt data if terminated.
 /shutdown <dir>         # scan project
 /shutdown -help
 ```
+
+

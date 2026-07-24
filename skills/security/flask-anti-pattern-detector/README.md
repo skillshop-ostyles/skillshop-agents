@@ -1,33 +1,45 @@
-# Flask Anti-Pattern Detector - /flask-detector
+﻿# flask-anti-pattern-detector
 
-Scans Flask projects for 9 categories of security anti-patterns:
-hardcoded secrets, debug-mode in production, SSTI-via-template-string,
-pickle/eval/exec on request data, unsafe session config, SQL injection,
-insecure file uploads, and debug toolbar left enabled. LLM validates
-each finding and proposes the specific modern alternative.
+**Trigger:** `/flask-detector` | **Risk:** read-only | **Audience:** Senior
+
+> Flask anti-pattern detector: scans Flask projects for hardcoded SECRET_KEY, debug-mode in production, dangerous templ...
+
+Flask anti-pattern detector: scans Flask projects for hardcoded SECRET_KEY, debug-mode in production, dangerous template rendering (render_template_string), pickle/eval/exec on request data, unsafe session config, SQL injection via raw queries, insecure file upload, and debug toolbar enabled. LLM validates each finding and proposes modern alternatives.
+
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/security/flask-anti-pattern-detector ~/.claude/skills/
+cp -r skills/security/flask-anti-pattern-detector $HOME/.claude/skills/security/flask-anti-pattern-detector
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/security/flask-anti-pattern-detector $HOME\.claude\skills\security\flask-anti-pattern-detector
 ```
 
 ## Usage
 
 ```
-/flask-detector                            # interactive
-/flask-detector <dir>                      # scan project
+/flask-detector                    # interactive - prompts for target
+/flask-detector <project-dir>      # scan specified project
+/flask-detector -help              # show full usage and stop
 ```
 
-## Detection patterns
+## Output
 
-| Pattern | PatternType | Example |
-|---|---|---|
-| Hardcoded SECRET_KEY | hardcoded-secret | `SECRET_KEY = 'super-secret'` |
-| Debug mode in production | debug-mode | `app.run(debug=True)` |
-| SSTI via template string | unsafe-template | `render_template_string(request.args.get('t'))` |
-| Pickle on request data | pickle | `pickle.loads(request.data)` |
-| eval/exec on request data | eval-exec | `eval(request.args.get('expr'))` |
-| Unsafe session config | session | `session['user']=...` without strict lifetime |
-| SQL injection via raw queries | sql-injection | `db.engine.execute(f"...{user_input}")` |
-| Insecure file upload | unsafe-upload | `request.files['f'].save(path)` without validation |
-| Debug toolbar enabled | debug-toolbar | `DEBUG_TB_ENABLED=True` |
+Structured JSON evidence on stdout | Markdown report: detector-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

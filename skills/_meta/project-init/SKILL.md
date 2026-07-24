@@ -27,7 +27,10 @@ print the contents of the `## Usage` section verbatim and stop.
 
 Otherwise follow the steps below in order. Do not skip steps.
 
-### Step 1 - Establish target directory
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Establish target directory
 
 Ask the user for the absolute path of the new project (or use the current
 directory). Confirm it is empty or near-empty. If it already contains a project,
@@ -47,7 +50,7 @@ This path is sacred and must NEVER be modified by this skill.
 If the user proposes `~/.claude/` as target, abort immediately. The generator
 (`scripts/init.ps1`) blocks such paths technically by itself.
 
-### Step 2 - Run the interactive onboarding dialog
+### Step 3 - Run the interactive onboarding dialog
 
 Ask the user the following areas ONE AT A TIME, in this order. Adapt follow-up
 questions to previous answers (dynamic, not a fixed form). Keep each question
@@ -70,7 +73,7 @@ short and direct (Bible: direct, no fluff).
 
 After each answer, reflect it back in one line so the user can correct.
 
-### Step 3 - Generate the structure
+### Step 4 - Generate the structure
 
 Run the generator script. It reads the collected answers (you pass them as
 arguments / a JSON file) and creates the full tree.
@@ -108,7 +111,7 @@ The script:
 - Writes `README.md` (project title + goal stub).
 - Scaffolds a minimal entry file appropriate to the stack (only a stub, no logic).
 
-### Step 4 - Finalize & hand off
+### Step 5 - Finalize & hand off
 
 Print a concise summary of what was created:
 
@@ -131,3 +134,5 @@ Session-Start-Routine that reads manifest/tracking/sprints automatically.
 /project-init <path>          # interactive onboarding in <path>
 /project-init -help          # show this usage block and stop
 ```
+
+

@@ -1,49 +1,45 @@
 ﻿# project-init
 
-Available - **Trigger:** `/project-init` - **Risk:** writing (only after approval)
+**Trigger:** `/project-init` | **Risk:** read-only | **Audience:** Both
 
-> An empty directory, a good conversation, a finished foundation.
+> Bootstraps a brand-new, empty project with a complete, optimized file & directory structure plus an interactive LLM o...
 
-Runs an interactive onboarding interview and scaffolds a new project completely
-- structure, tooling, ops docs. Instead of guessing an empty repo, `project-init`
-asks specifically about goal, stack, structure, tooling, docs, secrets and platform,
-and writes a complete, consistent foundation including `manifest.md` and
-`tracking.md` that every later session automatically reads back.
+Bootstraps a brand-new, empty project with a complete, optimized file & directory structure plus an interactive LLM onboarding dialog. Use when the user wants to start a fresh/pristine project from scratch and have the LLM set it up via a guided, dynamic, stack-agnostic conversation covering all project areas (goal, stack, tooling, docs, secrets, platform).
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- Script `scripts/init.ps1` requires PowerShell (5.1+ or 7+). Available natively on
-  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**, developed
-  on Windows.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/_meta/project-init ~/.claude/skills/_meta/project-init       # global
-# or project-local:
-cp -r skill-shop-agents/skills/_meta/project-init <your-project>/.claude/skills/_meta/project-init
+cp -r skills/_meta/project-init $HOME/.claude/skills/_meta/project-init
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\_meta\project-init $HOME\.claude\skills\_meta\project-init
+Copy-Item -Recurse skills/_meta/project-init $HOME\.claude\skills\_meta\project-init
 ```
 
 ## Usage
 
-In Claude Code, in the (empty) target project:
-
 ```
-/project-init                 # interactive onboarding in current directory
-/project-init <path>          # interactive onboarding in <path>
-/project-init -help          # short help
+/project-init                    # interactive - prompts for target
+/project-init <project-dir>      # scan specified project
+/project-init -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Structured JSON evidence on stdout | Markdown report: project-init-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

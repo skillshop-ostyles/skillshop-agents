@@ -1,4 +1,4 @@
----
+﻿---
 name: ml-pipeline-determinism-check
 description: "Find sources of non-determinism in ML training pipelines. Trigger: /ml-determinism"
 trigger: /ml-determinism
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/determinism-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 For each pipeline:
 
@@ -40,7 +43,7 @@ For each pipeline:
 - **Non-deterministic**: no seed, random order
 - **Chaotic**: multiple uncontrolled randomness sources
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `ml-determinism-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `ml-determinism-report.md` in current working directory:
 2. **Issue table** - chaotic first. Per issue: file, line, type, has global seed, has GPU config, severity, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight non-deterministic and chaotic pipelines.
 
@@ -59,3 +62,5 @@ State report path, highlight non-deterministic and chaotic pipelines.
 /ml-determinism <dir>         # scan project
 /ml-determinism -help
 ```
+
+

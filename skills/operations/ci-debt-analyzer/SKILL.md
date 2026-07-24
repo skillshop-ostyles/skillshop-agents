@@ -1,4 +1,4 @@
----
+﻿---
 name: ci-debt-analyzer
 description: "CI debt analyzer: read CI configuration (GitHub Actions, GitLab CI, Jenkins, CircleCI), measure pipeline health, then LLM judges what is costing the team most. Read-only. Trigger: /ci-debt"
 trigger: /ci-debt
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/ci-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 Read the CI config and scan results:
 
@@ -40,7 +43,7 @@ Read the CI config and scan results:
 - Are tests actually running? Check for empty test commands, always-green steps
 - Is caching missing? Are jobs sequential when they could be parallel?
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `ci-debt-report.md` in current working directory:
 
@@ -49,7 +52,7 @@ File `ci-debt-report.md` in current working directory:
 3. **Recommendations** - specific config changes with estimated time savings.
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight biggest potential time savings.
 
@@ -60,3 +63,5 @@ State report path, highlight biggest potential time savings.
 /ci-debt <dir>         # scan project
 /ci-debt -help
 ```
+
+

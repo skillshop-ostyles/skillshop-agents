@@ -1,46 +1,45 @@
-# Architecture Visualizer - /arch-vis
+﻿# architecture-visualizer
 
-**Cluster:** `understanding/` - **Audience:** Both (Senior + Vibe) - **Trigger:** `/arch-vis`
+**Trigger:** `/arch-vis` | **Risk:** read-only | **Audience:** Both
 
-## Purpose
+> Architecture visualizer: maps module dependencies, detects layer violations, circular dependencies, entry points, and...
 
-Automatically reverse-engineers a codebase's module dependency structure. Provides
-Mermaid diagrams for visual review, layer boundary violation detection, circular
-dependency analysis, and a quantified structural health score.
+Architecture visualizer: maps module dependencies, detects layer violations, circular dependencies, entry points, and computes structural health score. Generates Mermaid diagrams.
 
-## Detection Approach
+## Quick Install
 
-The collector parses import/require/include statements for multiple languages:
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/understanding/architecture-visualizer $HOME/.claude/skills/understanding/architecture-visualizer
+```
 
-- **JavaScript/TypeScript:** ESM `import`, CommonJS `require()`, dynamic `import()`
-- **Python:** `import X`, `from X import Y`
-- **PowerShell:** dot-source `. .\file.ps1`, `using module`
-- **Java:** `import package.Class`
-- **C#:** `using Namespace`
-- **Go:** `import "package"`
-- **Ruby:** `require`, `require_relative`
-- **PHP:** `require`, `include`, `require_once`, `include_once`
+### Windows (PowerShell)
 
-Relative imports are resolved against the file location; bare specifiers are
-marked as external. Layer assignment is based on directory name patterns.
-Cycles are detected via DFS with Tarjan-style deduplication.
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/understanding/architecture-visualizer $HOME\.claude\skills\understanding\architecture-visualizer
+```
 
-## Validation
-
-LLM reads the module graph, violation list, and cycle paths:
-- Are violations genuine architecture breaches or legitimate cross-layer references?
-- What is the remediation for each cycle (extract, invert, merge)?
-- Generate Mermaid `graph TD` and `graph LR` diagrams for the report.
-
-## Reporting
-
-Output is `arch-vis-report.md` with executive summary, Mermaid diagrams,
-layer analysis, and open questions.
-
-## Files
+## Usage
 
 ```
-scripts/arch-scan.ps1        # collector (module graph, layers, cycles)
-SKILL.md                      # skill definition
-README.md                     # this file
+/arch-vis                    # interactive - prompts for target
+/arch-vis <project-dir>      # scan specified project
+/arch-vis -help              # show full usage and stop
 ```
+
+## Output
+
+Structured JSON evidence on stdout | Markdown report: vis-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

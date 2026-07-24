@@ -25,7 +25,10 @@ the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target and change
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target and change
 
 Clarify: `-ProjectDir` (repo root or a subfolder), target file(s) (the
 planned change location), and a short free-text description of the planned change
@@ -39,12 +42,12 @@ Planned change: <free text>
 Continue? (yes/no)
 ```
 
-### Step 2 - Identify symbols
+### Step 3 - Identify symbols
 
 Read target file(s) with the Read tool, identify exported/public symbols
 (language-dependent, no script - when uncertain take all top-level identifiers).
 
-### Step 3 - Collect evidence
+### Step 4 - Collect evidence
 
 ```powershell
 & "<SKILL_DIR>/scripts/ref-scan.ps1" -ProjectDir "<path>" -Symbols <symbols>
@@ -55,7 +58,7 @@ If `co-change.ps1` aborts with "No git repo": continue with `ref-scan.ps1` alone
 explicitly note the missing historical analysis in the report
 (no abort - edge case of the sprint file).
 
-### Step 4 - Analysis
+### Step 5 - Analysis
 
 1. Evaluate static hits from `ref-scan.ps1`: actual usage vs.
    name collision/comment/string (line content is available). Sort out
@@ -73,7 +76,7 @@ explicitly note the missing historical analysis in the report
 4. `capped: true` for a symbol: note in the report that the symbol was too
    generic for a complete static analysis.
 
-### Step 5 - Write report
+### Step 6 - Write report
 
 File `blast-report-<file>.md` in the current working directory (**not** into the
 analyzed repo):
@@ -87,7 +90,7 @@ analyzed repo):
     inform owner of Z").
 6. **Open questions**.
 
-### Step 6 - Summarize
+### Step 7 - Summarize
 
 State the report path, reproduce the summary directly in chat.
 
@@ -98,3 +101,5 @@ State the report path, reproduce the summary directly in chat.
 /blast <repo> <file> [...]      # blast radius for planned change at <file>
 /blast -help
 ```
+
+

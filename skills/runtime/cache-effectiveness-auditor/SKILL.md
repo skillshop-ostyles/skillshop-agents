@@ -1,4 +1,4 @@
----
+﻿---
 name: cache-effectiveness-auditor
 description: "Cache effectiveness auditor: inventory every caching pattern, extract strategy (TTL/invalidation/key design), LLM judges if each cache is effective or harmful. Read-only. Trigger: /cache-audit"
 trigger: /cache-audit
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/cache-harvest.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each cache:
 
@@ -42,7 +45,7 @@ Read each cache:
 - **Cost exceeds benefit**: checking cache is more expensive than recomputing
 - **Scope mismatch**: in-memory cache in multi-instance deployment
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `cache-effectiveness-report.md` in current working directory:
 
@@ -51,7 +54,7 @@ File `cache-effectiveness-report.md` in current working directory:
 3. **Missed opportunities** (frequently accessed data without caching).
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight caches doing more harm than good.
 
@@ -62,3 +65,5 @@ State report path, highlight caches doing more harm than good.
 /cache-audit <dir>         # scan project
 /cache-audit -help
 ```
+
+

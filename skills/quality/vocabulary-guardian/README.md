@@ -1,48 +1,45 @@
 ﻿# vocabulary-guardian
 
-Available - **Trigger:** `/vocab` - **Risk:** read-only
+**Trigger:** `/vocab` | **Risk:** read-only | **Audience:** Both
 
-> Customer, Client, Account, Kunde - four names, one concept, a constant misunderstanding.
+> Ubiquitous language guard: harvests identifiers from code, schema and API definitions, has the LLM cluster synonyms t...
 
-Harvests identifiers from code, schema and API definitions, clusters synonyms into
-domain concepts and proposes one canonical name per cluster. No automatic
-renaming - only proposal + impact estimate.
+Ubiquitous language guard: harvests identifiers from code, schema and API definitions, has the LLM cluster synonyms that name the same domain concept (customer/client/account/kunde), reports naming divergences with all locations and proposes one canonical term per concept including rename impact estimate. Never renames anything.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/term-harvest.ps1` requires PowerShell (5.1+ or 7+). Available natively on
-  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/quality/vocabulary-guardian ~/.claude/skills/quality/vocabulary-guardian
-# or project-local:
-cp -r skill-shop-agents/skills/quality/vocabulary-guardian <your-project>/.claude/skills/quality/vocabulary-guardian
+cp -r skills/quality/vocabulary-guardian $HOME/.claude/skills/quality/vocabulary-guardian
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\quality\vocabulary-guardian $HOME\.claude\skills\quality\vocabulary-guardian
+Copy-Item -Recurse skills/quality/vocabulary-guardian $HOME\.claude\skills\quality\vocabulary-guardian
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/vocab                     # interactive
-/vocab <dir>               # vocabulary analysis
-/vocab <dir> "<domain>"    # with domain hint
-/vocab -help
+/vocab                    # interactive - prompts for target
+/vocab <project-dir>      # scan specified project
+/vocab -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Markdown report: vocab-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

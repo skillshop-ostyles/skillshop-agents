@@ -1,35 +1,43 @@
-# schema-drift-tracker
+﻿# schema-drift-tracker
 
-Detect and assess DDL drift between two database schema snapshots.
+**Trigger:** `/schema-drift` | **Risk:** read-only | **Audience:** Both
 
-## Quick start
+> >
 
-```powershell
-# Run the collector against the bundled smoke-test fixtures
-powershell -File skills/data/schema-drift-tracker/scripts/drift-diff.ps1 `
-  -ProjectDir skills/data/schema-drift-tracker/tests/fixtures/smoke/src `
-  -OldSchema v1/schema.sql `
-  -NewSchema v2/schema.sql
+## Quick Install
+
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/data/schema-drift-tracker $HOME/.claude/skills/data/schema-drift-tracker
 ```
 
-## Drift kinds detected
+### Windows (PowerShell)
 
-| Kind      | Changes                                           |
-|-----------|---------------------------------------------------|
-| table     | added / removed                                   |
-| column    | added / removed / type / nullability / default    |
-| index     | added / removed                                   |
-| foreign key | added / removed                                |
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/data/schema-drift-tracker $HOME\.claude\skills\data\schema-drift-tracker
+```
 
-## Severity classification
+## Usage
 
-| Severity | Impact                                                   |
-|----------|----------------------------------------------------------|
-| critical | Removed table/column, type narrowing                     |
-| major    | Renamed column, removed index, NOT NULL → nullable       |
-| minor    | New nullable column, new index, new table                |
-| info     | Default value change, type widening, new FK              |
+```
+/schema-drift                    # interactive - prompts for target
+/schema-drift <project-dir>      # scan specified project
+/schema-drift -help              # show full usage and stop
+```
 
-## Trigger
+## Output
 
-OpenCode: `/schema-drift`
+Markdown report: drift-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

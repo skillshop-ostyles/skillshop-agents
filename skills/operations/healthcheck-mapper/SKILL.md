@@ -1,4 +1,4 @@
----
+﻿---
 name: healthcheck-mapper
 description: "Healthcheck mapper: inventory all health/readiness/liveness endpoints, map against service dependencies, LLM judges each as adequate/weak/missing. Read-only. Trigger: /healthcheck"
 trigger: /healthcheck
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/healthcheck-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 Read each health endpoint:
 
@@ -40,7 +43,7 @@ Read each health endpoint:
 - Is liveness vs readiness properly separated?
 - What failure modes are covered?
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `healthcheck-report.md` in current working directory:
 
@@ -49,7 +52,7 @@ File `healthcheck-report.md` in current working directory:
 3. **Per-service recommendations** - what each endpoint should check.
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight weakest endpoints.
 
@@ -60,3 +63,5 @@ State report path, highlight weakest endpoints.
 /healthcheck <dir>         # scan project
 /healthcheck -help
 ```
+
+

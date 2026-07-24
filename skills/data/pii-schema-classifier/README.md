@@ -1,55 +1,45 @@
-# PII Schema Classifier - /pii-scan
+﻿# pii-schema-classifier
 
-## What this is for
+**Trigger:** `/pii-scan` | **Risk:** read-only | **Audience:** Senior
 
-Every column name is a hint about sensitivity: email, ssn, phone, address,
-ip_address, credit_card, passport, birth_date. But what about customer_id (public
-key or PII?), notes (free text with embedded PII?), metadata_json (unknown
-sensitivity?). This skill classifies schema columns by sensitivity using naming
-patterns, then the LLM validates and adjusts based on application domain.
+> PII schema classifier: scans DDL/ORM models for columns that may contain sensitive data, classifies by sensitivity le...
 
-The dominant failure mode is the unclassified sensitive column that gets logged,
-exported, or exposed in an API response without protection.
-
-## What You Must Do When Invoked
-
-1. If `-help` is passed, print the `## Usage` block below and stop.
-2. Confirm `-ProjectDir` is provided and the path exists.
-3. Run: `scripts/pii-scan.ps1 -ProjectDir "<path>"`
-4. LLM reads the JSON output. For each column:
-   - Check the `patternClass` and `confidence` from the deterministic scan.
-   - For `ambiguous` columns: judge sensitivity based on table context and domain.
-   - For all columns: validate pattern classifications, correct false positives/negatives.
-5. Confidence: `proven` (exact pattern match), `likely` (substring match),
-   `suspected` (ambiguous column needing domain judgment).
-6. Write `pii-classification-report.md` to the working directory.
-
-## Usage
-
-```
-/pii-scan                         # interactive, prompts for directory
-/pii-scan <dir>                   # scan project directory
-/pii-scan -help                   # show usage
-```
-
-Returns JSON with `columns[]`: each entry `{table, column, type, patternClass,
-sensitivity, confidence, ambiguous}` plus `counts: {scannedFiles, totalColumns,
-bySensitivity}`.
+PII schema classifier: scans DDL/ORM models for columns that may contain sensitive data, classifies by sensitivity level using naming patterns, and flags ambiguous columns for LLM domain review.
 
 ## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/data/pii-schema-classifier ~/.claude/skills/
+cp -r skills/data/pii-schema-classifier $HOME/.claude/skills/data/pii-schema-classifier
 ```
 
-## Audience
+### Windows (PowerShell)
 
-Senior - security engineers and data stewards who need to know which columns
-require protection controls.
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/data/pii-schema-classifier $HOME\.claude\skills\data\pii-schema-classifier
+```
 
-## Cross-Links
+## Usage
 
-- `security/data-trail-tracker` - maps PII sinks (where PII flows). This skill
-  identifies PII sources at the schema level. Together they provide the full PII
-  map: source (schema) -> flow (code) -> sink (log/API/export).
+```
+/pii-scan                    # interactive - prompts for target
+/pii-scan <project-dir>      # scan specified project
+/pii-scan -help              # show full usage and stop
+```
+
+## Output
+
+Structured JSON evidence on stdout | Markdown report: classification-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

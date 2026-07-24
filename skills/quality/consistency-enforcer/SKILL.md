@@ -25,13 +25,16 @@ output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target and focus
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target and focus
 
 Clarify: `-ProjectDir` and optionally a domain focus (free text, e.g. "everything
 related to pricing" - narrows the LLM clustering, NOT the extraction). Get
 confirmation.
 
-### Step 2 - Extract candidates
+### Step 3 - Extract candidates
 
 ```powershell
 & "<SKILL_DIR>/scripts/rule-candidates.ps1" -ProjectDir "<path>"
@@ -40,7 +43,7 @@ confirmation.
 If `candidates.Count: 0`: cleanly report ("no rule candidates found"),
 do not write an empty pseudo-report, stop.
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 1. Review candidates, discard obvious noise (loop indices,
    test numbers, HTTP status codes in framework code) - name discarded categories
@@ -63,7 +66,7 @@ do not write an empty pseudo-report, stop.
 5. Evidence requirement: no cluster claim without all locations; divergence verdict
    only with direct code quote from both sides (`ops/BIBEL.md` section 4).
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `consist-report.md` in the current working directory (**not** into the analyzed
 repo):
@@ -74,7 +77,7 @@ repo):
 4. **SSoT proposals**.
 5. **Open questions** (clusters at confidence level `suspected`).
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State the report path, reproduce the summary directly in chat - divergences
 first.
@@ -87,3 +90,5 @@ first.
 /consist <dir> "<focus>"  # with domain focus
 /consist -help
 ```
+
+

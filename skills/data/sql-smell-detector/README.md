@@ -1,42 +1,45 @@
-# sql-smell-detector
+﻿# sql-smell-detector
 
-Available - **Trigger:** `/sql-smells` - **Risk:** read-only
+**Trigger:** `/sql-smells` | **Risk:** read-only | **Audience:** Senior
 
-> Inline SQL in application code is a silent quality drain.
+> Inline SQL smell detector: harvests SQL strings from application code, runs 15+ static analysis rules (SELECT *, miss...
 
-Scans source files for inline SQL strings, runs 15+ static analysis rules (SELECT *, missing WHERE, implicit casts, non-sargable filters, cartesian products, SELECT DISTINCT masking bad joins), then the LLM classifies business impact and proposes rewritten SQL.
+Inline SQL smell detector: harvests SQL strings from application code, runs 15+ static analysis rules (SELECT *, missing WHERE, implicit casts, non-sargable filters, cartesian products, SELECT DISTINCT masking bad joins), then LLM classifies business impact and proposes rewritten SQL.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/sql-harvest.ps1` requires PowerShell (5.1+ or 7+). Available natively on Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell) (`pwsh`) - **cross-platform operation not yet tested**, developed on Windows.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/data/sql-smell-detector ~/.claude/skills/data/sql-smell-detector
-# or project-local:
-cp -r skill-shop-agents/skills/data/sql-smell-detector <your-project>/.claude/skills/data/sql-smell-detector
+cp -r skills/data/sql-smell-detector $HOME/.claude/skills/data/sql-smell-detector
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\data\sql-smell-detector $HOME\.claude\skills\data\sql-smell-detector
+Copy-Item -Recurse skills/data/sql-smell-detector $HOME\.claude\skills\data\sql-smell-detector
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/sql-smells                        # interactive
-/sql-smells C:\Projects\my-app     # scan directory
-/sql-smells -help                  # show usage
+/sql-smells                    # interactive - prompts for target
+/sql-smells <project-dir>      # scan specified project
+/sql-smells -help              # show full usage and stop
 ```
 
-Details (including report format): [`SKILL.md`](SKILL.md).
+## Output
+
+Structured JSON evidence on stdout | Markdown report: smells-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

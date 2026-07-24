@@ -1,4 +1,4 @@
----
+﻿---
 name: mock-production-gap
 description: "Mock-production gap detector: compare test mocks against real implementations, LLM judges dangerous divergences. Read-only. Trigger: /mock-gap"
 trigger: /mock-gap
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/mock-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each mock divergence:
 
@@ -40,7 +43,7 @@ Read each mock divergence:
 - **Benign**: mock intentionally simplified for unrelated tests
 - **Outdated**: real API changed, mock not updated
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `mock-gap-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `mock-gap-report.md` in current working directory:
 2. **Divergence table** - dangerous first. Per divergence: test file, mocked module, divergent field, mock value, real value, severity, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight mocks that silently test wrong behavior.
 
@@ -59,3 +62,5 @@ State report path, highlight mocks that silently test wrong behavior.
 /mock-gap <dir>         # scan project
 /mock-gap -help
 ```
+
+

@@ -1,4 +1,4 @@
----
+﻿---
 name: training-data-leakage-detector
 description: "Training data leakage detector: find cross-contamination between train/test splits in ML pipelines. Read-only. Trigger: /train-leak"
 trigger: /train-leak
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/leak-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each pipeline:
 
@@ -40,7 +43,7 @@ Read each pipeline:
 - **Temporal-leak**: future data used for past predictions
 - **Group-leak**: same entity in both splits
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `data-leakage-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `data-leakage-report.md` in current working directory:
 2. **Pipeline table** - leaks first. Per pipeline: file, line, split type, operations order, risk, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight pipelines with data leakage.
 
@@ -59,3 +62,5 @@ State report path, highlight pipelines with data leakage.
 /train-leak <dir>         # scan project
 /train-leak -help
 ```
+
+

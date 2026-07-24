@@ -1,17 +1,45 @@
-# Error-Message Leakage - /error-leakage
+﻿# error-message-leakage
 
-Catalogs every HTTP-error-return and log-error-call. Per finding: kind of
-information leaked (stacktrace, SQL error text, env-vars, user-input echo,
-request dump). LLM classifies severity and proposes sanitization.
+**Trigger:** `/error-leakage` | **Risk:** read-only | **Audience:** Both
+
+> Error message leakage detector: harvests every HTTP-error-return and log-error-call, classifies what kind of informat...
+
+Error message leakage detector: harvests every HTTP-error-return and log-error-call, classifies what kind of information leaks (stacktrace, SQL error message, env-vars, user input echo, request dump). LLM validates each finding as legitimate production-leak and proposes sanitization.
+
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/security/error-message-leakage ~/.claude/skills/
+cp -r skills/security/error-message-leakage $HOME/.claude/skills/security/error-message-leakage
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/security/error-message-leakage $HOME\.claude\skills\security\error-message-leakage
 ```
 
 ## Usage
 
 ```
-/error-leakage                            # interactive
-/error-leakage <dir>                      # scan project
+/error-leakage                    # interactive - prompts for target
+/error-leakage <project-dir>      # scan specified project
+/error-leakage -help              # show full usage and stop
 ```
+
+## Output
+
+Structured JSON evidence on stdout | Markdown report: leakage-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

@@ -26,18 +26,21 @@ output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir` and optionally a domain hint from the user (free text:
 what is the business about - helps clustering). Confirm.
 
-### Step 2 - Harvest
+### Step 3 - Harvest
 
 ```powershell
 & "<SKILL_DIR>/scripts/term-harvest.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Concept clustering
+### Step 4 - Concept clustering
 
 Group terms into domain concepts: synonyms (customer/client/account),
 translation pairs (kunde/customer), abbreviations (cust/usr/acct as candidates
@@ -46,7 +49,7 @@ count as divergence - same word choice, only convention. Include the user's
 domain hint. Framework/technical terms (parser, handler, config, React props,
 Django fields) set aside as "technical vocabulary".
 
-### Step 4 - Divergence check per cluster
+### Step 5 - Divergence check per cluster
 
 Are they REALLY the same concept? Read example locations (Read when uncertain).
 Distinguish honestly:
@@ -56,13 +59,13 @@ Distinguish honestly:
 - **legitimately-different**: e.g. `client` = API client, `customer` = buyer
   - no finding, but document in glossary.
 
-### Step 5 - Canonical proposal
+### Step 6 - Canonical proposal
 
 Per divergence cluster: choose the dominant/most precise term (frequency +
 schema anchoring as criteria, state reasoning), estimate impact roughly
 (number of non-canonical term locations; small < 20 / medium / large > 100).
 
-### Step 6 - Write report
+### Step 7 - Write report
 
 File `vocab-report.md` in the current working directory:
 
@@ -76,7 +79,7 @@ File `vocab-report.md` in the current working directory:
 Evidence requirement: each cluster assignment with >= 2 example locations;
 homonym warnings with evidence for both meanings.
 
-### Step 7 - Summarize
+### Step 8 - Summarize
 
 State the report path, concepts with most synonyms first.
 
@@ -88,3 +91,5 @@ State the report path, concepts with most synonyms first.
 /vocab <dir> "<domain>"    # with domain hint
 /vocab -help
 ```
+
+

@@ -1,4 +1,4 @@
----
+﻿---
 name: concurrency-hazard-scanner
 description: "Concurrency hazard scanner: map shared mutable state across async boundaries, LLM judges each pattern as safe/racy/deadlock-prone. Read-only. Trigger: /concurrency"
 trigger: /concurrency
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/shared-state-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each shared state access:
 
@@ -40,7 +43,7 @@ Read each shared state access:
 - **Deadlock-prone**: nested locks in inconsistent order
 - **TOCTOU**: read-check-then-write without atomicity
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `concurrency-report.md` in current working directory:
 
@@ -49,7 +52,7 @@ File `concurrency-report.md` in current working directory:
 3. **Safe patterns** in appendix.
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight confirmed hazards.
 
@@ -60,3 +63,5 @@ State report path, highlight confirmed hazards.
 /concurrency <dir>         # scan project
 /concurrency -help
 ```
+
+

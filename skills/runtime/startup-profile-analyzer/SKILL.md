@@ -1,4 +1,4 @@
----
+﻿---
 name: startup-profile-analyzer
 description: "Startup profile analyzer: trace the entire initialization chain, LLM judges each step as essential/lazy-loadable/suspicious. Read-only. Trigger: /startup"
 trigger: /startup
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/startup-trace.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 Read each init step in context:
 
@@ -39,7 +42,7 @@ Read each init step in context:
 - What would break if deferred?
 - Is this a side effect at import time (suspicious)?
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `startup-report.md` in current working directory:
 
@@ -48,7 +51,7 @@ File `startup-report.md` in current working directory:
 3. **Suspicious findings** (side effects at import time).
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight top 3 deferral candidates.
 
@@ -59,3 +62,5 @@ State report path, highlight top 3 deferral candidates.
 /startup <dir>         # scan project
 /startup -help
 ```
+
+

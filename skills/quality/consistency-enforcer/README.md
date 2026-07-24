@@ -1,48 +1,45 @@
 ﻿# consistency-enforcer
 
-Available - **Trigger:** `/consist` - **Risk:** read-only
+**Trigger:** `/consist` | **Risk:** read-only | **Audience:** Both
 
-> One rule, fourteen implementations - and nobody knows which one is correct.
+> Finds duplicated BUSINESS LOGIC (not duplicated text): extracts rule candidates (validations, calculations, domain co...
 
-Finds semantically identical business rules in different code (not text duplicates)
-and reports divergences between their implementations with a
-single-source-of-truth proposal.
+Finds duplicated BUSINESS LOGIC (not duplicated text): extracts rule candidates (validations, calculations, domain constants, regexes, status logic) from a codebase, then has the LLM cluster semantically equal rules across different implementations and flag divergent ones with a single-source-of-truth proposal.
 
-## Installation
-
-### Prerequisites
-
-- [Claude Code](https://claude.com/claude-code) installed.
-- `scripts/rule-candidates.ps1` requires PowerShell (5.1+ or 7+). Available natively on
-  Windows. On macOS/Linux via [PowerShell Core](https://github.com/PowerShell/PowerShell)
-  (`pwsh`) - **cross-platform operation not yet tested**,
-  developed on Windows.
-
-### Via Terminal
+## Quick Install
 
 ```bash
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-cp -r skill-shop-agents/skills/quality/consistency-enforcer ~/.claude/skills/quality/consistency-enforcer
-# or project-local:
-cp -r skill-shop-agents/skills/quality/consistency-enforcer <your-project>/.claude/skills/quality/consistency-enforcer
+cp -r skills/quality/consistency-enforcer $HOME/.claude/skills/quality/consistency-enforcer
 ```
 
-Windows (PowerShell):
+### Windows (PowerShell)
 
 ```powershell
 git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
-Copy-Item -Recurse skill-shop-agents\skills\quality\consistency-enforcer $HOME\.claude\skills\quality\consistency-enforcer
+Copy-Item -Recurse skills/quality/consistency-enforcer $HOME\.claude\skills\quality\consistency-enforcer
 ```
 
 ## Usage
 
-In Claude Code:
-
 ```
-/consist                  # interactive
-/consist <dir>            # entire directory
-/consist <dir> "<focus>"  # with domain focus
-/consist -help
+/consist                    # interactive - prompts for target
+/consist <project-dir>      # scan specified project
+/consist -help              # show full usage and stop
 ```
 
-Details: [`SKILL.md`](SKILL.md).
+## Output
+
+Markdown report: consist-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

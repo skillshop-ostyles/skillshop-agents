@@ -1,4 +1,4 @@
----
+﻿---
 name: capacity-early-warning
 description: "Capacity early warning: find hardcoded limits, pool sizes, timeouts, quotas, then LLM judges each as adequate/approaching/critical. Read-only. Trigger: /capacity"
 trigger: /capacity
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/limit-harvest.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Analysis
+### Step 4 - Analysis
 
 Read each limit:
 
@@ -39,7 +42,7 @@ Read each limit:
 - What happens if traffic grows 2x/5x/10x?
 - Is there monitoring before the limit is hit?
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `capacity-report.md` in current working directory:
 
@@ -47,7 +50,7 @@ File `capacity-report.md` in current working directory:
 2. **Limit table** - critical first. Per limit: value, unit, config mechanism, growth risk, recommendation.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight critical limits.
 
@@ -58,3 +61,5 @@ State report path, highlight critical limits.
 /capacity <dir>         # scan project
 /capacity -help
 ```
+
+

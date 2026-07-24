@@ -1,31 +1,45 @@
-# schema-documentation-generator
+﻿# schema-documentation-generator
 
-**Cluster:** data | **Trigger:** `/schema-docs` | **Audience:** Both
+**Trigger:** `/schema-docs` | **Risk:** read-only | **Audience:** Both
 
-Generate human-readable data dictionary from DDL with LLM-written business descriptions.
+> Generate human-readable data dictionary from DDL with LLM-written business descriptions. Reads DDL or ORM models, ext...
 
-## What it does
+Generate human-readable data dictionary from DDL with LLM-written business descriptions. Reads DDL or ORM models, extracts structural metadata, and writes plain-English descriptions for every table, column, and relationship.
 
-1. Scans a project directory for DDL/ORM files (.sql, .prisma, TypeORM, SQLAlchemy)
-2. Extracts structural metadata: tables, columns, types, nullability, defaults, PKs, FKs, indexes, unique constraints
-3. Detects and expands naming abbreviations (cst -> customer, ord -> order, prd -> product)
-4. Writes `schema-dictionary.md` with LLM-written plain-English descriptions
+## Quick Install
+
+```bash
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+cp -r skills/data/schema-documentation-generator $HOME/.claude/skills/data/schema-documentation-generator
+```
+
+### Windows (PowerShell)
+
+```powershell
+git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+Copy-Item -Recurse skills/data/schema-documentation-generator $HOME\.claude\skills\data\schema-documentation-generator
+```
 
 ## Usage
 
-```powershell
-# Interactive
-/schema-docs
-
-# Direct
-/schema-docs -ProjectDir ./path/to/schemas
+```
+/schema-docs                    # interactive - prompts for target
+/schema-docs <project-dir>      # scan specified project
+/schema-docs -help              # show full usage and stop
 ```
 
-## Files
+## Output
 
-| File | Purpose |
-|------|---------|
-| `SKILL.md` | Skill definition and invocation rules |
-| `scripts/schema-extract.ps1` | Collector: parses DDL/ORM files, extracts structural metadata, outputs JSON |
-| `tests/fixtures/smoke/src/schema.sql` | Smoke test fixture: 3 tables with abbreviated column names |
-| `tests/fixtures/empty/.gitkeep` | Empty fixture placeholder |
+Structured JSON evidence on stdout | Markdown report: schema-documentation-generator-report.md
+
+## Details
+
+Full workflow and LLM instructions: [`SKILL.md`](SKILL.md)
+
+## Prerequisites
+
+- [Claude Code](https://claude.com/claude-code) installed
+- PowerShell 5.1+ (Windows) or PowerShell Core 7+ (cross-platform)
+- Target must be a local directory with source code
+
+

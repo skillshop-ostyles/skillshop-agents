@@ -32,13 +32,16 @@ output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-OldSchema` + `-NewSchema` (files or directories) and the
 SQL dialect (postgres|mysql|sqlite|mssql - required, ask if unknown; for
 Prisma read from the `datasource` block). Get confirmation.
 
-### Step 2 - Diff
+### Step 3 - Diff
 
 ```powershell
 & "<SKILL_DIR>/scripts/schema-diff.ps1" -OldSchema "<old>" -NewSchema "<new>"
@@ -47,13 +50,13 @@ Prisma read from the `datasource` block). Get confirmation.
 Format mix (errors, exit code != 0): forward message, stop. Identical
 schemas (0 changes): report "No changes" - **do not generate an empty package**.
 
-### Step 3 - Rename clarification
+### Step 4 - Rename clarification
 
 Present each `renameCandidate` to the user individually (rename = data preserved;
 drop+add = data lost - that is the entire difference). Without user response:
 treat as drop+add, but mark RED in the risk protocol.
 
-### Step 4 - Risk classification
+### Step 5 - Risk classification
 
 Classify each change:
 
@@ -63,7 +66,7 @@ Classify each change:
 - **lock-risky**: operations that can hold long locks on large tables
   (name dialect-specifically).
 
-### Step 5 - Generate package (5 files, `migration-<date>/`)
+### Step 6 - Generate package (5 files, `migration-<date>/`)
 
 1. **`01-forward.sql`**: constraint-safe order (columns first, then FKs;
    drops last). Lossy steps individually, with
@@ -94,7 +97,7 @@ manual work.
 Evidence requirement: each generated migration line must be traceable to a
 diff entry - generate nothing that the diff does not show.
 
-### Step 6 - Summarize
+### Step 7 - Summarize
 
 State the package path, summarize the risk protocol,
 ALWAYS explicitly mention data-loss warnings (even if none exist).
@@ -106,3 +109,5 @@ ALWAYS explicitly mention data-loss warnings (even if none exist).
 /migrate <old> <new> <dialect>        # diff + generate package
 /migrate -help
 ```
+
+

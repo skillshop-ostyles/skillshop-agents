@@ -26,7 +26,10 @@ output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify source
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify source
 
 Clarify: either `-SpecDir` (a directory, recursively searched for `.md`/`.txt`)
 or an explicit file list. If both missing, ask. Show what was detected:
@@ -38,7 +41,7 @@ Continue? (yes/no)
 
 Only continue after confirmation.
 
-### Step 2 - Create inventory
+### Step 3 - Create inventory
 
 ```powershell
 & "<SKILL_DIR>/scripts/intake.ps1" -SpecDir "<path>"
@@ -52,7 +55,7 @@ stop. If `count: 0`: inform the user that no matching files were found, stop
 If > 30 files in the inventory: show the inventory first (paths + sizes), user
 selects a subset or confirms the full run.
 
-### Step 3 - Read and analyze all files
+### Step 4 - Read and analyze all files
 
 Read each inventoried file (not `excluded`) fully with the Read tool
 (for `oversized: true` read section-wise via offset/limit). Then actively search
@@ -76,7 +79,7 @@ both locations), one concrete, closed-form clarification question.
 Confidence levels apply here too (`ops/BIBEL.md` section 4): a "contradiction" at
 level `suspected` goes into "Open questions", not into the findings list.
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 Report structure (Markdown), file `spec-check-report.md` in the current
 working directory (**not** into the checked directory):
@@ -88,7 +91,7 @@ working directory (**not** into the checked directory):
    context, directly copyable.
 4. **Open questions** - everything at confidence level `suspected`.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 Tell the user the report path. Summarize the 3 most important clarification questions
 first, then the total number of findings per severity.
@@ -101,3 +104,5 @@ first, then the total number of findings per severity.
 /spec-check <file1> <file2>    # check explicit files
 /spec-check -help              # show usage, stop
 ```
+
+

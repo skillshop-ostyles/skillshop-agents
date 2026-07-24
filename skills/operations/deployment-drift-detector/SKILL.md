@@ -1,4 +1,4 @@
----
+﻿---
 name: deployment-drift-detector
 description: "Deployment drift detector: extracted deployed config (kubectl, terraform show, docker inspect) vs source-of-truth manifests, then LLM judges each drift's criticality in business context. Read-only. Trigger: /deploy-drift"
 trigger: /deploy-drift
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/deploy-drift-scan.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each drift in context:
 
@@ -40,7 +43,7 @@ Read each drift in context:
 - **Minor**: cosmetic, non-functional (e.g. label mismatch, different image tag in dev)
 - **Info**: intentional drift (hotfix, scaling event, known deviation documented)
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `deploy-drift-report.md` in current working directory:
 
@@ -49,7 +52,7 @@ File `deploy-drift-report.md` in current working directory:
 3. **False positives** in appendix (intentional drifts with evidence).
 4. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight critical drifts.
 
@@ -60,3 +63,5 @@ State report path, highlight critical drifts.
 /deploy-drift <dir>         # scan project
 /deploy-drift -help
 ```
+
+

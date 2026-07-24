@@ -1,4 +1,4 @@
----
+﻿---
 name: error-propagation-mapper
 description: "Error propagation mapper: trace every error from origin through handling blocks to surface, LLM classifies each path as monitored/silent/dangerous. Read-only. Trigger: /error-map"
 trigger: /error-map
@@ -21,17 +21,20 @@ is invoked: output the `## Usage` section unchanged and stop.
 
 Otherwise follow these steps in order, skipping none.
 
-### Step 1 - Clarify target
+### Step 1 - Help check
+If invoked with `-help` or `-h`, output the `## Usage` section unchanged and stop.
+
+### Step 2 - Clarify target
 
 Clarify `-ProjectDir`. Get confirmation.
 
-### Step 2 - Scan
+### Step 3 - Scan
 
 ```powershell
 & "<SKILL_DIR>/scripts/error-trace.ps1" -ProjectDir "<path>"
 ```
 
-### Step 3 - Classification
+### Step 4 - Classification
 
 Read each error path:
 
@@ -39,7 +42,7 @@ Read each error path:
 - **Silent**: error is swallowed or returns default without notification
 - **Dangerous**: error causes crash, data corruption, or info leak
 
-### Step 4 - Write report
+### Step 5 - Write report
 
 File `error-propagation-report.md` in current working directory:
 
@@ -47,7 +50,7 @@ File `error-propagation-report.md` in current working directory:
 2. **Path table** - dangerous first. Per path: origin, handler chain, action taken, context preserved, final destination.
 3. **Open questions**.
 
-### Step 5 - Summarize
+### Step 6 - Summarize
 
 State report path, highlight dangerous silent paths.
 
@@ -58,3 +61,5 @@ State report path, highlight dangerous silent paths.
 /error-map <dir>         # scan project
 /error-map -help
 ```
+
+
