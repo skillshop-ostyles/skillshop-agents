@@ -298,15 +298,6 @@ skills/<cluster>/<skill-name>/
 - **Ship-ready** - every skill has a smoke test with fixture data and a verified
   JSON output contract
 
-## Roadmap
-
-- **Phase C-Runtime Complete** (sprints 100-111): all 14 R-skills done
-- **Phase C-AI/ML Wave 1** (sprints 112-115): prompt-quality, embed-quality, train-leak, guardrails (done)
-- **Phase C-AI/ML Wave 2** (sprints 116-119): prompt-drift, token-budget, rag-consistency, llm-obs (done)
-- **Phase C-AI/ML Wave 3** (sprints 120-123): ai-log, tool-fidelity, finetune-deps, ml-determinism (done)
-- **Phase C-Meta Complete** (sprints 124-133): all 9 meta-tooling skills done
-- **Phase C Complete**: all 8 clusters with 10 (or more) skills implemented
-
 ## License
 
 [MIT](LICENSE)
