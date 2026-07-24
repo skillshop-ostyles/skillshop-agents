@@ -1,0 +1,60 @@
+---
+name: rollback-readiness
+description: "Rollback readiness: check each deployable change against rollback criteria, LLM estimates cost and risk of undoing it. Read-only. Trigger: /rollback"
+trigger: /rollback
+---
+# /rollback
+
+Every deployment is a bet until you know you can undo it. This skill checks rollback readiness.
+
+## What this is for
+
+- DB migration without down migration
+- API change breaking backward compatibility
+- Feature flag with no removal plan
+- **Read-only skill.** No code changes, no automated rollback.
+
+## What You Must Do When Invoked
+
+If `/rollback -help` or `/rollback -h` (without further arguments)
+is invoked: output the `## Usage` section unchanged and stop.
+
+Otherwise follow these steps in order, skipping none.
+
+### Step 1 - Clarify target
+
+Clarify `-ProjectDir`. Get confirmation.
+
+### Step 2 - Scan
+
+```powershell
+& "<SKILL_DIR>/scripts/rollback-scan.ps1" -ProjectDir "<path>"
+```
+
+### Step 3 - Analysis
+
+Read each change:
+
+- Is there a rollback mechanism? (down migration, compat layer, flag inversion)
+- What is the blast radius? (single service vs coordinated rollback)
+- Is the rollback safe? (data loss risk, downtime required)
+
+### Step 4 - Write report
+
+File `rollback-readiness-report.md` in current working directory:
+
+1. **Summary** - changes found, safe rollbacks, risky, no rollback path.
+2. **Change table** - sorted by risk. Per change: kind, element, has rollback, mechanism, blast radius, recommendation.
+3. **Open questions**.
+
+### Step 5 - Summarize
+
+State report path, highlight changes with no rollback path.
+
+## Usage
+
+```
+/rollback               # interactive
+/rollback <dir>         # scan project
+/rollback -help
+```

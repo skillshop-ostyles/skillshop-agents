@@ -20,11 +20,15 @@ paged.
 | [leak-detector](../operations/leak-detector/) | /leak-scan | Senior | Trace resource acquisition/release; LLM classifies each as clean/leaky/uncertain. |
 | [healthcheck-mapper](../operations/healthcheck-mapper/) | /healthcheck | Both | Audit health/readiness/liveness endpoints against service dependencies; LLM judges coverage. |
 | [env-drift-tracker](../operations/env-drift-tracker/) | /env-drift | Senior | Compare config across environments; LLM flags dangerous drifts. |
+| [rollback-readiness](../operations/rollback-readiness/) | /rollback | Senior | Check deployable changes against rollback criteria; LLM estimates cost and risk of undoing. |
+| [runbook-auditor](../operations/runbook-auditor/) | /runbook-audit | Both | Audit runbooks for correctness; LLM validates commands, dashboards, and procedures. |
+| [capacity-early-warning](../operations/capacity-early-warning/) | /capacity | Senior | Find hardcoded limits and quotas; LLM judges each as adequate/approaching/critical. |
+| [deployment-frequency-tracker](../operations/deployment-frequency-tracker/) | /deploy-freq | Senior | Compute DORA metrics from git history; LLM identifies bottlenecks. |
 
 ## Cross-Links
 
 - `runtime/` - `prod-mirror` observes production behavior; `failure-simulator` predicts failure behavior.
 - `security/` - `config-cartographer` covers configuration surface that ops engineers deploy.
-- `data/` - `migration-safety-inspector` checks migration reversibility; `rollback-readiness` (O9, planned) assesses holistic rollback readiness.
-- `quality/` - `performance-anti-pattern-detector` finds structural perf issues; `capacity-early-warning` (O11, planned) judges numeric limits.
-- `understanding/` - `runbook-automator` generates runbooks; `runbook-auditor` (O10, planned) audits existing ones.
+- `data/` - `migration-safety-inspector` checks migration reversibility; `rollback-readiness` assesses holistic rollback readiness.
+- `quality/` - `performance-anti-pattern-detector` finds structural perf issues; `capacity-early-warning` judges numeric limits.
+- `understanding/` - `runbook-automator` generates runbooks; `runbook-auditor` audits existing ones.
