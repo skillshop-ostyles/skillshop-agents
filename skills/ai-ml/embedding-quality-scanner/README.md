@@ -1,4 +1,4 @@
-﻿# embedding-quality-scanner
+# embedding-quality-scanner
 
 **Trigger:** `/embed-quality` | **Risk:** read-only | **Audience:** Both
 

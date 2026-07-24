@@ -1,4 +1,4 @@
-﻿# api-surface-documenter
+# api-surface-documenter
 
 **Trigger:** `/api-survey` | **Risk:** read-only | **Audience:** Both
 

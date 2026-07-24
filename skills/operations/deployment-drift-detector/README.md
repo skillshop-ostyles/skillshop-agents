@@ -1,4 +1,4 @@
-﻿# deployment-drift-detector
+# deployment-drift-detector
 
 **Trigger:** `/deploy-drift` | **Risk:** read-only | **Audience:** Both
 

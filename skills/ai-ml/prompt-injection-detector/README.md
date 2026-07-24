@@ -1,4 +1,4 @@
-﻿# prompt-injection-detector
+# prompt-injection-detector
 
 **Trigger:** `/prompt-inspect` | **Risk:** read-only | **Audience:** Senior > Vibe
 

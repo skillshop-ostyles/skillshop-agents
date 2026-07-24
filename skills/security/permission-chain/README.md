@@ -1,4 +1,4 @@
-﻿# permission-chain
+# permission-chain
 
 **Trigger:** `/permission-chain` | **Risk:** read-only | **Audience:** Senior
 

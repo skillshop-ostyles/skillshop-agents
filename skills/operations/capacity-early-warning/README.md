@@ -1,4 +1,4 @@
-﻿# capacity-early-warning
+# capacity-early-warning
 
 **Trigger:** `/capacity` | **Risk:** read-only | **Audience:** Both
 

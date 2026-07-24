@@ -1,4 +1,4 @@
-﻿# test-honesty-auditor
+# test-honesty-auditor
 
 **Trigger:** `/test-honesty` | **Risk:** read-only | **Audience:** Both
 

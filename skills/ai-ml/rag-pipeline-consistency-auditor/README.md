@@ -1,4 +1,4 @@
-﻿# rag-pipeline-consistency-auditor
+# rag-pipeline-consistency-auditor
 
 **Trigger:** `/rag-consistency` | **Risk:** read-only | **Audience:** Both
 

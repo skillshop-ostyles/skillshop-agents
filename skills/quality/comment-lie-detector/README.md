@@ -1,4 +1,4 @@
-﻿# comment-lie-detector
+# comment-lie-detector
 
 **Trigger:** `/comment-lies` | **Risk:** read-only | **Audience:** Both
 

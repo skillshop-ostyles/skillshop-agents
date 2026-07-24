@@ -1,4 +1,4 @@
-﻿# error-propagation-mapper
+# error-propagation-mapper
 
 **Trigger:** `/error-map` | **Risk:** read-only | **Audience:** Both
 

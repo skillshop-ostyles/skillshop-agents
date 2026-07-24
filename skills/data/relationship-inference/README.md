@@ -1,4 +1,4 @@
-﻿# relationship-inference
+# relationship-inference
 
 **Trigger:** `/infer-rels` | **Risk:** read-only | **Audience:** Senior
 

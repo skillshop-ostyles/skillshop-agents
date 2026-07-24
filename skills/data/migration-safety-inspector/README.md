@@ -1,4 +1,4 @@
-﻿# migration-safety-inspector
+# migration-safety-inspector
 
 **Trigger:** `/migration-safety` | **Risk:** read-only | **Audience:** Both
 

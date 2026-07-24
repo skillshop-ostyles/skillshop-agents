@@ -1,4 +1,4 @@
-﻿# manifest-audit
+# manifest-audit
 
 **Trigger:** `/manifest-audit` | **Risk:** read-only | **Audience:** Both
 

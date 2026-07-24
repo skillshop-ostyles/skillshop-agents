@@ -1,4 +1,4 @@
-﻿# doc-drift-detector
+# doc-drift-detector
 
 **Trigger:** `/doc-drift` | **Risk:** read-only | **Audience:** Both
 

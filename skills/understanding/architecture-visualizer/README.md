@@ -1,4 +1,4 @@
-﻿# architecture-visualizer
+# architecture-visualizer
 
 **Trigger:** `/arch-vis` | **Risk:** read-only | **Audience:** Both
 

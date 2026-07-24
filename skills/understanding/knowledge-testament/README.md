@@ -1,4 +1,4 @@
-﻿# knowledge-testament
+# knowledge-testament
 
 **Trigger:** `/testament` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# session-state-anomaly
+# session-state-anomaly
 
 **Trigger:** `/session-anomaly` | **Risk:** read-only | **Audience:** Senior
 

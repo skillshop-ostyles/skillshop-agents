@@ -1,4 +1,4 @@
-﻿# failure-simulator
+# failure-simulator
 
 **Trigger:** `/failsim` | **Risk:** read-only | **Audience:** Senior
 

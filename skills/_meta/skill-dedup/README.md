@@ -1,4 +1,4 @@
-﻿# skill-dedup
+# skill-dedup
 
 **Trigger:** `/skill-dedup` | **Risk:** read-only | **Audience:** Both
 

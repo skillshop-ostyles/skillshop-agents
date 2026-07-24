@@ -1,4 +1,4 @@
-﻿# dead-code-at-runtime
+# dead-code-at-runtime
 
 **Trigger:** `/dead-runtime` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# log-injection-detector
+# log-injection-detector
 
 **Trigger:** `/log-injection` | **Risk:** read-only | **Audience:** Senior
 

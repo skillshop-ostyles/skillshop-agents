@@ -1,4 +1,4 @@
-﻿# seed-data-strategist
+# seed-data-strategist
 
 **Trigger:** `/seed-data` | **Risk:** read-only | **Audience:** Both
 

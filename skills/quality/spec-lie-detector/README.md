@@ -1,4 +1,4 @@
-﻿# spec-lie-detector
+# spec-lie-detector
 
 **Trigger:** `/spec-check` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# data-flow-cartographer
+# data-flow-cartographer
 
 **Trigger:** `/dataflow` | **Risk:** read-only | **Audience:** Senior
 

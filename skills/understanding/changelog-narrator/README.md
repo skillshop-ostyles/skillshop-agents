@@ -1,4 +1,4 @@
-﻿# changelog-narrator
+# changelog-narrator
 
 **Trigger:** `/changelog` | **Risk:** read-only | **Audience:** Both
 

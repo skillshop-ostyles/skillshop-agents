@@ -1,4 +1,4 @@
-﻿# mock-production-gap
+# mock-production-gap
 
 **Trigger:** `/mock-gap` | **Risk:** read-only | **Audience:** Both
 

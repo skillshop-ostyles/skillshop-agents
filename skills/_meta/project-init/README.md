@@ -1,4 +1,4 @@
-﻿# project-init
+# project-init
 
 **Trigger:** `/project-init` | **Risk:** read-only | **Audience:** Both
 

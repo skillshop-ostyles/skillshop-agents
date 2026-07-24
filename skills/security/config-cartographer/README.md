@@ -1,4 +1,4 @@
-﻿# config-cartographer
+# config-cartographer
 
 **Trigger:** `/config-map` | **Risk:** read-only | **Audience:** Senior
 

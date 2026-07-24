@@ -1,4 +1,4 @@
-﻿# runbook-auditor
+# runbook-auditor
 
 **Trigger:** `/runbook-audit` | **Risk:** read-only | **Audience:** Both
 

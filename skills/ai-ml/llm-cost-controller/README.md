@@ -1,4 +1,4 @@
-﻿# llm-cost-controller
+# llm-cost-controller
 
 **Trigger:** `/llm-cost` | **Risk:** read-only | **Audience:** Senior
 

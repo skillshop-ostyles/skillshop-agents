@@ -1,4 +1,4 @@
-﻿# elevate
+# elevate
 
 **Trigger:** `/elevate` | **Risk:** read-only | **Audience:** Both
 

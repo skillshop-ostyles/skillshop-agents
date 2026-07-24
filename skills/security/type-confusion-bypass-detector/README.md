@@ -1,4 +1,4 @@
-﻿# type-confusion-bypass-detector
+# type-confusion-bypass-detector
 
 **Trigger:** `/bypass-detector` | **Risk:** read-only | **Audience:** Senior
 

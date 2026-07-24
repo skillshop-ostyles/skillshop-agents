@@ -1,4 +1,4 @@
-﻿# backup-coverage-scanner
+# backup-coverage-scanner
 
 **Trigger:** `/backup-scan` | **Risk:** read-only | **Audience:** Both
 

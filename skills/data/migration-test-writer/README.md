@@ -1,4 +1,4 @@
-﻿# migration-test-writer
+# migration-test-writer
 
 **Trigger:** `/migration-test` | **Risk:** read-only | **Audience:** Senior
 

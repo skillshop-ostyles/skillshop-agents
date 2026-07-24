@@ -1,4 +1,4 @@
-﻿# env-drift-tracker
+# env-drift-tracker
 
 **Trigger:** `/env-drift` | **Risk:** read-only | **Audience:** Both
 

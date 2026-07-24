@@ -1,4 +1,4 @@
-﻿# shutdown-gracefulness
+# shutdown-gracefulness
 
 **Trigger:** `/shutdown` | **Risk:** read-only | **Audience:** Both
 

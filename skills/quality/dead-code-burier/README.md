@@ -1,4 +1,4 @@
-﻿# dead-code-burier
+# dead-code-burier
 
 **Trigger:** `/bury` | **Risk:** read-only | **Audience:** Both
 

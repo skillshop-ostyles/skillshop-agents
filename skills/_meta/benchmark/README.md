@@ -1,4 +1,4 @@
-﻿# benchmark
+# benchmark
 
 **Trigger:** `/benchmark` | **Risk:** read-only | **Audience:** Both
 

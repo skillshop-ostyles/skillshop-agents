@@ -1,4 +1,4 @@
-﻿# prod-mirror
+# prod-mirror
 
 **Trigger:** `/mirror` | **Risk:** read-only | **Audience:** Both
 

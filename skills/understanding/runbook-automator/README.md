@@ -1,4 +1,4 @@
-﻿# runbook-automator
+# runbook-automator
 
 **Trigger:** `/runbook` | **Risk:** read-only | **Audience:** Both
 

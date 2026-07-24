@@ -1,4 +1,4 @@
-﻿# smoke-coverage
+# smoke-coverage
 
 **Trigger:** `/smoke-coverage` | **Risk:** read-only | **Audience:** Both
 

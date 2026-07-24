@@ -1,4 +1,4 @@
-﻿# pii-schema-classifier
+# pii-schema-classifier
 
 **Trigger:** `/pii-scan` | **Risk:** read-only | **Audience:** Senior
 

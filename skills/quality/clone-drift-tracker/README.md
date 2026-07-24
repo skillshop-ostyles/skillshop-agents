@@ -1,4 +1,4 @@
-﻿# clone-drift-tracker
+# clone-drift-tracker
 
 **Trigger:** `/clone-drift` | **Risk:** read-only | **Audience:** Senior
 

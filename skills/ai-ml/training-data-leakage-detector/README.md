@@ -1,4 +1,4 @@
-﻿# training-data-leakage-detector
+# training-data-leakage-detector
 
 **Trigger:** `/train-leak` | **Risk:** read-only | **Audience:** Both
 

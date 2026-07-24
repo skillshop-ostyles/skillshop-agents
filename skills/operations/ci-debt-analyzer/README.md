@@ -1,4 +1,4 @@
-﻿# ci-debt-analyzer
+# ci-debt-analyzer
 
 **Trigger:** `/ci-debt` | **Risk:** read-only | **Audience:** Both
 

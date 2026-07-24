@@ -1,4 +1,4 @@
-﻿# misleading-name-detector
+# misleading-name-detector
 
 **Trigger:** `/name-lies` | **Risk:** read-only | **Audience:** Both
 

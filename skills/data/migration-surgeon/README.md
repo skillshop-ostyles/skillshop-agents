@@ -1,4 +1,4 @@
-﻿# migration-surgeon
+# migration-surgeon
 
 **Trigger:** `/migrate` | **Risk:** read-only | **Audience:** Both
 

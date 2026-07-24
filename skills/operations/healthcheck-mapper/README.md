@@ -1,4 +1,4 @@
-﻿# healthcheck-mapper
+# healthcheck-mapper
 
 **Trigger:** `/healthcheck` | **Risk:** read-only | **Audience:** Both
 

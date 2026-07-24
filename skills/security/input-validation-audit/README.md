@@ -1,4 +1,4 @@
-﻿# input-validation-audit
+# input-validation-audit
 
 **Trigger:** `/input-audit` | **Risk:** read-only | **Audience:** Senior > Vibe
 

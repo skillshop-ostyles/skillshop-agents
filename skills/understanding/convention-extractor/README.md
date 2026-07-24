@@ -1,4 +1,4 @@
-﻿# convention-extractor
+# convention-extractor
 
 **Trigger:** `/conventions` | **Risk:** read-only | **Audience:** Both
 

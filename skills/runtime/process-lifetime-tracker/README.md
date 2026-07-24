@@ -1,4 +1,4 @@
-﻿# process-lifetime-tracker
+# process-lifetime-tracker
 
 **Trigger:** `/lifetime` | **Risk:** read-only | **Audience:** Both
 

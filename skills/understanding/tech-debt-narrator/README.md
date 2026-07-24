@@ -1,4 +1,4 @@
-﻿# tech-debt-narrator
+# tech-debt-narrator
 
 **Trigger:** `/tech-debt` | **Risk:** read-only | **Audience:** Senior
 

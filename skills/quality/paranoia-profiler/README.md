@@ -1,4 +1,4 @@
-﻿# paranoia-profiler
+# paranoia-profiler
 
 **Trigger:** `/paranoia` | **Risk:** read-only | **Audience:** Senior
 

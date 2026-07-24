@@ -1,4 +1,4 @@
-﻿# concurrency-hazard-scanner
+# concurrency-hazard-scanner
 
 **Trigger:** `/concurrency` | **Risk:** read-only | **Audience:** Both
 

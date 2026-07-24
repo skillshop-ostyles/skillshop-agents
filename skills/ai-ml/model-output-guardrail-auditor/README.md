@@ -1,4 +1,4 @@
-﻿# model-output-guardrail-auditor
+# model-output-guardrail-auditor
 
 **Trigger:** `/guardrails` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# api-contract-guardian
+# api-contract-guardian
 
 **Trigger:** `/api-diff` | **Risk:** read-only | **Audience:** Senior
 

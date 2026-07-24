@@ -1,4 +1,4 @@
-﻿# repro-builder
+# repro-builder
 
 **Trigger:** `/repro` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# authz-coverage-gap-detector
+# authz-coverage-gap-detector
 
 **Trigger:** `/authz-coverage` | **Risk:** read-only | **Audience:** Senior
 

@@ -1,4 +1,4 @@
-﻿# migration-limbo-detector
+# migration-limbo-detector
 
 **Trigger:** `/migration-limbo` | **Risk:** read-only | **Audience:** Senior
 

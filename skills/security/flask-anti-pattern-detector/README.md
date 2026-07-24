@@ -1,4 +1,4 @@
-﻿# flask-anti-pattern-detector
+# flask-anti-pattern-detector
 
 **Trigger:** `/flask-detector` | **Risk:** read-only | **Audience:** Senior
 

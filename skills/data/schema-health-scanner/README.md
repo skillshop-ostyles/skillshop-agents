@@ -1,4 +1,4 @@
-﻿# schema-health-scanner
+# schema-health-scanner
 
 **Trigger:** `/schema-health` | **Risk:** read-only | **Audience:** Both
 

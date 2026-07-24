@@ -1,4 +1,4 @@
-﻿# ai-decision-logger
+# ai-decision-logger
 
 **Trigger:** `/ai-log` | **Risk:** read-only | **Audience:** Both
 

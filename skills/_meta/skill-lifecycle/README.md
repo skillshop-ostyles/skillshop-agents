@@ -1,4 +1,4 @@
-﻿# skill-lifecycle
+# skill-lifecycle
 
 **Trigger:** `/skill-lifecycle` | **Risk:** read-only | **Audience:** Both
 

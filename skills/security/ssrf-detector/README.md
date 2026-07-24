@@ -1,4 +1,4 @@
-﻿# ssrf-detector
+# ssrf-detector
 
 **Trigger:** `/ssrf-detector` | **Risk:** read-only | **Audience:** Senior
 

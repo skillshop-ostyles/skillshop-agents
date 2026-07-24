@@ -1,4 +1,4 @@
-﻿# error-handling-auditor
+# error-handling-auditor
 
 **Trigger:** `/error-audit` | **Risk:** read-only | **Audience:** Both
 

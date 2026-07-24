@@ -1,4 +1,4 @@
-﻿# wheel-reinvention-detector
+# wheel-reinvention-detector
 
 **Trigger:** `/reinvented-wheels` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# code-smell-detection
+# code-smell-detection
 
 **Trigger:** `/code-smell` | **Risk:** read-only | **Audience:** Both
 

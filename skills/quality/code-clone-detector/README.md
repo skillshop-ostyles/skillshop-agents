@@ -1,4 +1,4 @@
-﻿# code-clone-detector
+# code-clone-detector
 
 **Trigger:** `/code-clone` | **Risk:** read-only | **Audience:** Both
 

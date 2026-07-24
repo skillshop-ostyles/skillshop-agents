@@ -1,4 +1,4 @@
-﻿# tool-call-fidelity-checker
+# tool-call-fidelity-checker
 
 **Trigger:** `/tool-fidelity` | **Risk:** read-only | **Audience:** Both
 

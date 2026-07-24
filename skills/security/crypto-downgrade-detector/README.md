@@ -1,4 +1,4 @@
-﻿# crypto-downgrade-detector
+# crypto-downgrade-detector
 
 **Trigger:** `/crypto-downgrade` | **Risk:** read-only | **Audience:** Senior
 

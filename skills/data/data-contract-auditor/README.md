@@ -1,4 +1,4 @@
-﻿# data-contract-auditor
+# data-contract-auditor
 
 **Trigger:** `/data-contract` | **Risk:** read-only | **Audience:** Both
 

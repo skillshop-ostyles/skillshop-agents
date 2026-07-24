@@ -1,4 +1,4 @@
-﻿# error-handling-overview
+# error-handling-overview
 
 **Trigger:** `/errors-overview` | **Risk:** read-only | **Audience:** Both
 

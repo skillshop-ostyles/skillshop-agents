@@ -1,4 +1,4 @@
-﻿# test-gap-cartographer
+# test-gap-cartographer
 
 **Trigger:** `/testgap` | **Risk:** read-only | **Audience:** Senior
 

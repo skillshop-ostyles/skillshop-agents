@@ -1,4 +1,4 @@
-﻿# secret-lifecycle-auditor
+# secret-lifecycle-auditor
 
 **Trigger:** `/secret-lifecycle` | **Risk:** read-only | **Audience:** Senior
 

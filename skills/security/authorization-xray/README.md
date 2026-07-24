@@ -1,4 +1,4 @@
-﻿# authorization-xray
+# authorization-xray
 
 **Trigger:** `/authz` | **Risk:** read-only | **Audience:** Senior
 

@@ -1,4 +1,4 @@
-﻿# magic-value-genealogist
+# magic-value-genealogist
 
 **Trigger:** `/magic-values` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# runtime-type-mismatch
+# runtime-type-mismatch
 
 **Trigger:** `/type-mismatch` | **Risk:** read-only | **Audience:** Both
 

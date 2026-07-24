@@ -1,4 +1,4 @@
-﻿# invariant-miner
+# invariant-miner
 
 **Trigger:** `/invariants` | **Risk:** read-only | **Audience:** Senior
 

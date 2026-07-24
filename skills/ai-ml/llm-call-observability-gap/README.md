@@ -1,4 +1,4 @@
-﻿# llm-call-observability-gap
+# llm-call-observability-gap
 
 **Trigger:** `/llm-obs` | **Risk:** read-only | **Audience:** Both
 

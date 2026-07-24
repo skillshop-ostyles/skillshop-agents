@@ -1,4 +1,4 @@
-﻿# third-party-trust
+# third-party-trust
 
 **Trigger:** `/third-party-trust` | **Risk:** read-only | **Audience:** Senior
 

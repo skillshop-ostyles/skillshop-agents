@@ -1,4 +1,4 @@
-﻿# leak-detector
+# leak-detector
 
 **Trigger:** `/leak-scan` | **Risk:** read-only | **Audience:** Both
 

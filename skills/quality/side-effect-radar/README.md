@@ -1,4 +1,4 @@
-﻿# side-effect-radar
+# side-effect-radar
 
 **Trigger:** `/blast` | **Risk:** read-only | **Audience:** Both
 

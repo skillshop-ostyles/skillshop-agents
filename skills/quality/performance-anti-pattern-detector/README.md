@@ -1,4 +1,4 @@
-﻿# performance-anti-pattern-detector
+# performance-anti-pattern-detector
 
 **Trigger:** `/perf` | **Risk:** read-only | **Audience:** Senior
 

@@ -1,4 +1,4 @@
-﻿# n-plus-one-hunter
+# n-plus-one-hunter
 
 **Trigger:** `/n-plus-one` | **Risk:** read-only | **Audience:** Both
 

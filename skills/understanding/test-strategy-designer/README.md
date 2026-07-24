@@ -1,4 +1,4 @@
-﻿# test-strategy-designer
+# test-strategy-designer
 
 **Trigger:** `/test-strategy` | **Risk:** read-only | **Audience:** Senior
 

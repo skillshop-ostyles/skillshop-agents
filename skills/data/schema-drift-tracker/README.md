@@ -1,4 +1,4 @@
-﻿# schema-drift-tracker
+# schema-drift-tracker
 
 **Trigger:** `/schema-drift` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# prompt-drift-tracker
+# prompt-drift-tracker
 
 **Trigger:** `/prompt-drift` | **Risk:** read-only | **Audience:** Both
 

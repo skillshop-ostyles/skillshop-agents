@@ -1,4 +1,4 @@
-﻿# side-effect-ordering
+# side-effect-ordering
 
 **Trigger:** `/sideorder` | **Risk:** read-only | **Audience:** Both
 

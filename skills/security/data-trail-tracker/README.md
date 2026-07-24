@@ -1,4 +1,4 @@
-﻿# data-trail-tracker
+# data-trail-tracker
 
 **Trigger:** `/data-trail-tracker` | **Risk:** read-only | **Audience:** Both
 

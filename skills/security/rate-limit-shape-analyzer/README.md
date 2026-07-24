@@ -1,4 +1,4 @@
-﻿# rate-limit-shape-analyzer
+# rate-limit-shape-analyzer
 
 **Trigger:** `/rate-shape` | **Risk:** read-only | **Audience:** Senior
 

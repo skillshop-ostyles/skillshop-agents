@@ -1,4 +1,4 @@
-﻿# dependency-runtime-availability
+# dependency-runtime-availability
 
 **Trigger:** `/runtime-deps` | **Risk:** read-only | **Audience:** Both
 

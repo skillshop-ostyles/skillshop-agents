@@ -1,4 +1,4 @@
-﻿# dependency-graveyard
+# dependency-graveyard
 
 **Trigger:** `/dep-graveyard` | **Risk:** read-only | **Audience:** Both
 

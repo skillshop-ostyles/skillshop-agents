@@ -1,4 +1,4 @@
-﻿# api-footgun-reviewer
+# api-footgun-reviewer
 
 **Trigger:** `/footguns` | **Risk:** read-only | **Audience:** Senior > Vibe
 

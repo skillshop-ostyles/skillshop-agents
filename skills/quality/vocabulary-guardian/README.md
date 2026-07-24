@@ -1,4 +1,4 @@
-﻿# vocabulary-guardian
+# vocabulary-guardian
 
 **Trigger:** `/vocab` | **Risk:** read-only | **Audience:** Both
 

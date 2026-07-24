@@ -1,4 +1,4 @@
-﻿# onboarding-pathfinder
+# onboarding-pathfinder
 
 **Trigger:** `/onboarding-pathfinder` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# error-message-leakage
+# error-message-leakage
 
 **Trigger:** `/error-leakage` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# data-fixture-auditor
+# data-fixture-auditor
 
 **Trigger:** `/fixture-audit` | **Risk:** read-only | **Audience:** Both
 

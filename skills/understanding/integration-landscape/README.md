@@ -1,4 +1,4 @@
-﻿# integration-landscape
+# integration-landscape
 
 **Trigger:** `/integrations` | **Risk:** read-only | **Audience:** Senior
 

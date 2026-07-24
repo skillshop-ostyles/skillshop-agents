@@ -1,4 +1,4 @@
-﻿# domain-narrator
+# domain-narrator
 
 **Trigger:** `/explain` | **Risk:** read-only | **Audience:** Both
 

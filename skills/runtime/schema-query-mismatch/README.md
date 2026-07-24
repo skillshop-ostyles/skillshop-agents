@@ -1,4 +1,4 @@
-﻿# schema-query-mismatch
+# schema-query-mismatch
 
 **Trigger:** `/schema-query` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# rollback-readiness
+# rollback-readiness
 
 **Trigger:** `/rollback` | **Risk:** read-only | **Audience:** Both
 

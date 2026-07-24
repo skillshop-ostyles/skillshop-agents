@@ -1,4 +1,4 @@
-﻿# ml-pipeline-determinism-check
+# ml-pipeline-determinism-check
 
 **Trigger:** `/ml-determinism` | **Risk:** read-only | **Audience:** Both
 

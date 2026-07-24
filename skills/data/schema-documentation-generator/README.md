@@ -1,4 +1,4 @@
-﻿# schema-documentation-generator
+# schema-documentation-generator
 
 **Trigger:** `/schema-docs` | **Risk:** read-only | **Audience:** Both
 

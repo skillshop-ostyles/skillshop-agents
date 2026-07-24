@@ -1,4 +1,4 @@
-﻿# config-surface-documenter
+# config-surface-documenter
 
 **Trigger:** `/config-docs` | **Risk:** read-only | **Audience:** Both
 

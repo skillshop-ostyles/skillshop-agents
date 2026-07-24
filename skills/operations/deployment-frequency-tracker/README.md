@@ -1,4 +1,4 @@
-﻿# deployment-frequency-tracker
+# deployment-frequency-tracker
 
 **Trigger:** `/deploy-freq` | **Risk:** read-only | **Audience:** Both
 

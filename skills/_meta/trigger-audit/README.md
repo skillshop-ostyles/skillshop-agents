@@ -1,4 +1,4 @@
-﻿# trigger-audit
+# trigger-audit
 
 **Trigger:** `/trigger-audit` | **Risk:** read-only | **Audience:** Both
 

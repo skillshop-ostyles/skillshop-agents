@@ -1,4 +1,4 @@
-﻿# consistency-enforcer
+# consistency-enforcer
 
 **Trigger:** `/consist` | **Risk:** read-only | **Audience:** Both
 

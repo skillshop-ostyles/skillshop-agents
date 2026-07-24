@@ -1,4 +1,4 @@
-﻿# intent-archaeology
+# intent-archaeology
 
 **Trigger:** `/intent` | **Risk:** read-only | **Audience:** Both
 

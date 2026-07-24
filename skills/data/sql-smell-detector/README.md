@@ -1,4 +1,4 @@
-﻿# sql-smell-detector
+# sql-smell-detector
 
 **Trigger:** `/sql-smells` | **Risk:** read-only | **Audience:** Senior
 

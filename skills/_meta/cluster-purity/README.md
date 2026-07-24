@@ -1,4 +1,4 @@
-﻿# cluster-purity
+# cluster-purity
 
 **Trigger:** `/cluster-purity` | **Risk:** read-only | **Audience:** Both
 

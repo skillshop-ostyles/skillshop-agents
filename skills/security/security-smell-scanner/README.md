@@ -1,4 +1,4 @@
-﻿# security-smell-scanner
+# security-smell-scanner
 
 **Trigger:** `/security-scan` | **Risk:** read-only | **Audience:** Senior > Vibe
 

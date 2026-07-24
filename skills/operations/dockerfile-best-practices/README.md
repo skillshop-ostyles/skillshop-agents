@@ -1,4 +1,4 @@
-﻿# dockerfile-best-practices
+# dockerfile-best-practices
 
 **Trigger:** `/dockerfile-audit` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# fine-tune-dependency-check
+# fine-tune-dependency-check
 
 **Trigger:** `/finetune-deps` | **Risk:** read-only | **Audience:** Both
 

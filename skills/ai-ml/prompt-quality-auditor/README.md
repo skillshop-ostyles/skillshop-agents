@@ -1,4 +1,4 @@
-﻿# prompt-quality-auditor
+# prompt-quality-auditor
 
 **Trigger:** `/prompt-quality` | **Risk:** read-only | **Audience:** Both
 

@@ -1,4 +1,4 @@
-﻿# startup-profile-analyzer
+# startup-profile-analyzer
 
 **Trigger:** `/startup` | **Risk:** read-only | **Audience:** Both
 

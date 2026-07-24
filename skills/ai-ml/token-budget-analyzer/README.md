@@ -1,4 +1,4 @@
-﻿# token-budget-analyzer
+# token-budget-analyzer
 
 **Trigger:** `/token-budget` | **Risk:** read-only | **Audience:** Both
 

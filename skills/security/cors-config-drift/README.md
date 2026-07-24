@@ -1,4 +1,4 @@
-﻿# cors-config-drift
+# cors-config-drift
 
 **Trigger:** `/cors-drift` | **Risk:** read-only | **Audience:** Senior
 

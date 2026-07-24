@@ -1,4 +1,4 @@
-﻿# tls-config-drift
+# tls-config-drift
 
 **Trigger:** `/ssl-drift` | **Risk:** read-only | **Audience:** Senior
 

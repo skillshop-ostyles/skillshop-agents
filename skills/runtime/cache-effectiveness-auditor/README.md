@@ -1,4 +1,4 @@
-﻿# cache-effectiveness-auditor
+# cache-effectiveness-auditor
 
 **Trigger:** `/cache-audit` | **Risk:** read-only | **Audience:** Both
 

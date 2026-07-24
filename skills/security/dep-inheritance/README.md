@@ -1,4 +1,4 @@
-﻿# dep-inheritance
+# dep-inheritance
 
 **Trigger:** `/deps-audit` | **Risk:** read-only | **Audience:** Both
 

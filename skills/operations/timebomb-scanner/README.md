@@ -1,4 +1,4 @@
-﻿# timebomb-scanner
+# timebomb-scanner
 
 **Trigger:** `/timebomb` | **Risk:** read-only | **Audience:** Both
 

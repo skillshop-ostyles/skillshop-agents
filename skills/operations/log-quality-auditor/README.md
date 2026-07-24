@@ -1,4 +1,4 @@
-﻿# log-quality-auditor
+# log-quality-auditor
 
 **Trigger:** `/log-audit` | **Risk:** read-only | **Audience:** Both
 
