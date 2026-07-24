@@ -3,7 +3,7 @@
 Skills in this cluster detect, classify, and reason about **code quality**:
 smells, inconsistencies, dead code, refactoring opportunities, and the relationship
 between documentation, intent, and the code as it actually exists. Phase C
-expanded the cluster from 11 to 21 skills (see `ops/phase-c-catalog.md`).
+expanded the cluster from 11 to 21 skills.
 
 These skills are the first line of defense for "this code works, but should it look
 like this?" - they support both senior engineers who refactor deliberately and

@@ -17,3 +17,14 @@ skills/quality/intent-archaeology/tests/fixtures/smoke/.git/
 skills/quality/side-effect-radar/tests/fixtures/smoke/.git/
 skills/understanding/knowledge-testament/tests/fixtures/smoke/.git/
 
+
+# Private files - never pushed to remote
+/CLAUDE.md
+/tests/
+/skills/*/tests/
+/skills/*/*/tests/
+
+# Local-only _meta skills (internal tooling)
+/skills/_meta/bibel-gate/
+/skills/_meta/bibel-migrate/
+/skills/_meta/impact/

@@ -30,7 +30,7 @@ never executes the target code, never connects to a network.
 
 This skill analyzes foreign projects. It is read-only. The protection guard
 is still active: if the skill ever gets a write mode, the guard from
-`ops/BIBEL.md` section 2.2 must be implemented.
+The protection guard (target path validation) must be implemented.
 
 ## What You Must Do When Invoked
 

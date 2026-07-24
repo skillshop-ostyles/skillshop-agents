@@ -66,7 +66,7 @@ With the JSON from Step 2:
 4. If `symbol` is set but `symbolLogAvailable: false`: note this in the report,
    analysis falls back to file level.
 5. Each statement gets a confidence level (`proven` / `likely` /
-   `suspected`) according to `ops/BIBEL.md` section 4. `suspected` statements belong
+   `suspected`) according to the confidence level guidelines. `suspected` statements belong
    exclusively in the "Open questions" section, never among the proven findings.
 
 ### Step 5 - Write report

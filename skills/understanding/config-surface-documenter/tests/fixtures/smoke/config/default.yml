@@ -1,6 +1,0 @@
-app:
-  name: my-app
-  version: 1.0.0
-features:
-  beta: true
-  dark-mode: false

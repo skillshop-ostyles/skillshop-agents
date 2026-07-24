@@ -1,6 +1,6 @@
 ---
 name: manifest-audit
-description: "Verify ops/tracking.md, README.md, and actual filesystem are in sync. Trigger: /manifest-audit"
+description: "Verify project tracking docs, README.md, and actual filesystem are in sync. Trigger: /manifest-audit"
 trigger: /manifest-audit
 ---
 # /manifest-audit

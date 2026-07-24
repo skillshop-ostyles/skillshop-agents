@@ -2,7 +2,7 @@
 
 **Trigger:** `/manifest-audit` | **Risk:** read-only | **Audience:** Both
 
-> Verify ops/tracking.md, README.md, and actual filesystem are in sync.
+> Verify project tracking docs, README.md, and actual filesystem are in sync.
 
 ## Quick Install
 

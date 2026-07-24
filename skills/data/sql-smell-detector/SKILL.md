@@ -44,7 +44,7 @@ For each query in the JSON output (with its findings[]):
    - `false-positive`: Rule triggered but is harmless in context (mark as rejected).
 3. **Rewrite**: Propose a rewritten SQL query that fixes the issue (or explain why none is needed).
 
-Confidence levels per BIBEL section 4: `proven` (rule matches clearly), `likely` (pattern suggests problem), `suspected` (needs more context).
+Confidence levels: `proven` (rule matches clearly), `likely` (pattern suggests problem), `suspected` (needs more context).
 
 ### Step 5 - Open questions
 Collect any ambiguous findings where schema context is missing (e.g., cannot determine column types) in an "Open Questions" section.

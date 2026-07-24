@@ -69,7 +69,7 @@ No commits found for the author: forward the `Write-Error` message (points to
 4. **Absence mode**: if the knowledge carrier is unavailable, still generate all
    interview questions and output them as a question catalog - clearly label as
    "Testament in absence / reduced mode", do not fabricate answers.
-5. Evidence rule (adapted from `ops/BIBEL.md` section 4): interview statements
+5. Evidence rule: interview statements
    are marked as such (source: interview, date) - they need no commit proof, but
    link every code reference as `file:line`/commit where possible.
 

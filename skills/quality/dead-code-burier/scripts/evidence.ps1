@@ -23,7 +23,7 @@ if (-not (Test-Path -LiteralPath $Candidates)) {
     exit 1
 }
 
-# reachability.ps1 outputs JSON + console summary (BIBEL output contract);
+# reachability.ps1 outputs JSON + console summary;
 # when redirecting to a file, both end up in it - only parse the JSON part before
 # the "=== ..." marker.
 $rawLines = Get-Content -LiteralPath $Candidates -ErrorAction SilentlyContinue

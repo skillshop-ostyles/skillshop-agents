@@ -64,7 +64,7 @@ do not write an empty pseudo-report, stop.
    as test in the cluster. Cross-language clusters (e.g. code + SQL) are
    explicitly desired.
 5. Evidence requirement: no cluster claim without all locations; divergence verdict
-   only with direct code quote from both sides (`ops/BIBEL.md` section 4).
+   only with direct code quote from both sides (confidence level must be `proven` for equivalence claims).
 
 ### Step 5 - Write report
 

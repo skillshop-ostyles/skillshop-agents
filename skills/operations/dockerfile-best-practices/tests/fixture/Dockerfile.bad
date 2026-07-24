@@ -1,9 +1,0 @@
-FROM node
-WORKDIR /app
-COPY . /app
-RUN apt-get update
-RUN apt-get install -y curl vim
-RUN npm install
-RUN pip install requests
-ENV DB_PASSWORD=supersecret
-CMD npm start

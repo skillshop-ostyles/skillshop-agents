@@ -103,7 +103,7 @@ foreach ($fp in $fileList) {
             if ($val -match '^null$' -or $val -match '^true$' -or $val -match '^false$') { continue }
             if ($val.Length -lt $MinKeyLength) { continue }
 
-            # Mask: first-8 + last-4 per BIBEL section 2.5.
+            # Mask: first-8 + last-4 for security.
             $masked = if ($val.Length -ge 12) {
                 $val.Substring(0, 8) + '***' + $val.Substring($val.Length - 4)
             } else {

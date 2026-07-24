@@ -8,7 +8,7 @@ trigger: /project-init
 Start a fresh, virgin project from scratch. This skill runs an interactive, dynamic
 onboarding dialog with the user, then scaffolds a complete, optimized directory &
 file structure and writes the onboarding results into the project's ops/ docs so
-that future LLM sessions (via the Session-Start-Trigger in the global Bible) can
+that future LLM sessions (via the session-start trigger) can
 pick up the context automatically.
 
 ## What this is for
@@ -17,7 +17,7 @@ pick up the context automatically.
 - The user wants the LLM to *ask* the right questions rather than guess.
 - All project areas must be covered: goal, stack, structure, tooling, docs,
   secrets/tokens, platform context.
-- Output is a reusable, consistent baseline that the Bible's "weiter" routine
+- Output is a reusable, consistent baseline that the session-start routine
   can read back in every session.
 
 ## What You Must Do When Invoked
@@ -54,7 +54,7 @@ If the user proposes `~/.claude/` as target, abort immediately. The generator
 
 Ask the user the following areas ONE AT A TIME, in this order. Adapt follow-up
 questions to previous answers (dynamic, not a fixed form). Keep each question
-short and direct (Bible: direct, no fluff).
+short and direct.
 
 1. **Goal** - What is the project? One sentence. What problem does it solve?
 2. **Stack** - Language/framework (Node/TS, Python, Go, Rust, ...). Confirm
@@ -66,7 +66,7 @@ short and direct (Bible: direct, no fluff).
 5. **Docs / Ops** - Explain that ops/ holds manifest.md, tracking.md,
    sprints/. Confirm naming conventions.
 6. **Secrets / Tokens** - Which external services/APIs? Where do secrets live
-   (.env, vault)? NEVER log full secrets - only masked preview per Bible.
+    (.env, vault)? NEVER log full secrets - only masked preview.
 7. **Platform context** - Deployment target (local, cloud, serverless),
    platforms (web, cli, api, mobile).
 8. **Blockers / Open** - Anything currently blocking or undecided?
@@ -103,10 +103,10 @@ Where `answers.json` is a JSON object you build from the dialog, e.g.:
 
 The script:
 - Creates the directory tree.
-- Writes `CLAUDE.md` (project Bible reference - mirrors the global Bible).
+- Writes `CLAUDE.md` (project rules and configuration).
 - Writes `ops/manifest.md` (goal + scope from answers).
 - Writes `ops/tracking.md` (status template, blocker field).
-- Writes `ops/sprints/.gitkeep` + a `sprints/README.md`.
+- Writes `ops/sprints/.gitkeep` + `ops/sprints/README.md`.
 - Writes `.gitignore` (node_modules, dist, .env, etc. - stack-aware).
 - Writes `README.md` (project title + goal stub).
 - Scaffolds a minimal entry file appropriate to the stack (only a stub, no logic).
@@ -118,7 +118,7 @@ Print a concise summary of what was created:
 ```
 Project <name> initialized in <path>
   Structure: <tree in 5-8 lines>
-  Bible:     CLAUDE.md created (references global bible)
+  Config:   CLAUDE.md created (project rules)
   Ops:       manifest.md, tracking.md, sprints/
   Secrets:   <masked preview or "none">
   Next step: type "weiter" to start session start routine.

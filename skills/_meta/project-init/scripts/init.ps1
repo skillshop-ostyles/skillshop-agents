@@ -64,12 +64,9 @@ function Write-File($relPath, $content) {
 }
 
 $bibleRef = @"
-# Project Bible - non-negotiable
+# Project Rules - non-negotiable
 
-The binding rules for this project are defined in the global user bible:
-
-- **Source:** `C:\Users\ostol\.claude\CLAUDE.md` (valid for ALL projects of this user)
-- **Status:** ALWAYS present, active, and valid. Non-negotiable.
+The binding rules for this project are defined in the user's global CLAUDE.md configuration.
 
 ## Project Profile
 - **Name:** $name
@@ -77,9 +74,6 @@ The binding rules for this project are defined in the global user bible:
 - **Stack:** $stack ($pkgManager)
 - **Platform:** $(($platform -join ', '))
 - **Blockers:** $blockers
-
-## Anchoring
-This file is the project-local instance of the bible. In case of conflicts between project-specific code/text and the bible, the bible takes precedence.
 "@
 Write-File 'CLAUDE.md' $bibleRef
 
@@ -184,5 +178,5 @@ switch ($stack) {
 }
 
 Write-Output "Project '$name' initialized in $ProjectDir"
-Write-Output "  Structure created: $(($layoutDirs -join '/')) + ops/ + README.md + .gitignore + CLAUDE.md"
+Write-Output "  Structure created: $(($layoutDirs -join '/')) + ops/ + README.md + .gitignore + project config"
 Write-Output "  Next step: type 'weiter' for session start routine."

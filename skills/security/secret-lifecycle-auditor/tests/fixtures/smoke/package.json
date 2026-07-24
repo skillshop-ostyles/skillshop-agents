@@ -1,8 +1,0 @@
-{
-    "name": "fixture-app",
-    "version": "1.0.0",
-    "dependencies": {
-        "stripe": "^13.0.0",
-        "@octokit/rest": "^20.0.0"
-    }
-}

@@ -1,2 +1,0 @@
-ALTER TABLE users ADD COLUMN email VARCHAR(255) NOT NULL;
--- Down: ALTER TABLE users DROP COLUMN email;

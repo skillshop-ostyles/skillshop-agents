@@ -76,7 +76,7 @@ Per finding: category, severity (`high` = wrong product risk, `medium` = rework
 risk, `low` = style issue), verbatim quote + `file:line` (for contradictions:
 both locations), one concrete, closed-form clarification question.
 
-Confidence levels apply here too (`ops/BIBEL.md` section 4): a "contradiction" at
+Standard confidence levels apply: a "contradiction" at
 level `suspected` goes into "Open questions", not into the findings list.
 
 ### Step 5 - Write report
