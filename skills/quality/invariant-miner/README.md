@@ -1,4 +1,4 @@
-# invariant-miner
+﻿# invariant-miner
 
 **Trigger:** `/invariants` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Invariant miner: scans for code signals that imply hidden invariants (array[0] w
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/invariant-miner $HOME/.claude/skills/quality/invariant-miner
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/invariant-miner $HOME\.claude\skills\quality\invariant-miner
 ```
 

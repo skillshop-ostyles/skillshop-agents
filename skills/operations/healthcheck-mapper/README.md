@@ -1,4 +1,4 @@
-# healthcheck-mapper
+﻿# healthcheck-mapper
 
 **Trigger:** `/healthcheck` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Healthcheck mapper: inventory all health/readiness/liveness endpoints, map again
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/healthcheck-mapper $HOME/.claude/skills/operations/healthcheck-mapper
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/healthcheck-mapper $HOME\.claude\skills\operations\healthcheck-mapper
 ```
 

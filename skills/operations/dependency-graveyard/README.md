@@ -1,4 +1,4 @@
-# dependency-graveyard
+﻿# dependency-graveyard
 
 **Trigger:** `/dep-graveyard` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Dependency graveyard: inventory every dependency, check registry health metadata
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/dependency-graveyard $HOME/.claude/skills/operations/dependency-graveyard
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/dependency-graveyard $HOME\.claude\skills\operations\dependency-graveyard
 ```
 

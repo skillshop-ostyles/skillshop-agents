@@ -1,4 +1,4 @@
-# prod-mirror
+﻿# prod-mirror
 
 **Trigger:** `/mirror` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Production behavior mirror: ingests exported log files (text or JSON lines), sta
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/prod-mirror $HOME/.claude/skills/runtime/prod-mirror
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/prod-mirror $HOME\.claude\skills\runtime\prod-mirror
 ```
 

@@ -1,4 +1,4 @@
-# migration-safety-inspector
+﻿# migration-safety-inspector
 
 **Trigger:** `/migration-safety` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Database migration safety inspector: scans SQL migration files for 20+ safety ru
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/migration-safety-inspector $HOME/.claude/skills/data/migration-safety-inspector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/migration-safety-inspector $HOME\.claude\skills\data\migration-safety-inspector
 ```
 

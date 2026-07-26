@@ -1,4 +1,4 @@
-# schema-health-scanner
+﻿# schema-health-scanner
 
 **Trigger:** `/schema-health` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Database schema health scanner: parses DDL files (.sql, .prisma, ORM models), ex
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/schema-health-scanner $HOME/.claude/skills/data/schema-health-scanner
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/schema-health-scanner $HOME\.claude\skills\data\schema-health-scanner
 ```
 

@@ -1,4 +1,4 @@
-# migration-limbo-detector
+﻿# migration-limbo-detector
 
 **Trigger:** `/migration-limbo` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Migration limbo detector: screens for half-finished migrations by counting usage
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/migration-limbo-detector $HOME/.claude/skills/quality/migration-limbo-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/migration-limbo-detector $HOME\.claude\skills\quality\migration-limbo-detector
 ```
 

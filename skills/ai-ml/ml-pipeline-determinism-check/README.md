@@ -1,4 +1,4 @@
-# ml-pipeline-determinism-check
+﻿# ml-pipeline-determinism-check
 
 **Trigger:** `/ml-determinism` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/ml-pipeline-determinism-check $HOME/.claude/skills/ai-ml/ml-pipeline-determinism-check
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/ml-pipeline-determinism-check $HOME\.claude\skills\ai-ml\ml-pipeline-determinism-check
 ```
 

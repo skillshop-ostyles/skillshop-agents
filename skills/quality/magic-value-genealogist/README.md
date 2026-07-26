@@ -1,4 +1,4 @@
-# magic-value-genealogist
+﻿# magic-value-genealogist
 
 **Trigger:** `/magic-values` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Magic value genealogist: extracts numeric and uppercase-string literals from non
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/magic-value-genealogist $HOME/.claude/skills/quality/magic-value-genealogist
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/magic-value-genealogist $HOME\.claude\skills\quality\magic-value-genealogist
 ```
 

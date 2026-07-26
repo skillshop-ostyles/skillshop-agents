@@ -1,4 +1,4 @@
-# concurrency-hazard-scanner
+﻿# concurrency-hazard-scanner
 
 **Trigger:** `/concurrency` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Concurrency hazard scanner: map shared mutable state across async boundaries, LL
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/concurrency-hazard-scanner $HOME/.claude/skills/runtime/concurrency-hazard-scanner
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/concurrency-hazard-scanner $HOME\.claude\skills\runtime\concurrency-hazard-scanner
 ```
 

@@ -1,4 +1,4 @@
-# pii-schema-classifier
+﻿# pii-schema-classifier
 
 **Trigger:** `/pii-scan` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ PII schema classifier: scans DDL/ORM models for columns that may contain sensiti
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/pii-schema-classifier $HOME/.claude/skills/data/pii-schema-classifier
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/pii-schema-classifier $HOME\.claude\skills\data\pii-schema-classifier
 ```
 

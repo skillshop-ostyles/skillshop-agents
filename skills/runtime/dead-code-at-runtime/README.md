@@ -1,4 +1,4 @@
-# dead-code-at-runtime
+﻿# dead-code-at-runtime
 
 **Trigger:** `/dead-runtime` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/dead-code-at-runtime $HOME/.claude/skills/runtime/dead-code-at-runtime
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/dead-code-at-runtime $HOME\.claude\skills\runtime\dead-code-at-runtime
 ```
 

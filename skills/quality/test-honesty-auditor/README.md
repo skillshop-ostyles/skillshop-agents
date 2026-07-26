@@ -1,4 +1,4 @@
-# test-honesty-auditor
+﻿# test-honesty-auditor
 
 **Trigger:** `/test-honesty` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Test honesty auditor: statically detects 6 categories of tests-that-cannot-fail 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/test-honesty-auditor $HOME/.claude/skills/quality/test-honesty-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/test-honesty-auditor $HOME\.claude\skills\quality\test-honesty-auditor
 ```
 

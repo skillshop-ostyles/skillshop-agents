@@ -1,4 +1,4 @@
-# error-handling-overview
+﻿# error-handling-overview
 
 **Trigger:** `/errors-overview` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Strategic overview of how a project handles errors: catch-type taxonomy (log/ret
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/error-handling-overview $HOME/.claude/skills/understanding/error-handling-overview
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/error-handling-overview $HOME\.claude\skills\understanding\error-handling-overview
 ```
 

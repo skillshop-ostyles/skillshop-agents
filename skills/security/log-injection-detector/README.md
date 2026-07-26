@@ -1,4 +1,4 @@
-# log-injection-detector
+﻿# log-injection-detector
 
 **Trigger:** `/log-injection` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Log injection detector: harvests every console.log/logger.info/log.Error/etc cal
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/log-injection-detector $HOME/.claude/skills/security/log-injection-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/log-injection-detector $HOME\.claude\skills\security\log-injection-detector
 ```
 

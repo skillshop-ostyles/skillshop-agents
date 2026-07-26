@@ -1,4 +1,4 @@
-# training-data-leakage-detector
+﻿# training-data-leakage-detector
 
 **Trigger:** `/train-leak` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/training-data-leakage-detector $HOME/.claude/skills/ai-ml/training-data-leakage-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/training-data-leakage-detector $HOME\.claude\skills\ai-ml\training-data-leakage-detector
 ```
 

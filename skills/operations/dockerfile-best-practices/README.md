@@ -1,4 +1,4 @@
-# dockerfile-best-practices
+﻿# dockerfile-best-practices
 
 **Trigger:** `/dockerfile-audit` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Dockerfile best-practices auditor: statically scans Dockerfiles for 18 common an
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/dockerfile-best-practices $HOME/.claude/skills/operations/dockerfile-best-practices
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/dockerfile-best-practices $HOME\.claude\skills\operations\dockerfile-best-practices
 ```
 

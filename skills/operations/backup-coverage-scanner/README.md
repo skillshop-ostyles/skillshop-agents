@@ -1,4 +1,4 @@
-# backup-coverage-scanner
+﻿# backup-coverage-scanner
 
 **Trigger:** `/backup-scan` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Backup coverage scanner: inventory every stateful resource, trace backup configu
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/backup-coverage-scanner $HOME/.claude/skills/operations/backup-coverage-scanner
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/backup-coverage-scanner $HOME\.claude\skills\operations\backup-coverage-scanner
 ```
 

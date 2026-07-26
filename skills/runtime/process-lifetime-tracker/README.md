@@ -1,4 +1,4 @@
-# process-lifetime-tracker
+﻿# process-lifetime-tracker
 
 **Trigger:** `/lifetime` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Process lifetime tracker: map every process/service/daemon, trace shutdown paths
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/process-lifetime-tracker $HOME/.claude/skills/runtime/process-lifetime-tracker
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/process-lifetime-tracker $HOME\.claude\skills\runtime\process-lifetime-tracker
 ```
 

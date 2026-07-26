@@ -1,4 +1,4 @@
-# cluster-purity
+﻿# cluster-purity
 
 **Trigger:** `/cluster-purity` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/_meta/cluster-purity $HOME/.claude/skills/_meta/cluster-purity
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/_meta/cluster-purity $HOME\.claude\skills\_meta\cluster-purity
 ```
 

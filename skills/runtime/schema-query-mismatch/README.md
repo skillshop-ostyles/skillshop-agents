@@ -1,4 +1,4 @@
-# schema-query-mismatch
+﻿# schema-query-mismatch
 
 **Trigger:** `/schema-query` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/schema-query-mismatch $HOME/.claude/skills/runtime/schema-query-mismatch
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/schema-query-mismatch $HOME\.claude\skills\runtime\schema-query-mismatch
 ```
 

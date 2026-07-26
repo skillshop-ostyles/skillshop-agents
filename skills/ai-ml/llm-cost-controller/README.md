@@ -1,4 +1,4 @@
-# llm-cost-controller
+﻿# llm-cost-controller
 
 **Trigger:** `/llm-cost` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ LLM cost controller: audits all LLM API calls in a codebase, detects cost anti-p
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/llm-cost-controller $HOME/.claude/skills/ai-ml/llm-cost-controller
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/llm-cost-controller $HOME\.claude\skills\ai-ml\llm-cost-controller
 ```
 

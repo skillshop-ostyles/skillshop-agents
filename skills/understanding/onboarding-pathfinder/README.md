@@ -1,4 +1,4 @@
-# onboarding-pathfinder
+﻿# onboarding-pathfinder
 
 **Trigger:** `/onboarding-pathfinder` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Analyzes the topology of a codebase and generates a didactically sequenced readi
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/onboarding-pathfinder $HOME/.claude/skills/understanding/onboarding-pathfinder
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/onboarding-pathfinder $HOME\.claude\skills\understanding\onboarding-pathfinder
 ```
 

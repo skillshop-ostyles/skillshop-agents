@@ -8,7 +8,7 @@ workflow, please report it privately **before** disclosing it publicly.
 **Do not open a public GitHub issue.**
 
 Send details to the maintainers via opening a draft security advisory at:
-https://github.com/skillshop-ostyles/skill-shop-agents/security/advisories/new
+https://github.com/skillshop-ostyles/skillshop-agents/security/advisories/new
 
 We aim to acknowledge receipt within 48 hours and provide a fix timeline
 within 5 business days.

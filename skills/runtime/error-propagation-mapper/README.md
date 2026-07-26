@@ -1,4 +1,4 @@
-# error-propagation-mapper
+﻿# error-propagation-mapper
 
 **Trigger:** `/error-map` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Error propagation mapper: trace every error from origin through handling blocks 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/error-propagation-mapper $HOME/.claude/skills/runtime/error-propagation-mapper
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/error-propagation-mapper $HOME\.claude\skills\runtime\error-propagation-mapper
 ```
 

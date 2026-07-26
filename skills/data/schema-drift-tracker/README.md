@@ -1,4 +1,4 @@
-# schema-drift-tracker
+﻿# schema-drift-tracker
 
 **Trigger:** `/schema-drift` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/schema-drift-tracker $HOME/.claude/skills/data/schema-drift-tracker
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/schema-drift-tracker $HOME\.claude\skills\data\schema-drift-tracker
 ```
 

@@ -1,4 +1,4 @@
-# consistency-enforcer
+﻿# consistency-enforcer
 
 **Trigger:** `/consist` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Finds duplicated BUSINESS LOGIC (not duplicated text): extracts rule candidates 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/consistency-enforcer $HOME/.claude/skills/quality/consistency-enforcer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/consistency-enforcer $HOME\.claude\skills\quality\consistency-enforcer
 ```
 

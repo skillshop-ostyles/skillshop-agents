@@ -1,4 +1,4 @@
-# paranoia-profiler
+﻿# paranoia-profiler
 
 **Trigger:** `/paranoia` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Paranoia profiler: catalogs every defensive guard (null/undefined/empty/try-catc
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/paranoia-profiler $HOME/.claude/skills/quality/paranoia-profiler
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/paranoia-profiler $HOME\.claude\skills\quality\paranoia-profiler
 ```
 

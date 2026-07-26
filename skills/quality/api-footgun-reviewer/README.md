@@ -1,4 +1,4 @@
-# api-footgun-reviewer
+﻿# api-footgun-reviewer
 
 **Trigger:** `/footguns` | **Risk:** read-only | **Audience:** Senior > Vibe
 
@@ -9,14 +9,14 @@ API footgun reviewer: harvests exported function/method signatures, flags boolea
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/api-footgun-reviewer $HOME/.claude/skills/quality/api-footgun-reviewer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/api-footgun-reviewer $HOME\.claude\skills\quality\api-footgun-reviewer
 ```
 

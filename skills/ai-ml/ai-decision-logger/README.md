@@ -1,4 +1,4 @@
-# ai-decision-logger
+﻿# ai-decision-logger
 
 **Trigger:** `/ai-log` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/ai-decision-logger $HOME/.claude/skills/ai-ml/ai-decision-logger
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/ai-decision-logger $HOME\.claude\skills\ai-ml\ai-decision-logger
 ```
 

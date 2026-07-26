@@ -1,4 +1,4 @@
-# data-contract-auditor
+﻿# data-contract-auditor
 
 **Trigger:** `/data-contract` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Schema-vs-usage contract auditor: compares schema declarations (DDL, ORM models,
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/data-contract-auditor $HOME/.claude/skills/data/data-contract-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/data-contract-auditor $HOME\.claude\skills\data\data-contract-auditor
 ```
 

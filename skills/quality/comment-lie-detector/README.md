@@ -1,4 +1,4 @@
-# comment-lie-detector
+﻿# comment-lie-detector
 
 **Trigger:** `/comment-lies` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Comment lie detector: extracts every behavioral-claim comment (returns / throws 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/comment-lie-detector $HOME/.claude/skills/quality/comment-lie-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/comment-lie-detector $HOME\.claude\skills\quality\comment-lie-detector
 ```
 

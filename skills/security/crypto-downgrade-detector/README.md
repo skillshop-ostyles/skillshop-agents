@@ -1,4 +1,4 @@
-# crypto-downgrade-detector
+﻿# crypto-downgrade-detector
 
 **Trigger:** `/crypto-downgrade` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Crypto downgrade detector: harvests every weak-algorithm usage (MD5, SHA1, DES, 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/crypto-downgrade-detector $HOME/.claude/skills/security/crypto-downgrade-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/crypto-downgrade-detector $HOME\.claude\skills\security\crypto-downgrade-detector
 ```
 

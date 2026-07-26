@@ -1,4 +1,4 @@
-# spec-lie-detector
+﻿# spec-lie-detector
 
 **Trigger:** `/spec-check` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Requirements lie detector: reads a corpus of specs/tickets (text files) and find
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/spec-lie-detector $HOME/.claude/skills/quality/spec-lie-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/spec-lie-detector $HOME\.claude\skills\quality\spec-lie-detector
 ```
 

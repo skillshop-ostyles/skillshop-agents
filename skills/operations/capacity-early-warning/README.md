@@ -1,4 +1,4 @@
-# capacity-early-warning
+﻿# capacity-early-warning
 
 **Trigger:** `/capacity` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Capacity early warning: find hardcoded limits, pool sizes, timeouts, quotas, the
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/capacity-early-warning $HOME/.claude/skills/operations/capacity-early-warning
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/capacity-early-warning $HOME\.claude\skills\operations\capacity-early-warning
 ```
 

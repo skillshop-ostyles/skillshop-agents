@@ -1,4 +1,4 @@
-# performance-anti-pattern-detector
+﻿# performance-anti-pattern-detector
 
 **Trigger:** `/perf` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Performance anti-pattern detector: statically finds 8 families of structural per
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/performance-anti-pattern-detector $HOME/.claude/skills/quality/performance-anti-pattern-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/performance-anti-pattern-detector $HOME\.claude\skills\quality\performance-anti-pattern-detector
 ```
 

@@ -1,4 +1,4 @@
-# project-init
+﻿# project-init
 
 **Trigger:** `/project-init` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Bootstraps a brand-new, empty project with a complete, optimized file & director
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/_meta/project-init $HOME/.claude/skills/_meta/project-init
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/_meta/project-init $HOME\.claude\skills\_meta\project-init
 ```
 

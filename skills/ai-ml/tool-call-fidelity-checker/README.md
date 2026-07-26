@@ -1,4 +1,4 @@
-# tool-call-fidelity-checker
+﻿# tool-call-fidelity-checker
 
 **Trigger:** `/tool-fidelity` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/tool-call-fidelity-checker $HOME/.claude/skills/ai-ml/tool-call-fidelity-checker
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/tool-call-fidelity-checker $HOME\.claude\skills\ai-ml\tool-call-fidelity-checker
 ```
 

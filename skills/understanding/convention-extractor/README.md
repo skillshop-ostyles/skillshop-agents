@@ -1,4 +1,4 @@
-# convention-extractor
+﻿# convention-extractor
 
 **Trigger:** `/conventions` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Extracts implicit coding conventions from code patterns: naming style, import st
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/convention-extractor $HOME/.claude/skills/understanding/convention-extractor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/convention-extractor $HOME\.claude\skills\understanding\convention-extractor
 ```
 

@@ -1,4 +1,4 @@
-# timebomb-scanner
+﻿# timebomb-scanner
 
 **Trigger:** `/timebomb` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Time bomb scanner: finds hardcoded dates, expiry deadlines, cert references, 32-
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/timebomb-scanner $HOME/.claude/skills/operations/timebomb-scanner
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/timebomb-scanner $HOME\.claude\skills\operations\timebomb-scanner
 ```
 

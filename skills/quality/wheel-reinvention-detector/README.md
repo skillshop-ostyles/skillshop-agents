@@ -1,4 +1,4 @@
-# wheel-reinvention-detector
+﻿# wheel-reinvention-detector
 
 **Trigger:** `/reinvented-wheels` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Wheel reinvention detector: harvests exported short utility functions (≤40 lin
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/wheel-reinvention-detector $HOME/.claude/skills/quality/wheel-reinvention-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/wheel-reinvention-detector $HOME\.claude\skills\quality\wheel-reinvention-detector
 ```
 

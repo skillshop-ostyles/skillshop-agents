@@ -1,4 +1,4 @@
-# permission-chain
+﻿# permission-chain
 
 **Trigger:** `/permission-chain` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Permission chain analyzer: extracts role definitions, role check sites, middlewa
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/permission-chain $HOME/.claude/skills/security/permission-chain
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/permission-chain $HOME\.claude\skills\security\permission-chain
 ```
 

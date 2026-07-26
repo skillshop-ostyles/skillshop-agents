@@ -1,4 +1,4 @@
-# vocabulary-guardian
+﻿# vocabulary-guardian
 
 **Trigger:** `/vocab` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Ubiquitous language guard: harvests identifiers from code, schema and API defini
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/vocabulary-guardian $HOME/.claude/skills/quality/vocabulary-guardian
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/vocabulary-guardian $HOME\.claude\skills\quality\vocabulary-guardian
 ```
 

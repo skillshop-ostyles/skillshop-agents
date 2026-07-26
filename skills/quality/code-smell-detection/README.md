@@ -1,4 +1,4 @@
-# code-smell-detection
+﻿# code-smell-detection
 
 **Trigger:** `/code-smell` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Code smell detector: statically identifies 10 families of structural code qualit
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/code-smell-detection $HOME/.claude/skills/quality/code-smell-detection
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/code-smell-detection $HOME\.claude\skills\quality\code-smell-detection
 ```
 

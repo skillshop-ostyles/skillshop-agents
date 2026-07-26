@@ -1,4 +1,4 @@
-# knowledge-testament
+﻿# knowledge-testament
 
 **Trigger:** `/testament` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Knowledge testament: mines git blame/log to map where one developer's exclusive 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/knowledge-testament $HOME/.claude/skills/understanding/knowledge-testament
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/knowledge-testament $HOME\.claude\skills\understanding\knowledge-testament
 ```
 

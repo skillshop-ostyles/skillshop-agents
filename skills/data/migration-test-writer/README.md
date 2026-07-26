@@ -1,4 +1,4 @@
-# migration-test-writer
+﻿# migration-test-writer
 
 **Trigger:** `/migration-test` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Migration test writer: reads a schema diff (old DDL vs. new DDL), identifies str
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/migration-test-writer $HOME/.claude/skills/data/migration-test-writer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/migration-test-writer $HOME\.claude\skills\data\migration-test-writer
 ```
 

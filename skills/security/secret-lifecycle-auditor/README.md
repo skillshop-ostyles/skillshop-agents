@@ -1,4 +1,4 @@
-# secret-lifecycle-auditor
+﻿# secret-lifecycle-auditor
 
 **Trigger:** `/secret-lifecycle` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Secret lifecycle auditor: inventories every secret-shaped key/value across .env,
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/secret-lifecycle-auditor $HOME/.claude/skills/security/secret-lifecycle-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/secret-lifecycle-auditor $HOME\.claude\skills\security\secret-lifecycle-auditor
 ```
 

@@ -1,4 +1,4 @@
-# benchmark
+﻿# benchmark
 
 **Trigger:** `/benchmark` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/_meta/benchmark $HOME/.claude/skills/_meta/benchmark
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/_meta/benchmark $HOME\.claude\skills\_meta\benchmark
 ```
 

@@ -1,4 +1,4 @@
-# ssrf-detector
+﻿# ssrf-detector
 
 **Trigger:** `/ssrf-detector` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ SSRF detector: finds every outbound HTTP call (fetch, axios, got, http, requests
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/ssrf-detector $HOME/.claude/skills/security/ssrf-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/ssrf-detector $HOME\.claude\skills\security\ssrf-detector
 ```
 

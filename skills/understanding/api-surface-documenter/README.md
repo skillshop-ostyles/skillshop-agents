@@ -1,4 +1,4 @@
-# api-surface-documenter
+﻿# api-surface-documenter
 
 **Trigger:** `/api-survey` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ API surface documenter: extracts ALL API surface types from a codebase — REST 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/api-surface-documenter $HOME/.claude/skills/understanding/api-surface-documenter
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/api-surface-documenter $HOME\.claude\skills\understanding\api-surface-documenter
 ```
 

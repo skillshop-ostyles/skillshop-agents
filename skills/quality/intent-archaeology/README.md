@@ -1,4 +1,4 @@
-# intent-archaeology
+﻿# intent-archaeology
 
 **Trigger:** `/intent` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Reconstructs WHY code exists the way it does: mines git history (log -follow, bl
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/intent-archaeology $HOME/.claude/skills/quality/intent-archaeology
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/intent-archaeology $HOME\.claude\skills\quality\intent-archaeology
 ```
 

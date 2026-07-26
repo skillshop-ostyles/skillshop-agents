@@ -1,4 +1,4 @@
-# rollback-readiness
+﻿# rollback-readiness
 
 **Trigger:** `/rollback` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/rollback-readiness $HOME/.claude/skills/operations/rollback-readiness
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/rollback-readiness $HOME\.claude\skills\operations\rollback-readiness
 ```
 

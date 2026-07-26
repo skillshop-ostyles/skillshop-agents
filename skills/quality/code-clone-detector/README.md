@@ -1,4 +1,4 @@
-# code-clone-detector
+﻿# code-clone-detector
 
 **Trigger:** `/code-clone` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Code clone detector: finds exact (Type 1), parameterized (Type 2), near-miss (Ty
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/code-clone-detector $HOME/.claude/skills/quality/code-clone-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/code-clone-detector $HOME\.claude\skills\quality\code-clone-detector
 ```
 

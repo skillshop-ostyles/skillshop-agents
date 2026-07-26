@@ -1,4 +1,4 @@
-# shutdown-gracefulness
+﻿# shutdown-gracefulness
 
 **Trigger:** `/shutdown` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/shutdown-gracefulness $HOME/.claude/skills/runtime/shutdown-gracefulness
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/shutdown-gracefulness $HOME\.claude\skills\runtime\shutdown-gracefulness
 ```
 

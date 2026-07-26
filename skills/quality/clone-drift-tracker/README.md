@@ -1,4 +1,4 @@
-# clone-drift-tracker
+﻿# clone-drift-tracker
 
 **Trigger:** `/clone-drift` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Clone drift tracker: detects code blocks that USED to be clones (identical at pa
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/clone-drift-tracker $HOME/.claude/skills/quality/clone-drift-tracker
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/clone-drift-tracker $HOME\.claude\skills\quality\clone-drift-tracker
 ```
 

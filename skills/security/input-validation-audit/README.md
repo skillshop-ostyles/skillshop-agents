@@ -1,4 +1,4 @@
-# input-validation-audit
+﻿# input-validation-audit
 
 **Trigger:** `/input-audit` | **Risk:** read-only | **Audience:** Senior > Vibe
 
@@ -9,14 +9,14 @@ Input validation audit: statically detects all input surfaces (HTTP params, CLI 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/input-validation-audit $HOME/.claude/skills/security/input-validation-audit
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/input-validation-audit $HOME\.claude\skills\security\input-validation-audit
 ```
 

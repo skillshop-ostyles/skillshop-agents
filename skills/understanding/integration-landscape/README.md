@@ -1,4 +1,4 @@
-# integration-landscape
+﻿# integration-landscape
 
 **Trigger:** `/integrations` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Maps every external integration from code: HTTP APIs, databases, message queues,
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/integration-landscape $HOME/.claude/skills/understanding/integration-landscape
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/integration-landscape $HOME\.claude\skills\understanding\integration-landscape
 ```
 

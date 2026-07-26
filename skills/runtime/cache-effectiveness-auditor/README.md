@@ -1,4 +1,4 @@
-# cache-effectiveness-auditor
+﻿# cache-effectiveness-auditor
 
 **Trigger:** `/cache-audit` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Cache effectiveness auditor: inventory every caching pattern, extract strategy (
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/cache-effectiveness-auditor $HOME/.claude/skills/runtime/cache-effectiveness-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/cache-effectiveness-auditor $HOME\.claude\skills\runtime\cache-effectiveness-auditor
 ```
 

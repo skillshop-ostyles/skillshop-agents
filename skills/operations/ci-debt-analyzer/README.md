@@ -1,4 +1,4 @@
-# ci-debt-analyzer
+﻿# ci-debt-analyzer
 
 **Trigger:** `/ci-debt` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ CI debt analyzer: read CI configuration (GitHub Actions, GitLab CI, Jenkins, Cir
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/ci-debt-analyzer $HOME/.claude/skills/operations/ci-debt-analyzer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/ci-debt-analyzer $HOME\.claude\skills\operations\ci-debt-analyzer
 ```
 

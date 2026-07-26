@@ -1,4 +1,4 @@
-# test-strategy-designer
+﻿# test-strategy-designer
 
 **Trigger:** `/test-strategy` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Test strategy analyzer: classifies tests into Unit/Integration/E2E, builds the t
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/test-strategy-designer $HOME/.claude/skills/understanding/test-strategy-designer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/test-strategy-designer $HOME\.claude\skills\understanding\test-strategy-designer
 ```
 

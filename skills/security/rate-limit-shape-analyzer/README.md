@@ -1,4 +1,4 @@
-# rate-limit-shape-analyzer
+﻿# rate-limit-shape-analyzer
 
 **Trigger:** `/rate-shape` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Rate-limit shape analyzer: inventories rate-limit decorators per-route (express-
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/rate-limit-shape-analyzer $HOME/.claude/skills/security/rate-limit-shape-analyzer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/rate-limit-shape-analyzer $HOME\.claude\skills\security\rate-limit-shape-analyzer
 ```
 

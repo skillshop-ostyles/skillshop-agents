@@ -1,4 +1,4 @@
-# dependency-runtime-availability
+﻿# dependency-runtime-availability
 
 **Trigger:** `/runtime-deps` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/dependency-runtime-availability $HOME/.claude/skills/runtime/dependency-runtime-availability
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/dependency-runtime-availability $HOME\.claude\skills\runtime\dependency-runtime-availability
 ```
 

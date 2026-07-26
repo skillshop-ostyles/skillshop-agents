@@ -1,4 +1,4 @@
-# llm-call-observability-gap
+﻿# llm-call-observability-gap
 
 **Trigger:** `/llm-obs` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/llm-call-observability-gap $HOME/.claude/skills/ai-ml/llm-call-observability-gap
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/llm-call-observability-gap $HOME\.claude\skills\ai-ml\llm-call-observability-gap
 ```
 

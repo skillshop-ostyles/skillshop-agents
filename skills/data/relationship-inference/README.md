@@ -1,4 +1,4 @@
-# relationship-inference
+﻿# relationship-inference
 
 **Trigger:** `/infer-rels` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Relationship inference: scans DDL and code for missing foreign key relationships
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/relationship-inference $HOME/.claude/skills/data/relationship-inference
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/relationship-inference $HOME\.claude\skills\data\relationship-inference
 ```
 

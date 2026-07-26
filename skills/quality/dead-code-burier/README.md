@@ -1,4 +1,4 @@
-# dead-code-burier
+﻿# dead-code-burier
 
 **Trigger:** `/bury` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Dead-path undertaker: identifies provably unreachable code by combining static r
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/dead-code-burier $HOME/.claude/skills/quality/dead-code-burier
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/dead-code-burier $HOME\.claude\skills\quality\dead-code-burier
 ```
 

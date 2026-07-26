@@ -1,4 +1,4 @@
-# log-quality-auditor
+﻿# log-quality-auditor
 
 **Trigger:** `/log-audit` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Log quality auditor: inventory every log statement, check for structure, correla
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/log-quality-auditor $HOME/.claude/skills/operations/log-quality-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/log-quality-auditor $HOME\.claude\skills\operations\log-quality-auditor
 ```
 

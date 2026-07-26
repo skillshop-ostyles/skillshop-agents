@@ -1,4 +1,4 @@
-# dep-inheritance
+﻿# dep-inheritance
 
 **Trigger:** `/deps-audit` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Dependency inheritance audit: for every direct dependency answers the questions 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/dep-inheritance $HOME/.claude/skills/security/dep-inheritance
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/dep-inheritance $HOME\.claude\skills\security\dep-inheritance
 ```
 

@@ -1,4 +1,4 @@
-# runtime-type-mismatch
+﻿# runtime-type-mismatch
 
 **Trigger:** `/type-mismatch` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/runtime-type-mismatch $HOME/.claude/skills/runtime/runtime-type-mismatch
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/runtime-type-mismatch $HOME\.claude\skills\runtime\runtime-type-mismatch
 ```
 

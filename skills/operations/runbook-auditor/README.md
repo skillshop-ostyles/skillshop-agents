@@ -1,4 +1,4 @@
-# runbook-auditor
+﻿# runbook-auditor
 
 **Trigger:** `/runbook-audit` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Runbook auditor: read runbook files, extract verifiable claims, check each again
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/runbook-auditor $HOME/.claude/skills/operations/runbook-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/runbook-auditor $HOME\.claude\skills\operations\runbook-auditor
 ```
 

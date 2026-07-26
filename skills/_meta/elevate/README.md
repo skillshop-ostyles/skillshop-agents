@@ -1,4 +1,4 @@
-# elevate
+﻿# elevate
 
 **Trigger:** `/elevate` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Audits any project for software quality, refactoring readiness, testing, and CI/
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/_meta/elevate $HOME/.claude/skills/_meta/elevate
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/_meta/elevate $HOME\.claude\skills\_meta\elevate
 ```
 

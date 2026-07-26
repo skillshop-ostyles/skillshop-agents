@@ -1,4 +1,4 @@
-# error-message-leakage
+﻿# error-message-leakage
 
 **Trigger:** `/error-leakage` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Error message leakage detector: harvests every HTTP-error-return and log-error-c
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/error-message-leakage $HOME/.claude/skills/security/error-message-leakage
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/error-message-leakage $HOME\.claude\skills\security\error-message-leakage
 ```
 

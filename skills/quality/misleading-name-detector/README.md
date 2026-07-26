@@ -1,4 +1,4 @@
-# misleading-name-detector
+﻿# misleading-name-detector
 
 **Trigger:** `/name-lies` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Misleading name detector: harvests every prefixed function with reader/mutator/p
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/misleading-name-detector $HOME/.claude/skills/quality/misleading-name-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/misleading-name-detector $HOME\.claude\skills\quality\misleading-name-detector
 ```
 

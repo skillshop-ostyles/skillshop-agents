@@ -1,4 +1,4 @@
-# changelog-narrator
+﻿# changelog-narrator
 
 **Trigger:** `/changelog` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Changelog narrator: reads the diff between two tags/commits, clusters changes in
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/changelog-narrator $HOME/.claude/skills/understanding/changelog-narrator
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/changelog-narrator $HOME\.claude\skills\understanding\changelog-narrator
 ```
 

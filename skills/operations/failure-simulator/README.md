@@ -1,4 +1,4 @@
-# failure-simulator
+﻿# failure-simulator
 
 **Trigger:** `/failsim` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Failure simulator on code level: inventories every external touchpoint (HTTP cli
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/failure-simulator $HOME/.claude/skills/operations/failure-simulator
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/failure-simulator $HOME\.claude\skills\operations\failure-simulator
 ```
 

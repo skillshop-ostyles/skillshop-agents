@@ -1,4 +1,4 @@
-# data-trail-tracker
+﻿# data-trail-tracker
 
 **Trigger:** `/data-trail-tracker` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/data-trail-tracker $HOME/.claude/skills/security/data-trail-tracker
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/data-trail-tracker $HOME\.claude\skills\security\data-trail-tracker
 ```
 

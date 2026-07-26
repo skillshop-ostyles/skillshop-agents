@@ -1,4 +1,4 @@
-# third-party-trust
+﻿# third-party-trust
 
 **Trigger:** `/third-party-trust` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Third-party trust boundary analyzer: inventories every outbound HTTP/RPC call (f
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/third-party-trust $HOME/.claude/skills/security/third-party-trust
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/third-party-trust $HOME\.claude\skills\security\third-party-trust
 ```
 

@@ -1,4 +1,4 @@
-# schema-documentation-generator
+﻿# schema-documentation-generator
 
 **Trigger:** `/schema-docs` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Generate human-readable data dictionary from DDL with LLM-written business descr
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/schema-documentation-generator $HOME/.claude/skills/data/schema-documentation-generator
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/schema-documentation-generator $HOME\.claude\skills\data\schema-documentation-generator
 ```
 

@@ -1,4 +1,4 @@
-# api-contract-guardian
+﻿# api-contract-guardian
 
 **Trigger:** `/api-diff` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ API contract guard: extracts the API surface (HTTP routes with params, DTO field
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/api-contract-guardian $HOME/.claude/skills/security/api-contract-guardian
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/api-contract-guardian $HOME\.claude\skills\security\api-contract-guardian
 ```
 

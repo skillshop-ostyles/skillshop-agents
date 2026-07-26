@@ -1,4 +1,4 @@
-# tls-config-drift
+﻿# tls-config-drift
 
 **Trigger:** `/ssl-drift` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ TLS config drift scanner: harvests every TLS-version constant, cipher-suite arra
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/tls-config-drift $HOME/.claude/skills/security/tls-config-drift
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/tls-config-drift $HOME\.claude\skills\security\tls-config-drift
 ```
 

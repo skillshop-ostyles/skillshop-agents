@@ -1,4 +1,4 @@
-# leak-detector
+﻿# leak-detector
 
 **Trigger:** `/leak-scan` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/leak-detector $HOME/.claude/skills/operations/leak-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/leak-detector $HOME\.claude\skills\operations\leak-detector
 ```
 

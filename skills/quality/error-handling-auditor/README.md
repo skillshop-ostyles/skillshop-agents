@@ -1,4 +1,4 @@
-# error-handling-auditor
+﻿# error-handling-auditor
 
 **Trigger:** `/error-audit` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Error handling auditor: detects 8 anti-patterns (swallowed exceptions, generic c
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/error-handling-auditor $HOME/.claude/skills/quality/error-handling-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/error-handling-auditor $HOME\.claude\skills\quality\error-handling-auditor
 ```
 

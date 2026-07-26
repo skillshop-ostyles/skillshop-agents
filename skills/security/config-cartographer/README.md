@@ -1,4 +1,4 @@
-# config-cartographer
+﻿# config-cartographer
 
 **Trigger:** `/config-map` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Configuration cartographer: maps a system's complete config surface - every env 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/config-cartographer $HOME/.claude/skills/security/config-cartographer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/config-cartographer $HOME\.claude\skills\security\config-cartographer
 ```
 

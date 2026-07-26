@@ -1,4 +1,4 @@
-# startup-profile-analyzer
+﻿# startup-profile-analyzer
 
 **Trigger:** `/startup` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Startup profile analyzer: trace the entire initialization chain, LLM judges each
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/startup-profile-analyzer $HOME/.claude/skills/runtime/startup-profile-analyzer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/startup-profile-analyzer $HOME\.claude\skills\runtime\startup-profile-analyzer
 ```
 

@@ -1,4 +1,4 @@
-# deployment-frequency-tracker
+﻿# deployment-frequency-tracker
 
 **Trigger:** `/deploy-freq` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Deployment frequency tracker: compute DORA metrics from git history, LLM identif
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/deployment-frequency-tracker $HOME/.claude/skills/operations/deployment-frequency-tracker
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/deployment-frequency-tracker $HOME\.claude\skills\operations\deployment-frequency-tracker
 ```
 

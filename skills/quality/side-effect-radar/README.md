@@ -1,4 +1,4 @@
-# side-effect-radar
+﻿# side-effect-radar
 
 **Trigger:** `/blast` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Blast-radius predictor for a planned change: combines a static reference scan (w
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/quality/side-effect-radar $HOME/.claude/skills/quality/side-effect-radar
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/quality/side-effect-radar $HOME\.claude\skills\quality\side-effect-radar
 ```
 

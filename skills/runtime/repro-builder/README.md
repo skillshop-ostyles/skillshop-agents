@@ -1,4 +1,4 @@
-# repro-builder
+﻿# repro-builder
 
 **Trigger:** `/repro` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Turns a vague bug report into a minimal, runnable reproduction: extracts hypothe
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/repro-builder $HOME/.claude/skills/runtime/repro-builder
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/repro-builder $HOME\.claude\skills\runtime\repro-builder
 ```
 

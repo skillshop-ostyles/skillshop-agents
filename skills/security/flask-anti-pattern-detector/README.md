@@ -1,4 +1,4 @@
-# flask-anti-pattern-detector
+﻿# flask-anti-pattern-detector
 
 **Trigger:** `/flask-detector` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Flask anti-pattern detector: scans Flask projects for hardcoded SECRET_KEY, debu
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/flask-anti-pattern-detector $HOME/.claude/skills/security/flask-anti-pattern-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/flask-anti-pattern-detector $HOME\.claude\skills\security\flask-anti-pattern-detector
 ```
 

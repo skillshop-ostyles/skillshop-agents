@@ -1,4 +1,4 @@
-# authorization-xray
+﻿# authorization-xray
 
 **Trigger:** `/authz` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Authorization X-ray for your own codebase (defensive audit): inventories every H
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/authorization-xray $HOME/.claude/skills/security/authorization-xray
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/authorization-xray $HOME\.claude\skills\security\authorization-xray
 ```
 

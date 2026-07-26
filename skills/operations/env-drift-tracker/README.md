@@ -1,4 +1,4 @@
-# env-drift-tracker
+﻿# env-drift-tracker
 
 **Trigger:** `/env-drift` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Env drift tracker: compare config values across environments (dev/staging/prod),
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/env-drift-tracker $HOME/.claude/skills/operations/env-drift-tracker
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/env-drift-tracker $HOME\.claude\skills\operations\env-drift-tracker
 ```
 

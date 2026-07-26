@@ -1,4 +1,4 @@
-# type-confusion-bypass-detector
+﻿# type-confusion-bypass-detector
 
 **Trigger:** `/bypass-detector` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Type confusion bypass detector: traces validation paths from input source to sto
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/type-confusion-bypass-detector $HOME/.claude/skills/security/type-confusion-bypass-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/type-confusion-bypass-detector $HOME\.claude\skills\security\type-confusion-bypass-detector
 ```
 

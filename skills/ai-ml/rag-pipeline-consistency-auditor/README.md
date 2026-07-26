@@ -1,4 +1,4 @@
-# rag-pipeline-consistency-auditor
+﻿# rag-pipeline-consistency-auditor
 
 **Trigger:** `/rag-consistency` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/rag-pipeline-consistency-auditor $HOME/.claude/skills/ai-ml/rag-pipeline-consistency-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/rag-pipeline-consistency-auditor $HOME\.claude\skills\ai-ml\rag-pipeline-consistency-auditor
 ```
 

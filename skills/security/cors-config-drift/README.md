@@ -1,4 +1,4 @@
-# cors-config-drift
+﻿# cors-config-drift
 
 **Trigger:** `/cors-drift` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ CORS config drift scanner: harvests every Access-Control-Allow-Origin header, co
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/cors-config-drift $HOME/.claude/skills/security/cors-config-drift
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/cors-config-drift $HOME\.claude\skills\security\cors-config-drift
 ```
 

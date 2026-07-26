@@ -1,4 +1,4 @@
-# security-smell-scanner
+﻿# security-smell-scanner
 
 **Trigger:** `/security-scan` | **Risk:** read-only | **Audience:** Senior > Vibe
 
@@ -9,14 +9,14 @@ Security smell scanner: statically detects 10 families of security anti-patterns
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/security-smell-scanner $HOME/.claude/skills/security/security-smell-scanner
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/security-smell-scanner $HOME\.claude\skills\security\security-smell-scanner
 ```
 

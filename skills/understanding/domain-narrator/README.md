@@ -1,4 +1,4 @@
-# domain-narrator
+﻿# domain-narrator
 
 **Trigger:** `/explain` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Domain narrator: reads all public symbols in a codebase, clusters them by call-g
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/domain-narrator $HOME/.claude/skills/understanding/domain-narrator
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/domain-narrator $HOME\.claude\skills\understanding\domain-narrator
 ```
 

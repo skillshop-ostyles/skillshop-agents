@@ -1,4 +1,4 @@
-# mock-production-gap
+﻿# mock-production-gap
 
 **Trigger:** `/mock-gap` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/mock-production-gap $HOME/.claude/skills/runtime/mock-production-gap
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/mock-production-gap $HOME\.claude\skills\runtime\mock-production-gap
 ```
 

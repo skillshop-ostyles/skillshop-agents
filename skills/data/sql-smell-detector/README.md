@@ -1,4 +1,4 @@
-# sql-smell-detector
+﻿# sql-smell-detector
 
 **Trigger:** `/sql-smells` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Inline SQL smell detector: harvests SQL strings from application code, runs 15+ 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/sql-smell-detector $HOME/.claude/skills/data/sql-smell-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/sql-smell-detector $HOME\.claude\skills\data\sql-smell-detector
 ```
 

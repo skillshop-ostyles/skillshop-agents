@@ -1,4 +1,4 @@
-# data-flow-cartographer
+﻿# data-flow-cartographer
 
 **Trigger:** `/dataflow` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Traces data flow from input sources (API endpoints, events, files) through trans
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/data-flow-cartographer $HOME/.claude/skills/understanding/data-flow-cartographer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/data-flow-cartographer $HOME\.claude\skills\understanding\data-flow-cartographer
 ```
 

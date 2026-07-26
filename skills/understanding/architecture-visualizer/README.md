@@ -1,4 +1,4 @@
-# architecture-visualizer
+﻿# architecture-visualizer
 
 **Trigger:** `/arch-vis` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Architecture visualizer: maps module dependencies, detects layer violations, cir
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/architecture-visualizer $HOME/.claude/skills/understanding/architecture-visualizer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/architecture-visualizer $HOME\.claude\skills\understanding\architecture-visualizer
 ```
 

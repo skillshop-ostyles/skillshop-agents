@@ -1,4 +1,4 @@
-# embedding-quality-scanner
+﻿# embedding-quality-scanner
 
 **Trigger:** `/embed-quality` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/embedding-quality-scanner $HOME/.claude/skills/ai-ml/embedding-quality-scanner
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/embedding-quality-scanner $HOME\.claude\skills\ai-ml\embedding-quality-scanner
 ```
 

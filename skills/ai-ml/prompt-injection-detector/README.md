@@ -1,4 +1,4 @@
-# prompt-injection-detector
+﻿# prompt-injection-detector
 
 **Trigger:** `/prompt-inspect` | **Risk:** read-only | **Audience:** Senior > Vibe
 
@@ -9,14 +9,14 @@ Prompt injection vulnerability scanner: statically detects LLM API call sites, t
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/prompt-injection-detector $HOME/.claude/skills/ai-ml/prompt-injection-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/prompt-injection-detector $HOME\.claude\skills\ai-ml\prompt-injection-detector
 ```
 

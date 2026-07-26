@@ -1,4 +1,4 @@
-# token-budget-analyzer
+﻿# token-budget-analyzer
 
 **Trigger:** `/token-budget` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/ai-ml/token-budget-analyzer $HOME/.claude/skills/ai-ml/token-budget-analyzer
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/ai-ml/token-budget-analyzer $HOME\.claude\skills\ai-ml\token-budget-analyzer
 ```
 

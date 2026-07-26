@@ -1,4 +1,4 @@
-# data-fixture-auditor
+﻿# data-fixture-auditor
 
 **Trigger:** `/fixture-audit` | **Risk:** read-only | **Audience:** Both
 
@@ -7,14 +7,14 @@
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/data-fixture-auditor $HOME/.claude/skills/data/data-fixture-auditor
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/data-fixture-auditor $HOME\.claude\skills\data\data-fixture-auditor
 ```
 

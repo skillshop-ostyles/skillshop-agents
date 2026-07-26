@@ -1,4 +1,4 @@
-# authz-coverage-gap-detector
+﻿# authz-coverage-gap-detector
 
 **Trigger:** `/authz-coverage` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Finds mutating endpoints that lack explicit authorization, relying solely on mid
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/authz-coverage-gap-detector $HOME/.claude/skills/security/authz-coverage-gap-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/authz-coverage-gap-detector $HOME\.claude\skills\security\authz-coverage-gap-detector
 ```
 

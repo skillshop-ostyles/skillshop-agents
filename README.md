@@ -49,7 +49,7 @@ off-limits - no skill ever modifies your agent configuration.
 
 ```bash
 # Clone the repo
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 
 # Install a single skill (example: intent-archaeology)
 cp -r skills/quality/intent-archaeology ~/.claude/skills/

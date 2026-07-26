@@ -1,4 +1,4 @@
-# config-surface-documenter
+﻿# config-surface-documenter
 
 **Trigger:** `/config-docs` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Extracts the full configuration surface from code (env vars, config files, CLI f
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/config-surface-documenter $HOME/.claude/skills/understanding/config-surface-documenter
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/config-surface-documenter $HOME\.claude\skills\understanding\config-surface-documenter
 ```
 

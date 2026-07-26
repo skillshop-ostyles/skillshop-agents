@@ -1,4 +1,4 @@
-# tech-debt-narrator
+﻿# tech-debt-narrator
 
 **Trigger:** `/tech-debt` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Tech-debt narrator: finds suppress comments, TODOs, empty catches, workarounds, 
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/understanding/tech-debt-narrator $HOME/.claude/skills/understanding/tech-debt-narrator
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/understanding/tech-debt-narrator $HOME\.claude\skills\understanding\tech-debt-narrator
 ```
 

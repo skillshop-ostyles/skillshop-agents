@@ -1,4 +1,4 @@
-# side-effect-ordering
+﻿# side-effect-ordering
 
 **Trigger:** `/sideorder` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Side-effect ordering analyzer: map operation chains in request handlers, LLM jud
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/runtime/side-effect-ordering $HOME/.claude/skills/runtime/side-effect-ordering
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/runtime/side-effect-ordering $HOME\.claude\skills\runtime\side-effect-ordering
 ```
 

@@ -1,4 +1,4 @@
-# seed-data-strategist
+﻿# seed-data-strategist
 
 **Trigger:** `/seed-data` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Seed data strategist: reads a schema (DDL/ORM models), analyzes tables, columns,
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/data/seed-data-strategist $HOME/.claude/skills/data/seed-data-strategist
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/data/seed-data-strategist $HOME\.claude\skills\data\seed-data-strategist
 ```
 

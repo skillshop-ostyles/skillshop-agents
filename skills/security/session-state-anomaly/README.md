@@ -1,4 +1,4 @@
-# session-state-anomaly
+﻿# session-state-anomaly
 
 **Trigger:** `/session-anomaly` | **Risk:** read-only | **Audience:** Senior
 
@@ -9,14 +9,14 @@ Session state anomaly scanner: finds every session-generation, session-id usage,
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/security/session-state-anomaly $HOME/.claude/skills/security/session-state-anomaly
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/security/session-state-anomaly $HOME\.claude\skills\security\session-state-anomaly
 ```
 

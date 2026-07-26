@@ -1,4 +1,4 @@
-# deployment-drift-detector
+﻿# deployment-drift-detector
 
 **Trigger:** `/deploy-drift` | **Risk:** read-only | **Audience:** Both
 
@@ -9,14 +9,14 @@ Deployment drift detector: extracted deployed config (kubectl, terraform show, d
 ## Quick Install
 
 ```bash
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 cp -r skills/operations/deployment-drift-detector $HOME/.claude/skills/operations/deployment-drift-detector
 ```
 
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/skillshop-ostyles/skill-shop-agents.git
+git clone https://github.com/skillshop-ostyles/skillshop-agents.git
 Copy-Item -Recurse skills/operations/deployment-drift-detector $HOME\.claude\skills\operations\deployment-drift-detector
 ```
 
