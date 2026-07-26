@@ -1,4 +1,4 @@
-﻿---
+---
 name: ml-pipeline-determinism-check
 description: "Find sources of non-determinism in ML training pipelines. Trigger: /ml-determinism"
 trigger: /ml-determinism
@@ -14,7 +14,13 @@ Non-deterministic pipelines produce unreproducible results. This skill finds mis
 - Data loading with shuffle but no seed
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/ml-determinism -help` or `/ml-determinism -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

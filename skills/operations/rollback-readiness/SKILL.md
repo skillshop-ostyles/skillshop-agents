@@ -1,4 +1,4 @@
-﻿---
+---
 name: rollback-readiness
 description: "Rollback readiness: check each deployable change against rollback criteria, LLM estimates cost and risk of undoing it. Read-only. Trigger: /rollback"
 trigger: /rollback
@@ -14,7 +14,13 @@ Every deployment is a bet until you know you can undo it. This skill checks roll
 - Feature flag with no removal plan
 - **Read-only skill.** No code changes, no automated rollback.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/rollback -help` or `/rollback -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

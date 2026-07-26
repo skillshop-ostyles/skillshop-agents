@@ -7,6 +7,11 @@ trigger: /trigger-audit
 
 Every skill has a `/trigger`. This skill checks they're unique, follow convention (kebab-case), and are listed in README.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What this is for
 
 - Duplicate triggers across skills
@@ -14,12 +19,23 @@ Every skill has a `/trigger`. This skill checks they're unique, follow conventio
 - Triggers missing from README.md
 - **Read-only skill.** No code changes.
 
-## Steps
+## What You Must Do When Invoked
 
-1. `-ProjectDir` target
-2. Run collector: extract triggers from SKILL.md, compare to README table
-3. Report duplicates, convention violations, omissions
-4. Write `trigger-audit-report.md`
+### Step 1
+
+`-ProjectDir` target
+
+### Step 2
+
+Run collector: extract triggers from SKILL.md, compare to README table
+
+### Step 3
+
+Report duplicates, convention violations, omissions
+
+### Step 4
+
+Write `trigger-audit-report.md`
 
 ## Usage
 
@@ -28,3 +44,5 @@ Every skill has a `/trigger`. This skill checks they're unique, follow conventio
 /trigger-audit <dir>      # scan project
 /trigger-audit -help
 ```
+
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).

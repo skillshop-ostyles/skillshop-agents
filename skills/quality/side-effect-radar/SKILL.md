@@ -1,4 +1,4 @@
-﻿---
+---
 name: side-effect-radar
 description: "Blast-radius predictor for a planned change: combines a static reference scan (which files mention the target's exported symbols) with git co-change analysis (which files historically changed together with the target), then produces a risk-tiered report with concrete review/test recommendations. Read-only. Trigger: /blast"
 trigger: /blast
@@ -17,6 +17,11 @@ a risk-tiered blast radius report before a planned change.
 - **Read-only skill.** No real AST/type graph - text-based, language-agnostic
   reference search at grep level suffices for risk hints (Simplicity First).
   No dynamic analysis.
+
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
 
 ## What You Must Do When Invoked
 

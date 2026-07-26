@@ -1,4 +1,4 @@
-﻿---
+---
 name: process-lifetime-tracker
 description: "Process lifetime tracker: map every process/service/daemon, trace shutdown paths, LLM judges graceful shutdown readiness. Read-only. Trigger: /lifetime"
 trigger: /lifetime
@@ -14,7 +14,13 @@ Every long-running process needs graceful shutdown. This skill maps shutdown rea
 - Cron jobs with no rollback on interrupt
 - **Read-only skill.** No configuration changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/lifetime -help` or `/lifetime -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

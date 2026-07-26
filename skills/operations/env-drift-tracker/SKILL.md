@@ -1,4 +1,4 @@
-﻿---
+---
 name: env-drift-tracker
 description: "Env drift tracker: compare config values across environments (dev/staging/prod), LLM flags each difference with risk assessment. Read-only. Trigger: /env-drift"
 trigger: /env-drift
@@ -14,7 +14,13 @@ Config values that differ between environments are the #1 cause of 'works on my 
 - Stripe API key pointed at test in production
 - **Read-only skill.** No config modification, no environment changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/env-drift -help` or `/env-drift -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

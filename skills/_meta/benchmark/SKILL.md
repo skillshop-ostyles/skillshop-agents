@@ -7,6 +7,11 @@ trigger: /benchmark
 
 Performance and correctness regression detection for collector scripts.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What this is for
 
 - Scripts that error on their own fixture
@@ -14,12 +19,23 @@ Performance and correctness regression detection for collector scripts.
 - Execution time regressions
 - **Read-only skill.** No code changes.
 
-## Steps
+## What You Must Do When Invoked
 
-1. `-ProjectDir` target
-2. Run collector: execute each script against its fixture, capture time + output + exit code
-3. Report failures, anomalies, slow scripts
-4. Write `benchmark-report.md`
+### Step 1
+
+`-ProjectDir` target
+
+### Step 2
+
+Run collector: execute each script against its fixture, capture time + output + exit code
+
+### Step 3
+
+Report failures, anomalies, slow scripts
+
+### Step 4
+
+Write `benchmark-report.md`
 
 ## Usage
 
@@ -28,3 +44,5 @@ Performance and correctness regression detection for collector scripts.
 /benchmark <dir>          # scan project
 /benchmark -help
 ```
+
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).

@@ -1,4 +1,4 @@
-﻿---
+---
 name: deployment-drift-detector
 description: "Deployment drift detector: extracted deployed config (kubectl, terraform show, docker inspect) vs source-of-truth manifests, then LLM judges each drift's criticality in business context. Read-only. Trigger: /deploy-drift"
 trigger: /deploy-drift
@@ -14,7 +14,13 @@ Infrastructure declared in code vs infrastructure actually running: compare and 
 - Dockerfile pinnings differ between CI and deployed state
 - **Read-only skill.** No automatic reconciliation, no infrastructure mutation.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/deploy-drift -help` or `/deploy-drift -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

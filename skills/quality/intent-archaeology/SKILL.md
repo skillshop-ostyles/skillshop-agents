@@ -1,4 +1,4 @@
-﻿---
+---
 name: intent-archaeology
 description: "Reconstructs WHY code exists the way it does: mines git history (log -follow, blame, ticket references) for a file or symbol, then has the LLM rebuild the intent story with commit-level evidence and confidence ratings. Read-only. Trigger: /intent"
 trigger: /intent
@@ -18,6 +18,11 @@ git history, blame and ticket references - with commit evidence instead of guess
 - **Read-only skill.** Analyzes one file or symbol (function/class) per
   run, no directory trees in one go, no access to external
   ticket systems (only extract IDs and list them).
+
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
 
 ## What You Must Do When Invoked
 

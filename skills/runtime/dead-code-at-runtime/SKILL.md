@@ -1,4 +1,4 @@
-﻿---
+---
 name: dead-code-at-runtime
 description: "Dead code at runtime detector: find feature flags, date gates, and env checks that make code unreachable in practice. Read-only. Trigger: /dead-runtime"
 trigger: /dead-runtime
@@ -14,7 +14,13 @@ Code that never executes is dead weight. This skill finds code that is reachable
 - Env-specific code that never matches deployed environments
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/dead-runtime -help` or `/dead-runtime -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

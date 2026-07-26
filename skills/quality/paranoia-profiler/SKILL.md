@@ -16,18 +16,56 @@ SAST partially covers the under-defensive side via taint tracing. Nothing
 covers the over-defensive side at all - those are buried as noise that
 dilutes the genuine checks.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/guard-census.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each guard:
-   - Can the guarded condition actually occur given the code path?
-   - If no: this is paranoid. Flag for removal.
-   - If yes: this is calibrated. Leave it alone.
+
+### Step 5
+
+- Can the guarded condition actually occur given the code path?
+
+### Step 6
+
+- If no: this is paranoid. Flag for removal.
+
+### Step 7
+
+- If yes: this is calibrated. Leave it alone.
+
+### Step 8
+
 5. For each unguarded external-input surface (req/argv/stdin/body/params):
-   - Should it be checked? Does it flow into a dangerous sink?
+
+### Step 9
+
+- Should it be checked? Does it flow into a dangerous sink?
+
+### Step 10
+
 6. Produce an imbalance map: paranoid zones / naive zones / calibrated zones.
+
+### Step 11
+
 7. Write `paranoia-report.md` to the working directory.
 
 ## Usage

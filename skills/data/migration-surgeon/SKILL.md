@@ -1,4 +1,4 @@
-﻿---
+---
 name: migration-surgeon
 description: "Schema migration surgeon: diffs two schema states (SQL DDL or Prisma), then generates the complete package nobody writes by hand - forward migration, rollback, pre/post validation queries and a risk protocol with explicit data-loss warnings. NEVER executes anything against a database; generates files only. Trigger: /migrate"
 trigger: /migrate
@@ -26,6 +26,7 @@ into the target project. Only after explicit user approval may the package
 additionally be copied into the target project (edit action, no script).
 
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/migrate -help` or `/migrate -h` (without further arguments) is invoked:
 output the `## Usage` section unchanged and stop.

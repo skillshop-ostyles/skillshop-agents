@@ -15,21 +15,67 @@ The static-only `code-clone-detector` cannot see drift through time. Mutation
 testing (Stryker, PIT) tests fail-ability dynamically but needs the full
 test run. This is the zero-runtime, deterministic temporal complement.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided, the path exists, AND it is a git repo.
+
+### Step 3
+
 3. Run: `scripts/drift-scan.ps1 -ProjectDir "<path>" [-PastRef "v1.4"]`
-   - If not given, defaults to `HEAD~100` (compare against 100 commits ago).
+
+### Step 4
+
+- If not given, defaults to `HEAD~100` (compare against 100 commits ago).
+
+### Step 5
+
 4. LLM reads the JSON output. For each drift pair:
-   - Read the `currentSnippet` and `pastSnippet`.
-   - What changed on the current side?
-   - Did the other side get the same fix? (Often the answer is no.)
-   - Is one side's change a missed migration, a missing bugfix, or an
-     intentional specialization?
+
+### Step 6
+
+- Read the `currentSnippet` and `pastSnippet`.
+
+### Step 7
+
+- What changed on the current side?
+
+### Step 8
+
+- Did the other side get the same fix? (Often the answer is no.)
+
+### Step 9
+
+- Is one side's change a missed migration, a missing bugfix, or an
+
+### Step 10
+
+intentional specialization?
+
+### Step 11
+
 5. Classify: `missed-fix` (high) / `intentional-divergence` (informational).
+
+### Step 12
+
 6. Confidence: `proven` (clear functional gap), `likely` (likely gap),
-   `suspected` (judgment call).
+
+### Step 13
+
+`suspected` (judgment call).
+
+### Step 14
+
 7. Write `clone-drift-report.md` to the working directory.
 
 ## Usage

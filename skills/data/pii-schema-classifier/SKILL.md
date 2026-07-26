@@ -15,17 +15,51 @@ patterns, then the LLM validates and adjusts based on application domain.
 The dominant failure mode is the unclassified sensitive column that gets logged,
 exported, or exposed in an API response without protection.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/pii-scan.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each column:
-   - Check the `patternClass` and `confidence` from the deterministic scan.
-   - For `ambiguous` columns: judge sensitivity based on table context and domain.
-   - For all columns: validate pattern classifications, correct false positives/negatives.
+
+### Step 5
+
+- Check the `patternClass` and `confidence` from the deterministic scan.
+
+### Step 6
+
+- For `ambiguous` columns: judge sensitivity based on table context and domain.
+
+### Step 7
+
+- For all columns: validate pattern classifications, correct false positives/negatives.
+
+### Step 8
+
 5. Confidence: `proven` (exact pattern match), `likely` (substring match),
-   `suspected` (ambiguous column needing domain judgment).
+
+### Step 9
+
+`suspected` (ambiguous column needing domain judgment).
+
+### Step 10
+
 6. Write `pii-classification-report.md` to the working directory.
 
 ## Usage

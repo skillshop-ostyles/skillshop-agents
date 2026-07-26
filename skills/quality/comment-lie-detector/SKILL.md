@@ -16,17 +16,51 @@ what the comment promises.
 The dominant failure mode is the load-bearing comment that lies quietly for
 months until someone relies on it.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/comment-harvest.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each behavioral claim:
-   - Read the `codeContext` (30 lines surrounding the comment).
-   - Does the adjacent code do exactly what the comment states?
-   - Classify: `consistent` / `contradicts` / `outdated` / `unverifiable`.
+
+### Step 5
+
+- Read the `codeContext` (30 lines surrounding the comment).
+
+### Step 6
+
+- Does the adjacent code do exactly what the comment states?
+
+### Step 7
+
+- Classify: `consistent` / `contradicts` / `outdated` / `unverifiable`.
+
+### Step 8
+
 5. Confidence: `proven` (direct code evidence), `likely` (multiple lines agree),
-   `suspected` (inference).
+
+### Step 9
+
+`suspected` (inference).
+
+### Step 10
+
 6. Write `comment-lie-report.md` to the working directory.
 
 ## Usage

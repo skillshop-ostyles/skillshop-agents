@@ -13,23 +13,76 @@ signature verification? `input-validation-audit` checks input-validation
 coming IN. Missing: outbound trust contract - the mapping of what WE
 trust to be on the other end of each outbound connection.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/outbound-calls.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each outbound call:
-   - **Known-trusted vs unknown**: stripe/amazon/googleapis/etc vs
-     arbitrary endpoint. Unknown providers = higher risk.
-   - **Template URL**: variable-based URL (e.g. `req.query.url`) is
-     attacker-controlled. SSRF-class risk.
-   - **Auth hint in call window**: Authorization header / api-key /
-     bearer present? If yes, rotation-burden risk.
-   - **Webhook handler** with no signature verification (look for
-     `webhooks.constructEvent` or HMAC verify calls - if absent, the
-     endpoint will accept forged events).
-   - **Retry attempt count**: 3+ retries with no idempotency-key →
-     duplicate side-effects on a 5xx.
+
+### Step 5
+
+- **Known-trusted vs unknown**: stripe/amazon/googleapis/etc vs
+
+### Step 6
+
+arbitrary endpoint. Unknown providers = higher risk.
+
+### Step 7
+
+- **Template URL**: variable-based URL (e.g. `req.query.url`) is
+
+### Step 8
+
+attacker-controlled. SSRF-class risk.
+
+### Step 9
+
+- **Auth hint in call window**: Authorization header / api-key /
+
+### Step 10
+
+bearer present? If yes, rotation-burden risk.
+
+### Step 11
+
+- **Webhook handler** with no signature verification (look for
+
+### Step 12
+
+`webhooks.constructEvent` or HMAC verify calls - if absent, the
+
+### Step 13
+
+endpoint will accept forged events).
+
+### Step 14
+
+- **Retry attempt count**: 3+ retries with no idempotency-key →
+
+### Step 15
+
+duplicate side-effects on a 5xx.
+
+### Step 16
+
 5. Write `third-party-trust-report.md` to the working directory.
 
 ## Usage

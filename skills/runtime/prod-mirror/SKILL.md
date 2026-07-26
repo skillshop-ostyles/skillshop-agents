@@ -1,4 +1,4 @@
-﻿---
+---
 name: prod-mirror
 description: "Production behavior mirror: ingests exported log files (text or JSON lines), statistically condenses them (frequencies, error rates, hot paths), extracts the code's expectations (log statements, catch blocks, routes), then has the LLM report the deltas - dead features, swallowed errors firing daily, unexpected hot paths. Works fully offline on exported logs. Read-only. Trigger: /mirror"
 trigger: /mirror
@@ -17,6 +17,11 @@ swallowed errors, unexpected hot paths, "impossible" states that fire anyway.
   observability platforms.
 - **Read-only skill.** No PII processing: email addresses and long
   digit sequences are masked in ALL output, not just in examples.
+
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
 
 ## What You Must Do When Invoked
 

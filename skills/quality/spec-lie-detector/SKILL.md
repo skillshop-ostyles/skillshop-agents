@@ -1,4 +1,4 @@
-﻿---
+---
 name: spec-lie-detector
 description: "Requirements lie detector: reads a corpus of specs/tickets (text files) and finds contradictions, gaps, ambiguities, silent assumptions and untestable statements - each finding with quote, location, severity and a concrete clarification question. Read-only. Trigger: /spec-check"
 trigger: /spec-check
@@ -18,6 +18,11 @@ location, severity and a concrete clarification question.
 - **Read-only skill.** Does not evaluate domain correctness, only internal
   consistency, gaps and testability. No access to live ticket systems, no
   PDF/Word conversion.
+
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
 
 ## What You Must Do When Invoked
 

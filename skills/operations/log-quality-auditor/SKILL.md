@@ -1,4 +1,4 @@
-﻿---
+---
 name: log-quality-auditor
 description: "Log quality auditor: inventory every log statement, check for structure, correlation IDs, levels, PII risk, then LLM judges operational quality. Read-only. Trigger: /log-audit"
 trigger: /log-audit
@@ -14,7 +14,13 @@ Logs that are not machine-parseable are not logs - they are noise. This skill au
 - PII in log output, silent error paths
 - **Read-only skill.** No log changes, no code modification.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/log-audit -help` or `/log-audit -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

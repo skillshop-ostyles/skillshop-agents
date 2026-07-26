@@ -1,4 +1,4 @@
-﻿---
+---
 name: startup-profile-analyzer
 description: "Startup profile analyzer: trace the entire initialization chain, LLM judges each step as essential/lazy-loadable/suspicious. Read-only. Trigger: /startup"
 trigger: /startup
@@ -14,7 +14,13 @@ What happens when your service starts? This skill traces every init step and fin
 - Heavy dependencies loaded at startup but used only in one handler
 - **Read-only skill.** No code modification.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/startup -help` or `/startup -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

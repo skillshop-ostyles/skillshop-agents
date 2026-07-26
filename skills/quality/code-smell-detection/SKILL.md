@@ -1,4 +1,4 @@
-﻿---
+---
 name: code-smell-detection
 description: "Code smell detector: statically identifies 10 families of structural code quality issues (long methods, deep nesting, god classes, feature envy, primitive obsession, data clumps, shotgun surgery, message chains, refused bequest, speculative generality). Evidence-based report with metrics and LLM validation. Read-only. Audience: Both. Trigger: /code-smell"
 trigger: /code-smell
@@ -23,13 +23,36 @@ with metrics, evidence, and LLM-based validation of each finding.
 /code-smell -help       # show usage
 ```
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. `-help` / `-h` â†’ print usage, exit 0.
+
+### Step 2
+
 2. Confirm target directory exists.
+
+### Step 3
+
 3. Run `scripts/smell-scan.ps1 -ProjectDir <dir>`.
+
+### Step 4
+
 4. LLM reads the JSON output, validates each finding against the code context,
-   assigns confidence, and suggests a refactoring path.
+
+### Step 5
+
+assigns confidence, and suggests a refactoring path.
+
+### Step 6
+
 5. Write `code-smell-report.md` to the working directory.
 
 ## Supported Smell Families

@@ -15,18 +15,55 @@ the LLM distinguishes real N+1 problems from intentional batch patterns.
 The dominant failure mode is the hidden N+1 that degrades production performance
 linearly with data growth - invisible in development with small datasets.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/loop-query-trace.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each candidate:
-   - Read the `loopType`, `loopSource`, and `queryCall` fields.
-   - Check `hasBatchHint`: does the query use IN clause, whereIn, include, or relations?
-   - If hasBatchHint is false and the query is inside a loop: real N+1.
-   - If hasBatchHint is true: intentional batch or eager-loaded pattern.
+
+### Step 5
+
+- Read the `loopType`, `loopSource`, and `queryCall` fields.
+
+### Step 6
+
+- Check `hasBatchHint`: does the query use IN clause, whereIn, include, or relations?
+
+### Step 7
+
+- If hasBatchHint is false and the query is inside a loop: real N+1.
+
+### Step 8
+
+- If hasBatchHint is true: intentional batch or eager-loaded pattern.
+
+### Step 9
+
 5. Confidence: `proven` (query inside loop with no batch hint), `likely`
-   (query inside loop with partial batch hint), `suspected` (ambiguous).
+
+### Step 10
+
+(query inside loop with partial batch hint), `suspected` (ambiguous).
+
+### Step 11
+
 6. Write `n-plus-one-report.md` to the working directory.
 
 ## Usage

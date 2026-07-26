@@ -1,4 +1,4 @@
-﻿---
+---
 name: dependency-runtime-availability
 description: "Dependency runtime availability checker: find dynamic imports and runtime resource references that fail in production. Read-only. Trigger: /runtime-deps"
 trigger: /runtime-deps
@@ -14,7 +14,13 @@ The build passed. npm install succeeded. But will your app actually load at runt
 - Files referenced that aren't bundled
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/runtime-deps -help` or `/runtime-deps -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

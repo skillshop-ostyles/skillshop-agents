@@ -1,4 +1,4 @@
-﻿---
+---
 name: token-budget-analyzer
 description: "Analyze static code for token usage patterns, waste, and budget risks. Trigger: /token-budget"
 trigger: /token-budget
@@ -14,7 +14,13 @@ LLM costs are dominated by token consumption. This skill finds excessive token w
 - Repetitive instructions across messages
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/token-budget -help` or `/token-budget -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

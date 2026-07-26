@@ -1,4 +1,4 @@
-﻿---
+---
 name: ci-debt-analyzer
 description: "CI debt analyzer: read CI configuration (GitHub Actions, GitLab CI, Jenkins, CircleCI), measure pipeline health, then LLM judges what is costing the team most. Read-only. Trigger: /ci-debt"
 trigger: /ci-debt
@@ -14,7 +14,13 @@ CI pipelines silently rot. This skill measures pipeline health and identifies th
 - Matrix builds testing the same thing 8 times
 - **Read-only skill.** No pipeline modification, no CI config changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/ci-debt -help` or `/ci-debt -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

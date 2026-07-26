@@ -1,4 +1,4 @@
-﻿---
+---
 name: doc-drift-detector
 description: "Documentation drift detector: extracts verifiable claims from a repo's markdown docs (file paths, commands/scripts, config keys, endpoints, versions, referenced symbols) and statically verifies each one against the actual code, reporting every stale claim with a concrete fix suggestion. Never executes documented commands. Read-only. Trigger: /doc-drift"
 trigger: /doc-drift
@@ -18,7 +18,13 @@ versions, symbol references) and statically checks each against the code reality
   purely static comparison (safety over completeness). No external
   links, no prose evaluation.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/doc-drift -help` or `/doc-drift -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

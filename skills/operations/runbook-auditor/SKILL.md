@@ -1,4 +1,4 @@
-﻿---
+---
 name: runbook-auditor
 description: "Runbook auditor: read runbook files, extract verifiable claims, check each against current codebase. LLM judges correctness and completeness. Read-only. Trigger: /runbook-audit"
 trigger: /runbook-audit
@@ -14,7 +14,13 @@ Runbooks are the first casualty of shipping. This skill audits them for correctn
 - Recovery procedures missing critical steps
 - **Read-only skill.** No runbook modification.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/runbook-audit -help` or `/runbook-audit -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

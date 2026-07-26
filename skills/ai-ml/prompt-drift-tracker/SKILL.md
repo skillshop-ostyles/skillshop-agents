@@ -1,4 +1,4 @@
-﻿---
+---
 name: prompt-drift-tracker
 description: "Track prompt changes across git history and flag drift that affects output quality or safety. Trigger: /prompt-drift"
 trigger: /prompt-drift
@@ -13,6 +13,11 @@ Prompts change subtly over commits. Each change can silently alter model behavio
 - Safety instructions weakened or removed
 - Prompt length changes that affect model behavior
 - **Read-only skill.** No code changes.
+
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
 
 ## What You Must Do When Invoked
 

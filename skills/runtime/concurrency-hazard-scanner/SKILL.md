@@ -1,4 +1,4 @@
-﻿---
+---
 name: concurrency-hazard-scanner
 description: "Concurrency hazard scanner: map shared mutable state across async boundaries, LLM judges each pattern as safe/racy/deadlock-prone. Read-only. Trigger: /concurrency"
 trigger: /concurrency
@@ -14,7 +14,13 @@ Race conditions, deadlocks, data races - found statically before they manifest a
 - TOCTOU patterns (read-check-then-write without atomicity)
 - **Read-only skill.** No code modification.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/concurrency -help` or `/concurrency -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

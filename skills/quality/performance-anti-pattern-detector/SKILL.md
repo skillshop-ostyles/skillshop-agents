@@ -1,4 +1,4 @@
-﻿---
+---
 name: performance-anti-pattern-detector
 description: "Performance anti-pattern detector: statically finds 8 families of structural performance problems (N+1 queries, sync-over-async, hot-loop allocation, listener leaks, unnecessary serialization, large closure captures, string concat in loop, redundant computation). Evidence-based report with severity and LLM impact assessment. Read-only. Audience: Senior. Trigger: /perf"
 trigger: /perf

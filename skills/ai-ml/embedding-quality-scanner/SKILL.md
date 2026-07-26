@@ -1,4 +1,4 @@
-﻿---
+---
 name: embedding-quality-scanner
 description: "Embedding quality scanner: audit chunking strategy, model selection, and embedding configuration. Read-only. Trigger: /embed-quality"
 trigger: /embed-quality
@@ -14,7 +14,13 @@ RAG and semantic search depend on embedding quality. This skill finds configurat
 - Chunk size inappropriate for content type (too large = noise, too small = lost context)
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/embed-quality -help` or `/embed-quality -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

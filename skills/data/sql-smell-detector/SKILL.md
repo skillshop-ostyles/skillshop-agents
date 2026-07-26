@@ -17,6 +17,11 @@ Inline SQL in application code is a silent quality drain: SELECT * in production
 
 ### Trigger: `/sql-smells`
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
 
 ### Step 1 - `-help`/`-h` check

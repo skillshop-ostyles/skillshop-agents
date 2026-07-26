@@ -1,4 +1,4 @@
-﻿---
+---
 name: ai-decision-logger
 description: "Find model-based decision points and check if they are logged with sufficient context. Trigger: /ai-log"
 trigger: /ai-log
@@ -14,7 +14,13 @@ AI decisions must be auditable. This skill finds every model-based decision poin
 - Approval/recommendation decisions missing human review path
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/ai-log -help` or `/ai-log -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

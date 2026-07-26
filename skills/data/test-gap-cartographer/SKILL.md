@@ -1,4 +1,4 @@
-﻿---
+---
 name: test-gap-cartographer
 description: "Semantic test gap mapper: inventories the public code surface (exports, routes) and all existing tests, then has the LLM map which BEHAVIORS of each public symbol are covered by which test and which are not - reporting untested behaviors (edge cases, error paths, boundaries) ranked by risk, with proposed test case names. Static, never runs tests. Read-only. Trigger: /testgap"
 trigger: /testgap
@@ -15,7 +15,13 @@ trigger: /testgap
 
 ### Trigger: `/testgap`
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 ### Step 1 - `-help`/`-h` check
 Print usage block and stop.

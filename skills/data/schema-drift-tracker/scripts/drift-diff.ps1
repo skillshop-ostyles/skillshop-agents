@@ -33,6 +33,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 # ---------------------------------------------------------------
 # Helper: walk a path – file or directory – and return raw content

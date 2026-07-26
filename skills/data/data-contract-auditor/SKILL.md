@@ -12,29 +12,88 @@ This skill extracts schema declarations (DDL, ORM models, TypeScript interfaces,
 
 **Audience:** Both — seniors use it as pre-deployment safety net and API contract review; juniors learn where their code silently drifts from declared contracts.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. If `-help` or `-h` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists. If not, print usage and stop.
+
+### Step 3
+
 3. Run the collector script:
-   ```
-   scripts/contract-scan.ps1 -ProjectDir "<path>"
-   ```
+
+### Step 4
+
+scripts/contract-scan.ps1 -ProjectDir "<path>"
+
+### Step 5
+
 4. LLM reads the JSON output. Per contract element (`contracts[]`):
-   - Examine `field`, `declaredType`, `declaredNullable`.
-   - Examine each `usageSites[]` entry: `file`, `line`, `usageType`, `usedType`, `usedNullable`.
+
+### Step 6
+
+- Examine `field`, `declaredType`, `declaredNullable`.
+
+### Step 7
+
+- Examine each `usageSites[]` entry: `file`, `line`, `usageType`, `usedType`, `usedNullable`.
+
+### Step 8
+
 5. Per discrepancy:
-   - Is this a **real violation**? (e.g. NOT NULL field is assigned undefined — will produce `null` in JSON, may crash strict consumers.)
-   - Is this **harmless flexibility**? (e.g. `parseInt` correctly coerces string to number — the consumer handles both.)
-   - Is the **schema too strict**? (e.g. field declared `number` but real-world API returns numeric string — schema should be `string | number`.)
-   - Classify: `real-violation` / `harmless-flexibility` / `schema-too-strict`.
-   - Add confidence: `proven` / `likely` / `suspected`.
+
+### Step 9
+
+- Is this a **real violation**? (e.g. NOT NULL field is assigned undefined — will produce `null` in JSON, may crash strict consumers.)
+
+### Step 10
+
+- Is this **harmless flexibility**? (e.g. `parseInt` correctly coerces string to number — the consumer handles both.)
+
+### Step 11
+
+- Is the **schema too strict**? (e.g. field declared `number` but real-world API returns numeric string — schema should be `string | number`.)
+
+### Step 12
+
+- Classify: `real-violation` / `harmless-flexibility` / `schema-too-strict`.
+
+### Step 13
+
+- Add confidence: `proven` / `likely` / `suspected`.
+
+### Step 14
+
 6. Write `data-contract-report.md` to the working directory with:
-   - Executive summary (files scanned, contracts found, discrepancies)
-   - Per-field breakdown (field, declared contract, usage sites, verdict, confidence, reasoning)
-   - Cross-cutting patterns (which type of violation is most common)
-   - Recommendations (schema changes, runtime guards, or accept-as-is)
-   - Open questions (suspected-confidence findings needing human review)
+
+### Step 15
+
+- Executive summary (files scanned, contracts found, discrepancies)
+
+### Step 16
+
+- Per-field breakdown (field, declared contract, usage sites, verdict, confidence, reasoning)
+
+### Step 17
+
+- Cross-cutting patterns (which type of violation is most common)
+
+### Step 18
+
+- Recommendations (schema changes, runtime guards, or accept-as-is)
+
+### Step 19
+
+- Open questions (suspected-confidence findings needing human review)
 
 ## Usage
 

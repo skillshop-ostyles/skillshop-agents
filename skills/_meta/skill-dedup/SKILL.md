@@ -7,6 +7,11 @@ trigger: /skill-dedup
 
 Detects skills that do similar things: same trigger domain, overlapping description keywords, identical script patterns.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What this is for
 
 - Skills with overlapping purpose across clusters
@@ -14,12 +19,23 @@ Detects skills that do similar things: same trigger domain, overlapping descript
 - Semantic duplication despite different trigger names
 - **Read-only skill.** No code changes.
 
-## Steps
+## What You Must Do When Invoked
 
-1. `-ProjectDir` target
-2. Run collector: pairwise description Jaccard + script pattern overlap
-3. Report candidate pairs with overlap score
-4. Write `skill-dedup-report.md`
+### Step 1
+
+`-ProjectDir` target
+
+### Step 2
+
+Run collector: pairwise description Jaccard + script pattern overlap
+
+### Step 3
+
+Report candidate pairs with overlap score
+
+### Step 4
+
+Write `skill-dedup-report.md`
 
 ## Usage
 
@@ -28,3 +44,5 @@ Detects skills that do similar things: same trigger domain, overlapping descript
 /skill-dedup <dir>       # scan project
 /skill-dedup -help
 ```
+
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).

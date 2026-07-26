@@ -1,4 +1,4 @@
-﻿---
+---
 name: runtime-type-mismatch
 description: "Runtime type mismatch detector: find every runtime type assumption, LLM judges which will fail in production. Read-only. Trigger: /type-mismatch"
 trigger: /type-mismatch
@@ -14,7 +14,13 @@ Types only exist until compile time. At runtime, `any`, casts, and untyped bound
 - Type assertions/casts that hide real type mismatches
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/type-mismatch -help` or `/type-mismatch -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

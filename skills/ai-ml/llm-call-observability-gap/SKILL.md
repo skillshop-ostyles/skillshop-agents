@@ -1,4 +1,4 @@
-﻿---
+---
 name: llm-call-observability-gap
 description: "Find LLM API calls that lack observability — no logging, error handling, timeout, or cost tracking. Trigger: /llm-obs"
 trigger: /llm-obs
@@ -14,7 +14,13 @@ Every LLM call is a risk. This skill finds calls that lack observability and jud
 - Missing timeouts and cost tracking
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/llm-obs -help` or `/llm-obs -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

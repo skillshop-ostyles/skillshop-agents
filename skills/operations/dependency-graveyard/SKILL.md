@@ -1,4 +1,4 @@
-﻿---
+---
 name: dependency-graveyard
 description: "Dependency graveyard: inventory every dependency, check registry health metadata, then LLM judges each as healthy/aging/zombie/dead. Read-only. Trigger: /dep-graveyard"
 trigger: /dep-graveyard
@@ -13,7 +13,13 @@ Every project has dead dependencies. This skill inventories them and classifies 
 - CVEs without fix, deprecated API versions, no migration path
 - **Read-only skill.** No package removal, no lockfile update, no automated remediation.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/dep-graveyard -help` or `/dep-graveyard -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

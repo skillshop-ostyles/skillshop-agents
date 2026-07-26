@@ -17,16 +17,48 @@ Each signal the collector finds becomes a candidate invariant sentence. The
 LLM judges whether the assumption is guaranteed-by-construction or fragile
 and proposes an assertion or doc comment to make the implicit explicit.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/assumption-scan.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each signal:
-   - Read the `context` lines.
-   - Formulate the implicit invariant as a sentence.
-   - Judge: `guaranteed-by-construction` / `probably-holds` / `fragile`.
-   - For `fragile` signals: propose a guard (assertion) or doc comment.
+
+### Step 5
+
+- Read the `context` lines.
+
+### Step 6
+
+- Formulate the implicit invariant as a sentence.
+
+### Step 7
+
+- Judge: `guaranteed-by-construction` / `probably-holds` / `fragile`.
+
+### Step 8
+
+- For `fragile` signals: propose a guard (assertion) or doc comment.
+
+### Step 9
+
 5. Write `invariant-report.md` to the working directory.
 
 ## Usage

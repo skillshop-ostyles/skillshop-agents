@@ -27,6 +27,7 @@ flows into the prompt, and checks for countermeasures.
 Read-only skill.
 
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 ### Step 1 - `-help`/`-h` check
 If invoked with `-help` or `-h`, print the usage block below and stop.

@@ -1,4 +1,4 @@
-﻿---
+---
 name: error-handling-auditor
 description: "Error handling auditor: detects 8 anti-patterns (swallowed exceptions, generic catches, missing error handling, missing finally, error handling inconsistency, logging without context, ignored return codes, exception type abuse). Risk-tiered report with remediation suggestions. Read-only. Audience: Both. Trigger: /error-audit"
 trigger: /error-audit
@@ -23,18 +23,55 @@ report with severity tiers, evidence, and LLM-validated remediation suggestions.
 /error-audit -help        # show usage
 ```
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. `-help` / `-h` -> print usage, exit 0.
+
+### Step 2
+
 2. Confirm target directory exists.
+
+### Step 3
+
 3. Run `scripts/error-scan.ps1 -ProjectDir <dir>`.
+
+### Step 4
+
 4. LLM reads the JSON output, validates each finding:
-   - Is this a genuine anti-pattern or intentional design?
-   - Assign confidence (`proven`/`likely`/`suspected`).
-   - Determine risk tier (critical/medium/low/informational).
-   - Generate a concrete remediation code snippet.
+
+### Step 5
+
+- Is this a genuine anti-pattern or intentional design?
+
+### Step 6
+
+- Assign confidence (`proven`/`likely`/`suspected`).
+
+### Step 7
+
+- Determine risk tier (critical/medium/low/informational).
+
+### Step 8
+
+- Generate a concrete remediation code snippet.
+
+### Step 9
+
 5. Cross-reference inconsistency findings (pattern 5) by reading both call sites.
+
+### Step 10
+
 6. Filter false positives (framework handlers, test assertions, fire-and-forget).
+
+### Step 11
+
 7. Write `error-audit-report.md` to the working directory.
 
 ## Anti-Patterns

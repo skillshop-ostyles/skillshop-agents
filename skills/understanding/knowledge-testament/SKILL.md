@@ -1,4 +1,4 @@
-﻿---
+---
 name: knowledge-testament
 description: "Knowledge testament: mines git blame/log to map where one developer's exclusive knowledge lives (sole-author hotspots, high-churn areas they own), generates a targeted interview asking exactly the questions nobody would know to ask, and writes a structured, code-linked testament document. Read-only towards the repo. Trigger: /testament"
 trigger: /testament
@@ -17,7 +17,13 @@ runs a targeted handover interview - linked to code, honest about its own gaps.
 - **Read-only towards the repo.** No evaluation of individuals (no performance
   statements - only a knowledge map). No automatic mails/exports.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/testament -help` or `/testament -h` (without further arguments) is invoked:
 output the `## Usage` section unchanged and stop.

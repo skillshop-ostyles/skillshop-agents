@@ -1,4 +1,4 @@
-﻿---
+---
 name: side-effect-ordering
 description: "Side-effect ordering analyzer: map operation chains in request handlers, LLM judges if ordering is safe or an incident waiting to happen. Read-only. Trigger: /sideorder"
 trigger: /sideorder
@@ -14,7 +14,13 @@ Systems fail not because individual operations fail but because they happen in t
 - Irreversible operation before reversible one (charged credit card but order failed)
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/sideorder -help` or `/sideorder -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

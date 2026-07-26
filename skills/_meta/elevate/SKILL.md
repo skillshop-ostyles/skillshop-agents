@@ -1,4 +1,4 @@
-﻿---
+---
 name: elevate
 description: "Audits any project for software quality, refactoring readiness, testing, and CI/CD, then automatically elevates it to enterprise level across 7 dimensions (tests+coverage, lint/format, CI/CD, secrets, docs, type-safety/strict, dependency-audit). Generic across stacks and CI systems, runs locally too. Trigger: /elevate"
 trigger: /elevate
@@ -25,6 +25,7 @@ If the user proposes `~/.claude/` as target, abort immediately.
 by themselves (GetFullPath comparison + exit 1).
 
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If the user invoked `/elevate -help` or `/elevate -h` (no other args), print the
 `## Usage` section verbatim and stop.

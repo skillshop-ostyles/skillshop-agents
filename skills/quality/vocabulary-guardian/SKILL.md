@@ -1,4 +1,4 @@
-﻿---
+---
 name: vocabulary-guardian
 description: "Ubiquitous language guard: harvests identifiers from code, schema and API definitions, has the LLM cluster synonyms that name the same domain concept (customer/client/account/kunde), reports naming divergences with all locations and proposes one canonical term per concept including rename impact estimate. Never renames anything. Read-only. Trigger: /vocab"
 trigger: /vocab
@@ -18,6 +18,11 @@ clusters synonyms into domain concepts and proposes one canonical name per clust
   rough impact estimate. Distinction from `/co-change` (Sprint 04
   consistency-enforcer): that deals with duplicated LOGIC, this deals with divergent
   LANGUAGE for the same concept.
+
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
 
 ## What You Must Do When Invoked
 

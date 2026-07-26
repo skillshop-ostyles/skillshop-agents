@@ -1,4 +1,4 @@
-﻿---
+---
 name: backup-coverage-scanner
 description: "Backup coverage scanner: inventory every stateful resource, trace backup configuration for each, then LLM identifies critical gaps. Read-only. Trigger: /backup-scan"
 trigger: /backup-scan
@@ -13,7 +13,13 @@ Every database, volume, and config file needs backup. This skill traces coverage
 - Docker volumes, S3 buckets, DynamoDB tables missing snapshot policies
 - **Read-only skill.** No backup creation, no infrastructure changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/backup-scan -help` or `/backup-scan -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

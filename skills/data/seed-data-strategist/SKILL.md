@@ -15,19 +15,59 @@ what cardinality to aim for.
 The dominant failure mode is the seed data that covers only the happy path,
 leaving error paths and edge cases untested until production.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/seed-analyze.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each entity:
-   - What seed variants cover meaningful test scenarios?
-   - List specific instances (e.g. "Customer with active subscription",
-     "Customer with expired card", "Customer with maxed credit limit").
-   - Ensure all FK chains have at least one complete path.
-   - What edge values for nullable/enum/unique fields?
+
+### Step 5
+
+- What seed variants cover meaningful test scenarios?
+
+### Step 6
+
+- List specific instances (e.g. "Customer with active subscription",
+
+### Step 7
+
+"Customer with expired card", "Customer with maxed credit limit").
+
+### Step 8
+
+- Ensure all FK chains have at least one complete path.
+
+### Step 9
+
+- What edge values for nullable/enum/unique fields?
+
+### Step 10
+
 5. Confidence: `proven` (from schema constraints), `likely` (inferred from
-   column names), `suspected` (domain assumption).
+
+### Step 11
+
+column names), `suspected` (domain assumption).
+
+### Step 12
+
 6. Write `seed-strategy-report.md` to the working directory.
 
 ## Usage

@@ -1,4 +1,4 @@
-﻿---
+---
 name: healthcheck-mapper
 description: "Healthcheck mapper: inventory all health/readiness/liveness endpoints, map against service dependencies, LLM judges each as adequate/weak/missing. Read-only. Trigger: /healthcheck"
 trigger: /healthcheck
@@ -14,7 +14,13 @@ Most healthchecks return 200 even when the DB is down. This skill audits coverag
 - Liveness vs readiness confusion
 - **Read-only skill.** No endpoint modification, no deployment changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/healthcheck -help` or `/healthcheck -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

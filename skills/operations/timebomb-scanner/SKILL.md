@@ -1,4 +1,4 @@
-﻿---
+---
 name: timebomb-scanner
 description: "Time bomb scanner: finds hardcoded dates, expiry deadlines, cert references, 32-bit time usage and 'temporary' markers rotting since years (git age via blame), then has the LLM classify each finding as live bomb / rotten provisional / false alarm and produce a defusal list ranked by detonation date. Read-only. Trigger: /timebomb"
 trigger: /timebomb
@@ -16,6 +16,11 @@ git age) and 32-bit time suspicion - prioritized by detonation date.
   only explode on detonation day.
 - **Read-only skill.** No automatic defusal, no certificate file parsing (only
   paths/mentions), no external expiry registries.
+
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
 
 ## What You Must Do When Invoked
 

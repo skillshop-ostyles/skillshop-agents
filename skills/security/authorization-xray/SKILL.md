@@ -1,4 +1,4 @@
-﻿---
+---
 name: authorization-xray
 description: "Authorization X-ray for your own codebase (defensive audit): inventories every HTTP endpoint and every recognizable protection layer (middleware chains, authorize decorators, inline role checks, router mounts), builds the permission matrix endpoint x required check, and reports unprotected mutating endpoints and inconsistent protection of similar resources. Static, sends no requests. Read-only. Trigger: /authz"
 trigger: /authz
@@ -15,7 +15,13 @@ trigger: /authz
 
 ### Trigger: `/authz`
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 ### Step 1 - `-help`/`-h` check
 Print usage block and stop.

@@ -1,4 +1,4 @@
-﻿---
+---
 name: repro-builder
 description: "Turns a vague bug report into a minimal, runnable reproduction: extracts hypotheses from the report text, snapshots the environment, generates a repro test/script, EXECUTES it and iterates (max 5 attempts) until the bug demonstrably reproduces - or documents precisely which information is missing. The repro lives outside the target project. Trigger: /repro"
 trigger: /repro

@@ -1,4 +1,4 @@
-﻿---
+---
 name: tool-call-fidelity-checker
 description: "Check tool/function definitions for hallucination-prone schemas. Trigger: /tool-fidelity"
 trigger: /tool-fidelity
@@ -15,7 +15,13 @@ LLM function calling requires precise tool definitions. This skill finds ambiguo
 - TOCTOU parameters (model can't know current state)
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/tool-fidelity -help` or `/tool-fidelity -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

@@ -1,4 +1,4 @@
-﻿---
+---
 name: schema-documentation-generator
 description: "Generate human-readable data dictionary from DDL with LLM-written business descriptions. Reads DDL or ORM models, extracts structural metadata, and writes plain-English descriptions for every table, column, and relationship. Trigger: /schema-docs"
 trigger: /schema-docs
@@ -15,7 +15,13 @@ Most production databases have zero documentation - cryptic column names (cst_id
 - Detect and expand naming abbreviations (cst -> customer, ord -> order, prd -> product, etc.)
 - Generate a human-readable `schema-dictionary.md` with LLM-written business descriptions
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/schema-docs -help` or `/schema-docs -h` (without further arguments) is invoked: output the `## Usage` section unchanged and stop.
 

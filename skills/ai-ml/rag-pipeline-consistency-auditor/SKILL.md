@@ -1,4 +1,4 @@
-﻿---
+---
 name: rag-pipeline-consistency-auditor
 description: "Audit RAG pipeline configuration for consistency issues that produce bad answers. Trigger: /rag-consistency"
 trigger: /rag-consistency
@@ -14,7 +14,13 @@ RAG applications are fragile: retrieval finds wrong content, context windows tru
 - Retriever config inconsistent with model capabilities
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/rag-consistency -help` or `/rag-consistency -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

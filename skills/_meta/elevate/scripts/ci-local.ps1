@@ -1,10 +1,12 @@
-﻿[CmdletBinding()]
+[CmdletBinding()]
 param(
     [Parameter(Mandatory = $true)]
     [string]$ProjectDir
 )
 
-$ErrorActionPreference = 'Continue'  # best-effort: nichts abbrechen lassen
+$ErrorActionPreference = 'Continue'
+$OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8  # best-effort: nichts abbrechen lassen
 
 $cwd = Resolve-Path -LiteralPath $ProjectDir
 Write-Output "=== LOCAL CI MIRROR: $cwd ==="

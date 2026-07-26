@@ -1,4 +1,4 @@
-﻿---
+---
 name: architecture-visualizer
 description: "Architecture visualizer: maps module dependencies, detects layer violations, circular dependencies, entry points, and computes structural health score. Generates Mermaid diagrams. Read-only. Audience: Both. Trigger: /arch-vis"
 trigger: /arch-vis
@@ -24,16 +24,48 @@ detection, and structural health metrics.
 /arch-vis -help            # show usage
 ```
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. `-help` / `-h` -> print usage, exit 0.
+
+### Step 2
+
 2. Confirm target directory exists.
+
+### Step 3
+
 3. Run `scripts/arch-scan.ps1 -ProjectDir <dir>`.
+
+### Step 4
+
 4. LLM reads the JSON output and:
-   - Interprets the module dependency graph per layer
-   - Analyzes layer violations (read both files, determine legitimacy)
-   - Analyzes circular dependencies (read cycle files, suggest fix)
-   - Generates Mermaid diagrams (module graph + layer violation map)
+
+### Step 5
+
+- Interprets the module dependency graph per layer
+
+### Step 6
+
+- Analyzes layer violations (read both files, determine legitimacy)
+
+### Step 7
+
+- Analyzes circular dependencies (read cycle files, suggest fix)
+
+### Step 8
+
+- Generates Mermaid diagrams (module graph + layer violation map)
+
+### Step 9
+
 5. Write `arch-vis-report.md` to the working directory.
 
 ## Analysis Dimensions

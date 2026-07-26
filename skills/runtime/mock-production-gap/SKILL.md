@@ -1,4 +1,4 @@
-﻿---
+---
 name: mock-production-gap
 description: "Mock-production gap detector: compare test mocks against real implementations, LLM judges dangerous divergences. Read-only. Trigger: /mock-gap"
 trigger: /mock-gap
@@ -14,7 +14,13 @@ Tests pass with mocks; production breaks with real dependencies. This skill find
 - Mock function signatures that differ from real implementations
 - **Read-only skill.** No test changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/mock-gap -help` or `/mock-gap -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

@@ -1,4 +1,4 @@
-﻿---
+---
 name: prompt-quality-auditor
 description: "Prompt quality auditor: audit every prompt for clarity, safety, and injection resistance. Read-only. Trigger: /prompt-quality"
 trigger: /prompt-quality
@@ -14,7 +14,13 @@ Prompts are the most critical code you never review. This skill finds quality is
 - User input directly in prompt without sanitization (injection)
 - **Read-only skill.** No prompt modifications.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/prompt-quality -help` or `/prompt-quality -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

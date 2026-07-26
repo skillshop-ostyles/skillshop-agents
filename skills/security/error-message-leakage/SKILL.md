@@ -13,20 +13,64 @@ production-return-codes and classifies what exact information reaches
 the attacker. This skill catalogs every error-return and log-error call,
 and the LLM classifies each as leak-by-info-type.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/error-returns.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each finding:
-   - Is this a development-only error path? Does it run in production,
-     dev-only (NODE_ENV=development), or test-only?
-   - What information is leaked? (per `leakKind`): stacktrace gives
-     file-paths+code; SQL error gives schema; env-vars give cloud keys;
-     user-input echo gives reflection-injection surface.
-   - Severity scale: stacktrace > SQL error > generic 'Error: X' > request dump.
-   - Propose sanitization: convert `res.send(err)` to a sanitized error-id,
-     log full context internally, return generic to caller.
+
+### Step 5
+
+- Is this a development-only error path? Does it run in production,
+
+### Step 6
+
+dev-only (NODE_ENV=development), or test-only?
+
+### Step 7
+
+- What information is leaked? (per `leakKind`): stacktrace gives
+
+### Step 8
+
+file-paths+code; SQL error gives schema; env-vars give cloud keys;
+
+### Step 9
+
+user-input echo gives reflection-injection surface.
+
+### Step 10
+
+- Severity scale: stacktrace > SQL error > generic 'Error: X' > request dump.
+
+### Step 11
+
+- Propose sanitization: convert `res.send(err)` to a sanitized error-id,
+
+### Step 12
+
+log full context internally, return generic to caller.
+
+### Step 13
+
 5. Write `error-leakage-report.md` to the working directory.
 
 ## Usage

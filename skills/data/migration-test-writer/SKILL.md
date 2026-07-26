@@ -15,18 +15,55 @@ queries that should pass before and after the migration.
 The dominant failure mode is the silent data loss or constraint violation that
 only surfaces in production after the migration has run.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/migration-diff.ps1 -ProjectDir "<path>" -OldSchema "v1/schema.sql" -NewSchema "v2/schema.sql"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each diff entry:
-   - If `requiresPreCheck` is true: generate a pre-migration validation query
-     (verify assumptions before the migration runs).
-   - If `requiresPostCheck` is true: generate a post-migration validation query
-     (verify data integrity after the migration completes).
+
+### Step 5
+
+- If `requiresPreCheck` is true: generate a pre-migration validation query
+
+### Step 6
+
+(verify assumptions before the migration runs).
+
+### Step 7
+
+- If `requiresPostCheck` is true: generate a post-migration validation query
+
+### Step 8
+
+(verify data integrity after the migration completes).
+
+### Step 9
+
 5. Confidence: `proven` (deterministic diff from DDL), `likely` (inferred
-   requirement), `suspected` (edge case).
+
+### Step 10
+
+requirement), `suspected` (edge case).
+
+### Step 11
+
 6. Write `migration-validation-queries.sql` to the working directory.
 
 ## Usage

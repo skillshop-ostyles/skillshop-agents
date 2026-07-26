@@ -1,4 +1,4 @@
-﻿---
+---
 name: shutdown-gracefulness
 description: "Shutdown gracefulness analyzer: check if shutdown hooks actually drain, flush, and complete in-flight work. Read-only. Trigger: /shutdown"
 trigger: /shutdown
@@ -14,7 +14,13 @@ A pod is killed. What happens to in-flight requests, open transactions, half-wri
 - File writers without flush (data loss)
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/shutdown -help` or `/shutdown -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

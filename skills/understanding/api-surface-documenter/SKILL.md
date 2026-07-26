@@ -12,20 +12,64 @@ Swagger/OpenAPI only covers REST. This skill finds ALL four surface types
 from source code patterns alone, classifies each by stability and audience
 (internal vs external), and produces a complete reference.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/api-survey.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each API:
-   - **Usage pattern:** How is this API typically called? What are the
-     conventions in this codebase?
-   - **Breaking-change risk:** Would changing the signature/route/event-name
-     break callers? Is it exported externally?
-   - **Undocumented assumptions:** Are there implicit preconditions (auth
-     required, rate-limited, idempotent)?
-   - **Missing examples:** Is there a usage example in docs/tests? If not,
-     note it.
+
+### Step 5
+
+- **Usage pattern:** How is this API typically called? What are the
+
+### Step 6
+
+conventions in this codebase?
+
+### Step 7
+
+- **Breaking-change risk:** Would changing the signature/route/event-name
+
+### Step 8
+
+break callers? Is it exported externally?
+
+### Step 9
+
+- **Undocumented assumptions:** Are there implicit preconditions (auth
+
+### Step 10
+
+required, rate-limited, idempotent)?
+
+### Step 11
+
+- **Missing examples:** Is there a usage example in docs/tests? If not,
+
+### Step 12
+
+note it.
+
+### Step 13
+
 5. Write `api-surface-reference.md` to the working directory.
 
 ## Usage

@@ -1,4 +1,4 @@
-﻿---
+---
 name: deployment-frequency-tracker
 description: "Deployment frequency tracker: compute DORA metrics from git history, LLM identifies bottlenecks and improvement opportunities. Read-only. Trigger: /deploy-freq"
 trigger: /deploy-freq
@@ -13,7 +13,13 @@ DORA metrics from local git history. No external API needed.
 - Bottlenecks: long-running PRs, deployment batches, rollback patterns
 - **Read-only skill.** No CI changes, no deployment automation.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/deploy-freq -help` or `/deploy-freq -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

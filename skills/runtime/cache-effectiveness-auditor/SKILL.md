@@ -1,4 +1,4 @@
-﻿---
+---
 name: cache-effectiveness-auditor
 description: "Cache effectiveness auditor: inventory every caching pattern, extract strategy (TTL/invalidation/key design), LLM judges if each cache is effective or harmful. Read-only. Trigger: /cache-audit"
 trigger: /cache-audit
@@ -14,7 +14,13 @@ Caches are supposed to make things faster. This skill finds caches that don't.
 - Cache cost exceeds recompute cost
 - **Read-only skill.** No configuration changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/cache-audit -help` or `/cache-audit -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

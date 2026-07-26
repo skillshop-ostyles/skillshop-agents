@@ -16,7 +16,13 @@ migration files, parses every DDL statement, and checks 20+ safety rules. The
 LLM then assesses the blast radius of each finding against the actual schema
 and usage patterns, and recommends safer alternatives.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 ### Step 1 - `-help`/`-h` check
 If `-help` or `-h` is passed, print the `## Usage` block below and stop.

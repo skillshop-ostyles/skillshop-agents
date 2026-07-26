@@ -1,4 +1,4 @@
-﻿---
+---
 name: dep-inheritance
 description: "Dependency inheritance audit: for every direct dependency answers the questions nobody asks - why is it here (from actual usage sites), how deep is the coupling, how replaceable is it, and what is the concrete exit plan. Parses manifests/lockfiles, scans usage, optionally enriches with registry metadata (offline-safe). Read-only. Trigger: /deps-audit"
 trigger: /deps-audit
@@ -16,7 +16,13 @@ it, and what is the concrete exit plan.
 - **Read-only skill.** No CVE scan (use `npm audit` & co - not duplicated).
   No transitive dependencies in deep analysis, only counted.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/deps-audit -help` or `/deps-audit -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

@@ -1,4 +1,4 @@
-﻿---
+---
 name: project-init
 description: "Bootstraps a brand-new, empty project with a complete, optimized file & directory structure plus an interactive LLM onboarding dialog. Use when the user wants to start a fresh/pristine project from scratch and have the LLM set it up via a guided, dynamic, stack-agnostic conversation covering all project areas (goal, stack, tooling, docs, secrets, platform). Trigger: /project-init"
 trigger: /project-init
@@ -20,7 +20,13 @@ pick up the context automatically.
 - Output is a reusable, consistent baseline that the session-start routine
   can read back in every session.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If the user invoked `/project-init -help` or `/project-init -h` (no other args),
 print the contents of the `## Usage` section verbatim and stop.

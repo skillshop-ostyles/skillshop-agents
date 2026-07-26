@@ -16,20 +16,64 @@ the replacement.
 Single lint rules exist for narrow cases (`unicorn/prefer-native`). No general
 "did you mean to use the library you installed" detector exists before this.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/util-harvest.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each candidate short utility:
-   - Read the function body.
-   - Is this semantically equivalent to a stdlib feature of the language
-     version, or to an API of an installed library?
-   - Name the exact replacement (function or method).
-   - Note behavioral differences: edge cases the custom version catches or
-     misses compared to the library equivalent.
+
+### Step 5
+
+- Read the function body.
+
+### Step 6
+
+- Is this semantically equivalent to a stdlib feature of the language
+
+### Step 7
+
+version, or to an API of an installed library?
+
+### Step 8
+
+- Name the exact replacement (function or method).
+
+### Step 9
+
+- Note behavioral differences: edge cases the custom version catches or
+
+### Step 10
+
+misses compared to the library equivalent.
+
+### Step 11
+
 5. Classify: `reinvented-stdlib` / `reinvented-library` / `custom-domain`
-   (legitimate, do not replace).
+
+### Step 12
+
+(legitimate, do not replace).
+
+### Step 13
+
 6. Write `reinvented-wheels-report.md` to the working directory.
 
 ## Usage

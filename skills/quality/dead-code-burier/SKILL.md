@@ -1,4 +1,4 @@
-﻿---
+---
 name: dead-code-burier
 description: "Dead-path undertaker: identifies provably unreachable code by combining static reachability (unreferenced exports/files), optional runtime evidence (coverage reports, logs) and git age, then produces a burial list ranked by evidence strength. NEVER deletes automatically - prepares patches for individual user approval only. Trigger: /bury"
 trigger: /bury
@@ -31,6 +31,7 @@ blanket ("just delete everything"), never without asking. Without any approval t
 flow ends at the report.
 
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/bury -help` or `/bury -h` (without further arguments) is invoked: output
 the `## Usage` section unchanged and stop.

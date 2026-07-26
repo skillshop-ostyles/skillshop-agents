@@ -1,4 +1,4 @@
-﻿---
+---
 name: consistency-enforcer
 description: "Finds duplicated BUSINESS LOGIC (not duplicated text): extracts rule candidates (validations, calculations, domain constants, regexes, status logic) from a codebase, then has the LLM cluster semantically equal rules across different implementations and flag divergent ones with a single-source-of-truth proposal. Read-only. Trigger: /consist"
 trigger: /consist
@@ -17,6 +17,11 @@ single-source-of-truth proposal.
   Classic clone detection is blind to this; semantic equivalence can only be
   detected by an LLM.
 - **Read-only skill.** No automatic refactoring, only a proposal.
+
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
 
 ## What You Must Do When Invoked
 

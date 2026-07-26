@@ -12,22 +12,72 @@ if token was stolen. Missing refresh-token rotation = long-lived token
 window. Generic `security-scan` flags none of these — they require
 understanding the session lifecycle per mutation point.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/session-scan.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each finding per sessionType:
-   - **creation**: Does the caller call `regenerate` within the next 5 lines?
-     If not = session fixation risk.
-   - **login**: Is `regenerate()` called inside the successful auth branch?
-     If not = session fixation risk.
-   - **regenerate**: Already present — verify it's in the auth-success path
-     and not orphaned.
-   - **logout**: Is `destroy()` / `clearCookie()` / `session.clear()` called?
-     If not = lingering session risk.
-   - **jwt/refresh**: Is `rotateRefresh` / `newRefresh` called on refresh?
-     If not = long-lived refresh token window.
+
+### Step 5
+
+- **creation**: Does the caller call `regenerate` within the next 5 lines?
+
+### Step 6
+
+If not = session fixation risk.
+
+### Step 7
+
+- **login**: Is `regenerate()` called inside the successful auth branch?
+
+### Step 8
+
+If not = session fixation risk.
+
+### Step 9
+
+- **regenerate**: Already present — verify it's in the auth-success path
+
+### Step 10
+
+and not orphaned.
+
+### Step 11
+
+- **logout**: Is `destroy()` / `clearCookie()` / `session.clear()` called?
+
+### Step 12
+
+If not = lingering session risk.
+
+### Step 13
+
+- **jwt/refresh**: Is `rotateRefresh` / `newRefresh` called on refresh?
+
+### Step 14
+
+If not = long-lived refresh token window.
+
+### Step 15
+
 5. Write `session-state-report.md` to the working directory.
 
 ## Usage

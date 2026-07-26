@@ -1,4 +1,4 @@
-﻿---
+---
 name: error-propagation-mapper
 description: "Error propagation mapper: trace every error from origin through handling blocks to surface, LLM classifies each path as monitored/silent/dangerous. Read-only. Trigger: /error-map"
 trigger: /error-map
@@ -14,7 +14,13 @@ Errors flow through code like water through pipes. This skill maps every path to
 - Returned null defaults that callers treat as success
 - **Read-only skill.** No code modification.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/error-map -help` or `/error-map -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

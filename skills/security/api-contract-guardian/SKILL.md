@@ -1,4 +1,4 @@
-﻿---
+---
 name: api-contract-guardian
 description: "API contract guard: extracts the API surface (HTTP routes with params, DTO fields, exported signatures - preferring OpenAPI files when present) from two git states of a repo, diffs them, classifies every change as breaking / non-breaking / additive, and writes a ready-to-ship consumer migration note per breaking change. Read-only. Trigger: /api-diff"
 trigger: /api-diff
@@ -15,7 +15,13 @@ Breaking changes happen on the side: a field renamed, a required parameter added
 
 ### Trigger: `/api-diff`
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 ### Step 1 - `-help`/`-h` check
 Print usage block and stop.

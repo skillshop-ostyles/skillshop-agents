@@ -1,4 +1,4 @@
-﻿---
+---
 name: model-output-guardrail-auditor
 description: "Model output guardrail auditor: find unvalidated LLM outputs that cause crashes, data corruption, or bad decisions. Read-only. Trigger: /guardrails"
 trigger: /guardrails
@@ -14,7 +14,13 @@ Every unvalidated LLM output is a bug waiting to happen. This skill finds output
 - Model output used for decisions without bounds checking (wrong action)
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/guardrails -help` or `/guardrails -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

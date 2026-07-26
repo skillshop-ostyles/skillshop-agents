@@ -12,20 +12,64 @@ that catches regressions in seconds. This skill scans every test file,
 classifies it by framework + setup pattern, builds the pyramid distribution,
 and finds untested modules + tests whose cost exceeds their value.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/strategy-scan.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each finding:
-   - **Pyramid health**: compare distribution to ideal 60/30/10 (unit/integration/e2e).
-     If unit count < 50% or e2e > 20%, flag as unhealthy.
-   - **Untested modules**: are any of these core domain modules? Are they
-     excluded by policy or genuinely at risk?
-   - **Expensive tests**: e2e tests that assert < 3 things or integration tests
-     with low assertion-to-setup ratio. Which can be rewritten as unit tests?
-   - **Mock complexity**: tests with 4+ mocks signal tight coupling. Which can
-     be refactored to reduce mocking?
+
+### Step 5
+
+- **Pyramid health**: compare distribution to ideal 60/30/10 (unit/integration/e2e).
+
+### Step 6
+
+If unit count < 50% or e2e > 20%, flag as unhealthy.
+
+### Step 7
+
+- **Untested modules**: are any of these core domain modules? Are they
+
+### Step 8
+
+excluded by policy or genuinely at risk?
+
+### Step 9
+
+- **Expensive tests**: e2e tests that assert < 3 things or integration tests
+
+### Step 10
+
+with low assertion-to-setup ratio. Which can be rewritten as unit tests?
+
+### Step 11
+
+- **Mock complexity**: tests with 4+ mocks signal tight coupling. Which can
+
+### Step 12
+
+be refactored to reduce mocking?
+
+### Step 13
+
 5. Write `test-strategy-report.md` to the working directory.
 
 ## Usage

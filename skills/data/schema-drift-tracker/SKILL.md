@@ -18,6 +18,10 @@ Compare two SQL DDL schema snapshots, detect drifts (added/removed tables,
 columns, indexes, foreign keys; modified types/nullability/defaults), assess
 criticality via LLM, and produce a structured report.
 
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## Usage
 
 ```
@@ -26,6 +30,20 @@ criticality via LLM, and produce a structured report.
 
 The skill runs the collector script then invokes the LLM to classify each
 drift entry and produce `schema-drift-report.md`.
+
+## What You Must Do When Invoked
+
+### Step 1
+
+Run `/schema-drift` with the target project directory.
+
+### Step 2
+
+Review the drift report and assess criticality of each entry.
+
+### Step 3
+
+Document findings and recommend remediation steps.
 
 ## Parameters
 

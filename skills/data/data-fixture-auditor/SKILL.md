@@ -1,5 +1,6 @@
 ---
 name: data-fixture-auditor
+description: "Data fixture auditor: scans test fixture files for coverage gaps, stale data shapes, and missing edge cases. Audits JSON, YAML, and SQL fixtures for cardinality, null ratio, and schema drift. Read-only. Audience: Senior. Trigger: /fixture-audit"
 trigger: /fixture-audit
 sprint: 83
 cluster: data
@@ -11,6 +12,10 @@ Test fixtures silently rot: happy-path only, stale shapes, zero error-scenario
 coverage. This skill scans fixture files, parses entities, measures field coverage,
 and generates a quality report.
 
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## Usage
 
 ```
@@ -20,8 +25,22 @@ and generates a quality report.
 Loade das Skill, dann:
 
 ```
-/fixture-audit C:\Users\ostol\Desktop\AGENTS\skills\data\data-fixture-auditor\tests\fixtures\smoke\src
+/fixture-audit $ProjectDir\tests\fixtures\smoke\src
 ```
+
+## What You Must Do When Invoked
+
+### Step 1
+
+Run `/fixture-audit <project-directory>` against the target project.
+
+### Step 2
+
+Review the fixture quality report for coverage gaps identified by the scan.
+
+### Step 3
+
+Document recommendations to improve fixture coverage.
 
 ## Pipeline
 
@@ -40,3 +59,5 @@ Loade das Skill, dann:
 | Cardinality | Verschiedene Werte pro Feld (niedrig = Testlücke) |
 | Constant fields | Gleicher Wert in jedem Record |
 | Schema drift | Felder im Schema aber nie in Fixtures |
+
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).

@@ -1,4 +1,4 @@
-﻿---
+---
 name: fine-tune-dependency-check
 description: "Find fine-tuned model references and check base model deprecation status. Trigger: /finetune-deps"
 trigger: /finetune-deps
@@ -14,7 +14,13 @@ Fine-tuned models depend on their base model. When the base is deprecated, the f
 - Fine-tune IDs that may have expired
 - **Read-only skill.** No code changes.
 
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
 ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
 
 If `/finetune-deps -help` or `/finetune-deps -h` (without further arguments)
 is invoked: output the `## Usage` section unchanged and stop.

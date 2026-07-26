@@ -6,6 +6,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+$OutputEncoding = [System.Text.Encoding]::UTF8
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $pdir = Resolve-Path -LiteralPath $ProjectDir -ErrorAction SilentlyContinue
 if (-not $pdir) { Write-Error "Path not found: $ProjectDir"; exit 1 }
 $pdir = $pdir.Path

@@ -1,4 +1,4 @@
-﻿---
+---
 name: code-clone-detector
 description: "Code clone detector: finds exact (Type 1), parameterized (Type 2), near-miss (Type 3), and semantic (Type 4) clones. Risk-tiered report with deduplication proposals. Read-only. Audience: Both. Trigger: /code-clone"
 trigger: /code-clone
@@ -24,17 +24,51 @@ with similarity scores, risk tiers, and LLM-validated deduplication proposals.
 /code-clone -help        # show usage
 ```
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+
+### Step 1
 
 1. `-help` / `-h` -> print usage, exit 0.
+
+### Step 2
+
 2. Confirm target directory exists.
+
+### Step 3
+
 3. Run `scripts/clone-scan.ps1 -ProjectDir <dir>`.
+
+### Step 4
+
 4. LLM reads the JSON output, validates each clone cluster:
-   - Type 1-3: verify cluster, determine risk tier, propose deduplication strategy.
-   - Type 4 candidates: read both files, determine if semantic clone exists,
-     assign confidence level.
+
+### Step 5
+
+- Type 1-3: verify cluster, determine risk tier, propose deduplication strategy.
+
+### Step 6
+
+- Type 4 candidates: read both files, determine if semantic clone exists,
+
+### Step 7
+
+assign confidence level.
+
+### Step 8
+
 5. Filter false positives (framework boilerplate, test doubles, generated files,
-   trivial wrappers).
+
+### Step 9
+
+trivial wrappers).
+
+### Step 10
+
 6. Write `clone-report.md` to the working directory.
 
 ## Clone Types

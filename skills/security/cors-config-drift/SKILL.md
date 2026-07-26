@@ -12,18 +12,56 @@ flag "use CORS" — no tool reads the actual per-route origins and credentials a
 each as safe vs dangerous. This skill catalogs every CORS-relevant statement, and the LLM
 classifies each by drift-type and severity.
 
-## What You Must Do When Invoked
+
+## PROTECTION RULE - never ~/.claude/
+
+Read-only skill. Guard required if write mode added later.
+
+## ## What You Must Do When Invoked
+During analysis, assign a confidence level to each finding: proven (confirmed by evidence), likely (strong signal, needs review), or suspected (weak signal).
+
+### Step 1
 
 1. If `-help` is passed, print the `## Usage` block below and stop.
+
+### Step 2
+
 2. Confirm `-ProjectDir` is provided and the path exists.
+
+### Step 3
+
 3. Run: `scripts/cors-scan.ps1 -ProjectDir "<path>"`
+
+### Step 4
+
 4. LLM reads the JSON output. For each finding:
-   - **Credentials + wildcard**: `origin:'*'` with `credentials:true` is fatally insecure — the browser sends cookies cross-origin to any domain.
-   - **Permissive origin**: `origin: true` (reflect), regex wildcards like `https://*.example.com` that match unintended subdomains, `allowMultipleOrigins: true`.
-   - **Preflight handling**: is `OPTIONS` handled? does `Access-Control-Max-Age` expose a large window? are methods/headers overly permissive?
-   - **Route-specific drift**: one route uses permissive CORS while another on the same app uses restrictive — inconsistent posture across the surface.
-   - **Header-based vs middleware**: raw `res.header('Access-Control-Allow-Origin', '*')` bypasses any centralized policy — classify as ad-hoc drift.
-   - Severity scale: credentials+wildcard > reflected origin > regex wildcard > permissive preflight > inconsistent route config.
+
+### Step 5
+
+- **Credentials + wildcard**: `origin:'*'` with `credentials:true` is fatally insecure — the browser sends cookies cross-origin to any domain.
+
+### Step 6
+
+- **Permissive origin**: `origin: true` (reflect), regex wildcards like `https://*.example.com` that match unintended subdomains, `allowMultipleOrigins: true`.
+
+### Step 7
+
+- **Preflight handling**: is `OPTIONS` handled? does `Access-Control-Max-Age` expose a large window? are methods/headers overly permissive?
+
+### Step 8
+
+- **Route-specific drift**: one route uses permissive CORS while another on the same app uses restrictive — inconsistent posture across the surface.
+
+### Step 9
+
+- **Header-based vs middleware**: raw `res.header('Access-Control-Allow-Origin', '*')` bypasses any centralized policy — classify as ad-hoc drift.
+
+### Step 10
+
+- Severity scale: credentials+wildcard > reflected origin > regex wildcard > permissive preflight > inconsistent route config.
+
+### Step 11
+
 5. Write `cors-config-drift-report.md` to the working directory.
 
 ## Usage
