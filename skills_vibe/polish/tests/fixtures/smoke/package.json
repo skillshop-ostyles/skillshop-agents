@@ -1,0 +1,13 @@
+{
+  "name": "polish-test-fixture",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "date-fns": "^3.6.0",
+    "zod": "^3.22.0",
+    "nonexistent-package": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}
