@@ -16,6 +16,7 @@ You have an idea. You're not sure which tech stack fits. Stackcompass asks 5-7 q
 - `/stackcompass` — interactive wizard
 - `/stackcompass quick` — skip welcome, start with questions
 - `/stackcompass save` — after analysis, save report to `stackcompass-report.md`
+- `/stackcompass -help` — show full usage and stop
 
 ## DIALOG PROTOCOL — STRICT
 
