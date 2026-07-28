@@ -28,7 +28,7 @@ YOU MUST follow the decision tree in DIALOG.md exactly. Four phases: Welcome →
 3. Every stack option MUST include: Stack table, rationale, risk level
 4. Before any file write: ask explicit confirmation `[y/n]`
 
-## PROTECTION RULE — never ~/.claude/
+## PROTECTION RULE
 
 Read-only by default. No writes without explicit user confirmation per operation. Report only saved when user selects `[S] Save`.
 
@@ -38,7 +38,7 @@ Read-only by default. No writes without explicit user confirmation per operation
 
 Trigger: `/stackcompass` (no args)
 
-Three options:
+Three interactive paths + exit:
 - `[1]` New project — "Ich hab eine Idee" — full wizard
 - `[2]` Quick — minimal questions, faster path
 - `[3]` Help — what does this skill do?

@@ -111,23 +111,23 @@ Go to PHASE 1 menu.
 Show a simple ASCII diagram:
 
 ```
-┌─────────────┐     ┌──────────────┐     ┌──────────┐
-│  React Native │────▶│  Supabase     │────▶│  Postgres  │
-│  (Expo)       │     │  (Auth+DB)    │     │  (DB)      │
-└─────────────┘     └──────────────┘     └──────────┘
-       │                                        │
-       │ push notifications                     │
-       ▼                                        │
-┌─────────────┐                                 │
-│  Vercel     │◀─────────────────────────────────┘
-│  (API)      │
-└─────────────┘
+┌──────────────────┐     ┌──────────────────┐     ┌──────────┐
+│  React Native     │────▶│  Supabase         │────▶│  Postgres  │
+│  (Expo)           │     │  (Auth+DB)        │     │  (DB)      │
+└──────────────────┘     └──────────────────┘     └──────────┘
+       │                                                    │
+       │ push notifications                                 │
+       ▼                                                    │
+┌──────────────────┐                                         │
+│  Vercel           │◀─────────────────────────────────────────┘
+│  (API)            │
+└──────────────────┘
 ```
 
 ### Risk Matrix
 
 ```
-Risiko         | Eintritt | Impact | Mitigation
+Risiko         | Eintritt | Auswirkung | Mitigation
 ───────────────┼──────────┼────────┼─────────────────────────
 Vendor Lock-in | Mittel   | Hoch   | Supabase → PostgreSQL direkt
 Push Notif.    | Niedrig  | Mittel | Expo Push API, kein eigener Server
