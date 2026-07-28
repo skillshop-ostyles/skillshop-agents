@@ -7,9 +7,9 @@ vibe: true
 
 # /perfscan
 
-## TL;DR
+## What this is for
 
-Your app feels slow. Perfscan finds the 7 most common React/Next.js performance issues in 1 minute — prioritized by impact. No profiler needed.
+Your app feels slow. Perfscan finds the 7 most common React/Next.js performance issues in 1 minute — prioritized by impact. No profiler needed. Each finding includes impact, diagnosis, and concrete steps to fix.
 
 ## Usage
 
@@ -17,6 +17,7 @@ Your app feels slow. Perfscan finds the 7 most common React/Next.js performance 
 - `/perfscan high` — only HIGH impact checks (keyprops + effect + layoutshift)
 - `/perfscan quick` — all 7 checks
 - `/perfscan keyprops` — single check
+- `/perfscan -help` — show full usage and stop
 
 ## DIALOG PROTOCOL — STRICT
 
@@ -25,7 +26,7 @@ Follow DIALOG.md. Findings are IMPACT-prioritized: always show HIGH first, then 
 ### Rules
 
 1. Every prompt MUST show numbered options + `[0] Exit`
-2. Show impact badge before each finding: `[🔥 HOCH]` `[⚡ MITTEL]` `[🔍 NIEDRIG]`
+2. Show impact badge before each finding: `[HOCH]` / `[MITTEL]` / `[NIEDRIG]`
 3. Every finding MUST include: **Impact** → **Diagnosis** → **Explanation** (1 sentence) → **Implementation** (1-3 steps)
 4. Base options per finding: `[F] Fix` `[S] Skip` `[N] Next` `[0] Exit`
 5. Check-specific extras: `[K] Add key=` `[D] Add deps` `[W] Add width/height` `[R] Remove 'use client'`

@@ -7,15 +7,16 @@ vibe: true
 
 # /blitzplan
 
-## TL;DR
+## What this is for
 
-You want to build something. Before you start prompting code, blitzplan helps you clarify scope, tech stack, and auth model in 3-5 questions. No code until you approve the design. No files written.
+You want to build something. Before you start prompting code, blitzplan helps you clarify scope, tech stack, and auth model in 3-5 questions. No code until you approve the design. This prevents wasted effort from vague specs and unexamined assumptions.
 
 ## Usage
 
 - `/blitzplan <description>` — start a design session
 - `/blitzplan quick` — 3 questions, ready in 2 minutes
 - `/blitzplan full` — up to 5 questions, more depth
+- `/blitzplan -help` — show full usage and stop
 
 ## HARD-GATE — read before ANY code
 

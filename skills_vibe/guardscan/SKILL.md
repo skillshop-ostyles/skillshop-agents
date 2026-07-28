@@ -7,9 +7,9 @@ vibe: true
 
 # /guardscan
 
-## TL;DR
+## What this is for
 
-AI-generated code skips security layers. Guardscan finds the 7 most common missing security primitives in React/Next.js projects — prioritized by production impact. No security expertise needed.
+AI-generated code skips security layers. Guardscan finds the 7 most common missing security primitives in React/Next.js projects — prioritized by production impact. No security expertise needed. Every finding includes a real-world breach incident as context.
 
 ## Usage
 
@@ -17,6 +17,7 @@ AI-generated code skips security layers. Guardscan finds the 7 most common missi
 - `/guardscan high` — only HIGH impact checks
 - `/guardscan quick` — all 7 checks
 - `/guardscan secrets` — single check
+- `/guardscan -help` — show full usage and stop
 
 ## DIALOG PROTOCOL — STRICT
 
@@ -25,7 +26,7 @@ Follow DIALOG.md. Findings are IMPACT-prioritized: always show HIGH first.
 ### Rules
 
 1. Every prompt MUST show numbered options + `[0] Exit`
-2. Show severity badge before each finding: `[🔴 HIGH]` `[🟠 MEDIUM]` `[🟡 LOW]`
+2. Show severity badge before each finding: `[HIGH]` / `[MEDIUM]` / `[LOW]`
 3. Every finding MUST include: **Incident** (real-world breach) → **Diagnosis** → **Fix**
 4. Base options per finding: `[F] Fix` `[S] Skip` `[N] Next` `[0] Exit`
 5. Before any fix: show diff + ask confirmation `[y/n]`

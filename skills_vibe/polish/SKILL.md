@@ -7,15 +7,16 @@ vibe: true
 
 # /polish
 
-## TL;DR
+## What this is for
 
-AI-generated code leaves traces: debug logs, `any` types, missing fallbacks, hardcoded values, dead imports, and hallucinated packages. Polish finds and fixes them — 6 checks in 1 minute.
+AI-generated code leaves traces: debug logs, `any` types, missing fallbacks, hardcoded values, dead imports, and hallucinated packages. Polish finds and fixes them — 6 checks in 1 minute. The coaching dialog walks you through each finding with fix options.
 
 ## Usage
 
 - `/polish` — interactive coaching wizard
 - `/polish quick` — all 6 checks at once
 - `/polish consolelog` — single check
+- `/polish -help` — show full usage and stop
 
 ## DIALOG PROTOCOL — STRICT
 

@@ -7,9 +7,9 @@ vibe: true
 
 # /stackcompass
 
-## TL;DR
+## What this is for
 
-You have an idea. You're not sure which tech stack fits. Stackcompass asks 5-7 questions about your project, team, and constraints — then presents 2-3 concrete stack options with trade-offs, risks, and a step-by-step action plan.
+You have an idea. You're not sure which tech stack fits. Stackcompass asks 5-7 questions about your project, team, and constraints — then presents 2-3 concrete stack options with trade-offs, risks, and a step-by-step action plan. The wrong stack costs weeks of rework; a structured decision prevents that.
 
 ## Usage
 

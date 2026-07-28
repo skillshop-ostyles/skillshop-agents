@@ -7,9 +7,9 @@ vibe: true
 
 # /shipcheck
 
-## TL;DR
+## What this is for
 
-Before you ship: 3 critical checks in 30 seconds. `/shipcheck` starts the wizard. `/shipcheck env` runs one check.
+Before you ship: 3 critical checks in 30 seconds. The most common deploy blockers are missing environment variables, build errors, and accidental secret leaks. Shipcheck catches them before your CI pipeline does — with coaching on how to fix each one.
 
 ## Usage
 
@@ -18,6 +18,7 @@ Before you ship: 3 critical checks in 30 seconds. `/shipcheck` starts the wizard
 - `/shipcheck env` — environment variables only
 - `/shipcheck build` — build health only
 - `/shipcheck secrets` — secret leakage only
+- `/shipcheck -help` — show full usage and stop
 
 ## DIALOG PROTOCOL — STRICT
 
