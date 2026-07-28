@@ -1,0 +1,13 @@
+I want to build a habit tracking app where users can create custom habits, set reminders,
+and view streak statistics. Users should be able to share their streaks with friends
+and compete in weekly challenges.
+
+Key features:
+- Custom habit creation with frequency (daily/weekly/monthly)
+- Push reminders
+- Streak tracking with visual calendar
+- Friend system with leaderboards
+- Optional: AI-generated habit suggestions
+
+I'm a solo developer with React and Node.js experience. I want to validate the idea
+with a simple MVP before investing in a full build.
