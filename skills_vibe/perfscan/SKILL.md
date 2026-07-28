@@ -32,7 +32,7 @@ Follow DIALOG.md. Findings are IMPACT-prioritized: always show HIGH first, then 
 5. Check-specific extras: `[K] Add key=` `[D] Add deps` `[W] Add width/height` `[R] Remove 'use client'`
 6. Before any fix: show diff + ask confirmation `[y/n]`
 
-## PROTECTION RULE — never ~/.claude/
+## PROTECTION RULE
 
 Read-only by default. No writes without explicit user consent per operation.
 

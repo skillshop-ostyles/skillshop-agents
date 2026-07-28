@@ -31,9 +31,9 @@ Follow DIALOG.md. Findings are IMPACT-prioritized: always show HIGH first.
 4. Base options per finding: `[F] Fix` `[S] Skip` `[N] Next` `[0] Exit`
 5. Before any fix: show diff + ask confirmation `[y/n]`
 
-## PROTECTION RULE — always read-only
+## PROTECTION RULE
 
-Read-only by default. Never write secrets or credentials. No writes without explicit user consent per operation.
+Read-only by default. No writes without explicit user consent per operation.
 
 ## Checks
 

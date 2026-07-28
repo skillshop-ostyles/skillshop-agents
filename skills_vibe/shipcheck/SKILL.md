@@ -31,7 +31,7 @@ YOU MUST follow DIALOG.md for all interactive wizard flows.
 3. Before any fix: show diff + ask confirmation `[y/n]`
 4. Never auto-fix without user consent
 
-## PROTECTION RULE — never ~/.claude/
+## PROTECTION RULE
 
 Read-only by default. No filesystem writes without explicit user confirmation per operation.
 

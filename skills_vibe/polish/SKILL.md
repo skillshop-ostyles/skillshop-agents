@@ -36,7 +36,7 @@ YOU MUST follow the decision tree in DIALOG.md. This is a COACHING dialog, not a
    - `aismell`: `[E] Explain why this is a problem`
 5. Before any fix: show diff + ask confirmation `[y/n]`
 
-## PROTECTION RULE — never ~/.claude/
+## PROTECTION RULE
 
 Read-only by default. No writes without explicit user confirmation per operation.
 
