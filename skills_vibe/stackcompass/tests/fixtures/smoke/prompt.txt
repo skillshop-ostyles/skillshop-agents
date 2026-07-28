@@ -1,0 +1,6 @@
+I want to build a mobile app for local food trucks to broadcast their location and
+menu in real-time. Users should see nearby trucks on a map, get push notifications
+when their favorite truck is nearby, and be able to order ahead for pickup.
+
+I'm a solo developer, bootstrapping. I want something live in 4-6 weeks. No budget
+for paid services if possible. I know React and some Node.js.
