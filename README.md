@@ -1,13 +1,17 @@
 # AGENTS - Skill Program
 
-**122 executable developer skills** for LLM-powered coding agents. Each skill is a
+**125 executable developer skills** for LLM-powered coding agents. Each skill is a
 deterministic collector script (`scripts/*.ps1`) paired with an LLM instruction file
 (`SKILL.md`) that together audit, analyze, and report on real codebases without
 modifying them.
 
+Plus **6 interactive coaching skills** (the [Vibe](skills_vibe/) track) built for
+vibe coders: dialog-driven wizards (DIALOG.md), German user guides (VIBE.md), and
+coaching-style fixes — no scripts required for the conversation-only ones.
+
 | | | | |
 |--|--|--|--|
-| ![skills](https://img.shields.io/badge/skills-122-2ea44f) | ![sprints](https://img.shields.io/badge/sprints-133-blue) | ![license](https://img.shields.io/badge/license-MIT-yellow) | ![status](https://img.shields.io/badge/status-active-brightgreen) |
+| ![skills](https://img.shields.io/badge/skills-125+6vibe-2ea44f) | ![sprints](https://img.shields.io/badge/sprints-134-blue) | ![license](https://img.shields.io/badge/license-MIT-yellow) | ![status](https://img.shields.io/badge/status-active-brightgreen) |
 
 ---
 
@@ -40,8 +44,9 @@ off-limits - no skill ever modifies your agent configuration.
 | [Operations](skills/operations/) | 15 | Deployment, resilience, maintainability | 88-99 |
 | [Runtime](skills/runtime/) | 14 | Performance, reproduction, production mirroring | 100-111 |
 | [AI/ML](skills/ai-ml/) | 14 | LLM apps, ML pipelines | 39-40, 112-123 |
-| [_meta](skills/_meta/) | 9 | Repository lifecycle tooling | 124-133 |
-| **Total** | **122** | | **133 sprints** |
+| [_meta](skills/_meta/) | 12 | Repository lifecycle tooling | 124-133 |
+| **Total** | **125** | | **134 sprints** |
+| [Vibe](skills_vibe/) | **6** | Interactive coaching for vibe coders | V1-V7 |
 
 ---
 
@@ -213,7 +218,7 @@ directory.
 | `/finetune-deps` | fine-tune-dependency-check | Find fine-tuned model references with deprecated base models |
 | `/ml-determinism` | ml-pipeline-determinism-check | Find sources of non-determinism in ML training pipelines |
 
-### Meta - 9 skills
+### Meta - 12 skills
 
 | Trigger | Skill | What It Does |
 |---|---|---|
@@ -226,6 +231,20 @@ directory.
 | `/trigger-audit` | trigger-audit | Validate trigger uniqueness and convention |
 | `/benchmark` | benchmark | Benchmark collector script performance |
 | `/skill-lifecycle` | skill-lifecycle | Report skill freshness and lifecycle status |
+| `/bibel-gate` | bibel-gate | Gate repo commits against BIBEL rules |
+| `/bibel-migrate` | bibel-migrate | Migrate skills to new BIBEL standard |
+| `/impact` | impact | Rank findings by impact for triage |
+
+### Vibe - 6 interactive coaching skills
+
+| Trigger | Skill | What It Does |
+|---|---|---|
+| `/shipcheck` | shipcheck | Pre-ship coach: env, build, secrets |
+| `/polish` | polish | AI residue removal: console.log, any types, magic strings |
+| `/guardscan` | guardscan | Security primitive coach: RLS, auth, CSRF, secrets, headers |
+| `/perfscan` | perfscan | Performance coach: re-renders, layout shifts, bundle size |
+| `/blitzplan` | blitzplan | Lightweight design coach: 3-5 questions before code |
+| `/stackcompass` | stackcompass | Tech-stack advisor: 2-3 options with trade-offs and action plan |
 
 ---
 
@@ -243,7 +262,15 @@ directory.
     +-- operations/              # 15 operations and SRE skills
     +-- runtime/                 # 14 runtime analysis skills
     +-- ai-ml/                   # 14 AI/ML pipeline skills
-    +-- _meta/                   # 9 meta-tooling skills
+    +-- _meta/                   # 12 meta-tooling skills
++-- skills_vibe/                 # 6 interactive coaching skills (vibe coders)
+    +-- shipcheck/               # Pre-ship coach (env, build, secrets)
+    +-- polish/                  # AI residue removal coach
+    +-- guardscan/               # Security primitive coach
+    +-- perfscan/                # Performance coach
+    +-- blitzplan/               # Design coach (LLM-only)
+    +-- stackcompass/            # Tech-stack advisor (LLM-only)
+    +-- _shared/                 # SKILL-TEMPLATE.md for new vibe skills
 ```
 
 Each skill directory follows a consistent structure:
